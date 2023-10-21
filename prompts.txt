@@ -1,0 +1,22 @@
+I am giving you the content of the AI tool website. 
+study it and give me the JSON output as follows.
+{
+    "name":"",
+    "tag_line",""
+    "summary":"",
+    "features":["",""]
+    "use_cases":["",""]
+    "subscription_type":"",
+    "has_api":"",
+    "has_documentation":"",
+}
+
+where
+name: name of tool
+summary: This is short summary of the AI tool
+features: array of features. like "feature name: feature details"
+use_cases: possible use cases of this tool.
+subscription_type: choose between "free, paid, freemium, free trial, contact for pricing"
+playstore_app_id: 
+has_api: choose between (true, false)
+has_documentation: choose between (true, false)

@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\Models\ExtractedToolDomain;
+use App\Services\ExtractedToolProcessor;
 use HeadlessChromium\BrowserFactory;
 use Illuminate\Support\Facades\Http;
 use Facebook\WebDriver\Remote\DesiredCapabilities;
@@ -25,7 +26,9 @@ class TestController extends Controller
 
     public function __invoke()
     {
-        $this->insertTools();
+        (new ExtractedToolProcessor(ExtractedToolDomain::find(1)))->process();
+
+        // $this->insertTools();
 
         // code...
         // auth()->login(\App\Models\User::find(1));
