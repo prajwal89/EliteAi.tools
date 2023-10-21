@@ -2,6 +2,8 @@
 
 namespace App\Services;
 
+use App\Enums\PricingType;
+use App\Models\Category;
 use App\Models\ExtractedToolDomain;
 use App\Services\WebPageFetcher;
 use voku\helper\HtmlDomParser;
@@ -18,12 +20,26 @@ class ExtractedToolProcessor
         $html = (new WebPageFetcher(
             // $this->extractedToolDomain->home_page_url
             // 'https://www.getrecall.ai/',
-            'https://www.photoecom.com/',
+            // 'https://www.photoecom.com/',
+            // 'https://voyp.app/', //has email
+            'https://qrdiffusion.com/'
         ))->get()->content;
 
         $cleanContent = $this->removeUnNecessaryThingsFromHTML(
             $html
         );
+
+        $systemPrompt = $this->buildSystemPrompt(public_path('/prompts/system-1.txt'));
+
+        echo ($systemPrompt);
+
+        echo '</br>-------</br>';
+
+        echo ($cleanContent);
+
+        $prompt = $this->buildPrompt($cleanContent, $systemPrompt);
+
+        dump($prompt);
 
         //todo extract email id
         $emails = $this->extractEmails($html);
@@ -77,5 +93,34 @@ class ExtractedToolProcessor
 
         // $matches[0] now contains an array of matched email addresses
         return $matches[0];
+    }
+
+    public function buildPrompt(string $cleanContent, string $systemPrompt): array
+    {
+        return [
+            // 'model' => 'gpt-3.5-turbo-16k',
+            'model' => 'gpt-4',
+            'max_tokens' => 5000,
+            'messages' => [
+                [
+                    'role' => 'system',
+                    'content' => $systemPrompt,
+                ], [
+                    'role' => 'user',
+                    'content' => $cleanContent,
+                ],
+            ],
+        ];
+    }
+
+    public static function buildSystemPrompt($systemPromptTxtFileLocation): string
+    {
+        $categoriesString = Category::all()->pluck('name')->implode(',');
+
+        $pricingTypeString = collect(PricingType::values())->implode(',');
+
+        return str(file_get_contents($systemPromptTxtFileLocation))
+            ->replace('{{ $categoriesString }}', $categoriesString)
+            ->replace('{{ $pricingTypeString }}', $pricingTypeString);
     }
 }

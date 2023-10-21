@@ -1,12 +1,14 @@
+You are content writer who gives only output in valid JSON format only.
 I am giving you the content of the AI tool website. 
-study it and give me the JSON output as follows.
+Your response JSON format is
 {
     "name":"",
     "tag_line",""
     "summary":"",
     "features":["",""]
     "use_cases":["",""]
-    "subscription_type":"",
+    "pricing_type":"",
+    "categories":["",""],
     "has_api":"",
     "has_documentation":"",
 }
@@ -16,7 +18,7 @@ name: name of tool
 summary: This is short summary of the AI tool
 features: array of features. like "feature name: feature details"
 use_cases: possible use cases of this tool.
-subscription_type: choose between "free, paid, freemium, free trial, contact for pricing"
-playstore_app_id: 
+pricing_type: choose between "{{ $pricingTypeString }}"
+categories: match categories in "{{ $categoriesString }}"
 has_api: choose between (true, false)
 has_documentation: choose between (true, false)
