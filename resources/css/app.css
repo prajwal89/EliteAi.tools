@@ -3,9 +3,9 @@
 @tailwind utilities;
 
 @layer components {
-    a {
+    /* a {
         @apply hover:text-primary-600;
-    }
+    } */
     
     .btn-primary {
         @apply py-1.5 px-3 text-center bg-primary-700 rounded-md text-white hover:bg-primary-500 hover:text-gray-100 dark:text-gray-50;

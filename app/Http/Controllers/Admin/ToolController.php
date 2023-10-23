@@ -6,6 +6,7 @@ use App\Http\Controllers\Controller;
 use App\Models\Tool;
 use App\Services\ToolServices;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\DB;
 
 class ToolController extends Controller
 {
@@ -43,15 +44,21 @@ class ToolController extends Controller
             );
         }
 
-        $isInserted = Tool::create([
-            'name' => $request->name,
-            'slug' => $slug,
-            'tag_line' => $request->tag_line,
-            'summary' => $request->summary,
-            'domain_name' => $request->domain_name,
-            'home_page_url' => $request->home_page_url,
-            'top_features' => $request->top_features,
-        ] + $toolData);
+        DB::transaction(function () use ($request, $slug, $toolData) {
+            $insertedTool = Tool::create([
+                'name' => $request->name,
+                'slug' => $slug,
+                'tag_line' => $request->tag_line,
+                'summary' => $request->summary,
+                'domain_name' => $request->domain_name,
+                'home_page_url' => $request->home_page_url,
+                'top_features' => $request->top_features,
+            ] + $toolData);
+
+            // $tool = Tool::find($insertedTool->id);
+
+            $insertedTool->categories()->sync($request->categories);
+        });
 
         return redirect()->back()->with('success', 'tool created successfully');
     }
