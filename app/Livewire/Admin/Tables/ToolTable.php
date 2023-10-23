@@ -19,6 +19,7 @@ use PowerComponents\LivewirePowerGrid\Traits\WithExport;
 final class ToolTable extends PowerGridComponent
 {
     use WithExport;
+
     public function header(): array
     {
         return [
@@ -28,6 +29,7 @@ final class ToolTable extends PowerGridComponent
                 ->route('admin.tools.create', []),
         ];
     }
+
     public function setUp(): array
     {
         $this->showCheckBox();

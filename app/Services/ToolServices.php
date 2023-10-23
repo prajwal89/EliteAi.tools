@@ -2,15 +2,12 @@
 
 namespace App\Services;
 
-use App\Interfaces\EntityServiceCrudInterface;
-use App\Models\User;
 use Illuminate\Http\UploadedFile;
 use Illuminate\Support\Facades\File;
 use Intervention\Image\Facades\Image;
 
 class ToolServices
 {
-
     public static function storeScreenShot(UploadedFile $imageFile, string $slug): bool
     {
         $toolAssetPath = public_path('tool/' . $slug);

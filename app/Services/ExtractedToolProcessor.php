@@ -5,7 +5,6 @@ namespace App\Services;
 use App\Enums\PricingType;
 use App\Models\Category;
 use App\Models\ExtractedToolDomain;
-use App\Services\WebPageFetcher;
 use voku\helper\HtmlDomParser;
 
 class ExtractedToolProcessor
@@ -31,11 +30,11 @@ class ExtractedToolProcessor
 
         $systemPrompt = $this->buildSystemPrompt(public_path('/prompts/system-1.txt'));
 
-        echo ($systemPrompt);
+        echo $systemPrompt;
 
         echo '</br>-------</br>';
 
-        echo ($cleanContent);
+        echo $cleanContent;
 
         $prompt = $this->buildPrompt($cleanContent, $systemPrompt);
 
@@ -46,7 +45,6 @@ class ExtractedToolProcessor
         dump($emails);
 
         //todo extract playstore and appstore app id
-
 
         //todo extract favicon
 
@@ -85,7 +83,7 @@ class ExtractedToolProcessor
     public static function extractEmails(string $htmlString): array
     {
         // Regular expression to match email addresses
-        // match domain name also 
+        // match domain name also
         $pattern = '/[\w\.-]+@[\w\.-]+/';
 
         // Find all email addresses in the HTML string

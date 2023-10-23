@@ -44,14 +44,14 @@ class CategoriesTableSeeder extends Seeder
         ];
 
         $categories2 = [
-            "Copywriting", "Email Assistant", "General Writing", "Paraphrase", "Prompts", "SEO", "Social Media Assistant", "Story Teller", "Summarizer",
-            "Art", "Avatars", "Design Assistant", "Image Editing", "Logo Generator", "Image Generator",
-            "Code Assistant", "Developer Tools", "Low Code/No Code", "Spreadsheets", "Sql",
-            "Audio Editing", "Music", "Text To Speech", "Transcriber",
-            "Personalized Videos", "Video Editing", "Video Generator",
-            "3D",
-            "Customer Support", "E-commerce", "Education Assistant", "Fashion", "Finance", "Human Resources", "Legal Assistant", "Personalization", "Productivity", "Real Estate", "Sales", "Startup", "Memory", "Presentations",
-            "Experiments", "Fun", "Gaming", "Gift Ideas", "Health care", "Life Assistant", "Research", "Resources", "Search Engine", "Fitness", "Travel"
+            'Copywriting', 'Email Assistant', 'General Writing', 'Paraphrase', 'Prompts', 'SEO', 'Social Media Assistant', 'Story Teller', 'Summarizer',
+            'Art', 'Avatars', 'Design Assistant', 'Image Editing', 'Logo Generator', 'Image Generator',
+            'Code Assistant', 'Developer Tools', 'Low Code/No Code', 'Spreadsheets', 'Sql',
+            'Audio Editing', 'Music', 'Text To Speech', 'Transcriber',
+            'Personalized Videos', 'Video Editing', 'Video Generator',
+            '3D',
+            'Customer Support', 'E-commerce', 'Education Assistant', 'Fashion', 'Finance', 'Human Resources', 'Legal Assistant', 'Personalization', 'Productivity', 'Real Estate', 'Sales', 'Startup', 'Memory', 'Presentations',
+            'Experiments', 'Fun', 'Gaming', 'Gift Ideas', 'Health care', 'Life Assistant', 'Research', 'Resources', 'Search Engine', 'Fitness', 'Travel',
         ];
 
         $allCategories = collect()
@@ -64,7 +64,7 @@ class CategoriesTableSeeder extends Seeder
         foreach ($allCategories as $category) {
             DB::table('categories')->insertOrIgnore([
                 'name' => $category,
-                'slug' => str($category)->slug()
+                'slug' => str($category)->slug(),
             ]);
         }
     }

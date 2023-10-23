@@ -4,13 +4,13 @@ namespace App\Http\Controllers;
 
 use App\Models\ExtractedToolDomain;
 use App\Services\ExtractedToolProcessor;
-use HeadlessChromium\BrowserFactory;
-use Illuminate\Support\Facades\Http;
 use Facebook\WebDriver\Remote\DesiredCapabilities;
 use Facebook\WebDriver\Remote\RemoteWebDriver;
+use HeadlessChromium\BrowserFactory;
 use Illuminate\Support\Facades\DB;
-use voku\helper\HtmlDomParser;
+use Illuminate\Support\Facades\Http;
 use League\Uri\Uri;
+use voku\helper\HtmlDomParser;
 
 /**
  * For testing out misc things
@@ -58,10 +58,9 @@ class TestController extends Controller
     }
 
     public function crawlTopAiTools2()
-
     {
         $chromeOptions = new \Facebook\WebDriver\Chrome\ChromeOptions();
-        $chromeOptions->addArguments(["--headless"]); // Run Chrome in headless mode (no GUI)
+        $chromeOptions->addArguments(['--headless']); // Run Chrome in headless mode (no GUI)
 
         // Set desired capabilities
         $capabilities = DesiredCapabilities::chrome();
@@ -89,10 +88,10 @@ class TestController extends Controller
         // Close the WebDriver session
         $driver->quit();
     }
+
     public function crawlTopAiTools()
     {
         $url = 'https://topai.tools/';
-
 
         $browserFactory = new BrowserFactory();
 
@@ -100,7 +99,6 @@ class TestController extends Controller
         $browser = $browserFactory->createBrowser([
             'headless' => false, // disable headless mode
         ]);
-
 
         // creates a new page and navigate to an URL
         $page = $browser->createPage();
@@ -122,7 +120,7 @@ class TestController extends Controller
 
     public function insertTools()
     {
-        $rawContent =  file_get_contents(public_path('/responses/findmyaitool.com/tool-list.json'));
+        $rawContent = file_get_contents(public_path('/responses/findmyaitool.com/tool-list.json'));
         $html = json_decode($rawContent)->html;
 
         $dom = HtmlDomParser::str_get_html($html);
@@ -137,6 +135,7 @@ class TestController extends Controller
                 if (str_contains($url, 'https://findmyaitool.com/')) {
                     return false;
                 }
+
                 return true;
             })->map(function ($url) {
                 return str($url)->before('?')->trim()->rtrim('/')->toString();
@@ -151,7 +150,7 @@ class TestController extends Controller
                     'domain_name' => $domainWithoutWWW,
                     'home_page_url' => $url,
                     'created_at' => now(),
-                    'updated_at' => now()
+                    'updated_at' => now(),
                 ]);
 
                 return $url;

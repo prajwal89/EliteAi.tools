@@ -112,7 +112,6 @@ final class CategoryTable extends PowerGridComponent
         ];
     }
 
-
     // public function actionRules($row): array
     // {
     //     return [

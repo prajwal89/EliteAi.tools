@@ -6,8 +6,6 @@ use App\Http\Controllers\Controller;
 use App\Models\Tool;
 use App\Services\ToolServices;
 use Illuminate\Http\Request;
-use Illuminate\Support\Facades\File;
-use Intervention\Image\Facades\Image;
 
 class ToolController extends Controller
 {
