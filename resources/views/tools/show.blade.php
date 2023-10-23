@@ -2,18 +2,24 @@
 
 @section('content')
     <div class="px-4 mx-auto max-w-5xl">
-        <h1 class=" my-4">
+
+        <h1 class="mt-8 mb-12">
             <span class="font-bold text-2xl sm:text-3xl md:text-4xl">{{ $tool->name }}</span>
             <br>
             <span class="font-semibold text-md text-gray-600">{{ $tool->tag_line }}</span>
         </h1>
 
-        <img class="w-full mx-auto shadow-sm shadow-gray-200 rounded-2xl max-w-3xl"
-            src="{{ asset('/tool/' . $tool->slug . '/screenshot.webp') }}" alt="{{ $tool->name }}">
+        <div class="relative">
+            <div aria-hidden="true" class="absolute -z-10 inset-0 h-max w-full m-auto opacity-40">
+                <div class="blur-[106px] h-[200px] bg-gradient-to-br from-primary-500 to-purple-400"></div>
+            </div>
+            <img class="w-full mx-auto shadow-sm shadow-gray-200 rounded-2xl max-w-3xl border"
+                src="{{ asset('/tool/' . $tool->slug . '/screenshot.webp') }}" alt="{{ $tool->name }}">
+        </div>
 
-
-        <fieldset class="text-lg border-2 border-gray-300 rounded-lg py-2 px-4 mt-8 dark:border-gray-600">
-            <legend class="px-2 text-xl font-semibold dark:text-gray-300">
+        {{-- border-2 border-gray-300 --}}
+        <fieldset class="text-lg rounded-lg py-2 mt-8 dark:border-gray-600">
+            <legend class="text-xl font-semibold dark:text-gray-300">
                 Details
             </legend>
 
@@ -56,7 +62,7 @@
         </fieldset>
 
 
-        <article class="prose lg:prose-lg py-16">
+        <article class="prose lg:prose-lg pt-12 pb-16">
             <h2>What is {{ $tool->name }}</h2>
             <p>{{ $tool->summary }}</p>
 
