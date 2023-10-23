@@ -4,6 +4,7 @@ namespace App\Models;
 
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
+use Illuminate\Database\Eloquent\Relations\BelongsToMany;
 use Illuminate\Database\Eloquent\Relations\HasMany;
 
 class Tool extends Model
@@ -12,6 +13,7 @@ class Tool extends Model
 
     protected $fillable = [
         'name',
+        'slug',
         'tag_line',
         'summary',
         'domain_name',
@@ -30,8 +32,8 @@ class Tool extends Model
         'use_cases' => 'json',
     ];
 
-    public function categories(): HasMany
+    public function categories(): BelongsToMany
     {
-        return $this->hasMany(Category::class);
+        return $this->belongsToMany(Category::class);
     }
 }

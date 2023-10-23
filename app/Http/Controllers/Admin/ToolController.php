@@ -45,6 +45,7 @@ class ToolController extends Controller
 
         $isInserted = Tool::create([
             'name' => $request->name,
+            'slug' => $slug,
             'tag_line' => $request->tag_line,
             'summary' => $request->summary,
             'domain_name' => $request->domain_name,
