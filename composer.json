@@ -12,6 +12,7 @@
         "chrome-php/chrome": "^1.9",
         "facebook/webdriver": "*",
         "guzzlehttp/guzzle": "^7.2",
+        "intervention/image": "^2.7",
         "laravel/framework": "^10.10",
         "laravel/sanctum": "^3.2",
         "laravel/socialite": "^5.9",
