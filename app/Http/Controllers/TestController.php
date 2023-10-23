@@ -26,7 +26,7 @@ class TestController extends Controller
 
     public function __invoke()
     {
-        (new ExtractedToolProcessor(ExtractedToolDomain::find(1)))->process();
+        // (new ExtractedToolProcessor(ExtractedToolDomain::find(1)))->process();
 
         // $this->insertTools();
 
@@ -34,7 +34,7 @@ class TestController extends Controller
         // auth()->login(\App\Models\User::find(1));
         // return $this->crawlTopAiTools3();
 
-        // return $this->loginSuperAdmin();
+        return $this->loginSuperAdmin();
     }
 
     public function loginSuperAdmin()
