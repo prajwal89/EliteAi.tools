@@ -23,6 +23,7 @@ class ToolDTO
     {
         try {
             $toolData = json_decode($jsonString);
+
             // dd($toolData);
             return new self(
                 name: $toolData->name,

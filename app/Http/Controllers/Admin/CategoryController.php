@@ -70,6 +70,7 @@ class CategoryController extends Controller
     public function destroy(string $id)
     {
         Category::find($id)->delete();
+
         return redirect()->back()->with('success', 'tool deleted successfully');
     }
 }

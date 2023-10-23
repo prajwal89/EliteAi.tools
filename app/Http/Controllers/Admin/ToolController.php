@@ -67,7 +67,7 @@ class ToolController extends Controller
                 }),
                 'use_cases' => collect($request->use_cases)->filter(function ($value) {
                     return !empty($value);
-                })
+                }),
             ] + $toolData);
 
             // $tool = Tool::find($insertedTool->id);
@@ -99,7 +99,7 @@ class ToolController extends Controller
 
         return view('admin.tools.edit', [
             'tool' => $tool,
-            'categoryIds' => $categoryIds
+            'categoryIds' => $categoryIds,
         ]);
     }
 
@@ -141,7 +141,7 @@ class ToolController extends Controller
                 }),
                 'use_cases' => collect($request->use_cases)->filter(function ($value) {
                     return !empty($value);
-                })
+                }),
             ] + $toolData);
 
             // $tool = Tool::find($insertedTool->id);

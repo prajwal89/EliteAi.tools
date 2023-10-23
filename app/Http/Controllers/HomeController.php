@@ -17,7 +17,7 @@ class HomeController extends Controller
                 description: null,
                 conicalUrl: route('home')
             ),
-            'tools' => $tools
+            'tools' => $tools,
         ]);
     }
 }
