@@ -1,5 +1,10 @@
 @extends('layouts.admin')
 @section('title', 'Add new tool')
+@section('head')
+    <link href="https://cdn.jsdelivr.net/npm/tom-select/dist/css/tom-select.css" rel="stylesheet" />
+    <script src="https://cdn.jsdelivr.net/npm/tom-select/dist/js/tom-select.complete.min.js"></script>
+@stop
+
 @section('content')
     <div class="card">
 
@@ -21,6 +26,15 @@
                     <input type="text" class="form-control" name="tag_line">
                 </div>
 
+                <div class="form-group mb-4">
+                    <label class="fw-bold">categories</label>
+                    <select id="categories" name="categories[]" multiple placeholder="Select Appropriate Categories"
+                        autocomplete="off" class="rounded-lg">
+                        @foreach (\App\Models\Category::all() as $catgory)
+                            <option value="{{ $catgory->id }}">{{ $catgory->name }}</option>
+                        @endforeach
+                    </select>
+                </div>
 
                 <div class="form-group mb-4">
                     <label class="fw-bold">summary</label>
@@ -50,16 +64,14 @@
                 </div>
 
 
-                {{-- <div class="form-group mb-4" id="top-features-container">
-                    <label class="fw-bold">Top Features</label>
-                    <div class="input-group">
-                        <input type="text" class="form-control" name="top_features[]">
-                        <div class="input-group-append">
-                            <button type="button" class="btn btn-success add-top-feature">Add</button>
-                        </div>
-                    </div>
-                </div> --}}
-
+                <div class="form-group mb-2">
+                    <label>pricing type</label>
+                    <select type="select" class="form-control" name="pricing_type" required>
+                        @foreach (App\Enums\PricingType::cases() as $pricing)
+                            <option value="{{ $pricing->value }}">{{ $pricing->value }}</option>
+                        @endforeach
+                    </select>
+                </div>
 
                 <div class="form-group mb-4" id="top-features-container">
                     <label class="fw-bold">Top Features</label>
@@ -81,7 +93,6 @@
                     </div>
                 </div>
 
-
                 <button type="submit" class="btn btn-primary my-3">
                     Add
                 </button>
@@ -100,12 +111,13 @@
                 const newInput = document.createElement("div");
                 newInput.classList.add("input-group", "mt-2");
                 newInput.innerHTML = `
-                <input type="text" class="form-control" name="${inputName}[]">
-                <div class="input-group-append">
-                    <button type="button" class="btn btn-danger remove-${inputName}">Remove</button>
-                    <button type="button" class="btn btn-success move-up">Move Up</button>
-                    <button type="button" class="btn btn-success move-down">Move Down</button>
-                `;
+            <input type="text" class="form-control" name="${inputName}[]">
+            <div class="input-group-append">
+                <button type="button" class="btn btn-danger remove-${inputName}">Remove</button>
+                <button type="button" class="btn btn-success move-up">Move Up</button>
+                <button type="button" class="btn btn-success move-down">Move Down</button>
+            </div>
+            `;
                 container.appendChild(newInput);
             }
 
@@ -136,7 +148,8 @@
                     addInput(topFeaturesContainer, "top_features");
                 } else if (event.target.classList.contains("add-use-case")) {
                     addInput(useCasesContainer, "use_cases");
-                } else {
+                } else if (event.target.classList.contains("btn-danger")) {
+                    // Added an extra condition for "Remove" buttons
                     handleButtonClick(event, topFeaturesContainer);
                     handleButtonClick(event, useCasesContainer);
                 }
@@ -144,43 +157,13 @@
         });
     </script>
 
-    {{-- <script>
-        document.addEventListener("DOMContentLoaded", function() {
-            const topFeaturesContainer = document.getElementById("top-features-container");
-            const addTopFeatureButton = document.querySelector(".add-top-feature");
 
-            addTopFeatureButton.addEventListener("click", function() {
-                const newInput = document.createElement("div");
-                newInput.classList.add("input-group", "mt-2");
-                newInput.innerHTML = `
-                <input type="text" class="form-control" name="top_features[]">
-                <div class="input-group-append">
-                    <button type="button" class="btn btn-danger remove-top-feature">Remove</button>
-                    <button type="button" class="btn btn-success move-up">Move Up</button>
-                    <button type="button" class="btn btn-success move-down">Move Down</button>
-                </div>
-                `;
-                topFeaturesContainer.appendChild(newInput);
-            });
 
-            topFeaturesContainer.addEventListener("click", function(event) {
-                if (event.target.classList.contains("remove-top-feature")) {
-                    const inputGroup = event.target.closest(".input-group");
-                    if (inputGroup) {
-                        inputGroup.remove();
-                    }
-                } else if (event.target.classList.contains("move-up")) {
-                    const inputGroup = event.target.closest(".input-group");
-                    if (inputGroup && inputGroup.previousElementSibling) {
-                        topFeaturesContainer.insertBefore(inputGroup, inputGroup.previousElementSibling);
-                    }
-                } else if (event.target.classList.contains("move-down")) {
-                    const inputGroup = event.target.closest(".input-group");
-                    if (inputGroup && inputGroup.nextElementSibling) {
-                        topFeaturesContainer.insertBefore(inputGroup.nextElementSibling, inputGroup);
-                    }
-                }
-            });
+    <script>
+        var tom_select = new TomSelect('#categories', {
+            maxItems: 6,
+            plugins: ['remove_button'],
+            items: @json([])
         });
-    </script> --}}
+    </script>
 @stop
