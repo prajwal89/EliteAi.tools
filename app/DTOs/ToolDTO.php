@@ -10,10 +10,9 @@ class ToolDTO
         public string $name,
         public string $tagLine,
         public string $summary,
-        public array $features,
+        public array $topFeatures,
         public array $useCases,
         public bool $hasApi,
-        public bool $hasDocumentation,
         public PricingType $subscriptionType,
     ) {
     }
