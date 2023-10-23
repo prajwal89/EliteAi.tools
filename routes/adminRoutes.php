@@ -8,6 +8,9 @@ use App\Http\Middleware\AdminAccess;
 use Illuminate\Support\Facades\Route;
 
 Route::prefix(config('custom.admin_panel_base_url'))->name('admin.')->middleware(AdminAccess::class)->group(function () {
+
+    Route::match(['get', 'post'], 'tools/import', [ToolController::class, 'import'])->name('tools.import');
+
     Route::get('dashboard', DashboardController::class)->name('dashboard');
     Route::resource('users', UserController::class);
     Route::resource('categories', CategoryController::class);

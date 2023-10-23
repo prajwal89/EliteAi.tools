@@ -5,7 +5,7 @@ Your response JSON format is
     "name":"",
     "tag_line",""
     "summary":"",
-    "features":["",""]
+    "top_features":["",""]
     "use_cases":["",""]
     "pricing_type":"",
     "categories":["",""],
@@ -16,7 +16,7 @@ Your response JSON format is
 where
 name: name of tool
 summary: This is short summary of the AI tool
-features: array of features. like "feature name: feature details"
+top_features: array of features. like "feature name: feature details"
 use_cases: possible use cases of this tool.
 pricing_type: choose between "{{ $pricingTypeString }}"
 categories: match categories in "{{ $categoriesString }}"

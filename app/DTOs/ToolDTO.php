@@ -28,7 +28,7 @@ class ToolDTO
                 name: $toolData->name,
                 tagLine: $toolData->tag_line,
                 summary: $toolData->summary,
-                topFeatures: $toolData->features,
+                topFeatures: $toolData->top_features,
                 useCases: $toolData->use_cases,
                 hasApi: $toolData->has_api,
                 pricingType: PricingType::from($toolData->pricing_type),

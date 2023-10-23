@@ -2,7 +2,9 @@
 
 namespace App\Http\Controllers\Admin;
 
+use App\DTOs\ToolDTO;
 use App\Http\Controllers\Controller;
+use App\Models\Category;
 use App\Models\Tool;
 use App\Services\ToolServices;
 use Illuminate\Http\Request;
@@ -53,7 +55,12 @@ class ToolController extends Controller
                 'summary' => $request->summary,
                 'domain_name' => $request->domain_name,
                 'home_page_url' => $request->home_page_url,
-                'top_features' => $request->top_features,
+                'top_features' => collect($request->top_features)->filter(function ($value) {
+                    return !empty($value);
+                }),
+                'use_cases' => collect($request->use_cases)->filter(function ($value) {
+                    return !empty($value);
+                })
             ] + $toolData);
 
             // $tool = Tool::find($insertedTool->id);
@@ -94,5 +101,23 @@ class ToolController extends Controller
     public function destroy(string $id)
     {
         //
+    }
+
+    public function import(Request $request)
+    {
+        if ($request->method() == 'POST') {
+            $toolDto = ToolDTO::fromJson(trim($request->input('tool_json_sting')));
+            // dd($toolDto);
+            $categoryIds = Category::whereIn('name', $toolDto->categories)->get()->map(function ($category) {
+                return $category->id;
+            });
+
+            return view('admin.tools.create', [
+                'toolDto' => $toolDto,
+                'categoryIds' => $categoryIds
+            ]);
+        }
+
+        return view('admin.tools.import');
     }
 }

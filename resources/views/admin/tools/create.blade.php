@@ -18,12 +18,17 @@
 
                 <div class="form-group mb-4">
                     <label class="fw-bold">name</label>
-                    <input type="text" class="form-control" name="name" required>
+                    <input type="text" class="form-control" value="{{ $toolDto->name ?? '' }}" name="name" required>
                 </div>
 
                 <div class="form-group mb-4">
                     <label class="fw-bold">tag_line</label>
-                    <input type="text" class="form-control" name="tag_line">
+                    <input type="text" class="form-control" value="{{ $toolDto->tagLine ?? '' }}" name="tag_line">
+                </div>
+
+                <div class="form-group mb-4">
+                    <label class="fw-bold">summary</label>
+                    <textarea type="text" class="form-control" name="summary">{{ $toolDto->summary ?? '' }}</textarea>
                 </div>
 
                 <div class="form-group mb-4">
@@ -36,10 +41,7 @@
                     </select>
                 </div>
 
-                <div class="form-group mb-4">
-                    <label class="fw-bold">summary</label>
-                    <textarea type="text" class="form-control" name="summary"></textarea>
-                </div>
+
 
                 <div class="form-group mb-4">
                     <label class="fw-bold">domain_name</label>
@@ -67,6 +69,10 @@
                 <div class="form-group mb-2">
                     <label>pricing type</label>
                     <select type="select" class="form-control" name="pricing_type" required>
+                        @if (isset($toolDto->pricingType))
+                            <option value="{{ $toolDto->pricingType->value }}" selected>{{ $toolDto->pricingType->value }}
+                            </option>
+                        @endif
                         @foreach (App\Enums\PricingType::cases() as $pricing)
                             <option value="{{ $pricing->value }}">{{ $pricing->value }}</option>
                         @endforeach
@@ -81,6 +87,20 @@
                             <button type="button" class="btn btn-success add-top-feature">Add</button>
                         </div>
                     </div>
+
+                    @if (!empty($toolDto->topFeatures))
+                        @foreach ($toolDto->topFeatures as $feature)
+                            <div class="input-group mt-2">
+                                <input type="text" value="{{ $feature }}" class="form-control"
+                                    name="top_features[]">
+                                <div class="input-group-append">
+                                    <button type="button" class="btn btn-danger remove-top_features">Remove</button>
+                                    <button type="button" class="btn btn-success move-up">Move Up</button>
+                                    <button type="button" class="btn btn-success move-down">Move Down</button>
+                                </div>
+                            </div>
+                        @endforeach
+                    @endif
                 </div>
 
                 <div class="form-group mb-4" id="use-cases-container">
@@ -91,6 +111,19 @@
                             <button type="button" class="btn btn-success add-use-case">Add</button>
                         </div>
                     </div>
+
+                    @if (!empty($toolDto->useCases))
+                        @foreach ($toolDto->useCases as $useCase)
+                            <div class="input-group mt-2">
+                                <input type="text" value="{{ $useCase }}" class="form-control" name="use_cases[]">
+                                <div class="input-group-append">
+                                    <button type="button" class="btn btn-danger remove-use_cases">Remove</button>
+                                    <button type="button" class="btn btn-success move-up">Move Up</button>
+                                    <button type="button" class="btn btn-success move-down">Move Down</button>
+                                </div>
+                            </div>
+                        @endforeach
+                    @endif
                 </div>
 
                 <button type="submit" class="btn btn-primary my-3">
@@ -163,7 +196,7 @@
         var tom_select = new TomSelect('#categories', {
             maxItems: 6,
             plugins: ['remove_button'],
-            items: @json([])
+            items: @json($categoryIds ?? [])
         });
     </script>
 @stop

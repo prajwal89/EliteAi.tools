@@ -27,6 +27,10 @@ final class ToolTable extends PowerGridComponent
                 ->slot('Add New')
                 ->class('btn btn-light btn-outline-primary')
                 ->route('admin.tools.create', []),
+            Button::add('Import json')
+                ->slot('Import json')
+                ->class('btn btn-light btn-success-primary')
+                ->route('admin.tools.import', []),
         ];
     }
 
