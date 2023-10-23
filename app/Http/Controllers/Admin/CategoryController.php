@@ -29,7 +29,13 @@ class CategoryController extends Controller
      */
     public function store(Request $request)
     {
-        //
+        Category::create([
+            'name' => $request->name,
+            'slug' => str($request->name)->slug(),
+            'description' => $request->description,
+        ]);
+
+        return redirect()->back()->with('success', 'category created successfully');
     }
 
     /**
@@ -63,6 +69,7 @@ class CategoryController extends Controller
      */
     public function destroy(string $id)
     {
-        //
+        Category::find($id)->delete();
+        return redirect()->back()->with('success', 'tool deleted successfully');
     }
 }

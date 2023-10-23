@@ -157,7 +157,6 @@ class ToolController extends Controller
      */
     public function destroy(string $id)
     {
-        //
     }
 
     public function import(Request $request)
