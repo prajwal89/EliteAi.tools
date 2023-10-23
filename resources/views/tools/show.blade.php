@@ -3,18 +3,26 @@
 @section('content')
     <div class="px-4 mx-auto max-w-5xl">
 
-        <h1 class="mt-8 mb-12">
-            <span class="font-bold text-2xl sm:text-3xl md:text-4xl">{{ $tool->name }}</span>
-            <br>
-            <span class="font-semibold text-md text-gray-600">{{ $tool->tag_line }}</span>
+        <h1 class="mt-8 mb-12 flex gap-2 md:gap-4 items-center">
+            @if (!empty($tool->uploaded_favicon))
+                <img class="h-14 w-14 bg-white shadow rounded-xl" src="{{ asset('/tool/' . $tool->slug . '/favicon.webp') }}"
+                    alt="{{ $tool->name }} favicon">
+            @endif
+            <div>
+                <span class="font-bold text-2xl sm:text-3xl md:text-4xl">{{ $tool->name }}</span>
+                <br>
+                <span class="font-semibold text-md text-gray-600">{{ $tool->tag_line }}</span>
+            </div>
         </h1>
 
         <div class="relative">
             <div aria-hidden="true" class="absolute -z-10 inset-0 h-max w-full m-auto opacity-40">
                 <div class="blur-[106px] h-[200px] bg-gradient-to-br from-primary-500 to-purple-400"></div>
             </div>
-            <img class="w-full mx-auto shadow-sm shadow-gray-200 rounded-2xl max-w-3xl border"
-                src="{{ asset('/tool/' . $tool->slug . '/screenshot.webp') }}" alt="{{ $tool->name }}">
+            @if (!empty($tool->uploaded_screenshot))
+                <img class="w-full mx-auto shadow-sm shadow-gray-200 rounded-2xl max-w-3xl border"
+                    src="{{ asset('/tool/' . $tool->slug . '/screenshot.webp') }}" alt="{{ $tool->name }}">
+            @endif
         </div>
 
         {{-- border-2 border-gray-300 --}}

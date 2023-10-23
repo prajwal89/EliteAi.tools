@@ -45,12 +45,13 @@
 
                 <div class="form-group mb-4">
                     <label class="fw-bold">domain_name</label>
-                    <input type="text" class="form-control" name="domain_name">
+                    <input type="text" class="form-control" name="domain_name"
+                        value="{{ getDomainFromUrl($home_page_url) }}">
                 </div>
 
                 <div class="form-group mb-4">
                     <label class="fw-bold">home_page_url</label>
-                    <input type="text" class="form-control" name="home_page_url">
+                    <input type="text" class="form-control" value="{{ $home_page_url ?? '' }}" name="home_page_url">
                 </div>
 
 

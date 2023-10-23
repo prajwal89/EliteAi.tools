@@ -17,14 +17,29 @@
                 @csrf
 
                 <div class="form-group mb-4">
-                    <label class="fw-bold">summary</label>
-                    <textarea type="text" class="form-control" name="tool_json_sting"></textarea>
+                    <label class="fw-bold">Website Home Page</label>
+                    <input type="url" class="form-control" name="home_page_url" required />
                 </div>
 
-                <button type="submit" class="btn btn-primary my-3">
+                <div class="form-group mb-4">
+                    <label class="fw-bold">tool_json_string</label>
+                    <textarea type="text" class="form-control" rows="10" name="tool_json_string" required></textarea>
+                </div>
+
+                <button type="submit" class="btn btn-primary float-right my-3">
                     Import
                 </button>
             </form>
+        </div>
+
+
+        <div class="p-4">
+            @php
+
+                $prompt = \App\Services\ExtractedToolProcessor::buildSystemPrompt(public_path('/prompts/prompt.txt'));
+
+                echo nl2br($prompt);
+            @endphp
         </div>
 
     </div>

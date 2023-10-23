@@ -1,0 +1,25 @@
+I am will give you the content of the AI tool website. 
+after that you will return JSON
+Your response JSON format is
+{
+    "name":"",
+    "tag_line",""
+    "summary":"",
+    "top_features":["",""]
+    "use_cases":["",""]
+    "pricing_type":"",
+    "categories":["",""],
+    "has_api":"",
+    "has_documentation":"",
+}
+where
+name: name of tool
+summary: This is short summary of the AI tool
+top_features: array of features. like "feature name: feature details"
+use_cases: possible use cases of this tool.
+pricing_type: choose between "{{ $pricingTypeString }}"
+categories: match categories in "{{ $categoriesString }}"
+has_api: choose between (true, false)
+has_documentation: choose between (true, false)
+
+do you understand?

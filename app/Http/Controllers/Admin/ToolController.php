@@ -163,15 +163,24 @@ class ToolController extends Controller
     public function import(Request $request)
     {
         if ($request->method() == 'POST') {
-            $toolDto = ToolDTO::fromJson(trim($request->input('tool_json_sting')));
+            // todo validate $request->home_page_url
+
+            $home_page_url = str($request->home_page_url)
+                ->rtrim('/')
+                ->toString();
+
+            $toolDto = ToolDTO::fromJson(trim($request->input('tool_json_string')));
+
             // dd($toolDto);
+
             $categoryIds = Category::whereIn('name', $toolDto->categories)->get()->map(function ($category) {
                 return $category->id;
             });
 
             return view('admin.tools.create', [
                 'toolDto' => $toolDto,
-                'categoryIds' => $categoryIds
+                'categoryIds' => $categoryIds,
+                'home_page_url' => $home_page_url,
             ]);
         }
 

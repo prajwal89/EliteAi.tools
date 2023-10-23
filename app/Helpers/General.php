@@ -13,3 +13,22 @@ if (!function_exists('isAdmin')) {
         return false;
     }
 }
+
+if (!function_exists('getDomainFromUrl')) {
+    function getDomainFromUrl($url): string
+    {
+        $urlParts = parse_url($url);
+        if (isset($urlParts['host'])) {
+            $domain = $urlParts['host'];
+
+            // Remove "www" prefix if present
+            if (strpos($domain, 'www.') === 0) {
+                $domain = substr($domain, 4); // Remove the first 4 characters ("www.")
+            }
+
+            return $domain;
+        } else {
+            return ''; // Return an empty string if the URL doesn't have a host (domain).
+        }
+    }
+}
