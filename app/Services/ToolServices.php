@@ -38,4 +38,21 @@ class ToolServices
 
         return true;
     }
+
+    public static function storeFavicon(UploadedFile $imageFile, string $slug): bool
+    {
+        $toolAssetPath = public_path('tool/' . $slug);
+
+        if (!File::isDirectory($toolAssetPath)) {
+            File::makeDirectory($toolAssetPath, 0755, true, true);
+        }
+
+        $newImage = Image::make($imageFile);
+
+        $newImage->resize(100, 400, function ($constraint) {
+            $constraint->aspectRatio();
+        })->save($toolAssetPath . '/favicon.webp');
+
+        return true;
+    }
 }

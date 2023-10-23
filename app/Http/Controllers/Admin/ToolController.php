@@ -46,6 +46,13 @@ class ToolController extends Controller
             );
         }
 
+        if ($request->has('uploaded_favicon')) {
+            $toolData['uploaded_favicon'] = ToolServices::storeFavicon(
+                $request->file('uploaded_favicon'),
+                $slug
+            );
+        }
+
         DB::transaction(function () use ($request, $slug, $toolData) {
             $insertedTool = Tool::create([
                 'name' => $request->name,
@@ -84,7 +91,16 @@ class ToolController extends Controller
      */
     public function edit(string $id)
     {
-        return view('admin.tools.edit');
+        $tool = Tool::find($id);
+
+        $categoryIds = $tool->categories->map(function ($category) {
+            return $category->id;
+        });
+
+        return view('admin.tools.edit', [
+            'tool' => $tool,
+            'categoryIds' => $categoryIds
+        ]);
     }
 
     /**
@@ -92,7 +108,48 @@ class ToolController extends Controller
      */
     public function update(Request $request, string $id)
     {
-        //
+        $tool = Tool::find($id);
+
+        $toolData = [];
+
+        $slug = str($request->name)->slug();
+
+        if ($request->has('uploaded_screenshot')) {
+            $toolData['uploaded_screenshot'] = ToolServices::storeScreenShot(
+                $request->file('uploaded_screenshot'),
+                $slug
+            );
+        }
+
+        if ($request->has('uploaded_favicon')) {
+            $toolData['uploaded_favicon'] = ToolServices::storeFavicon(
+                $request->file('uploaded_favicon'),
+                $slug
+            );
+        }
+
+        DB::transaction(function () use ($request, $tool, $toolData) {
+            $tool->update([
+                'name' => $request->name,
+                'tag_line' => $request->tag_line,
+                'pricing_type' => $request->pricing_type,
+                'summary' => $request->summary,
+                'domain_name' => $request->domain_name,
+                'home_page_url' => $request->home_page_url,
+                'top_features' => collect($request->top_features)->filter(function ($value) {
+                    return !empty($value);
+                }),
+                'use_cases' => collect($request->use_cases)->filter(function ($value) {
+                    return !empty($value);
+                })
+            ] + $toolData);
+
+            // $tool = Tool::find($insertedTool->id);
+
+            $tool->categories()->sync($request->categories);
+        });
+
+        return redirect()->back()->with('success', 'tool updated successfully');
     }
 
     /**

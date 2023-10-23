@@ -95,8 +95,8 @@
                                     name="top_features[]">
                                 <div class="input-group-append">
                                     <button type="button" class="btn btn-danger remove-top_features">Remove</button>
-                                    <button type="button" class="btn btn-success move-up">Move Up</button>
-                                    <button type="button" class="btn btn-success move-down">Move Down</button>
+                                    <button type="button" class="btn btn-success move-up">Up</button>
+                                    <button type="button" class="btn btn-success move-down">Down</button>
                                 </div>
                             </div>
                         @endforeach
@@ -118,8 +118,8 @@
                                 <input type="text" value="{{ $useCase }}" class="form-control" name="use_cases[]">
                                 <div class="input-group-append">
                                     <button type="button" class="btn btn-danger remove-use_cases">Remove</button>
-                                    <button type="button" class="btn btn-success move-up">Move Up</button>
-                                    <button type="button" class="btn btn-success move-down">Move Down</button>
+                                    <button type="button" class="btn btn-success move-up">Up</button>
+                                    <button type="button" class="btn btn-success move-down">Down</button>
                                 </div>
                             </div>
                         @endforeach
@@ -147,8 +147,8 @@
             <input type="text" class="form-control" name="${inputName}[]">
             <div class="input-group-append">
                 <button type="button" class="btn btn-danger remove-${inputName}">Remove</button>
-                <button type="button" class="btn btn-success move-up">Move Up</button>
-                <button type="button" class="btn btn-success move-down">Move Down</button>
+                <button type="button" class="btn btn-success move-up">Up</button>
+                <button type="button" class="btn btn-success move-down">Down</button>
             </div>
             `;
                 container.appendChild(newInput);

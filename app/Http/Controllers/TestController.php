@@ -27,11 +27,11 @@ class TestController extends Controller
 
     public function __invoke()
     {
-        return $this->buildToolDto();
+        // return $this->buildToolDto();
 
         $prompt = ExtractedToolProcessor::buildSystemPrompt(public_path('/prompts/system-1.txt'));
 
-        echo $prompt;
+        echo nl2br($prompt);
 
         // (new ExtractedToolProcessor(ExtractedToolDomain::find(1)))->process();
 

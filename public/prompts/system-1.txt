@@ -12,7 +12,6 @@ Your response JSON format is
     "has_api":"",
     "has_documentation":"",
 }
-
 where
 name: name of tool
 summary: This is short summary of the AI tool

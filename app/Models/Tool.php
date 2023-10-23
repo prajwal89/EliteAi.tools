@@ -2,6 +2,7 @@
 
 namespace App\Models;
 
+use App\Enums\PricingType;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Relations\BelongsToMany;
@@ -31,6 +32,7 @@ class Tool extends Model
         'has_api' => 'boolean',
         'top_features' => 'json',
         'use_cases' => 'json',
+        'pricing_type' => PricingType::class,
     ];
 
     public function categories(): BelongsToMany
