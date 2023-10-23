@@ -49,6 +49,7 @@ class ToolController extends Controller
                 'name' => $request->name,
                 'slug' => $slug,
                 'tag_line' => $request->tag_line,
+                'pricing_type' => $request->pricing_type,
                 'summary' => $request->summary,
                 'domain_name' => $request->domain_name,
                 'home_page_url' => $request->home_page_url,

@@ -39,7 +39,7 @@
                 <li
                     class="relative bg-white flex flex-col justify-between border rounded-md shadow-md dark:bg-transparent dark:border-gray-700 transition duration-500 hover:shadow-primary-400">
 
-                    <a class="relative" href="https://tailwindflex.com/mereani/hero-section-with-big-heading">
+                    <a class="relative" href="{{ route('tools.show', ['tool' => $tool->slug]) }}">
                         {{-- <svg class="absolute top-2 right-2 z-40 w-6 h-6" xmlns="http://www.w3.org/2000/svg" fill="none"
                             viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor">
                             <path stroke-linecap="round" stroke-linejoin="round"
@@ -78,7 +78,7 @@
                         </a>
 
                         <ul class="flex flex-wrap justify-start my-1 text-xs gap-2">
-                            <li class="flex gap-0.5 bg-gray-200/50 text-black px-2 py-0.5 rounded-full">
+                            <li class="flex items-center gap-0.5 bg-gray-200/50 text-black px-2 py-0.5 rounded-full">
                                 <svg class="w-4 h-4" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24"
                                     stroke-width="1.5" stroke="currentColor">
                                     <path stroke-linecap="round" stroke-linejoin="round"
