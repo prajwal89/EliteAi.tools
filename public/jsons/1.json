@@ -1,0 +1,32 @@
+{
+    "name": "AI Tool X",
+    "tag_line": "Your Ultimate AI Companion",
+    "summary": "AI Tool X is a powerful and versatile AI tool that can assist you in various tasks with its advanced features and capabilities. Whether you need help with content creation, data analysis, or even design, AI Tool X has got you covered.",
+    "features": [
+        "Natural Language Processing for content generation",
+        "Data analysis and visualization",
+        "Image and design assistance",
+        "Coding and development support",
+        "Voice recognition and text-to-speech capabilities"
+    ],
+    "use_cases": [
+        "Content creation and copywriting",
+        "Data-driven decision-making",
+        "Graphic design and image editing",
+        "Software development and coding",
+        "Voice commands and automated transcription"
+    ],
+    "pricing_type": "Freemium",
+    "categories": [
+        "AI Detection",
+        "Art",
+        "Business",
+        "Development",
+        "Design",
+        "Marketing",
+        "Productivity",
+        "AI tools"
+    ],
+    "has_api": true,
+    "has_documentation": true
+}

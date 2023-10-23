@@ -17,6 +17,7 @@ class Tool extends Model
         'tag_line',
         'summary',
         'domain_name',
+        'pricing_type',
         'home_page_url',
         'has_api',
         'top_features',

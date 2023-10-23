@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\DTOs\ToolDTO;
 use App\Models\ExtractedToolDomain;
 use App\Services\ExtractedToolProcessor;
 use Facebook\WebDriver\Remote\DesiredCapabilities;
@@ -26,6 +27,12 @@ class TestController extends Controller
 
     public function __invoke()
     {
+        return $this->buildToolDto();
+
+        $prompt = ExtractedToolProcessor::buildSystemPrompt(public_path('/prompts/system-1.txt'));
+
+        echo $prompt;
+
         // (new ExtractedToolProcessor(ExtractedToolDomain::find(1)))->process();
 
         // $this->insertTools();
@@ -35,6 +42,13 @@ class TestController extends Controller
         // return $this->crawlTopAiTools3();
 
         return $this->loginSuperAdmin();
+    }
+
+    public function buildToolDto()
+    {
+        $toolDto = ToolDTO::fromJson(file_get_contents(public_path('jsons/1.json')));
+
+        dd($toolDto);
     }
 
     public function loginSuperAdmin()

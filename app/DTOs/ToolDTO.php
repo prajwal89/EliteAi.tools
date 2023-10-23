@@ -3,6 +3,7 @@
 namespace App\DTOs;
 
 use App\Enums\PricingType;
+use Exception;
 
 class ToolDTO
 {
@@ -13,7 +14,28 @@ class ToolDTO
         public array $topFeatures,
         public array $useCases,
         public bool $hasApi,
-        public PricingType $subscriptionType,
+        public PricingType $pricingType,
+        public array $categories,
     ) {
+    }
+
+    public static function fromJson(string $jsonString): ?ToolDTO
+    {
+        try {
+            $toolData = json_decode($jsonString);
+            // dd($toolData);
+            return new self(
+                name: $toolData->name,
+                tagLine: $toolData->tag_line,
+                summary: $toolData->summary,
+                topFeatures: $toolData->features,
+                useCases: $toolData->use_cases,
+                hasApi: $toolData->has_api,
+                pricingType: PricingType::from($toolData->pricing_type),
+                categories: $toolData->categories,
+            );
+        } catch (Exception $e) {
+            return null;
+        }
     }
 }
