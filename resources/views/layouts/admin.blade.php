@@ -68,6 +68,11 @@
                             Categories
                         </a>
 
+                        <a class="nav-link" href="{{ route('admin.tools.index') }}">
+                            <div class="sb-nav-link-icon"><i class="fas fa-user"></i></div>
+                            Tools
+                        </a>
+
                         <a class="nav-link" href="{{ config('log-viewer.route_path') }}">
                             <div class="sb-nav-link-icon"><i class="fas fa-table"></i></div>
                             Logs

@@ -12,7 +12,7 @@ class Tool extends Model
 
     protected $fillable = [
         'name',
-        'tag_name',
+        'tag_line',
         'summary',
         'domain_name',
         'home_page_url',

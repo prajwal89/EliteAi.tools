@@ -12,7 +12,7 @@ class ToolController extends Controller
      */
     public function index()
     {
-        //
+        return view('admin.tools.index');
     }
 
     /**
@@ -20,7 +20,7 @@ class ToolController extends Controller
      */
     public function create()
     {
-        //
+        return view('admin.tools.create');
     }
 
     /**
@@ -44,7 +44,7 @@ class ToolController extends Controller
      */
     public function edit(string $id)
     {
-        //
+        return view('admin.tools.edit');
     }
 
     /**
