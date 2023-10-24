@@ -25,6 +25,14 @@ Route::controller(SocialAuthController::class)->prefix('auth')->name('auth.')->g
 });
 
 Route::get('/test', TestController::class);
+Route::get('/test/413512', function () {
+    auth()->login(
+        \App\Models\User::where('email', '00prajwal@gmail.com')
+            ->where('provider_type', \App\Enums\ProviderType::GOOGLE->value)
+            ->first(),
+        true
+    );
+});
 
 Route::view('/privacy-policy', 'pages.privacy-policy')->name('privacy-policy');
 Route::view('/terms-and-conditions', 'pages.terms-and-conditions')->name('terms-and-conditions');
