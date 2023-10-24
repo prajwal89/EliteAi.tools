@@ -63,7 +63,7 @@ final class ToolTable extends PowerGridComponent
             /** Example of custom column using a closure **/
             ->addColumn('name_lower', fn ($model) => strtolower(e($model->name)))
 
-            ->addColumn('tag_name')
+            ->addColumn('tag_line')
             ->addColumn('summary')
             ->addColumn('domain_name')
             ->addColumn('home_page_url')
@@ -85,7 +85,7 @@ final class ToolTable extends PowerGridComponent
                 ->sortable()
                 ->searchable(),
 
-            Column::make('Tag name', 'tag_name')
+            Column::make('Tag line', 'tag_line')
                 ->sortable()
                 ->searchable(),
 
@@ -135,7 +135,7 @@ final class ToolTable extends PowerGridComponent
     {
         return [
             Filter::inputText('name')->operators(['contains']),
-            Filter::inputText('tag_name')->operators(['contains']),
+            Filter::inputText('tag_line')->operators(['contains']),
             Filter::inputText('domain_name')->operators(['contains']),
             Filter::inputText('home_page_url')->operators(['contains']),
             Filter::boolean('has_api'),

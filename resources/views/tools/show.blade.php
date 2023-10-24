@@ -5,8 +5,8 @@
 
         <h1 class="mt-8 mb-12 flex gap-2 md:gap-4 items-center">
             @if (!empty($tool->uploaded_favicon))
-                <img class="h-14 w-14 bg-white shadow rounded-xl" src="{{ asset('/tool/' . $tool->slug . '/favicon.webp') }}"
-                    alt="{{ $tool->name }} favicon">
+                <img class="h-8 w-8 md:h-14 md:w-14 bg-white shadow rounded-sm md:rounded-xl"
+                    src="{{ asset('/tool/' . $tool->slug . '/favicon.webp') }}" alt="{{ $tool->name }} favicon">
             @endif
             <div>
                 <span class="font-bold text-2xl sm:text-3xl md:text-4xl">{{ $tool->name }}</span>
@@ -94,6 +94,5 @@
             @endif
 
         </article>
-    </div>
     </div>
 @stop
