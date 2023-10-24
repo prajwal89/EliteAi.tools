@@ -17,7 +17,7 @@
                 @csrf
 
                 <div class="form-group mb-4">
-                    <label class="fw-bold">name</label>
+                    <label class="fw-bold">*name</label>
                     <input type="text" class="form-control" value="{{ $toolDto->name ?? '' }}" name="name" required>
                 </div>
 
@@ -27,17 +27,17 @@
                 </div>
 
                 <div class="form-group mb-4">
-                    <label class="fw-bold">summary</label>
+                    <label class="fw-bold">*summary</label>
                     <textarea type="text" class="form-control" name="summary">{{ $toolDto->summary ?? '' }}</textarea>
                 </div>
 
                 <div class="form-group mb-4">
-                    <label class="fw-bold">description</label>
+                    <label class="fw-bold">*description</label>
                     <textarea type="text" rows="10" class="form-control" name="description">{{ $toolDto->description ?? '' }}</textarea>
                 </div>
 
                 <div class="form-group mb-4">
-                    <label class="fw-bold">categories</label>
+                    <label class="fw-bold">*categories</label>
                     <select id="categories" name="categories[]" multiple placeholder="Select Appropriate Categories"
                         autocomplete="off" class="rounded-lg">
                         @foreach (\App\Models\Category::all() as $catgory)
@@ -49,26 +49,32 @@
 
 
                 <div class="form-group mb-4">
-                    <label class="fw-bold">domain_name</label>
+                    <label class="fw-bold">*domain_name</label>
                     <input type="text" class="form-control" name="domain_name"
-                        value="{{ getDomainFromUrl($home_page_url) }}">
+                        value="{{ isset($home_page_url) ? getDomainFromUrl($home_page_url) : '' }}">
                 </div>
 
                 <div class="form-group mb-4">
-                    <label class="fw-bold">home_page_url</label>
+                    <label class="fw-bold">*home_page_url</label>
                     <input type="text" class="form-control" value="{{ $home_page_url ?? '' }}" name="home_page_url">
                 </div>
 
 
                 <div class="form-group mb-4">
-                    <label class="fw-bold">uploaded_screenshot</label>
-                    <input type="file" class="form-control" name="uploaded_screenshot">
+                    <label class="fw-bold">
+                        uploaded_screenshot
+                        <a href="https://pikwy.com/" target="_blank">Capture</a>
+                    </label>
+                    <input type="file" class="form-control" name="uploaded_screenshot" required>
                 </div>
 
 
                 <div class="form-group mb-4">
-                    <label class="fw-bold">uploaded_favicon</label>
-                    <input type="file" class="form-control" name="uploaded_favicon">
+                    <label class="fw-bold">
+                        uploaded_favicon
+                        <a href="https://onlineminitools.com/website-favicon-downloader" target="_blank">Fetch</a>
+                    </label>
+                    <input type="file" class="form-control" name="uploaded_favicon" required>
                 </div>
 
 
