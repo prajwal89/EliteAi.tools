@@ -143,7 +143,7 @@
                     @endif
                 </div>
 
-                <button type="submit" class="btn btn-primary my-3">
+                <button type="submit" class="btn btn-success my-3">
                     Add
                 </button>
             </form>

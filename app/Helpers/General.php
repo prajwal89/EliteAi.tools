@@ -1,5 +1,8 @@
 <?php
 
+use App\Enums\UtmSource;
+use App\Services\UtmQueryBuilder;
+
 if (!function_exists('isAdmin')) {
     function isAdmin(): bool
     {
@@ -32,6 +35,11 @@ if (!function_exists('getDomainFromUrl')) {
         }
     }
 }
+
+// function defaultUtmQuery()
+// {
+//     (new UtmQueryBuilder(UtmSource::))
+// }
 
 
 function truncate($string, $length, $dots = "...")
