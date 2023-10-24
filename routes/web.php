@@ -9,11 +9,11 @@ use Illuminate\Support\Facades\Route;
 
 Route::get('/', HomeController::class)->name('home');
 
-Route::controller(ToolController::class)->prefix('tools')->name('tools.')->group(function () {
+Route::controller(ToolController::class)->prefix('tool')->name('tool.')->group(function () {
     Route::get('{tool:slug}', 'show')->name('show');
 });
 
-Route::controller(CategoryController::class)->prefix('categories')->name('categories.')->group(function () {
+Route::controller(CategoryController::class)->prefix('category')->name('category.')->group(function () {
     Route::get('{category:slug}', 'show')->name('show');
 });
 

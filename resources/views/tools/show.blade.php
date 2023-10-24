@@ -21,7 +21,7 @@
             </div>
             @if (!empty($tool->uploaded_screenshot))
                 <img class="w-full mx-auto shadow-sm shadow-gray-200 rounded-2xl max-w-3xl border"
-                    src="{{ asset('/tool/' . $tool->slug . '/screenshot.webp') }}" alt="{{ $tool->name }}">
+                    src="{{ asset('/tools/' . $tool->slug . '/screenshot.webp') }}" alt="{{ $tool->name }}">
             @endif
         </div>
 
@@ -49,13 +49,13 @@
                         @foreach ($tool->categories as $category)
                             @if ($loop->last)
                                 <li class="">
-                                    <a href="{{ route('categories.show', ['category' => $category->slug]) }}">
+                                    <a href="{{ route('category.show', ['category' => $category->slug]) }}">
                                         {{ $category->name }}
                                     </a>
                                 </li>
                             @else
                                 <li class="border-r-2 border-gray-300 pr-2">
-                                    <a href="{{ route('categories.show', ['category' => $category->slug]) }}">
+                                    <a href="{{ route('category.show', ['category' => $category->slug]) }}">
                                         {{ $category->name }}
                                     </a>
                                 </li>
@@ -106,7 +106,7 @@
                 @foreach ($relatedTools as $relatedTool)
                     <li class="border rounded-lg hover:shadow px-2 py-1">
                         <a class="text-lg font-semibold hover:underline"
-                            href="{{ route('tools.show', ['tool' => $relatedTool->slug]) }}">{{ $relatedTool->name }}</a>
+                            href="{{ route('tool.show', ['tool' => $relatedTool->slug]) }}">{{ $relatedTool->name }}</a>
                         <p>{{ truncate($relatedTool->summary, 72) }}</p>
                     </li>
                 @endforeach

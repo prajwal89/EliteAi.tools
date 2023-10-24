@@ -2,7 +2,6 @@
 
 @section('content')
     @include('partials.hero')
-    @include('partials.categories-cloud')
 
     <div class="px-2 md:px-8">
 
@@ -12,11 +11,11 @@
                 @foreach ($category->tools as $cTool)
                     <li class="border flex flex-col sm:flex-row gap-2 rounded-lg shadow">
                         <img class="object-cover rounded-lg scale-95 border w-full sm:w-1/5"
-                            src="{{ asset('/tool/' . $cTool->slug . '/screenshot.webp') }}" alt="{{ $cTool->name }}">
+                            src="{{ asset('/tools/' . $cTool->slug . '/screenshot.webp') }}" alt="{{ $cTool->name }}">
 
                         <div class="p-4">
                             <a class="text-xl sm:text-2xl hover:underline"
-                                href="{{ route('tools.show', ['tool' => $cTool->slug]) }}">
+                                href="{{ route('tool.show', ['tool' => $cTool->slug]) }}">
                                 <span class="font-bold"> {{ $cTool->name }}</span> - {{ $cTool->tag_line }}
                             </a>
 
@@ -24,7 +23,8 @@
                                 {{ $cTool->summary }}
                             </p>
 
-                            <button class="flex items-center gap-0.5 bg-gray-200/50 text-black px-2 py-0.5 rounded-full">
+                            <button
+                                class="flex items-center text-xs gap-0.5 bg-gray-200/50 text-black px-2 py-0.5 rounded-full">
                                 <svg class="w-4 h-4" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24"
                                     stroke-width="1.5" stroke="currentColor">
                                     <path stroke-linecap="round" stroke-linejoin="round"
@@ -47,7 +47,7 @@
                     <li
                         class="relative bg-white flex flex-col justify-between border rounded shadow-md transition duration-500 hover:shadow-primary-400">
 
-                        <a class="relative" href="{{ route('tools.show', ['tool' => $tool->slug]) }}">
+                        <a class="relative" href="{{ route('tool.show', ['tool' => $tool->slug]) }}">
                             {{-- <svg class="absolute top-2 right-2 z-40 w-6 h-6" xmlns="http://www.w3.org/2000/svg" fill="none"
                             viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor">
                             <path stroke-linecap="round" stroke-linejoin="round"
@@ -55,7 +55,7 @@
                         </svg> --}}
 
                             <img class="rounded relative w-full object-cover"
-                                src="{{ asset('/tool/' . $tool->slug . '/screenshot.webp') }}" alt="{{ $tool->name }}"
+                                src="{{ asset('/tools/' . $tool->slug . '/screenshot.webp') }}" alt="{{ $tool->name }}"
                                 loading="lazy">
                         </a>
 
@@ -64,14 +64,14 @@
                                 @if ($loop->last)
                                     <li class="">
                                         {{-- <li class="bg-blue-100/50 px-4 py-0.5 rounded-full"> --}}
-                                        <a href="{{ route('categories.show', ['category' => $category->slug]) }}">
+                                        <a href="{{ route('category.show', ['category' => $category->slug]) }}">
                                             {{ $category->name }}
                                         </a>
                                     </li>
                                 @else
                                     <li class="border-r-2 border-gray-300 pr-2">
                                         {{-- <li class="bg-blue-100/50 px-4 py-0.5 rounded-full"> --}}
-                                        <a href="{{ route('categories.show', ['category' => $category->slug]) }}">
+                                        <a href="{{ route('category.show', ['category' => $category->slug]) }}">
                                             {{ $category->name }}
                                         </a>
                                     </li>
@@ -80,7 +80,7 @@
                         </ul>
 
                         <div class="flex flex-col justify-beetween gap-3 px-4 py-3">
-                            <a href="{{ route('tools.show', ['tool' => $tool->slug]) }}"
+                            <a href="{{ route('tool.show', ['tool' => $tool->slug]) }}"
                                 class="text-xl font-semibold text-gray-900 hover:text-primary-800">
                                 {{ $tool->name }} - {{ $tool->tag_line }}
                             </a>
