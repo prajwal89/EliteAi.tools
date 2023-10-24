@@ -59,6 +59,10 @@
                     <input type="text" class="form-control" value="{{ $home_page_url ?? '' }}" name="home_page_url">
                 </div>
 
+                <div class="form-group mb-4">
+                    <label class="fw-bold">contact_email</label>
+                    <input type="email" class="form-control" value="" name="contact_email">
+                </div>
 
                 <div class="form-group mb-4">
                     <label class="fw-bold">

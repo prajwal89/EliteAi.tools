@@ -10,7 +10,7 @@ class ToolServices
 {
     public static function storeScreenShot(UploadedFile $imageFile, string $slug): bool
     {
-        $toolAssetPath = public_path('tool/' . $slug);
+        $toolAssetPath = public_path('tools/' . $slug);
 
         if (!File::isDirectory($toolAssetPath)) {
             File::makeDirectory($toolAssetPath, 0755, true, true);
@@ -41,7 +41,7 @@ class ToolServices
 
     public static function storeFavicon(UploadedFile $imageFile, string $slug): bool
     {
-        $toolAssetPath = public_path('tool/' . $slug);
+        $toolAssetPath = public_path('tools/' . $slug);
 
         if (!File::isDirectory($toolAssetPath)) {
             File::makeDirectory($toolAssetPath, 0755, true, true);
