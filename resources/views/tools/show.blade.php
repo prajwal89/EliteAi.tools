@@ -9,9 +9,9 @@
                     src="{{ asset('/tool/' . $tool->slug . '/favicon.webp') }}" alt="{{ $tool->name }} favicon">
             @endif
             <div>
-                <span class="font-bold text-2xl sm:text-3xl md:text-4xl">{{ $tool->name }}</span>
+                <span class="font-bold text-2xl sm:text-3xl md:text-5xl">{{ $tool->name }}</span>
                 <br>
-                <span class="font-semibold text-md text-gray-600">{{ $tool->tag_line }}</span>
+                <span class="font-semibold text-md md:text-xl text-gray-600">{{ $tool->tag_line }}</span>
             </div>
         </h1>
 
@@ -72,7 +72,7 @@
         <article class="prose max-w-screen-lg lg:prose-lg pt-12 pb-16">
             <h2>What is {{ $tool->name }}</h2>
 
-            {!! $tool->description !!}
+            {!! nl2br($tool->description) !!}
 
             @if (!empty($tool->top_features))
                 <h3>Features:</h3>

@@ -33,7 +33,7 @@
 
                 <div class="form-group mb-4">
                     <label class="fw-bold">description</label>
-                    <textarea type="text" class="form-control" name="description">{{ $toolDto->description ?? '' }}</textarea>
+                    <textarea type="text" rows="10" class="form-control" name="description">{{ $toolDto->description ?? '' }}</textarea>
                 </div>
 
                 <div class="form-group mb-4">
