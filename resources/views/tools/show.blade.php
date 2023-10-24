@@ -6,7 +6,7 @@
         <h1 class="mt-8 mb-12 flex gap-2 md:gap-4 items-center">
             @if (!empty($tool->uploaded_favicon))
                 <img class="h-8 w-8 md:h-14 md:w-14 bg-white shadow rounded-sm md:rounded-xl"
-                    src="{{ asset('/tool/' . $tool->slug . '/favicon.webp') }}" alt="{{ $tool->name }} favicon">
+                    src="{{ asset('/tools/' . $tool->slug . '/favicon.webp') }}" alt="{{ $tool->name }} favicon">
             @endif
             <div>
                 <span class="font-bold text-2xl sm:text-3xl md:text-5xl">{{ $tool->name }}</span>
@@ -69,7 +69,7 @@
 
         </fieldset>
 
-        <article class="prose max-w-screen-lg lg:prose-lg pt-12 pb-16">
+        <article class="prose max-w-screen-lg lg:prose-lg pt-12 pb-4">
             <h2>What is {{ $tool->name }}</h2>
 
             {!! nl2br($tool->description) !!}
@@ -94,6 +94,13 @@
             @endif
 
         </article>
+
+        <div class="flex justify-center py-8">
+            <a class="px-4 py-2 border border-primary-600 bg-primary-50 hover:bg-primary-100 text-lg md:text-xl rounded"
+                href="{{ $tool->home_page_url }}" target="_blank">
+                Visit website
+            </a>
+        </div>
     </div>
 @stop
 

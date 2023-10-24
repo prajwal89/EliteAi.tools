@@ -78,7 +78,7 @@
 
 <style>
     .animate-img {
-        animation: bounce 5s infinite alternate;
+        animation: bounce 3s infinite alternate;
     }
 
     @keyframes bounce {
@@ -87,7 +87,7 @@
         }
 
         100% {
-            transform: translateY(-10px);
+            transform: translateY(-12px);
         }
     }
 </style>

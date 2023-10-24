@@ -10,7 +10,7 @@
             <ul class="flex flex-col gap-4 w-full max-w-5xl mx-auto">
                 @foreach ($category->tools as $cTool)
                     <li class="border flex flex-col sm:flex-row gap-2 rounded-lg shadow">
-                        <img class="object-cover rounded-lg scale-95 border w-full sm:w-1/5"
+                        <img class="object-cover rounded-lg scale-95 border w-full sm:w-1/4"
                             src="{{ asset('/tools/' . $cTool->slug . '/screenshot.webp') }}" alt="{{ $cTool->name }}">
 
                         <div class="p-4">

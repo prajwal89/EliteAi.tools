@@ -26,6 +26,7 @@ class Tool extends Model
         'uploaded_screenshot',
         'uploaded_favicon',
         'owner_id',
+        'contact_email',
     ];
 
     protected $casts = [

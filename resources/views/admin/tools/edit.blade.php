@@ -11,7 +11,7 @@
         <div class="card-header">
             Edit tool
 
-            <a class="btn btn-outline-primary float-right" href="{{ route('tools.show', ['tool' => $tool->slug]) }}">View</a>
+            <a class="btn btn-outline-primary float-right" href="{{ route('tool.show', ['tool' => $tool->slug]) }}">View</a>
             <button type="button" class="btn btn-outline-danger" data-bs-toggle="modal" data-bs-target="#deleteModal">
                 Delete
             </button>
@@ -64,6 +64,11 @@
                     <label class="fw-bold">home_page_url</label>
                     <input type="text" class="form-control" name="home_page_url"
                         value="{{ $tool->home_page_url ?? '' }}">
+                </div>
+
+                <div class="form-group mb-4">
+                    <label class="fw-bold">contact_email</label>
+                    <input type="email" class="form-control" value="" name="contact_email">
                 </div>
 
 
