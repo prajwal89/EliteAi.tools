@@ -53,7 +53,7 @@ class ToolController extends Controller
             );
         }
 
-        DB::transaction(function () use ($request, $slug, $toolData) {
+        $tool = DB::transaction(function () use ($request, $slug, $toolData) {
             $insertedTool = Tool::create([
                 'name' => $request->name,
                 'slug' => $slug,
@@ -75,9 +75,11 @@ class ToolController extends Controller
             // $tool = Tool::find($insertedTool->id);
 
             $insertedTool->categories()->sync($request->categories);
+
+            return $insertedTool;
         });
 
-        return redirect()->back()->with('success', 'tool created successfully');
+        return redirect()->back()->with('success', 'tool created successfully. <a href="' . route('tool.show', ['tool' => $tool->slug]) . '" target="_blank">View</a>');
     }
 
     /**
@@ -182,6 +184,8 @@ class ToolController extends Controller
             $categoryIds = Category::whereIn('name', $toolDto->categories)->get()->map(function ($category) {
                 return $category->id;
             });
+
+            session()->flash('success', 'JSON parsed successfully');
 
             return view('admin.tools.create', [
                 'toolDto' => $toolDto,

@@ -70,10 +70,10 @@ class ExtractedToolProcessor
             ->replaceMatches('/<script(.*?)<\/script>/is', '') //remove script tags
             ->replaceMatches('/<style(.*?)<\/style>/is', '') //remove script tags
             ->replaceMatches('/<ins(.*?)<\/ins>/is', '') //remove google ads
-            ->replace("\t", '')
+            // ->replace("\t", '')
             ->replaceMatches('/<!--(.|\s)*?-->/', '') //remove comment
             ->stripTags()
-            ->replaceMatches('/\n+/', "\n")
+            // ->replaceMatches('/\n+/', "\n")
             ->trim()
             ->toString();
 

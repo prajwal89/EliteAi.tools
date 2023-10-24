@@ -9,7 +9,7 @@
         @if (isset($category))
             <ul class="flex flex-col gap-4 w-full max-w-5xl mx-auto">
                 @foreach ($category->tools as $cTool)
-                    <li class="border flex flex-col sm:flex-row gap-2 rounded-lg shadow">
+                    <li class="border flex flex-col sm:flex-row gap-2 py-2 rounded-lg shadow">
                         <img class="object-cover rounded-lg scale-95 border w-full sm:w-1/4"
                             src="{{ asset('/tools/' . $cTool->slug . '/screenshot.webp') }}" alt="{{ $cTool->name }}">
 
@@ -42,7 +42,7 @@
 
 
         @if (isset($recentTools))
-            <ul class="grid gap-8 md:grid-cols-2 lg:grid-cols-3 p-2 xl:p-5">
+            <ul class="grid gap-8 md:grid-cols-2 lg:grid-cols-3 p-2 xl:p-5 my-8">
                 @foreach ($recentTools as $tool)
                     <li
                         class="relative bg-white flex flex-col justify-between border rounded shadow-md transition duration-500 hover:shadow-primary-400">

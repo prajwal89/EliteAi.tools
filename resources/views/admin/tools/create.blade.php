@@ -17,7 +17,7 @@
                 @csrf
 
                 <div class="form-group mb-4">
-                    <label class="fw-bold">*name</label>
+                    <label class="fw-bold">*name <small>(Should be short e.x. ChatGpt)</small></label>
                     <input type="text" class="form-control" value="{{ $toolDto->name ?? '' }}" name="name" required>
                 </div>
 
