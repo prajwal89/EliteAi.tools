@@ -1,5 +1,6 @@
-@extends('layouts.app')
+@extends('layouts.app-full-width')
 
 @section('content')
-    @dump($category)
+    @include('partials.hero')
+    @include('partials.categories-cloud')
 @stop

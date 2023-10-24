@@ -9,6 +9,7 @@ enum PricingType: string
     case FREEMIUM = 'Freemium';
     case FREE_TRIAL = 'Free Trial';
     case CONTACT_FOR_PRICING = 'Contact for pricing';
+    case USAGE_BASED = 'Usage based';
     case OTHER = 'Other';
 
     public static function values()

@@ -1,6 +1,6 @@
 <div class="px-4 mb-4 pb-8 bg-gradient-to-b from-gray-200 via-gray-100 to-white relative">
-    <div class="flex flex-col items-center w-full min-h-[320px] md:min-h-[520px]  relative z-10">
-        <div class="select-none absolute inset-0 blur-[1px]">
+    <div class="flex flex-col items-center w-full min-h-[280px] md:min-h-[420px]  relative z-10">
+        <div class="absolute inset-0 blur-[1px] -z-10">
             <img class="animate-img opacity-90 absolute w-10 h-10" style="top: 70%; left: 46%;"
                 src="{{ asset('/images/home/1.svg') }}">
             <img class="animate-img hidden md:block opacity-90 absolute w-10 h-10" style="top: 55%; left: 13%;"
@@ -26,8 +26,20 @@
         </div>
 
         <h1 class="mx-auto my-8 md:my-12 text-center z-10">
-            <span class="block font-bold text-2xl sm:text-3xl md:text-5xl">{{ config('app.name') }}</span>
-            <span class="text-lg block sm:text-xl text-gray-700 pt-4">Find the one you need</span>
+            <span class="block font-bold text-2xl sm:text-3xl md:text-5xl">
+                @if (isset($category))
+                    {{ $category->tools()->count() }} {{ $category->name }} AI tools
+                @else
+                    {{ config('app.name') }}
+                @endif
+            </span>
+            <span class="text-lg block sm:text-xl text-gray-700 pt-4">
+                @if (isset($category))
+                    {{ $category->description }}
+                @else
+                    Find the one you need
+                @endif
+            </span>
         </h1>
 
         <div class="relative w-full max-w-3xl">
@@ -38,6 +50,28 @@
                     d="M21 21l-5.197-5.197m0 0A7.5 7.5 0 105.196 5.196a7.5 7.5 0 0010.607 10.607z" />
             </svg>
         </div>
+
+
+        <ul class="flex gap-3 my-8 md:my-12 flex-wrap justify-center px-4 md:px-8">
+            @foreach ($categories as $c)
+                @if (isset($category) && $c->name == $category->name)
+                    <li
+                        class="px-2 py-1 text-lg relative bg-gray-200 rounded-lg select-none shadow shadow-primary-500 outline outline-primary-600">
+                        {{-- <span class="absolute top-0 right-0 text-xs rounded-full bg-gray-100/80">34</span> --}}
+                        <a href="{{ route('categories.show', ['category' => $c->slug]) }}">
+                            {{ $c->name }}
+                        </a>
+                    </li>
+                @else
+                    <li
+                        class="px-2 py-1 text-lg relative border border-black/10 bg-gray-200 rounded-lg select-none hover:shadow hover:shadow-primary-500 hover:outline hover:outline-primary-600">
+                        <a href="{{ route('categories.show', ['category' => $c->slug]) }}">
+                            {{ $c->name }}
+                        </a>
+                    </li>
+                @endif
+            @endforeach
+        </ul>
 
     </div>
 </div>

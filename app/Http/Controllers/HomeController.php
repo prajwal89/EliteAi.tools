@@ -3,13 +3,16 @@
 namespace App\Http\Controllers;
 
 use App\DTOs\PageDataDTO;
+use App\Models\Category;
 use App\Models\Tool;
 
 class HomeController extends Controller
 {
     public function __invoke()
     {
-        $tools = Tool::with(['categories'])->get();
+        $recentTools = Tool::with(['categories'])->get();
+        $categories = Category::has('tools')->get();
+        // $categories = Category::withCount(['tools'])->get();
 
         return view('home', [
             'pageDataDTO' => new PageDataDTO(
@@ -17,7 +20,8 @@ class HomeController extends Controller
                 description: null,
                 conicalUrl: route('home')
             ),
-            'tools' => $tools,
+            'recentTools' => $recentTools,
+            'categories' => $categories,
         ]);
     }
 }
