@@ -9,12 +9,12 @@
         @if (isset($category))
             <ul class="flex flex-col gap-4 w-full max-w-5xl mx-auto">
                 @foreach ($category->tools as $cTool)
-                    <li class="border flex gap-2 rounded-lg shadow">
-                        <img class="w-1/5 object-cover" src="{{ asset('/tool/' . $cTool->slug . '/screenshot.webp') }}"
-                            alt="{{ $cTool->name }}">
+                    <li class="border flex flex-col sm:flex-row gap-2 rounded-lg shadow">
+                        <img class="object-cover w-full sm:w-1/5"
+                            src="{{ asset('/tool/' . $cTool->slug . '/screenshot.webp') }}" alt="{{ $cTool->name }}">
 
                         <div class="p-4">
-                            <a class=" text-xl md:text-2xl hover:underline"
+                            <a class=" text-xl sm:text-2xl hover:underline"
                                 href="{{ route('tools.show', ['tool' => $cTool->slug]) }}">
                                 <span class="font-bold"> {{ $cTool->name }}</span> - {{ $cTool->tag_line }}
                             </a>
