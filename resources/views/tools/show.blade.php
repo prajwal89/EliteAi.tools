@@ -26,8 +26,8 @@
         </div>
 
         {{-- border-2 border-gray-300 --}}
-        <fieldset class="text-lg rounded-lg py-2 mt-8 dark:border-gray-600">
-            <legend class="text-xl font-semibold dark:text-gray-300">
+        <fieldset class="text-lg rounded-lg py-2 mt-8">
+            <legend class="text-xl font-semibold">
                 Details
             </legend>
 

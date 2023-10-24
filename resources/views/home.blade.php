@@ -8,7 +8,7 @@
         <ul class="grid gap-8 md:grid-cols-2 lg:grid-cols-3 p-2 xl:p-5">
             @foreach ($tools as $tool)
                 <li
-                    class="relative bg-white flex flex-col justify-between border rounded-md shadow-md dark:bg-transparent dark:border-gray-700 transition duration-500 hover:shadow-primary-400">
+                    class="relative bg-white flex flex-col justify-between border rounded-md shadow-md transition duration-500 hover:shadow-primary-400">
 
                     <a class="relative" href="{{ route('tools.show', ['tool' => $tool->slug]) }}">
                         {{-- <svg class="absolute top-2 right-2 z-40 w-6 h-6" xmlns="http://www.w3.org/2000/svg" fill="none"
@@ -44,7 +44,7 @@
 
                     <div class="flex flex-col justify-beetween gap-3 px-4 py-3">
                         <a href="{{ route('tools.show', ['tool' => $tool->slug]) }}"
-                            class="text-xl font-semibold text-gray-900 dark:text-white hover:text-primary-800 dark:hover:text-primary-300">
+                            class="text-xl font-semibold text-gray-900 hover:text-primary-800">
                             {{ $tool->name }} - {{ $tool->tag_line }}
                         </a>
 
@@ -59,7 +59,7 @@
                             </li>
                         </ul>
 
-                        <p class="text-gray-700 dark:text-gray-300 break-all"
+                        <p class="text-gray-700 break-all"
                             style="display: -webkit-box; -webkit-line-clamp: 2; -webkit-box-orient: vertical; overflow: hidden; text-overflow: ellipsis;">
                             {{ $tool->summary }}
                         </p>
