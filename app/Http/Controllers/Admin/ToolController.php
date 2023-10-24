@@ -64,6 +64,11 @@ class ToolController extends Controller
                 'contact_email' => $request->contact_email,
                 'domain_name' => $request->domain_name,
                 'home_page_url' => $request->home_page_url,
+                'instagram_id' => $request->instagram_id,
+                'twitter_id' => $request->twitter_id,
+                'tiktok_id' => $request->tiktok_id,
+                'linkedin_id' => $request->linkedin_id,
+                'linkedin_company_id' => $request->linkedin_company_id,
                 'top_features' => collect($request->top_features)->filter(function ($value) {
                     return !empty($value);
                 }),
@@ -79,7 +84,11 @@ class ToolController extends Controller
             return $insertedTool;
         });
 
-        return redirect()->back()->with('success', 'tool created successfully. <a href="' . route('tool.show', ['tool' => $tool->slug]) . '" target="_blank">View</a>');
+        return redirect()->route('admin.tools.edit', ['tool' => $tool->id])->with('success', '
+        tool created successfully. 
+        <br>
+        <a href="' . route('tool.show', ['tool' => $tool->id]) . '" target="_blank">View</a>
+        ');
     }
 
     /**
@@ -142,6 +151,11 @@ class ToolController extends Controller
                 'domain_name' => $request->domain_name,
                 'contact_email' => $request->contact_email,
                 'home_page_url' => $request->home_page_url,
+                'instagram_id' => $request->instagram_id,
+                'twitter_id' => $request->twitter_id,
+                'tiktok_id' => $request->tiktok_id,
+                'linkedin_id' => $request->linkedin_id,
+                'linkedin_company_id' => $request->linkedin_company_id,
                 'top_features' => collect($request->top_features)->filter(function ($value) {
                     return !empty($value);
                 }),

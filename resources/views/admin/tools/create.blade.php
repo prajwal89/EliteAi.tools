@@ -83,7 +83,7 @@
 
 
                 <div class="form-group mb-2">
-                    <label>pricing type</label>
+                    <label class="fw-bold">pricing type</label>
                     <select type="select" class="form-control" name="pricing_type" required>
                         @if (isset($toolDto->pricingType))
                             <option value="{{ $toolDto->pricingType->value }}" selected>{{ $toolDto->pricingType->value }}
@@ -143,9 +143,37 @@
                     @endif
                 </div>
 
-                <button type="submit" class="btn btn-success my-3">
-                    Add
-                </button>
+                <div class="border p-2">
+                    <p class="fw-bold text-success text-lg">Social media</p>
+                    <div class="form-group mb-4">
+                        <label class="fw-bold">twitter_id</label>
+                        <input type="text" placeholder="prajwal_hallae" class="form-control" name="twitter_id">
+                    </div>
+                    <div class="form-group mb-4">
+                        <label class="fw-bold">instagram_id</label>
+                        <input type="text" placeholder="prajwal_hallae" class="form-control" name="instagram_id">
+                    </div>
+                    <div class="form-group mb-4">
+                        <label class="fw-bold">tiktok_id</label>
+                        <input type="text" placeholder="prajwal_hallae" class="form-control" name="tiktok_id">
+                    </div>
+                    <div class="form-group mb-4">
+                        <label class="fw-bold">linkedin_id</label>
+                        <input type="text" placeholder="prajwal_hallae" class="form-control" name="linkedin_id">
+                    </div>
+                    <div class="form-group mb-4">
+                        <label class="fw-bold">linkedin_company_id</label>
+                        <input type="text" placeholder="prajwal_hallae" class="form-control"
+                            name="linkedin_company_id">
+                    </div>
+
+                </div>
+
+                <div class="d-flex justify-content-end">
+                    <button type="submit" class="btn btn-success my-3 float-right  ">
+                        Add The Tool
+                    </button>
+                </div>
             </form>
         </div>
 

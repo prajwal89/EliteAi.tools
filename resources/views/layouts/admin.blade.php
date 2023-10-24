@@ -111,9 +111,9 @@
                     @foreach (['success', 'info', 'error'] as $alertType)
                         @if (session($alertType))
                             <div class="alert alert-{{ $alertType }} alert-dismissible fade show" role="alert">
-                                {{ session($alertType) }}
-                                <button type="button" class="btn-close" data-bs-dismiss="alert"
-                                    aria-label="Close"></button>
+                                {!! session($alertType) !!}
+                                <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close">
+                                </button>
                             </div>
                         @endif
                     @endforeach

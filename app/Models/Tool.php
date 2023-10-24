@@ -27,6 +27,11 @@ class Tool extends Model
         'uploaded_favicon',
         'owner_id',
         'contact_email',
+        'instagram_id',
+        'tiktok_id',
+        'twitter_id',
+        'linkedin_id',
+        'linkedin_company_id',
     ];
 
     protected $casts = [
