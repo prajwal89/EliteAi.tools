@@ -12,22 +12,18 @@
     </a>
 
     <div class="flex items-center gap-4">
-        <a href="">
+        {{-- <a href="">
             <svg class="w-6 h-6" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24"
                 stroke-width="1.5" stroke="currentColor">
                 <path stroke-linecap="round" stroke-linejoin="round"
                     d="M21 21l-5.197-5.197m0 0A7.5 7.5 0 105.196 5.196a7.5 7.5 0 0010.607 10.607z" />
             </svg>
-        </a>
+        </a> --}}
 
         @auth
             <a class="hidden lg:flex justify-center items-center flex-row gap-2" href="">
                 <img class="h-8 w-8 rounded-lg" src="{{ auth()->user()->avatar_url }}" alt="">
                 <span>{{ auth()->user()->name }}</span>
-            </a>
-
-            <a class="btn-primary bg-green-500 hover:bg-green-600" href="">
-                Upload
             </a>
         @else
             <div class="flex gap-4">
@@ -39,6 +35,10 @@
                 </a> --}}
             </div>
         @endauth
+
+        <a class="btn-primary bg-green-500 hover:bg-green-600" href="">
+            Submit tool
+        </a>
 
 
 

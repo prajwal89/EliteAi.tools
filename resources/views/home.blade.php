@@ -6,15 +6,16 @@
 
     <div class="px-2 md:px-8">
 
+        {{-- category tools --}}
         @if (isset($category))
             <ul class="flex flex-col gap-4 w-full max-w-5xl mx-auto">
                 @foreach ($category->tools as $cTool)
                     <li class="border flex flex-col sm:flex-row gap-2 rounded-lg shadow">
-                        <img class="object-cover w-full sm:w-1/5"
+                        <img class="object-cover rounded-lg scale-95 border w-full sm:w-1/5"
                             src="{{ asset('/tool/' . $cTool->slug . '/screenshot.webp') }}" alt="{{ $cTool->name }}">
 
                         <div class="p-4">
-                            <a class=" text-xl sm:text-2xl hover:underline"
+                            <a class="text-xl sm:text-2xl hover:underline"
                                 href="{{ route('tools.show', ['tool' => $cTool->slug]) }}">
                                 <span class="font-bold"> {{ $cTool->name }}</span> - {{ $cTool->tag_line }}
                             </a>
@@ -44,7 +45,7 @@
             <ul class="grid gap-8 md:grid-cols-2 lg:grid-cols-3 p-2 xl:p-5">
                 @foreach ($recentTools as $tool)
                     <li
-                        class="relative bg-white flex flex-col justify-between border rounded-md shadow-md transition duration-500 hover:shadow-primary-400">
+                        class="relative bg-white flex flex-col justify-between border rounded shadow-md transition duration-500 hover:shadow-primary-400">
 
                         <a class="relative" href="{{ route('tools.show', ['tool' => $tool->slug]) }}">
                             {{-- <svg class="absolute top-2 right-2 z-40 w-6 h-6" xmlns="http://www.w3.org/2000/svg" fill="none"
@@ -53,7 +54,7 @@
                                 d="M17.593 3.322c1.1.128 1.907 1.077 1.907 2.185V21L12 17.25 4.5 21V5.507c0-1.108.806-2.057 1.907-2.185a48.507 48.507 0 0111.186 0z" />
                         </svg> --}}
 
-                            <img class="rounded-md relative w-full object-cover"
+                            <img class="rounded relative w-full object-cover"
                                 src="{{ asset('/tool/' . $tool->slug . '/screenshot.webp') }}" alt="{{ $tool->name }}"
                                 loading="lazy">
                         </a>
