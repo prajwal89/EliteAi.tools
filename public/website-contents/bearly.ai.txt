@@ -1,0 +1,122 @@
+Pricing
+
+Download
+
+
+AI for Pros
+Bearly makes you 10x faster by adding the state of the art AI to your workflow. Reading, writing, and content creation all one shortcut away.
+
+Try it now
+Trusted by 100,000+ Professionals at:
+MIT logo
+BAIN & Company Logo
+Google Logo
+Bridgewater Logo
+DOW & Chemical Logo
+HyperChat
+AI chat on Steroids!
+
+Interact with any document
+Analyze and ask questions across any doc
+
+Transcribe audio and video
+Turn any podcast, youtube video, or meeting recording into a transcript you can interact with
+
+Real-time web access
+Let us do the boring work - attach files, get all of the importnat information and continue the conversation.
+
+Generate Meeting Minutes and Identify Key Takeaways
+Powered by Stability AI and Dall-e
+Don’t get locked into any model
+With Bearly you can access models from the best providers across the AI universe
+Why Bearly?
+Open AI, Claude and more
+Choose from the best AI on the market and find the model that works for you
+
+Document embeding
+Get access to real-time web access with every promp or requaest.
+
+Prompt Marketplace
+Let us do the work for you - choose from 50+ reading and writing templates
+
+The Best AI - Always at your Fingertips
+Bearly for IOS
+Download from AppStore
+
+Phone Screen
+Summarize and interact with any page
+Get Chrome Extension
+
+Browser Screen
+The World's Most Secure AI Chat
+Zero logging
+Bearly doesn’t store or record your queries
+
+Chat & Docs Encryption
+You own the encryption keys - no one but you can access your interactions or docs
+
+Security at its core
+Designed and built from the ground up to ensure your data is always safe
+
+Reimagine work, Get started with Bearly today
+
+Try it now
+reimagine
+Made in New York
+© 2023, Bearly, Inc.
+Downloads
+Mac
+
+Windows
+
+Linux
+
+iOS
+
+Chrome Extension
+
+Contact
+Support
+
+Twitter
+
+Resources
+Privacy
+
+Terms
+
+FAQ
+
+Pricing
+
+
+
+{
+    "name": "Bearly",
+    "tag_line": "AI for Pros",
+    "summary": "Bearly is an AI-powered platform that enhances productivity for professionals by providing state-of-the-art AI capabilities. It accelerates tasks such as reading, writing, and content creation with a focus on efficiency and convenience.",
+    "description": "Bearly is a productivity-focused AI tool designed to empower professionals across various industries. It offers a range of features to streamline work processes. Users can interact with documents, analyze content, and ask questions across any type of document. Bearly's capabilities extend to transcribing audio and video, converting podcasts, YouTube videos, and meeting recordings into accessible transcripts. Real-time web access simplifies file management and information retrieval, allowing users to continue conversations seamlessly. Additionally, Bearly can generate meeting minutes and identify key takeaways, leveraging Stability AI and Dall-e. The platform offers flexibility by providing access to AI models from multiple providers, including Open AI and Claude. Users can choose the AI model that best suits their needs. Bearly also includes features like document embedding, a prompt marketplace, and secure AI chat capabilities. It is designed with security in mind, ensuring data protection and privacy for users.",
+    "top_features": [
+        "Interact with any document",
+        "Transcribe audio and video content",
+        "Real-time web access",
+        "Generate Meeting Minutes and Identify Key Takeaways",
+        "Access to a variety of AI models",
+        "Document embedding",
+        "Prompt Marketplace",
+        "Secure AI chat with zero logging",
+        "User-owned encryption keys for chat and document security"
+    ],
+    "use_cases": [
+        "Enhanced productivity in reading, writing, and content creation",
+        "Efficient document analysis and question-answering",
+        "Transcription of audio and video content",
+        "Simplified file management and data retrieval",
+        "Meeting minutes and key takeaways generation",
+        "Customizable AI model selection"
+    ],
+    "pricing_type": "Freemium",
+    "categories": ["AI Detection", "Business", "Data Analysis", "Productivity", "Writing"],
+    "has_api": false,
+    "has_documentation": true
+}
