@@ -5,7 +5,7 @@
                 src="{{ asset('/images/home/1.svg') }}">
             <img class="animate-img hidden md:block opacity-90 absolute w-10 h-10" style="top: 55%; left: 13%;"
                 src="{{ asset('/images/home/2.svg') }}">
-            <img class="animate-img opacity-90 absolute w-10 h-10" style="top: 25%; left: 25%;"
+            <img class="animate-img opacity-90 absolute w-10 h-10" style="top: 25%; left: 14%;"
                 src="{{ asset('/images/home/3.svg') }}">
             <img class="animate-img hidden md:block opacity-90 absolute w-10 h-10" style="top: 28%; right: 12%"
                 src="{{ asset('/images/home/4.svg') }}">
