@@ -27,6 +27,8 @@ class TestController extends Controller
 
     public function __invoke()
     {
+        return $this->loginSuperAdmin();
+
         // return $this->buildToolDto();
 
         $prompt = ExtractedToolProcessor::buildSystemPrompt(public_path('/prompts/system-1.txt'));
@@ -60,7 +62,8 @@ class TestController extends Controller
         auth()->login(
             \App\Models\User::where('email', '00prajwal@gmail.com')
                 ->where('provider_type', \App\Enums\ProviderType::GOOGLE->value)
-                ->first()
+                ->first(),
+            true
         );
     }
 

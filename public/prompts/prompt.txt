@@ -13,8 +13,8 @@ Your response JSON format is
     "has_documentation":"",
 }
 where
-name: name of tool
-summary: This is short summary of the AI tool
+name: name of the tool
+summary: This is short summary (in 300 to 1000 words) of the AI tool in HTML format
 top_features: array of features. like "feature name: feature details"
 use_cases: possible use cases of this tool.
 pricing_type: choose between "{{ $pricingTypeString }}"

@@ -7,11 +7,11 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
     @hasSection('description')
-        <meta name="description" content="@yield('description')">
+    <meta name="description" content="@yield('description')">
     @endif
 
     @hasSection('conical_url')
-        <link rel="canonical" href="@yield('conical_url')">
+    <link rel="canonical" href="@yield('conical_url')">
     @endif
 
     @include('partials.favicon-tags')
@@ -31,17 +31,9 @@
 
     @include('partials.navbar')
 
-    <div class="w-full flex flex-col gap-10 px-3 md:px-16 lg:px-28 md:flex-row font-sans">
-
-        <main class="md:w-2/3 lg:w-3/4">
-            @yield('content')
-        </main>
-
-        <aside class="md:w-1/3 lg:w-1/4 py-4">
-            @yield('aside')
-        </aside>
-
-    </div>
+    <main class="min-h-screen">
+        @yield('content')
+    </main>
 
     @include('partials.footer')
 
