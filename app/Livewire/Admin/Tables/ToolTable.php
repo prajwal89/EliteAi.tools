@@ -51,7 +51,7 @@ final class ToolTable extends PowerGridComponent
 
     public function datasource(): Builder
     {
-        return DB::table('tools');
+        return DB::table('tools')->orderBy('id', 'desc');
     }
 
     public function addColumns(): PowerGridColumns
@@ -89,13 +89,13 @@ final class ToolTable extends PowerGridComponent
                 ->sortable()
                 ->searchable(),
 
-            Column::make('Summary', 'summary')
-                ->sortable()
-                ->searchable(),
+            // Column::make('Summary', 'summary')
+            //     ->sortable()
+            //     ->searchable(),
 
-            Column::make('Domain name', 'domain_name')
-                ->sortable()
-                ->searchable(),
+            // Column::make('Domain name', 'domain_name')
+            //     ->sortable()
+            //     ->searchable(),
 
             Column::make('Home page url', 'home_page_url')
                 ->sortable()
