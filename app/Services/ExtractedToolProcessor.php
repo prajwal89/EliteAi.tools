@@ -113,9 +113,9 @@ class ExtractedToolProcessor
 
     public static function buildSystemPrompt($systemPromptTxtFileLocation): string
     {
-        $categoriesString = Category::all()->pluck('name')->implode(',');
+        $categoriesString = Category::all()->pluck('name')->implode(', ');
 
-        $pricingTypeString = collect(PricingType::values())->implode(',');
+        $pricingTypeString = collect(PricingType::values())->implode(', ');
 
         return str(file_get_contents($systemPromptTxtFileLocation))
             ->replace('{{ $categoriesString }}', $categoriesString)
