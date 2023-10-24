@@ -111,6 +111,11 @@
                     </li>
                 @endforeach
             </ul>
+            <div class="flex justify-end px-2">
+                <a class="text-blue-600" href="">
+                    View all
+                </a>
+            </div>
         </div>
     @endif
 @stop
