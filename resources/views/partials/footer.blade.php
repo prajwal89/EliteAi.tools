@@ -8,8 +8,8 @@
                 </span>
             </a>
             <div class="mt-6 lg:max-w-sm ">
-                {{ config('app.name') }} is a platform where students and educators can share educational resources such
-                as notes, lecture slides, study guides, and practice exams.
+                Discover a world of AI-powered solutions on our website! Explore a curated list of cutting-edge AI tools
+                designed to simplify tasks, enhance productivity, and unlock new possibilities.
             </div>
         </div>
         <div class="space-y-2 text-sm">
@@ -37,11 +37,6 @@
             <p class="text-base font-bold tracking-wide text-gray-900">Links</p>
             <div class="flex gap-3 flex-col mt-2 text-sm">
                 <a href="">Search</a>
-            </div>
-
-            <p class="text-base font-bold tracking-wide text-gray-900 mt-4">More Websites</p>
-            <div class="flex gap-3 flex-col mt-2 text-sm">
-                <a href="">McqMate - MCQs portal</a>
             </div>
         </div>
     </div>
