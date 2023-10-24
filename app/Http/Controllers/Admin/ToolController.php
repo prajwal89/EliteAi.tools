@@ -157,6 +157,9 @@ class ToolController extends Controller
      */
     public function destroy(string $id)
     {
+        Tool::find($id)->delete();
+
+        return redirect()->route('admin.tools.index')->with('success', 'deleted successfully');
     }
 
     public function import(Request $request)

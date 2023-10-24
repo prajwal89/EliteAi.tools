@@ -1,7 +1,7 @@
 @extends('layouts.app')
 
 @section('content')
-    <div class="px-4 mx-auto max-w-5xl">
+    <div class="px-4 mx-auto max-w-7xl">
 
         <h1 class="mt-8 mb-12 flex gap-2 md:gap-4 items-center">
             @if (!empty($tool->uploaded_favicon))
@@ -69,8 +69,7 @@
 
         </fieldset>
 
-
-        <article class="prose lg:prose-lg pt-12 pb-16">
+        <article class="prose max-w-screen-lg lg:prose-lg pt-12 pb-16">
             <h2>What is {{ $tool->name }}</h2>
             <p>{{ $tool->summary }}</p>
 
@@ -95,4 +94,22 @@
 
         </article>
     </div>
+@stop
+
+
+@section('aside')
+    @if (!empty($relatedTools))
+        <div class="">
+            <h3 class="font-semibold">Related Tools</h3>
+            <ul class="flex flex-col gap-2 p-2">
+                @foreach ($relatedTools as $relatedTool)
+                    <li class="border rounded-lg hover:shadow px-2 py-1">
+                        <a class="text-lg font-semibold hover:underline"
+                            href="{{ route('tools.show', ['tool' => $relatedTool->slug]) }}">{{ $relatedTool->name }}</a>
+                        <p>{{ truncate($relatedTool->summary, 72) }}</p>
+                    </li>
+                @endforeach
+            </ul>
+        </div>
+    @endif
 @stop

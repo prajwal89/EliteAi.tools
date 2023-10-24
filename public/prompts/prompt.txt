@@ -5,6 +5,7 @@ Your response JSON format is
     "name":"",
     "tag_line",""
     "summary":"",
+    "description":"",
     "top_features":["",""]
     "use_cases":["",""]
     "pricing_type":"",
@@ -14,7 +15,8 @@ Your response JSON format is
 }
 where
 name: name of the tool
-summary: This is short summary (in 300 to 1000 words) of the AI tool in HTML format
+summary: Short summary of the AI tool for serp description.
+description: This HTML document provides a description of the AI tool in the third person, using proper HTML tags.
 top_features: array of features. like "feature name: feature details"
 use_cases: possible use cases of this tool.
 pricing_type: choose between "{{ $pricingTypeString }}"

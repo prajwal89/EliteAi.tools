@@ -14,7 +14,10 @@ class ToolController extends Controller
     public function show(Request $request, string $slug)
     {
         $tool = Tool::where('slug', $slug)->firstOrFail();
-
-        return view('tools.show', ['tool' => $tool]);
+        $relatedTools = Tool::all();
+        return view('tools.show', [
+            'tool' => $tool,
+            'relatedTools' => $relatedTools
+        ]);
     }
 }
