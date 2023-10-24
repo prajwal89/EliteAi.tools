@@ -32,6 +32,11 @@
                 </div>
 
                 <div class="form-group mb-4">
+                    <label class="fw-bold">description</label>
+                    <textarea type="text" class="form-control" name="description">{{ $toolDto->description ?? '' }}</textarea>
+                </div>
+
+                <div class="form-group mb-4">
                     <label class="fw-bold">categories</label>
                     <select id="categories" name="categories[]" multiple placeholder="Select Appropriate Categories"
                         autocomplete="off" class="rounded-lg">
@@ -116,7 +121,8 @@
                     @if (!empty($toolDto->useCases))
                         @foreach ($toolDto->useCases as $useCase)
                             <div class="input-group mt-2">
-                                <input type="text" value="{{ $useCase }}" class="form-control" name="use_cases[]">
+                                <input type="text" value="{{ $useCase }}" class="form-control"
+                                    name="use_cases[]">
                                 <div class="input-group-append">
                                     <button type="button" class="btn btn-danger remove-use_cases">Remove</button>
                                     <button type="button" class="btn btn-success move-up">Up</button>

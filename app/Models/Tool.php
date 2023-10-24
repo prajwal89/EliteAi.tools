@@ -16,6 +16,7 @@ class Tool extends Model
         'slug',
         'tag_line',
         'summary',
+        'description',
         'domain_name',
         'pricing_type',
         'home_page_url',

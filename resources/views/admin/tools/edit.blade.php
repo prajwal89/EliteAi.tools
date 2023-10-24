@@ -39,6 +39,11 @@
                 </div>
 
                 <div class="form-group mb-4">
+                    <label class="fw-bold">description</label>
+                    <textarea type="text" class="form-control" name="description">{{ $tool->description ?? '' }}</textarea>
+                </div>
+
+                <div class="form-group mb-4">
                     <label class="fw-bold">categories</label>
                     <select id="categories" name="categories[]" multiple placeholder="Select Appropriate Categories"
                         autocomplete="off" class="rounded-lg">

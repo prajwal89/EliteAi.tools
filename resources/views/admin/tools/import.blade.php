@@ -35,11 +35,10 @@
 
         <div class="p-4">
             @php
-
                 $prompt = \App\Services\ExtractedToolProcessor::buildSystemPrompt(public_path('/prompts/prompt.txt'));
-
-                echo nl2br($prompt);
+                // echo nl2br($prompt);
             @endphp
+            <textarea class="form-control" name="" id="prompt" cols="100" rows="20">{{ $prompt }}</textarea>
         </div>
 
     </div>

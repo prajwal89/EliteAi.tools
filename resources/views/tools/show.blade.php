@@ -71,7 +71,8 @@
 
         <article class="prose max-w-screen-lg lg:prose-lg pt-12 pb-16">
             <h2>What is {{ $tool->name }}</h2>
-            <p>{{ $tool->summary }}</p>
+
+            {!! $tool->description !!}
 
             @if (!empty($tool->top_features))
                 <h3>Features:</h3>

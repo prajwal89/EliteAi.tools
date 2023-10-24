@@ -60,6 +60,7 @@ class ToolController extends Controller
                 'tag_line' => $request->tag_line,
                 'pricing_type' => $request->pricing_type,
                 'summary' => $request->summary,
+                'description' => $request->description,
                 'domain_name' => $request->domain_name,
                 'home_page_url' => $request->home_page_url,
                 'top_features' => collect($request->top_features)->filter(function ($value) {
@@ -134,6 +135,7 @@ class ToolController extends Controller
                 'tag_line' => $request->tag_line,
                 'pricing_type' => $request->pricing_type,
                 'summary' => $request->summary,
+                'description' => $request->description,
                 'domain_name' => $request->domain_name,
                 'home_page_url' => $request->home_page_url,
                 'top_features' => collect($request->top_features)->filter(function ($value) {
