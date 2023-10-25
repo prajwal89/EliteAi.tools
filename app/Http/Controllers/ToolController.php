@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\DTOs\PageDataDTO;
+use App\Models\Category;
 use App\Models\Tool;
 use Illuminate\Http\Request;
 use Illuminate\View\View;
@@ -19,9 +20,12 @@ class ToolController extends Controller
 
         $relatedTools = Tool::all();
 
+        $categories = Category::has('tools')->take(9)->get();
+
         return view('tools.show', [
             'tool' => $tool,
             'relatedTools' => $relatedTools,
+            'categories' => $categories,
             'pageDataDTO' => new PageDataDTO(
                 title: $tool->name . ' - Reviews, Pricing, Use cases, Features',
                 description: $tool->summary,

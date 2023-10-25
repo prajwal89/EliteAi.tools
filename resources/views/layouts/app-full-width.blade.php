@@ -7,11 +7,11 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
     @hasSection('description')
-    <meta name="description" content="@yield('description')">
+        <meta name="description" content="@yield('description')">
     @endif
 
     @hasSection('conical_url')
-    <link rel="canonical" href="@yield('conical_url')">
+        <link rel="canonical" href="@yield('conical_url')">
     @endif
 
     @include('partials.favicon-tags')
@@ -31,7 +31,7 @@
 
     @include('partials.navbar')
 
-    <main class="min-h-screen">
+    <main class="min-h-screen px-2 mx-auto">
         @yield('content')
     </main>
 

@@ -1,4 +1,4 @@
-@extends('layouts.app')
+@extends('layouts.app-full-width')
 @section('title', $pageDataDTO->title)
 @section('description', $pageDataDTO->description)
 @section('conical_url', $pageDataDTO->conicalUrl)
@@ -8,7 +8,7 @@
 @stop
 
 @section('content')
-    <div class="mx-auto max-w-7xl">
+    <div class="mx-auto max-w-3xl ">
 
         <h1 class="mt-8 mb-12 flex gap-2 md:gap-4 items-center">
             @if (!empty($tool->uploaded_favicon))
@@ -71,13 +71,61 @@
                 Visit website
             </a>
         </div>
+
+    </div>
+
+
+    <div class="max-w-6xl mx-auto my-8">
+        <div class="flex justify-center relative">
+            <span class="text-2xl md:text-3xl font-bold">
+                Related Tools
+            </span>
+        </div>
+        <ul class="grid gap-8 md:grid-cols-2 lg:grid-cols-3 p-2 xl:p-5">
+            @foreach ($relatedTools as $vTool)
+                <x-tool-card.square :tool="$vTool" />
+            @endforeach
+        </ul>
     </div>
 @stop
 
 
-@section('aside')
+{{-- @section('aside')
     @if (!empty($relatedTools))
-        <div class="">
+        <div class="my-4 md:my-8">
+            <div class="flex justify-center relative">
+                <span class="text-xl md:text-xl font-bold">
+                    Categories
+                </span>
+            </div>
+            <ul class="flex gap-2 my-1 flex-wrap justify-center p-2">
+                @foreach ($categories as $c)
+                    <li
+                        class="px-2 py-1 md:text-lg relative bg-gray-100 rounded-lg select-none cursor-pointer hover:shadow hover:shadow-primary-500 hover:outline hover:outline-primary-600">
+                        <a href="{{ route('category.show', ['category' => $c->slug]) }}">
+                            {{ $c->name }}
+                        </a>
+                    </li>
+                @endforeach
+            </ul>
+        </div>
+
+
+
+        <div class="md:hidden">
+            <div class="flex justify-center relative">
+                <span class="text-2xl md:text-3xl font-bold">
+                    Related Tools
+                </span>
+            </div>
+            <ul class="grid gap-8 md:grid-cols-2 lg:grid-cols-3 p-2 xl:p-5 ">
+                @foreach ($relatedTools as $vTool)
+                    <x-tool-card.square :tool="$vTool" />
+                @endforeach
+            </ul>
+        </div>
+
+        <div class="hidden md:block">
             <h3 class="font-semibold">Related Tools</h3>
             <ul class="flex flex-col gap-2 p-2">
                 @foreach ($relatedTools as $relatedTool)
@@ -95,4 +143,4 @@
             </div>
         </div>
     @endif
-@stop
+@stop --}}

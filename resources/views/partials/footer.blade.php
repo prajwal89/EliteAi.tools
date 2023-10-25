@@ -36,7 +36,7 @@
         <div class="text-gray-500">
             <p class="text-base font-bold tracking-wide text-gray-900">Links</p>
             <div class="flex gap-3 flex-col mt-2 text-sm">
-                <a href="">Search</a>
+                <a href="/">Home</a>
             </div>
         </div>
     </div>
