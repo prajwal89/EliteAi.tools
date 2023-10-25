@@ -42,8 +42,9 @@
             {{ $tool->summary }}
         </p>
 
-        <ul class="flex flex-wrap justify-start my-1 text-xs gap-2">
-            <li class="flex items-center gap-0.5 bg-gray-200/50 text-black px-2 py-0.5 rounded-full">
+        <ul class="flex flex-wrap items-center justify-start my-1 text-sm gap-2">
+            <li title="Pricing type"
+                class="flex items-center cursor-pointer gap-0.5 bg-gray-200/50 text-black px-2 py-0.5 rounded-full">
                 <svg class="w-4 h-4" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24"
                     stroke-width="1.5" stroke="currentColor">
                     <path stroke-linecap="round" stroke-linejoin="round"
@@ -51,6 +52,18 @@
                 </svg>
                 <span>{{ $tool->pricing_type }}</span>
             </li>
+
+            @if ($tool->has_api)
+                <li title="Support for API"
+                    class="flex items-center cursor-pointer gap-0.5 bg-gray-200/50 text-black px-2 py-0.5 rounded-full">
+                    <svg class="w-4 h-4" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none">
+                        <path
+                            d="M17 9V12C17 14.7614 14.7614 17 12 17M7 9V12C7 14.7614 9.23858 17 12 17M12 17V21M8 3V6M16 3V6M5 9H19"
+                            stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" />
+                    </svg>
+                    <span>API</span>
+                </li>
+            @endif
         </ul>
 
         <ul class="flex flex-wrap text-sm gap-2 my-2">
@@ -58,7 +71,6 @@
                 <li>
                     <a class="flex items-center gap-2 hover:text-primary-600"
                         href="{{ route('category.show', ['category' => $category->slug]) }}">
-
                         <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5"
                             stroke="currentColor" class="w-4 h-4">
                             <path stroke-linecap="round" stroke-linejoin="round"
