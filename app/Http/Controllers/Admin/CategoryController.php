@@ -29,13 +29,15 @@ class CategoryController extends Controller
      */
     public function store(Request $request)
     {
-        Category::create([
+        $category = Category::create([
             'name' => $request->name,
             'slug' => str($request->name)->slug(),
             'description' => $request->description,
         ]);
 
-        return redirect()->back()->with('success', 'category created successfully');
+        return redirect()
+            ->route('admin.categories.edit', ['category' => $category->id])
+            ->with('success', 'category created successfully');
     }
 
     /**

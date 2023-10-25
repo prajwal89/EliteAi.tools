@@ -28,7 +28,11 @@
         <h1 class="mx-auto my-8 md:my-12 text-center z-10">
             <span class="block font-bold text-2xl sm:text-3xl md:text-5xl">
                 @if (isset($category))
-                    {{ $category->tools()->count() }} {{ $category->name }} AI tools
+                    <big>{{ $category->tools()->count() }}</big> {{ $category->name }} AI tools
+
+                    @if (isAdmin())
+                        <a href="{{ route('admin.categories.edit', ['category' => $category->id]) }}">...</a>
+                    @endif
                 @else
                     {{ config('app.name') }}
                 @endif

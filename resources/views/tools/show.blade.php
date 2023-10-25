@@ -12,7 +12,7 @@
 
         <h1 class="mt-8 mb-12 flex gap-2 md:gap-4 items-center">
             @if (!empty($tool->uploaded_favicon))
-                <img class="h-8 w-8 md:h-14 md:w-14 bg-white shadow rounded-sm md:rounded-xl"
+                <img class="h-10 w-10 md:h-14 md:w-14 bg-white shadow rounded-sm md:rounded-xl"
                     src="{{ asset('/tools/' . $tool->slug . '/favicon.webp') }}" alt="{{ $tool->name }} favicon">
             @endif
             <div>

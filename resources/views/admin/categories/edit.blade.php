@@ -3,11 +3,24 @@
 @section('content')
     <div class="card">
 
-        <div class="card-header d-flex justify-content-between">
+        {{-- <div class="card-header d-flex justify-content-between">
             <h3>Edit Category</h3>
             <button type="button" class="btn btn-outline-danger" data-bs-toggle="modal" data-bs-target="#deleteModal">
                 Delete
             </button>
+        </div> --}}
+
+        <div class="card-header d-flex justify-content-between">
+            <span>Edit Category</span>
+            <div>
+                <a class="btn btn-outline-primary float-right" target="_blank"
+                    href="{{ route('category.show', ['category' => $category->slug]) }}">
+                    View
+                </a>
+                <button type="button" class="btn btn-outline-danger" data-bs-toggle="modal" data-bs-target="#deleteModal">
+                    Delete
+                </button>
+            </div>
         </div>
 
         <div class="card-body">

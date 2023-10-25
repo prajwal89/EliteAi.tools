@@ -47,7 +47,7 @@ final class CategoryTable extends PowerGridComponent
 
     public function datasource(): Builder
     {
-        return DB::table('categories');
+        return DB::table('categories')->orderBy('id', 'desc');
     }
 
     public function addColumns(): PowerGridColumns
