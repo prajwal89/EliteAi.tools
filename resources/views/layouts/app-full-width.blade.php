@@ -31,7 +31,7 @@
 
     @include('partials.navbar')
 
-    <main class="min-h-screen px-2 mx-auto">
+    <main class="min-h-screen mx-auto">
         @yield('content')
     </main>
 

@@ -8,7 +8,7 @@
 @stop
 
 @section('content')
-    <div class="mx-auto max-w-3xl ">
+    <div class="mx-auto max-w-3xl px-2">
 
         <h1 class="mt-8 mb-12 flex gap-2 md:gap-4 items-center">
             @if (!empty($tool->uploaded_favicon))
@@ -75,7 +75,7 @@
     </div>
 
 
-    <div class="max-w-6xl mx-auto my-8">
+    <div class="max-w-6xl mx-auto my-8 px-2">
         <div class="flex justify-center relative">
             <span class="text-2xl md:text-3xl font-bold">
                 Related Tools
