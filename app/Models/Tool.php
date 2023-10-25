@@ -32,6 +32,8 @@ class Tool extends Model
         'twitter_id',
         'linkedin_id',
         'linkedin_company_id',
+        'android_app_id',
+        'ios_app_id',
     ];
 
     protected $casts = [

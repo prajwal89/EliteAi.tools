@@ -64,11 +64,16 @@ class ToolController extends Controller
                 'contact_email' => $request->contact_email,
                 'domain_name' => $request->domain_name,
                 'home_page_url' => $request->home_page_url,
+
                 'instagram_id' => $request->instagram_id,
                 'twitter_id' => $request->twitter_id,
                 'tiktok_id' => $request->tiktok_id,
                 'linkedin_id' => $request->linkedin_id,
                 'linkedin_company_id' => $request->linkedin_company_id,
+
+                'ios_app_id' => $request->ios_app_id,
+                'android_app_id' => $request->android_app_id,
+
                 'top_features' => collect($request->top_features)->filter(function ($value) {
                     return !empty($value);
                 }),
@@ -151,11 +156,16 @@ class ToolController extends Controller
                 'domain_name' => $request->domain_name,
                 'contact_email' => $request->contact_email,
                 'home_page_url' => $request->home_page_url,
+
                 'instagram_id' => $request->instagram_id,
                 'twitter_id' => $request->twitter_id,
                 'tiktok_id' => $request->tiktok_id,
                 'linkedin_id' => $request->linkedin_id,
                 'linkedin_company_id' => $request->linkedin_company_id,
+
+                'ios_app_id' => $request->ios_app_id,
+                'android_app_id' => $request->android_app_id,
+
                 'top_features' => collect($request->top_features)->filter(function ($value) {
                     return !empty($value);
                 }),
