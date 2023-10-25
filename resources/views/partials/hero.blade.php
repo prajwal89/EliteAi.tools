@@ -1,4 +1,4 @@
-<div class="px-4 mb-4 pb-8 bg-gradient-to-b from-gray-200 via-gray-100 to-white relative">
+<div class="px-4 mb-4 pb-8 bg-gradient-to-b from-primary-100 via-primary-50 to-white relative">
     <div class="flex flex-col items-center w-full min-h-[280px] md:min-h-[420px]  relative z-10">
         <div class="absolute inset-0 blur-[1px] -z-10">
             <img class="animate-img opacity-90 absolute w-10 h-10" style="top: 70%; left: 46%;"
@@ -37,7 +37,7 @@
                     {{ config('app.name') }}
                 @endif
             </span>
-            <span class="text-lg block sm:text-xl text-gray-700 pt-4">
+            <span class="text-lg block sm:text-xl pt-4 w-full max-w-5xl mx-auto">
                 @if (isset($category))
                     {{ $category->description }}
                 @else
