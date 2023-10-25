@@ -31,7 +31,7 @@
 
     @include('partials.navbar')
 
-    <div class="w-full flex flex-col gap-4 px-3 md:px-16 lg:px-28 md:flex-row font-sans">
+    <div class="w-full flex flex-col gap-4 px-2 md:px-16 lg:px-28 md:flex-row font-sans">
 
         <main class="md:w-2/3 lg:w-3/4">
             @yield('content')
