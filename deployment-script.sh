@@ -3,6 +3,8 @@ php vendor/bin/pint
 php artisan test
 php artisan dusk
 
+php artisan migrate
+
 # *deployment script
 cd domains/clgnotes.esy.es/public_html
 git stash

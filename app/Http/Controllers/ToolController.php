@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\DTOs\PageDataDTO;
 use App\Models\Tool;
 use Illuminate\Http\Request;
 
@@ -19,6 +20,12 @@ class ToolController extends Controller
         return view('tools.show', [
             'tool' => $tool,
             'relatedTools' => $relatedTools,
+            'pageDataDTO' => new PageDataDTO(
+                title: $tool->name . ' - Reviews, Pricing, Use cases, Features',
+                description: $tool->summary,
+                conicalUrl: route('tool.show', ['tool' => $tool->slug]),
+                thumbnailUrl: asset('/tools/' . $tool->slug . '/screenshot.webp')
+            )
         ]);
     }
 }
