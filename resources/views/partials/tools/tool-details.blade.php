@@ -17,12 +17,11 @@
              </div>
 
              <p class="py-2">
-                 Home page: <a class="text-primary-600" href="{{ $tool->home_page_url }}">{{ $tool->home_page_url }}</a>
+                 <span>Home page: </span>
+                 <a class="text-primary-600" href="{{ $tool->home_page_url }}">{{ $tool->home_page_url }}</a>
              </p>
 
-
-
-             <div class="flex gap-2 py-2">
+             <div class="flex items-center gap-2 py-2">
                  <span>Categories:</span>
                  <ul class="flex flex-wrap text-sm gap-2">
                      @foreach ($tool->categories as $category)
@@ -42,7 +41,6 @@
                      @endforeach
                  </ul>
              </div>
-
 
              @if (
                  !empty($tool->instagram_id) ||

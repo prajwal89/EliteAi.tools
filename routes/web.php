@@ -11,6 +11,7 @@ Route::get('/', HomeController::class)->name('home');
 
 Route::controller(ToolController::class)->prefix('tool')->name('tool.')->group(function () {
     Route::get('{tool:slug}', 'show')->name('show');
+    Route::get('{tool:slug}/alternatives', 'alternatives')->name('alternatives');
 });
 
 Route::controller(CategoryController::class)->prefix('category')->name('category.')->group(function () {

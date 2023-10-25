@@ -8,6 +8,10 @@ module.exports = {
         "!./resources/views/layouts/admin.blade.php",
     ],
     theme: {
+        fontFamily: {
+            serif: ['Fraunces', 'serif'],
+            sans: ['Alegreya Sans', 'sans'],
+        },
         extend: {
             colors: {
                 primary: {
