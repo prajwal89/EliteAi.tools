@@ -1,19 +1,32 @@
      {{-- Create table from this --}}
-     <fieldset class="text-sm rounded-lg py-2 mt-8">
+     <fieldset class="rounded-lg py-2 mt-8">
          <legend class="text-xl font-semibold">
              Details
          </legend>
          <div class="px-2 py-2">
-             <div class="flex gap-2 py-2">
-                 <span>Pricing Type:</span>
-                 <button class="flex items-center gap-0.5 bg-gray-200/50 text-black px-2 py-0.5 rounded-full">
-                     <svg class="w-4 h-4" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24"
+             <div class="flex gap-2 items-center py-2">
+                 <span>Features:</span>
+                 <div title="Pricing type"
+                     class="flex items-center gap-0.5 bg-gray-200/50 text-black px-2 py-0.5 rounded-full">
+                     <svg class="w-5 h-5" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24"
                          stroke-width="1.5" stroke="currentColor">
                          <path stroke-linecap="round" stroke-linejoin="round"
                              d="M12 6v12m-3-2.818l.879.659c1.171.879 3.07.879 4.242 0 1.172-.879 1.172-2.303 0-3.182C13.536 12.219 12.768 12 12 12c-.725 0-1.45-.22-2.003-.659-1.106-.879-1.106-2.303 0-3.182s2.9-.879 4.006 0l.415.33M21 12a9 9 0 11-18 0 9 9 0 0118 0z" />
                      </svg>
                      <span>{{ $tool->pricing_type }}</span>
-                 </button>
+                 </div>
+                 @if ($tool->has_api)
+                     <div titel="Support for API"
+                         class="flex items-center gap-0.5 bg-gray-200/50 text-black px-2 py-0.5 rounded-full">
+                         <svg class="w-5 h-5" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none">
+                             <path
+                                 d="M17 9V12C17 14.7614 14.7614 17 12 17M7 9V12C7 14.7614 9.23858 17 12 17M12 17V21M8 3V6M16 3V6M5 9H19"
+                                 stroke="currentColor" stroke-width="2" stroke-linecap="round"
+                                 stroke-linejoin="round" />
+                         </svg>
+                         <span>API</span>
+                     </div>
+                 @endif
              </div>
 
              <p class="py-2">
@@ -144,12 +157,14 @@
                      @if (!empty($tool->android_app_id))
                          <a target="_blank"
                              href="https://play.google.com/store/apps/details?id={{ $tool->android_app_id }}">
-                             <img class="h-8" src="{{ asset('/images/play-store-logo.png') }}" alt="Playstore Logo">
+                             <img class="h-8" src="{{ asset('/images/play-store-logo.png') }}"
+                                 alt="Playstore Logo">
                          </a>
                      @endif
                      @if (!empty($tool->ios_app_id))
                          <a target="_blank" href="https://apps.apple.com/app/{{ $tool->ios_app_id }}">
-                             <img class="h-10" src="{{ asset('/images/app-store-logo.png') }}" alt="AppStore Logo">
+                             <img class="h-10" src="{{ asset('/images/app-store-logo.png') }}"
+                                 alt="AppStore Logo">
                          </a>
                      @endif
                  </div>

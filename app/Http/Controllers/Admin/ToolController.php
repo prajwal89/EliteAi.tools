@@ -77,6 +77,8 @@ class ToolController extends Controller
                 'chrome_extension_id' => $request->chrome_extension_id,
                 'firefox_extension_id' => $request->firefox_extension_id,
 
+                'has_api' => $request->has('has_api'),
+
                 'top_features' => collect($request->top_features)->filter(function ($value) {
                     return !empty($value);
                 }),
@@ -171,6 +173,8 @@ class ToolController extends Controller
 
                 'chrome_extension_id' => $request->chrome_extension_id,
                 'firefox_extension_id' => $request->firefox_extension_id,
+
+                'has_api' => $request->has('has_api'),
 
                 'top_features' => collect($request->top_features)->filter(function ($value) {
                     return !empty($value);

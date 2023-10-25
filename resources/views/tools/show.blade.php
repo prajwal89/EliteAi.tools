@@ -90,7 +90,7 @@
             </ul>
             <div class="flex justify-end px-2">
                 <a class="text-primary-600" href="{{ route('tool.alternatives', ['tool' => $tool->slug]) }}">
-                    Visit alternative website
+                    View all
                 </a>
             </div>
         </div>
