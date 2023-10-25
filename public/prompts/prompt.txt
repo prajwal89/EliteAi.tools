@@ -1,5 +1,5 @@
-I am will give you the content of the AI tool website. 
-after that you will return JSON
+I will give you the content of the AI tool website. 
+after that, you will return JSON
 Your response JSON format is
 {
     "name":"",
@@ -15,7 +15,7 @@ Your response JSON format is
 }
 where
 name: name of the tool
-summary: Short summary of the AI tool for serp description.
+summary: Short summary of the AI tool for SERP description.
 description: This HTML document provides a description of the AI tool in the third person, using proper HTML tags.
 top_features: array of features. like "feature name: feature details"
 use_cases: possible use cases of this tool.
