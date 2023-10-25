@@ -37,7 +37,7 @@
             {{ $tool->name }} - {{ $tool->tag_line }}
         </a>
 
-        <p class="text-gray-700 break-all"
+        <p class="text-gray-600 break-all"
             style="display: -webkit-box; -webkit-line-clamp: 2; -webkit-box-orient: vertical; overflow: hidden; text-overflow: ellipsis;">
             {{ $tool->summary }}
         </p>

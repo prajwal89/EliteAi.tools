@@ -89,8 +89,8 @@
                 @endforeach
             </ul>
             <div class="flex justify-end px-2">
-                <a class="text-blue-600" href="">
-                    View all
+                <a class="text-primary-600" href="{{ route('tool.alternatives', ['tool' => $tool->slug]) }}">
+                    Visit alternative website
                 </a>
             </div>
         </div>
