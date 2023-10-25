@@ -9,7 +9,12 @@
                     src="{{ asset('/tools/' . $tool->slug . '/favicon.webp') }}" alt="{{ $tool->name }} favicon">
             @endif
             <div>
-                <span class="font-bold text-2xl sm:text-3xl md:text-5xl">{{ $tool->name }}</span>
+                <span class="font-bold text-2xl sm:text-3xl md:text-4xl">
+                    {{ $tool->name }}
+                    @if (isAdmin())
+                        <a href="{{ route('admin.tools.edit', ['tool' => $tool->id]) }}">...</a>
+                    @endif
+                </span>
                 <br>
                 <span class="font-semibold text-md md:text-xl text-gray-600">{{ $tool->tag_line }}</span>
             </div>
@@ -25,49 +30,7 @@
             @endif
         </div>
 
-        {{-- border-2 border-gray-300 --}}
-        <fieldset class="text-lg rounded-lg py-2 mt-8">
-            <legend class="text-xl font-semibold">
-                Details
-            </legend>
-
-            <div class="px-2 py-2">
-                <p class="flex gap-2 pb-4 text-sm">
-                    <span>Pricing:</span>
-                    <button class="flex items-center gap-0.5 bg-gray-200/50 text-black px-2 py-0.5 rounded-full">
-                        <svg class="w-4 h-4" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24"
-                            stroke-width="1.5" stroke="currentColor">
-                            <path stroke-linecap="round" stroke-linejoin="round"
-                                d="M12 6v12m-3-2.818l.879.659c1.171.879 3.07.879 4.242 0 1.172-.879 1.172-2.303 0-3.182C13.536 12.219 12.768 12 12 12c-.725 0-1.45-.22-2.003-.659-1.106-.879-1.106-2.303 0-3.182s2.9-.879 4.006 0l.415.33M21 12a9 9 0 11-18 0 9 9 0 0118 0z" />
-                        </svg>
-                        <span>{{ $tool->pricing_type }}</span>
-                    </button>
-                </p>
-                <div class="flex gap-2 pb-4 text-sm">
-                    {{-- <span>Categories:</span> --}}
-                    <ul class="flex flex-wrap justify-center pr-2 text-sm gap-2">
-                        @foreach ($tool->categories as $category)
-                            <li>
-                                <a class="flex items-center gap-2 hover:text-primary-600"
-                                    href="{{ route('category.show', ['category' => $category->slug]) }}">
-
-                                    <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24"
-                                        stroke-width="1.5" stroke="currentColor" class="w-4 h-4">
-                                        <path stroke-linecap="round" stroke-linejoin="round"
-                                            d="M9.568 3H5.25A2.25 2.25 0 003 5.25v4.318c0 .597.237 1.17.659 1.591l9.581 9.581c.699.699 1.78.872 2.607.33a18.095 18.095 0 005.223-5.223c.542-.827.369-1.908-.33-2.607L11.16 3.66A2.25 2.25 0 009.568 3z" />
-                                        <path stroke-linecap="round" stroke-linejoin="round" d="M6 6h.008v.008H6V6z" />
-                                    </svg>
-                                    <span>{{ $category->name }}</span>
-                                </a>
-                            </li>
-                        @endforeach
-                    </ul>
-                </div>
-            </div>
-
-
-
-        </fieldset>
+        @include('partials.tools.tool-details')
 
         <article class="prose max-w-screen-lg lg:prose-lg pt-12 pb-4">
             <h2>What is {{ $tool->name }}</h2>
