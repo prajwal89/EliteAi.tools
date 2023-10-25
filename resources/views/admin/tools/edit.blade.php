@@ -8,13 +8,17 @@
 @section('content')
     <div class="card">
 
-        <div class="card-header">
-            Edit tool
+        <div class="card-header d-flex justify-content-between">
+            <span>Edit tool</span>
 
-            <a class="btn btn-outline-primary float-right" href="{{ route('tool.show', ['tool' => $tool->slug]) }}">View</a>
-            <button type="button" class="btn btn-outline-danger" data-bs-toggle="modal" data-bs-target="#deleteModal">
-                Delete
-            </button>
+            <div>
+
+                <a class="btn btn-outline-primary float-right"
+                    href="{{ route('tool.show', ['tool' => $tool->slug]) }}">View</a>
+                <button type="button" class="btn btn-outline-danger" data-bs-toggle="modal" data-bs-target="#deleteModal">
+                    Delete
+                </button>
+            </div>
         </div>
 
         <div class="card-body">
@@ -192,11 +196,27 @@
                     <p class="fw-bold text-success text-lg">Apps</p>
                     <div class="form-group mb-4">
                         <label class="fw-bold">android_app_id</label>
-                        <input type="text" placeholder="com.mcqmate.app" class="form-control" name="android_app_id">
+                        <input type="text" placeholder="com.mcqmate.app" value="{{ $tool->android_app_id }}"
+                            class="form-control" name="android_app_id">
                     </div>
                     <div class="form-group mb-4">
                         <label class="fw-bold">ios_app_id</label>
-                        <input type="text" placeholder="id6445975220" class="form-control" name="ios_app_id">
+                        <input type="text" placeholder="id6445975220" value="{{ $tool->ios_app_id }}"
+                            class="form-control" name="ios_app_id">
+                    </div>
+                </div>
+
+                <div class="border p-2 my-4">
+                    <p class="fw-bold text-success text-lg">Extensions</p>
+                    <div class="form-group mb-4">
+                        <label class="fw-bold">chrome_extension_id</label>
+                        <input type="text" placeholder="nlipoenfbbikpbjkfpfillcgkoblgpmj"
+                            value="{{ $tool->chrome_extension_id }}" class="form-control" name="chrome_extension_id">
+                    </div>
+                    <div class="form-group mb-4">
+                        <label class="fw-bold">firefox_extension_id</label>
+                        <input type="text" placeholder="enhancer-for-youtube" class="form-control"
+                            value="{{ $tool->firefox_extension_id }}" name="firefox_extension_id">
                     </div>
                 </div>
 

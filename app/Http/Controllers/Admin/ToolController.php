@@ -74,6 +74,9 @@ class ToolController extends Controller
                 'ios_app_id' => $request->ios_app_id,
                 'android_app_id' => $request->android_app_id,
 
+                'chrome_extension_id' => $request->chrome_extension_id,
+                'firefox_extension_id' => $request->firefox_extension_id,
+
                 'top_features' => collect($request->top_features)->filter(function ($value) {
                     return !empty($value);
                 }),
@@ -165,6 +168,9 @@ class ToolController extends Controller
 
                 'ios_app_id' => $request->ios_app_id,
                 'android_app_id' => $request->android_app_id,
+
+                'chrome_extension_id' => $request->chrome_extension_id,
+                'firefox_extension_id' => $request->firefox_extension_id,
 
                 'top_features' => collect($request->top_features)->filter(function ($value) {
                     return !empty($value);

@@ -34,6 +34,8 @@ class Tool extends Model
         'linkedin_company_id',
         'android_app_id',
         'ios_app_id',
+        'chrome_extension_id',
+        'firefox_extension_id',
     ];
 
     protected $casts = [

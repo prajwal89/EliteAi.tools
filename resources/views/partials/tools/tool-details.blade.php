@@ -144,13 +144,54 @@
                  <div class="flex items-center gap-1 py-2">
                      <span>Apps:</span>
                      @if (!empty($tool->android_app_id))
-                         <a href="https://play.google.com/store/apps/details?id={{ $tool->android_app_id }}">
+                         <a target="_blank"
+                             href="https://play.google.com/store/apps/details?id={{ $tool->android_app_id }}">
                              <img class="h-8" src="{{ asset('/images/play-store-logo.png') }}" alt="Playstore Logo">
                          </a>
                      @endif
                      @if (!empty($tool->ios_app_id))
-                         <a href="https://apps.apple.com/app/{{ $tool->ios_app_id }}">
+                         <a target="_blank" href="https://apps.apple.com/app/{{ $tool->ios_app_id }}">
                              <img class="h-10" src="{{ asset('/images/app-store-logo.png') }}" alt="AppStore Logo">
+                         </a>
+                     @endif
+                 </div>
+             @endif
+
+             @if (!empty($tool->firefox_extension_id) || !empty($tool->chrome_extension_id))
+                 <div class="flex items-center gap-2 py-2">
+                     <span>Extension:</span>
+                     @if (!empty($tool->chrome_extension_id))
+                         <a target="_blank"
+                             class="text-gray-500 hover:text-gray-900 dark:hover:text-white dark:text-gray-400"
+                             href="https://chrome.google.com/webstore/detail/{{ $tool->chrome_extension_id }}">
+                             <svg class="w-6 h-6" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24">
+                                 <path
+                                     d="M11.8195 6.9C14.6795 6.28 17.5795 6.19 20.4495 6.66C18.6795 3.86 15.5595 2 11.9995 2C8.88953 2 6.10953 3.42 4.26953 5.65C4.70953 6.95 5.26953 8.19 5.93953 9.37C6.31953 10.05 7.28953 10.02 7.67953 9.35C8.52953 7.92 10.0595 6.96 11.8195 6.9Z"
+                                     fill="currentColor" />
+                                 <path
+                                     d="M7.72002 14.7214C5.72002 12.5814 4.16002 10.1414 3.09002 7.44141C1.59002 10.4014 1.60002 14.0314 3.43002 17.0814C5.03002 19.7514 7.67002 21.4114 10.53 21.8414C11.42 20.7914 12.2 19.6714 12.87 18.5014C13.26 17.8214 12.73 17.0114 11.95 17.0114C10.28 17.0214 8.67002 16.2014 7.72002 14.7214Z"
+                                     fill="currentColor" />
+                                 <path
+                                     d="M8.57031 11.9982C8.57031 12.6082 8.72031 13.1782 9.03031 13.7182C9.64031 14.7682 10.7703 15.4282 11.9903 15.4282C13.2103 15.4282 14.3503 14.7682 14.9503 13.7182C15.2603 13.1782 15.4203 12.6082 15.4203 11.9982C15.4203 10.1082 13.8803 8.57817 11.9903 8.57817C10.1103 8.56817 8.57031 10.1082 8.57031 11.9982Z"
+                                     fill="currentColor" />
+                                 <path
+                                     d="M21.3402 8.41931C19.9702 8.12931 18.5802 7.96931 17.2002 7.94931C16.4102 7.93931 15.9602 8.79931 16.3502 9.48931C16.7502 10.1993 16.9802 11.0193 16.9802 11.8893C16.9802 12.7293 16.7602 13.5593 16.3502 14.2993C15.4102 17.1793 14.0102 19.7393 12.1602 21.9993C17.6102 21.9093 22.0002 17.4693 22.0002 11.9993C22.0002 10.7393 21.7702 9.52931 21.3402 8.41931Z"
+                                     fill="currentColor" />
+                             </svg>
+                         </a>
+                     @endif
+                     @if (!empty($tool->firefox_extension_id))
+                         <a target="_blank"
+                             class="text-gray-500 hover:text-gray-900 dark:hover:text-white dark:text-gray-400"
+                             href="https://addons.mozilla.org/en-US/firefox/addon/{{ $tool->firefox_extension_id }}">
+                             <svg class="w-6 h-6" fill="currentColor" xmlns="http://www.w3.org/2000/svg"
+                                 viewBox="0 0 24 24">
+                                 <g>
+                                     <path fill="none" d="M0 0h24v24H0z" />
+                                     <path fill-rule="nonzero"
+                                         d="M12 2c5.523 0 10 4.477 10 10s-4.477 10-10 10S2 17.523 2 12c0-1.464.314-2.854.88-4.106.466-.939 1.233-1.874 1.85-2.194-.653 1.283-.973 2.54-1.04 3.383.454-1.5 1.315-2.757 2.52-3.644 2.066-1.519 4.848-1.587 5.956-.62-2.056.707-4.296 3.548-3.803 6.876.08.55.245 1.084.489 1.582-.384-1.01-.418-2.433.202-3.358.692-1.03 1.678-1.248 2.206-1.136-.208-.044-.668.836-.736.991-.173.394-.259.82-.251 1.25a3.395 3.395 0 0 0 1.03 2.38c1.922 1.871 5.023 1.135 6.412-1.002.953-1.471 1.069-3.968-.155-5.952a6.915 6.915 0 0 0-1.084-1.32c-1.85-1.766-4.48-2.57-6.982-2.205-1.106.177-2.047.496-2.824.956C7.755 2.798 9.91 2 12 2z" />
+                                 </g>
+                             </svg>
                          </a>
                      @endif
                  </div>
