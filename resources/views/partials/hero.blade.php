@@ -61,7 +61,6 @@
                 @if (isset($category) && $c->name == $category->name)
                     <li
                         class="px-2 py-1 md:text-lg relative bg-gray-100 rounded-lg select-none shadow shadow-primary-500 outline outline-primary-600">
-                        {{-- <span class="absolute top-0 right-0 text-xs rounded-full bg-gray-100/80">34</span> --}}
                         <a href="{{ route('category.show', ['category' => $c->slug]) }}">
                             {{ $c->name }}
                         </a>

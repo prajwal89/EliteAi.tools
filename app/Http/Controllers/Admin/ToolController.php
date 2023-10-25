@@ -95,7 +95,7 @@ class ToolController extends Controller
         return redirect()->route('admin.tools.edit', ['tool' => $tool->id])->with('success', '
         tool created successfully. 
         <br>
-        <a href="' . route('tool.show', ['tool' => $tool->id]) . '" target="_blank">View</a>
+        <a href="' . route('tool.show', ['tool' => $tool->slug]) . '" target="_blank">View</a>
         ');
     }
 
