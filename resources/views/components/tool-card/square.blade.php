@@ -33,12 +33,11 @@
 
     <div class="flex flex-col justify-beetween gap-3 px-4 py-3">
         <a href="{{ route('tool.show', ['tool' => $tool->slug]) }}"
-            class="text-xl font-semibold text-primary-700 hover:text-primary-800">
+            class="text-xl font-semibold text-primary-700 hover:text-primary-800 two-lines">
             {{ $tool->name }} - {{ $tool->tag_line }}
         </a>
 
-        <p class="text-gray-600 break-all"
-            style="display: -webkit-box; -webkit-line-clamp: 2; -webkit-box-orient: vertical; overflow: hidden; text-overflow: ellipsis;">
+        <p class="text-gray-600 two-lines">
             {{ $tool->summary }}
         </p>
 

@@ -8,17 +8,25 @@
     /* a {
         @apply hover:text-primary-600;
     } */
-    
+
     .btn-primary {
-        @apply py-1.5 px-3 text-center bg-primary-700 rounded-md text-white hover:bg-primary-500 hover:text-gray-100 dark:text-gray-50;
+        @apply py-1.5 px-3 text-center bg-primary-700 rounded-md text-white hover:bg-primary-500 hover:text-gray-100;
     }
 
     .btn-outline-primary {
-        @apply py-1 px-2 text-center border border-primary-400 rounded-md dark:text-gray-200;
+        @apply py-1 px-2 text-center border border-primary-400 rounded-md;
     }
 
     .btn-secondary {
-        @apply py-1.5 px-3 text-center bg-transparent border border-gray-300 rounded-md text-black dark:text-gray-200 dark:border-gray-600;
+        @apply py-1.5 px-3 text-center bg-transparent border border-gray-300 rounded-md text-black;
     }
 
+}
+
+.two-lines {
+    display: -webkit-box;
+    -webkit-line-clamp: 2;
+    -webkit-box-orient: vertical;
+    overflow: hidden;
+    text-overflow: ellipsis;
 }
