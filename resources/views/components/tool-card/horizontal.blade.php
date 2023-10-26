@@ -1,5 +1,5 @@
-<li class="border flex flex-col sm:flex-row gap-2 py-2 rounded-lg shadow bg-white">
-    <img class="object-cover rounded-lg  border w-full sm:w-2/5"
+<li class="border flex flex-col sm:flex-row gap-2 rounded-lg shadow bg-white">
+    <img class="object-cover aspect-video rounded-lg  border w-full sm:w-2/5"
         src="{{ asset('/tools/' . $tool->slug . '/screenshot.webp') }}" alt="{{ $tool->name }}">
 
     <div class="p-4">
