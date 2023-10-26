@@ -23,11 +23,13 @@ class CategoryController extends Controller
         return view('home', [
             'categories' => $categories,
             'category' => $category,
-            // 'pageDataDTO' => new PageDataDTO(
-            //     title: 'Home',
-            //     description: null,
-            //     conicalUrl: route('home')
-            // ),
+            'pageDataDTO' => new PageDataDTO(
+                title: 'Top ' . $category->tools->count() . ' ' . $category->name . ' AI Tools',
+                description: 'Browse vast collection of ai tools in ' . $category->name,
+                conicalUrl: route('category.show', [
+                    'category' => $category->slug
+                ])
+            ),
         ]);
     }
 }

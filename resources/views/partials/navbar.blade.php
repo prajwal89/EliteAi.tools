@@ -27,27 +27,22 @@
             </a>
         @else
             <div class="flex gap-4">
-                {{-- <a class="btn-secondary" href="{{ route('auth.login') }}">
-                    Register
-                </a>
-                <a class="btn-primary" href="{{ route('auth.login') }}">
+                <a class="" href="{{ route('auth.login') }}">
                     Sign In
-                </a> --}}
+                </a>
             </div>
         @endauth
 
-        <a class="btn-primary bg-green-500 hover:bg-green-600" href="">
+        <a class="btn-outline-primary" href="">
             Submit tool
         </a>
 
-
-
-        <button class="navbar-burger flex items-center text-primary-600" id="navbar_burger">
+        {{-- <button class="md:hidden navbar-burger flex items-center text-primary-600" id="navbar_burger">
             <svg class="block h-8 w-8 fill-current" viewBox="0 0 20 20" xmlns="http://www.w3.org/2000/svg">
                 <title>Hamberger menu</title>
                 <path d="M0 3h20v2H0V3zm0 6h20v2H0V9zm0 6h20v2H0v-2z"></path>
             </svg>
-        </button>
+        </button> --}}
 
     </div>
 

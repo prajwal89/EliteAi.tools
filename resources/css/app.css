@@ -14,7 +14,7 @@
     }
 
     .btn-outline-primary {
-        @apply py-1.5 px-3 text-center border border-primary-400 rounded-md dark:text-gray-200;
+        @apply py-1 px-2 text-center border border-primary-400 rounded-md dark:text-gray-200;
     }
 
     .btn-secondary {

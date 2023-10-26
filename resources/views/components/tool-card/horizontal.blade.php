@@ -1,9 +1,10 @@
 <li class="border flex flex-col sm:flex-row gap-2 py-2 rounded-lg shadow bg-white">
-    <img class="object-cover rounded-lg scale-95 border w-full sm:w-1/4"
+    <img class="object-cover rounded-lg  border w-full sm:w-2/5"
         src="{{ asset('/tools/' . $tool->slug . '/screenshot.webp') }}" alt="{{ $tool->name }}">
 
     <div class="p-4">
-        <a class="text-xl sm:text-2xl hover:underline" href="{{ route('tool.show', ['tool' => $tool->slug]) }}">
+        <a class="text-xl sm:text-2xl hover:underline text-primary-800"
+            href="{{ route('tool.show', ['tool' => $tool->slug]) }}">
             <span class="font-bold"> {{ $tool->name }}</span> - {{ $tool->tag_line }}
         </a>
 

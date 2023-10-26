@@ -86,6 +86,13 @@
                 <x-tool-card.square :tool="$vTool" />
             @endforeach
         </ul>
+
+        <div class="flex justify-center py-8">
+            <a class="px-4 py-2 border border-primary-600 bg-primary-50 hover:bg-primary-100 text-lg md:text-xl rounded"
+                href="{{ route('tool.alternatives', ['tool' => $tool->slug]) }}">
+                View all related tools
+            </a>
+        </div>
     </div>
 @stop
 

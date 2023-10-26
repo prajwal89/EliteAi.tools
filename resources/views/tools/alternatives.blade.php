@@ -31,8 +31,10 @@
             <div class="flex flex-col justify-between">
 
                 <div>
-                    <h2 class="font-bold text-xl sm:text-2xl md:text-3xl">
-                        {{ $tool->name }}
+                    <h2 class="font-bold text-xl sm:text-2xl md:text-3xl text-primary-800">
+                        <a href="{{ route('tool.show', ['tool' => $tool->slug]) }}">
+                            {{ $tool->name }}
+                        </a>
                     </h2>
 
                     <p>
