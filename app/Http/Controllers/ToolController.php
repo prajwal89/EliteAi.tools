@@ -39,13 +39,13 @@ class ToolController extends Controller
     {
         $tool = Tool::where('slug', $slug)->firstOrFail();
 
-        $alternativeTools = Tool::with('categories')->get();
+        // $alternativeTools = Tool::with('categories')->get();
 
-        // $alternativeTools = Tool::whereHas('categories', function ($query) use ($tool) {
-        //     $query->whereIn('category_id', $tool->categories->pluck('id'));
-        // })
-        //     ->where('id', '!=', $tool->id)
-        //     ->get();
+        $alternativeTools = Tool::whereHas('categories', function ($query) use ($tool) {
+            $query->whereIn('category_id', $tool->categories->pluck('id'));
+        })
+            ->where('id', '!=', $tool->id)
+            ->get();
 
         return view('tools.alternatives', [
             'tool' => $tool,
