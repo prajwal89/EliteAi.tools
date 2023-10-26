@@ -10,22 +10,29 @@
 @section('content')
     <div class="mx-auto max-w-3xl px-2">
 
-        <h1 class="mt-8 mb-12 flex gap-2 md:gap-4 items-center">
-            @if (!empty($tool->uploaded_favicon))
-                <img class="h-10 w-10 md:h-14 md:w-14 bg-white shadow rounded-sm md:rounded-xl"
-                    src="{{ asset('/tools/' . $tool->slug . '/favicon.webp') }}" alt="{{ $tool->name }} favicon">
-            @endif
-            <div>
-                <span class="font-bold text-2xl sm:text-3xl md:text-4xl">
-                    {{ $tool->name }}
-                    @if (isAdmin())
-                        <a href="{{ route('admin.tools.edit', ['tool' => $tool->id]) }}">...</a>
-                    @endif
-                </span>
-                <br>
-                <span class="font-semibold text-md md:text-xl text-gray-600">{{ $tool->tag_line }}</span>
-            </div>
-        </h1>
+        <div class="my-8">
+            <h1 class="flex gap-2 md:gap-4 items-center mb-4">
+                @if (!empty($tool->uploaded_favicon))
+                    <img class="h-10 w-10 md:h-14 md:w-14 bg-white shadow rounded-sm md:rounded-xl"
+                        src="{{ asset('/tools/' . $tool->slug . '/favicon.webp') }}" alt="{{ $tool->name }} favicon">
+                @endif
+                <div>
+                    <span class="font-bold text-2xl sm:text-3xl md:text-4xl">
+                        {{ $tool->name }}
+                        @if (isAdmin())
+                            <a href="{{ route('admin.tools.edit', ['tool' => $tool->id]) }}">...</a>
+                        @endif
+                    </span>
+                    <br>
+                    <span class="font-semibold text-md md:text-xl text-gray-600">{{ $tool->tag_line }}</span>
+                </div>
+            </h1>
+            <p class="text-lg">
+                {{ $tool->summary }}
+            </p>
+        </div>
+
+
 
         <div class="relative">
             <div aria-hidden="true" class="absolute -z-10 inset-0 h-max w-full m-auto opacity-40">
@@ -40,6 +47,7 @@
         @include('partials.tools.tool-details')
 
         <article class="prose max-w-screen-lg lg:prose-lg pt-12 pb-4">
+
             <h2>What is {{ $tool->name }}</h2>
 
             {!! nl2br($tool->description) !!}

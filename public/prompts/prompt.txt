@@ -19,7 +19,7 @@ summary: Short summary of the AI tool for SERP description.
 description: This HTML document provides a description of the AI tool in the third person, using proper HTML tags.
 top_features: array of features. like "feature name: feature details"
 use_cases: possible use cases of this tool.
-pricing_type: choose between "{{ $pricingTypeString }}"
+pricing_type: choose between "{{ $pricingTypeString }}" (Where freemium is tool that basic services are provided free of charge while more advanced features must be paid for)
 categories: match categories in "{{ $categoriesString }}"
 has_api: choose between (true, false)
 has_documentation: choose between (true, false)
