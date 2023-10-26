@@ -46,7 +46,7 @@
 
         @include('partials.tools.tool-details')
 
-        <article class="prose max-w-screen-lg lg:prose-lg pt-12 pb-4">
+        <article class="prose max-w-screen-lg lg:prose-lg py-4">
 
             <h2>What is {{ $tool->name }}</h2>
 
@@ -58,7 +58,9 @@
                 </div>
             @endif
 
-            {!! nl2br($tool->description) !!}
+            <div class="py-4">
+                {{ $tool->description }}
+            </div>
 
             @if (!empty($tool->top_features))
                 <h3>Features:</h3>
