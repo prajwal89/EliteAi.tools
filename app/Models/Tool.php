@@ -35,6 +35,8 @@ class Tool extends Model
         'twitter_id',
         'linkedin_id',
         'linkedin_company_id',
+        'facebook_id', //profile id
+        'youtube_channel_id',
 
         'android_app_id',
         'ios_app_id',

@@ -51,8 +51,7 @@
             <h2>What is {{ $tool->name }}</h2>
 
             @if (!empty($tool->yt_introduction_video_id))
-                <div class="relative mb-8" style="padding-bottom: 56.25%;">
-                    <!-- Responsive container div -->
+                <div class="relative" style="padding-bottom: 56.25%;">
                     <iframe class="absolute top-0 left-0 w-full h-full rounded-lg" width="560" height="315"
                         src="https://www.youtube.com/embed/{{ $tool->yt_introduction_video_id }}" frameborder="0"
                         allowfullscreen></iframe>

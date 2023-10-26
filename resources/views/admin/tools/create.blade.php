@@ -195,6 +195,15 @@
                         <input type="text" placeholder="prajwal_hallae" class="form-control"
                             name="linkedin_company_id">
                     </div>
+                    <div class="form-group mb-4">
+                        <label class="fw-bold">facebook_id</label>
+                        <input type="text" placeholder="100084529884548" class="form-control" name="facebook_id">
+                    </div>
+                    <div class="form-group mb-4">
+                        <label class="fw-bold">youtube_channel_id</label>
+                        <input type="text" placeholder="UCFO-zeRBQpoKecuOYyG4Mcw" class="form-control"
+                            name="youtube_channel_id">
+                    </div>
                 </div>
 
                 <div class="border p-2 my-4">

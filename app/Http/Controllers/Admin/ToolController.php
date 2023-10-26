@@ -70,6 +70,8 @@ class ToolController extends Controller
                 'tiktok_id' => $request->tiktok_id,
                 'linkedin_id' => $request->linkedin_id,
                 'linkedin_company_id' => $request->linkedin_company_id,
+                'facebook_id' => $request->facebook_id,
+                'youtube_channel_id' => $request->youtube_channel_id,
 
                 'ios_app_id' => $request->ios_app_id,
                 'android_app_id' => $request->android_app_id,
@@ -169,6 +171,8 @@ class ToolController extends Controller
                 'tiktok_id' => $request->tiktok_id,
                 'linkedin_id' => $request->linkedin_id,
                 'linkedin_company_id' => $request->linkedin_company_id,
+                'facebook_id' => $request->facebook_id,
+                'youtube_channel_id' => $request->youtube_channel_id,
 
                 'ios_app_id' => $request->ios_app_id,
                 'android_app_id' => $request->android_app_id,
