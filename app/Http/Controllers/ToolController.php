@@ -27,7 +27,7 @@ class ToolController extends Controller
             'relatedTools' => $relatedTools,
             'categories' => $categories,
             'pageDataDTO' => new PageDataDTO(
-                title: $tool->name . ' - Reviews, Pricing, Use cases, Features',
+                title: $tool->name . ' - Pricing, Use cases, Reviews, Features',
                 description: $tool->summary,
                 conicalUrl: route('tool.show', ['tool' => $tool->slug]),
                 thumbnailUrl: asset('/tools/' . $tool->slug . '/screenshot.webp')
@@ -55,6 +55,18 @@ class ToolController extends Controller
                 description: 'All Tools alternatives for ' . $tool->name . ' with comparison',
                 conicalUrl: route('tool.show', ['tool' => $tool->slug]),
                 thumbnailUrl: asset('/tools/' . $tool->slug . '/screenshot.webp')
+            )
+        ]);
+    }
+
+    public function submitNewTool()
+    {
+        return view('tools.submit', [
+            'pageDataDTO' => new PageDataDTO(
+                title: 'Submit your AI tool',
+                description: null,
+                conicalUrl: route('tool.submit'),
+                thumbnailUrl: null
             )
         ]);
     }

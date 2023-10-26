@@ -10,6 +10,7 @@ use Illuminate\Support\Facades\Route;
 Route::get('/', HomeController::class)->name('home');
 
 Route::controller(ToolController::class)->prefix('tool')->name('tool.')->group(function () {
+    Route::get('submit-new-tool', 'submitNewTool')->name('submit');
     Route::get('{tool:slug}', 'show')->name('show');
     Route::get('{tool:slug}/alternatives', 'alternatives')->name('alternatives');
 });

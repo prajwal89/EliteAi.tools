@@ -33,7 +33,7 @@
             </div>
         @endauth
 
-        <a class="btn-outline-primary" href="">
+        <a class="btn-outline-primary" href="{{ route('tool.submit') }}">
             Submit tool
         </a>
 
