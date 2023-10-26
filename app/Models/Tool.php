@@ -15,13 +15,16 @@ class Tool extends Model
         'name',
         'slug',
         'tag_line',
+
+        //* content
         'summary',
         'description',
+        'top_features',
+        'use_cases',
+
         'domain_name',
         'pricing_type',
         'home_page_url',
-        'top_features',
-        'use_cases',
         'uploaded_screenshot',
         'uploaded_favicon',
         'owner_id',
@@ -39,8 +42,11 @@ class Tool extends Model
         'chrome_extension_id',
         'firefox_extension_id',
 
+        //* feature flags
         'has_api',
         // 'has_documentation',
+
+        'yt_introduction_video_id', //introduction video of the tool
     ];
 
     protected $casts = [

@@ -46,8 +46,6 @@
                     </select>
                 </div>
 
-
-
                 <div class="form-group mb-4">
                     <label class="fw-bold">*domain_name</label>
                     <input type="text" class="form-control" name="domain_name"
@@ -222,6 +220,16 @@
                         <label class="fw-bold">firefox_extension_id</label>
                         <input type="text" placeholder="enhancer-for-youtube" class="form-control"
                             name="firefox_extension_id">
+                    </div>
+                </div>
+
+
+                <div class="border p-2 my-4">
+                    <p class="fw-bold text-success text-lg">Other</p>
+                    <div class="form-group mb-4">
+                        <label class="fw-bold">yt_introduction_video_id</label>
+                        <input type="text" placeholder="2mSg-6UJdWQ" class="form-control"
+                            name="yt_introduction_video_id">
                     </div>
                 </div>
 

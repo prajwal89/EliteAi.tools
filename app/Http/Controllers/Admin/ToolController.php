@@ -79,6 +79,8 @@ class ToolController extends Controller
 
                 'has_api' => $request->has('has_api'),
 
+                'yt_introduction_video_id' => $request->yt_introduction_video_id,
+
                 'top_features' => collect($request->top_features)->filter(function ($value) {
                     return !empty($value);
                 }),
@@ -175,6 +177,8 @@ class ToolController extends Controller
                 'firefox_extension_id' => $request->firefox_extension_id,
 
                 'has_api' => $request->has('has_api'),
+
+                'yt_introduction_video_id' => $request->yt_introduction_video_id,
 
                 'top_features' => collect($request->top_features)->filter(function ($value) {
                     return !empty($value);
