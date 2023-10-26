@@ -135,6 +135,8 @@ class ToolController extends Controller
      */
     public function update(Request $request, string $id)
     {
+        // dd($request->all());
+
         $tool = Tool::find($id);
 
         $toolData = [];

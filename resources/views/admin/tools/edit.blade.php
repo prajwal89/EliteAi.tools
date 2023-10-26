@@ -44,7 +44,7 @@
 
                 <div class="form-group mb-4">
                     <label class="fw-bold">description</label>
-                    <textarea type="text" class="form-control" rows="10" name="description">{{ $tool->description ?? '' }}</textarea>
+                    <textarea type="text" id="description" class="form-control" rows="10" name="description">{{ $tool->description ?? '' }}</textarea>
                 </div>
 
                 <div class="form-group mb-4">
@@ -371,6 +371,18 @@
             maxItems: 6,
             plugins: ['remove_button'],
             items: @json($categoryIds ?? [])
+        });
+    </script>
+
+
+    <script src="https://code.jquery.com/jquery-3.5.1.min.js"></script>
+    <script src="https://stackpath.bootstrapcdn.com/bootstrap/3.4.1/js/bootstrap.min.js"></script>
+    <link href="https://cdn.jsdelivr.net/npm/summernote@0.8.18/dist/summernote.min.css" rel="stylesheet">
+    <script src="https://cdn.jsdelivr.net/npm/summernote@0.8.18/dist/summernote.min.js"></script>
+
+    <script>
+        $(document).ready(function() {
+            $('#description').summernote();
         });
     </script>
 @stop

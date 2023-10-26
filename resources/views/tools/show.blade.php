@@ -59,7 +59,7 @@
             @endif
 
             <div class="py-4">
-                {{ $tool->description }}
+                {!! $tool->description !!}
             </div>
 
             @if (!empty($tool->top_features))
