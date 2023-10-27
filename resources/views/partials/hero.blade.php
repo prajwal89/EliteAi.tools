@@ -47,7 +47,8 @@
         </h1>
 
         <div class="relative w-full max-w-3xl">
-            <input class="w-full border h-16 shadow p-4 rounded-full" name="">
+            <input class="w-full border h-16 shadow p-4 pr-12 rounded-full" name=""
+                placeholder="Explain what do you want?">
             <svg class="absolute top-4 right-4 w-8 h-8" xmlns="http://www.w3.org/2000/svg" fill="none"
                 viewBox="0 0 24 24" stroke-width="2" stroke="currentColor">
                 <path stroke-linecap="round" stroke-linejoin="round"

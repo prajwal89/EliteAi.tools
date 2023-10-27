@@ -14,13 +14,13 @@
         </div>
 
         <div class="card-body">
-            <div class="mb-4">
+            <div class="d-relative mb-4">
                 @php
                     $prompt = \App\Services\ExtractedToolProcessor::buildSystemPrompt(public_path('/prompts/prompt.txt'));
                 @endphp
                 <h4>Step1: Copy prompt</h4>
                 <button class="d-absolute top-2 right-2 btn btn-success" id="copy-button">Copy</button>
-                <textarea class="form-control" name="" id="prompt" cols="100" rows="20">{{ $prompt }}</textarea>
+                <textarea class="form-control" name="" id="prompt" cols="100" rows="4">{{ $prompt }}</textarea>
             </div>
 
             <hr>

@@ -20,6 +20,7 @@ class ToolDTO
     ) {
     }
 
+    // * building from mostly openAi response
     public static function fromJson(string $jsonString): ?ToolDTO
     {
         try {

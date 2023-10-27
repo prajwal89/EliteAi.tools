@@ -216,6 +216,7 @@ class ToolController extends Controller
     {
         if ($request->method() == 'POST') {
             // todo validate $request->home_page_url
+            // hydrate the form
 
             $home_page_url = str($request->home_page_url)
                 ->rtrim('/')
