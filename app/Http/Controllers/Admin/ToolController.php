@@ -2,9 +2,7 @@
 
 namespace App\Http\Controllers\Admin;
 
-use App\DTOs\ToolDTO;
 use App\Http\Controllers\Controller;
-use App\Models\Category;
 use App\Models\Tool;
 use App\Services\ToolServices;
 use Illuminate\Http\Request;

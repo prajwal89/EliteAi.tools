@@ -12,6 +12,7 @@ class ToolImporter extends Component
     public $url;
 
     public $contentForPrompt;
+
     public string $promptForSystem;
 
     public function mount()
@@ -30,7 +31,6 @@ class ToolImporter extends Component
             $this->url
         ))->get()->content;
 
-
         // todo match all social media handles urls
         // $dom = HtmlDomParser::str_get_html($html);
 
@@ -38,16 +38,15 @@ class ToolImporter extends Component
 
         // dd($allHandles);
 
-        $cleanContent = "
+        $cleanContent = '
 ---------------------
-Tool Url: " . $this->url . "
+Tool Url: ' . $this->url . '
 ---------------------
-        ";
+        ';
 
         $cleanContent .= ExtractedToolProcessor::removeUnNecessaryThingsFromHTML(
             $html
         );
-
 
         $this->contentForPrompt = $cleanContent;
     }
@@ -55,16 +54,16 @@ Tool Url: " . $this->url . "
     public function socialMediaHandles($dom)
     {
         // Define an array of regular expressions for common social media URLs
-        $patterns = array(
+        $patterns = [
             'twitter.com' => '/twitter\.com/i',
             'facebook.com' => '/facebook\.com/i',
             'instagram.com' => '/instagram\.com/i',
             'linkedin.com' => '/linkedin\.com/i',
             // Add more patterns for other social media platforms as needed
-        );
+        ];
 
         // Initialize an empty array to store the matched social media user handles
-        $socialMediaUserHandles = array();
+        $socialMediaUserHandles = [];
 
         foreach ($dom->find('a') as $a) {
             $href = $a->href;
@@ -99,10 +98,10 @@ Tool Url: " . $this->url . "
             // Implement Twitter user handle extraction logic here
             // Example: preg_match('/twitter\.com\/([^\/]+)/', $url, $matches);
         }
+
         // Add similar logic for other platforms as needed
         return $userHandle;
     }
-
 
     public function render()
     {

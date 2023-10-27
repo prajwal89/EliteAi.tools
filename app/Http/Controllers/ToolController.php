@@ -31,7 +31,7 @@ class ToolController extends Controller
                 description: $tool->summary,
                 conicalUrl: route('tool.show', ['tool' => $tool->slug]),
                 thumbnailUrl: asset('/tools/' . $tool->slug . '/screenshot.webp')
-            )
+            ),
         ]);
     }
 
@@ -56,7 +56,7 @@ class ToolController extends Controller
                 description: 'All Tools alternatives for ' . $tool->name . ' with comparison',
                 conicalUrl: route('tool.show', ['tool' => $tool->slug]),
                 thumbnailUrl: asset('/tools/' . $tool->slug . '/screenshot.webp')
-            )
+            ),
         ]);
     }
 
@@ -68,7 +68,7 @@ class ToolController extends Controller
                 description: null,
                 conicalUrl: route('tool.submit'),
                 thumbnailUrl: null
-            )
+            ),
         ]);
     }
 }

@@ -27,7 +27,7 @@ class CategoryController extends Controller
                 title: 'Top ' . $category->tools->count() . ' ' . $category->name . ' AI Tools',
                 description: 'Browse vast collection of ai tools in ' . $category->name,
                 conicalUrl: route('category.show', [
-                    'category' => $category->slug
+                    'category' => $category->slug,
                 ])
             ),
         ]);
