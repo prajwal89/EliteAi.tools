@@ -11,8 +11,24 @@
                 </div>
             </div>
 
+            {{-- *for create --}}
             @if (!empty($toolDto->topFeatures))
                 @foreach ($toolDto->topFeatures as $feature)
+                    <div class="input-group mt-2">
+                        <input type="text" value="{{ $feature }}" class="form-control" name="top_features[]">
+                        <div class="input-group-append">
+                            <button type="button" class="btn btn-danger remove-top_features">Remove</button>
+                            <button type="button" class="btn btn-success move-up">Up</button>
+                            <button type="button" class="btn btn-success move-down">Down</button>
+                        </div>
+                    </div>
+                @endforeach
+            @endif
+
+
+            {{-- *for edit --}}
+            @if (!empty($tool->top_features))
+                @foreach ($tool->top_features as $feature)
                     <div class="input-group mt-2">
                         <input type="text" value="{{ $feature }}" class="form-control" name="top_features[]">
                         <div class="input-group-append">
@@ -36,6 +52,20 @@
 
             @if (!empty($toolDto->useCases))
                 @foreach ($toolDto->useCases as $useCase)
+                    <div class="input-group mt-2">
+                        <input type="text" value="{{ $useCase }}" class="form-control" name="use_cases[]">
+                        <div class="input-group-append">
+                            <button type="button" class="btn btn-danger remove-use_cases">Remove</button>
+                            <button type="button" class="btn btn-success move-up">Up</button>
+                            <button type="button" class="btn btn-success move-down">Down</button>
+                        </div>
+                    </div>
+                @endforeach
+            @endif
+
+
+            @if (!empty($tool->use_cases))
+                @foreach ($tool->use_cases as $useCase)
                     <div class="input-group mt-2">
                         <input type="text" value="{{ $useCase }}" class="form-control" name="use_cases[]">
                         <div class="input-group-append">

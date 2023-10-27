@@ -5,7 +5,8 @@
             <div class="col-12 col-md-4">
                 <div class="form-check">
                     <input class="form-check-input" type="checkbox" id="checkbox1" name="has_api"
-                        {{ isset($toolDto) ? ($toolDto->hasApi ? 'checked' : '') : '' }}>
+                        {{ isset($toolDto) ? ($toolDto->hasApi ? 'checked' : '') : '' }}
+                        {{ isset($tool) ? ($tool->has_api ? 'checked' : '') : '' }}>
                     <label class="form-check-label" for="checkbox1">Has API</label>
                 </div>
             </div>
