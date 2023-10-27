@@ -150,8 +150,8 @@
 
                          @if (!empty($tool->linkedin_company_id))
                              <li>
-                                 <a href="https://www.linkedin.com/company/{{ $tool->linkedin_id }}" target="_blank"
-                                     title="LinkedIn"
+                                 <a href="https://www.linkedin.com/company/{{ $tool->linkedin_company_id }}"
+                                     target="_blank" title="LinkedIn"
                                      class="text-gray-500 hover:text-gray-900 dark:hover:text-white dark:text-gray-400">
                                      <svg class="w-5 h-5" fill="currentColor" xmlns="http://www.w3.org/2000/svg"
                                          viewBox="0 0 24 24">
