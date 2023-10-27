@@ -45,6 +45,7 @@ class ToolController extends Controller
             $query->whereIn('category_id', $tool->categories->pluck('id'));
         })
             ->where('id', '!=', $tool->id)
+            // ->take(9)
             ->get();
 
         return view('tools.alternatives', [
