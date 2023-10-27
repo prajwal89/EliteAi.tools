@@ -27,9 +27,9 @@
                     <span class="font-semibold text-md md:text-xl text-gray-600">{{ $tool->tag_line }}</span>
                 </div>
             </h1>
-            <p class="text-lg">
+            {{-- <p class="text-lg">
                 {{ $tool->summary }}
-            </p>
+            </p> --}}
         </div>
 
 
