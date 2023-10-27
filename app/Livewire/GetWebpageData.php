@@ -12,10 +12,6 @@ class GetWebpageData extends Component
 
     public $contentForPrompt;
 
-    public function render()
-    {
-        return view('livewire.get-webpage-data');
-    }
 
     public function getData()
     {
@@ -40,5 +36,10 @@ Tool Url: " . $this->url . "
 
 
         $this->contentForPrompt = $cleanContent;
+    }
+
+    public function render()
+    {
+        return view('livewire.get-webpage-data');
     }
 }

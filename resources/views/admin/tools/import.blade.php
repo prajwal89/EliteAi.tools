@@ -8,19 +8,15 @@
 
 @section('content')
     <div class="card">
-
         <div class="card-header">
             Import tool
         </div>
 
         <div class="card-body">
             <div class="d-relative mb-4">
-                @php
-                    $prompt = \App\Services\ExtractedToolProcessor::buildSystemPrompt(public_path('/prompts/prompt.txt'));
-                @endphp
                 <h4>Step1: Copy prompt</h4>
-                <button class="d-absolute top-2 right-2 btn btn-success" id="copy-button">Copy</button>
-                <textarea class="form-control" name="" id="prompt" cols="100" rows="4">{{ $prompt }}</textarea>
+                <button class="btn btn-success" id="copy-button">Copy</button>
+                <textarea class="form-control" name="" id="prompt" cols="100" rows="4">{{ $promptForSystem }}</textarea>
             </div>
 
             <hr>
@@ -30,28 +26,6 @@
                 @livewire('get-webpage-data')
             </div>
 
-            <hr>
-
-            <div class="mb-4">
-                <h4>Step 3: submit json</h4>
-                <form method="POST" action="{{ route('admin.tools.import') }}" enctype="multipart/form-data">
-                    @csrf
-
-                    <div class="form-group mb-4">
-                        <label class="fw-bold">Website Home Page</label>
-                        <input type="url" class="form-control" name="home_page_url" required />
-                    </div>
-
-                    <div class="form-group mb-4">
-                        <label class="fw-bold">tool_json_string</label>
-                        <textarea type="text" class="form-control" rows="10" name="tool_json_string" required></textarea>
-                    </div>
-
-                    <button type="submit" class="btn btn-primary float-right my-3">
-                        Import
-                    </button>
-                </form>
-            </div>
         </div>
 
     </div>
