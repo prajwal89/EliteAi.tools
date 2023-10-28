@@ -20,7 +20,7 @@
                 <button class="btn btn-primary" wire:click='getData()'>GetData</button>
             </div>
             @if (!empty($contentForPrompt))
-                <textarea class="form-control" name="" id="prompt" cols="100" rows="20">{{ $contentForPrompt }}</textarea>
+                <textarea class="form-control" name="" id="prompt" cols="100" rows="10">{{ $contentForPrompt }}</textarea>
             @endif
         </div>
         <hr>
@@ -30,9 +30,78 @@
             <form method="POST" action="{{ route('admin.tools.import') }}" enctype="multipart/form-data">
                 @csrf
 
+                <input type="hidden" name="toolSocialHandlesDTO" value="{{ json_encode($toolSocialHandlesDTO) }}">
+
                 <div class="form-group mb-4">
                     <label class="fw-bold">Website Home Page</label>
-                    <input type="url" class="form-control" name="home_page_url" required />
+                    <input type="url" value="{{ $url }}" class="form-control" name="home_page_url"
+                        required />
+                </div>
+
+                {{-- social handles --}}
+                <div class="border p-2 my-4">
+                    <p class="fw-bold text-success text-lg">Social media</p>
+                    @if (!empty($toolSocialHandlesDTO['instagramUserId']))
+                        <p>
+                            <span>Instragram:</span>
+                            <a target="_blank"
+                                href="https://www.instagram.com/{{ $toolSocialHandlesDTO['instagramUserId'] }}/">
+                                {{ $toolSocialHandlesDTO['instagramUserId'] }}
+                            </a>
+                        </p>
+                    @endif
+                    @if (!empty($toolSocialHandlesDTO['twitterUserId']))
+                        <p>
+                            <span>Twitter:</span>
+                            <a target="_blank" href="https://twitter.com/{{ $toolSocialHandlesDTO['twitterUserId'] }}/">
+                                {{ $toolSocialHandlesDTO['twitterUserId'] }}
+                            </a>
+                        </p>
+                    @endif
+                    @if (!empty($toolSocialHandlesDTO['facebookUserId']))
+                        <p>
+                            <span>Facebook:</span>
+                            <a target="_blank"
+                                href="https://www.instagram.com/{{ $toolSocialHandlesDTO['facebookUserId'] }}/">
+                                {{ $toolSocialHandlesDTO['facebookUserId'] }}
+                            </a>
+                        </p>
+                    @endif
+                    @if (!empty($toolSocialHandlesDTO['tiktokUserId']))
+                        <p>
+                            <span>TikTok:</span>
+                            <a target="_blank"
+                                href="https://www.tiktok.com/{{ '@' }}{{ $toolSocialHandlesDTO['tiktokUserId'] }}/">
+                                {{ $toolSocialHandlesDTO['tiktokUserId'] }}
+                            </a>
+                        </p>
+                    @endif
+                    @if (!empty($toolSocialHandlesDTO['youtubeChannelId']))
+                        <p>
+                            <span>Youtube Channel:</span>
+                            <a target="_blank"
+                                href="https://www.youtube.com/channel/{{ $toolSocialHandlesDTO['youtubeChannelId'] }}/">
+                                {{ $toolSocialHandlesDTO['youtubeChannelId'] }}
+                            </a>
+                        </p>
+                    @endif
+                    @if (!empty($toolSocialHandlesDTO['linkedinCompanyId']))
+                        <p>
+                            <span>Linkedin Company:</span>
+                            <a target="_blank"
+                                href="https://www.linkedin.com/company/{{ $toolSocialHandlesDTO['linkedinCompanyId'] }}/">
+                                {{ $toolSocialHandlesDTO['linkedinCompanyId'] }}
+                            </a>
+                        </p>
+                    @endif
+                    @if (!empty($toolSocialHandlesDTO['emailId']))
+                        <p>
+                            <span>Email:</span>
+                            <a target="_blank" href="mailto:{{ $toolSocialHandlesDTO['emailId'] }}/">
+                                {{ $toolSocialHandlesDTO['emailId'] }}
+                            </a>
+                        </p>
+                    @endif
                 </div>
 
                 <div class="form-group mb-4">

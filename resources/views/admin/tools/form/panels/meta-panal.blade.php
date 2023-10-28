@@ -48,7 +48,8 @@
 
         <div class="form-group mb-4">
             <label class="fw-bold">contact_email</label>
-            <input type="email" class="form-control" value="{{ $tool->contact_email ?? '' }}" name="contact_email">
+            <input type="email" class="form-control"
+                value="{{ $toolSocialHandlesDTO->emailId ?? ($tool->contact_email ?? '') }}" name="contact_email">
         </div>
 
         <div class="form-group mb-4">
@@ -62,7 +63,8 @@
                 @endif
             </label>
             <input type="file" class="form-control" name="uploaded_screenshot"
-                {{ request()->routeIs('admin.tools.create') ?? 'required' }}>
+                {{ request()->routeIs('admin.tools.create') ? 'required' : '' }}
+                {{ request()->routeIs('admin.tools.import') ? 'required' : '' }}>
         </div>
 
         <div class="form-group mb-4">
@@ -76,7 +78,8 @@
                 @endif
             </label>
             <input type="file" class="form-control" name="uploaded_favicon"
-                {{ request()->routeIs('admin.tools.create') ?? 'required' }}>
+                {{ request()->routeIs('admin.tools.create') ? 'required' : '' }}
+                {{ request()->routeIs('admin.tools.import') ? 'required' : '' }}>
         </div>
 
 

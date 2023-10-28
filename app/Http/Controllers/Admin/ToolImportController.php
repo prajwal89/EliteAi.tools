@@ -3,6 +3,7 @@
 namespace App\Http\Controllers\Admin;
 
 use App\DTOs\ToolDTO;
+use App\DTOs\ToolSocialHandlesDTO;
 use App\Http\Controllers\Controller;
 use App\Models\Category;
 use Illuminate\Http\Request;
@@ -24,12 +25,20 @@ class ToolImportController extends Controller
             ->toString();
 
         $toolDto = ToolDTO::fromJson(trim($request->input('tool_json_string')));
-
         // dd($toolDto);
+
+        // dd($request->input('toolSocialHandlesDTO'));
+
+        $toolSocialHandlesDTO = ToolSocialHandlesDTO::fromJson(
+            $request->input('toolSocialHandlesDTO'),
+        );
+
+        // dd($toolSocialHandlesDTO);
 
         $categoryIds = Category::whereIn('name', $toolDto->categories)->get()->map(function ($category) {
             return $category->id;
         });
+
 
         session()->flash('success', 'JSON parsed successfully');
 
@@ -37,6 +46,7 @@ class ToolImportController extends Controller
             'toolDto' => $toolDto,
             'categoryIds' => $categoryIds,
             'home_page_url' => $home_page_url,
+            'toolSocialHandlesDTO' => $toolSocialHandlesDTO,
         ]);
     }
 }
