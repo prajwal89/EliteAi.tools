@@ -5,6 +5,7 @@ use App\Http\Controllers\HomeController;
 use App\Http\Controllers\SocialAuthController;
 use App\Http\Controllers\TestController;
 use App\Http\Controllers\ToolController;
+use App\Http\Controllers\TopAiToolsController;
 use Illuminate\Support\Facades\Route;
 
 Route::get('/', HomeController::class)->name('home');
@@ -14,6 +15,9 @@ Route::controller(ToolController::class)->prefix('tool')->name('tool.')->group(f
     Route::get('{tool:slug}', 'show')->name('show');
     Route::get('{tool:slug}/alternatives', 'alternatives')->name('alternatives');
 });
+
+// experimental
+Route::get('/top-{category:slug}-ai-tools', [TopAiToolsController::class, 'show']);
 
 Route::controller(CategoryController::class)->prefix('category')->name('category.')->group(function () {
     Route::get('{category:slug}', 'show')->name('show');

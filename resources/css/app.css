@@ -14,7 +14,7 @@
     }
 
     .btn-outline-primary {
-        @apply py-1 px-2 text-center border border-primary-400 rounded-md;
+        @apply py-1 px-2 text-center border border-primary-400 rounded-md hover:bg-primary-100/50;
     }
 
     .btn-secondary {
