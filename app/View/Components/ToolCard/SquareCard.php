@@ -1,13 +1,13 @@
 <?php
 
-namespace App\View\Components\ToolCard;
+namespace App\View\Components\ToolCards;
 
 use App\Models\Tool;
 use Closure;
 use Illuminate\Contracts\View\View;
 use Illuminate\View\Component;
 
-class Square extends Component
+class SquareCard extends Component
 {
     /**
      * Create a new component instance.
@@ -22,6 +22,6 @@ class Square extends Component
      */
     public function render(): View|Closure|string
     {
-        return view('components.tool-card.square');
+        return view('components.tool-cards.square-card');
     }
 }

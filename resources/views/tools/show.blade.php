@@ -66,7 +66,10 @@
                 <h3>Features:</h3>
                 <ul>
                     @foreach ($tool->top_features as $feature)
-                        <li>{{ $feature }}</li>
+                        <li>
+                            {{ $feature }}
+                            {{-- <strong>{{ str($feature)->before(':') }}</strong> : {{ str($feature)->after(':') }} --}}
+                        </li>
                     @endforeach
                 </ul>
             @endif
@@ -101,7 +104,7 @@
         </div>
         <ul class="grid gap-8 md:grid-cols-2 lg:grid-cols-3 p-2 xl:p-5">
             @foreach ($relatedTools as $vTool)
-                <x-tool-card.square :tool="$vTool" />
+                <x-tool-cards.square-card :tool="$vTool" />
             @endforeach
         </ul>
 

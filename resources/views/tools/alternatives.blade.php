@@ -41,7 +41,6 @@
                         {{ $tool->summary }}
                     </p>
 
-
                     <p class="py-2">
                         <span>Home page: </span>
                         <a class="text-primary-600" href="{{ $tool->home_page_url }}">{{ $tool->home_page_url }}</a>
@@ -87,7 +86,7 @@
             </p>
             <ul class="flex flex-col gap-4 w-full max-w-5xl mx-auto my-4 ">
                 @foreach ($alternativeTools as $cTool)
-                    <x-tool-card.horizontal :tool="$cTool" />
+                    <x-tool-cards.horizontal-card :tool="$cTool" />
                 @endforeach
             </ul>
         </div>

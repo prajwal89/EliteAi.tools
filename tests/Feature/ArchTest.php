@@ -5,7 +5,7 @@
 test('globals')
     ->expect(['dd', 'dump'])
     ->not->toBeUsed()
-    ->ignoring('App\Http\Controller\TestController');
+    ->ignoring('App\Http\Controllers\TestController');
 
 test('Enums')
     ->expect('App\Enums')

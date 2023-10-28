@@ -1,6 +1,6 @@
 <?php
 
-namespace App\View\Components\ToolCard;
+namespace App\View\Components\ToolCards;
 
 use App\Models\Tool;
 use Closure;
@@ -21,6 +21,6 @@ class Horizontal extends Component
      */
     public function render(): View|Closure|string
     {
-        return view('components.tool-card.horizontal');
+        return view('components.tool-cards.horizontal-card');
     }
 }
