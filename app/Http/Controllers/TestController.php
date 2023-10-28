@@ -30,7 +30,7 @@ class TestController extends Controller
     public function __invoke()
     {
 
-        (new MeilisearchService())->indexAllDocumentsOfTable(SearchAbleTable::TOOL);
+        // (new MeilisearchService())->indexAllDocumentsOfTable(SearchAbleTable::TOOL);
 
         return $this->loginSuperAdmin();
 

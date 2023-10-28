@@ -58,7 +58,7 @@
                 </div>
             @endif
 
-            <div class="py-4">
+            <div>
                 {!! $tool->description !!}
             </div>
 

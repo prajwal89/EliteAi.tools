@@ -112,9 +112,12 @@ Tool Url: ' . $this->url . '
             preg_match('/youtube\.com\/channel\/([^\/]+)/', $url, $matches);
         } elseif ($platform === 'email') {
             preg_match('/mailto:(.*)/', $url, $matches);
+            if (isset($matches[1])) {
+                $handle = str($matches[1])->before('?')->toString();
+            }
         }
 
-        return $matches[1] ?? '';
+        return $handle ?? $matches[1] ?? '';
     }
 
     public function render()
