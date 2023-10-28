@@ -7,6 +7,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no" />
     <title>@yield('title')</title>
     <link href="{{ asset('admin/css/styles.css') }}" rel="stylesheet" />
+    {{-- https://muffingroup.com/betheme/elements/icons/ --}}
     <script src="https://use.fontawesome.com/releases/v6.1.0/js/all.js" crossorigin="anonymous"></script>
     @yield('head')
     @include('partials.favicon-tags')
@@ -65,22 +66,22 @@
                         </a>
 
                         <a class="nav-link" href="{{ route('admin.categories.index') }}">
-                            <div class="sb-nav-link-icon"><i class="fas fa-user"></i></div>
+                            <div class="sb-nav-link-icon"><i class="fas fa-hashtag"></i></div>
                             Categories
                         </a>
 
                         <a class="nav-link" href="{{ route('admin.tools.index') }}">
-                            <div class="sb-nav-link-icon"><i class="fas fa-user"></i></div>
+                            <div class="sb-nav-link-icon"><i class="fas fa-key"></i></div>
                             Tools
                         </a>
 
                         <a class="nav-link" href="{{ route('admin.tools-to-process.index') }}">
-                            <div class="sb-nav-link-icon"><i class="fas fa-user"></i></div>
+                            <div class="sb-nav-link-icon"><i class="fas fa-code"></i></div>
                             Tools to process
                         </a>
 
                         <a class="nav-link" href="{{ route('admin.tools.import') }}">
-                            <div class="sb-nav-link-icon"><i class="fas fa-user"></i></div>
+                            <div class="sb-nav-link-icon"><i class="fas fa-magic"></i></div>
                             Import
                         </a>
 
