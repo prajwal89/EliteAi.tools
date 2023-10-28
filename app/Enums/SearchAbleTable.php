@@ -2,10 +2,7 @@
 
 namespace App\Enums;
 
-use App\Models\Course;
-use App\Models\Document;
 use App\Models\Tool;
-use App\Models\University;
 use Illuminate\Database\Eloquent\Model;
 
 enum SearchAbleTable: string

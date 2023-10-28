@@ -2,9 +2,6 @@
 
 namespace App\DTOs;
 
-use App\Enums\PricingType;
-use Exception;
-
 class ToolSocialHandlesDTO
 {
     public function __construct(

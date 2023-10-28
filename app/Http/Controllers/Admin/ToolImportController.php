@@ -39,7 +39,6 @@ class ToolImportController extends Controller
             return $category->id;
         });
 
-
         session()->flash('success', 'JSON parsed successfully');
 
         return view('admin.tools.create', [
