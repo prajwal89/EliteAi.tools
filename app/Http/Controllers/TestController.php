@@ -3,8 +3,10 @@
 namespace App\Http\Controllers;
 
 use App\DTOs\ToolDTO;
+use App\Enums\SearchAbleTable;
 use App\Models\ExtractedToolDomain;
 use App\Services\ExtractedToolProcessor;
+use App\Services\MeilisearchService;
 use Facebook\WebDriver\Remote\DesiredCapabilities;
 use Facebook\WebDriver\Remote\RemoteWebDriver;
 use HeadlessChromium\BrowserFactory;
@@ -27,6 +29,9 @@ class TestController extends Controller
 
     public function __invoke()
     {
+
+        (new MeilisearchService())->indexAllDocumentsOfTable(SearchAbleTable::TOOL);
+
         return $this->loginSuperAdmin();
 
         // return $this->buildToolDto();

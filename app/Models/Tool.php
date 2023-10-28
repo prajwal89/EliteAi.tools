@@ -3,11 +3,13 @@
 namespace App\Models;
 
 use App\Enums\PricingType;
+use App\Enums\SearchAbleTable;
+use App\Interfaces\MeilisearchAble;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Relations\BelongsToMany;
 
-class Tool extends Model
+class Tool extends Model implements MeilisearchAble
 {
     use HasFactory;
 
@@ -61,5 +63,37 @@ class Tool extends Model
     public function categories(): BelongsToMany
     {
         return $this->belongsToMany(Category::class);
+    }
+
+    public static function documentsForSearch(int $documentId = null, int $batchNo = 0): array
+    {
+        $query = self::select(
+            'id',
+            'name',
+            'slug',
+            'tag_line',
+            'summary',
+            'description',
+            'domain_name',
+            'top_features',
+            'use_cases',
+        );
+
+        if (!empty($courseId)) {
+            $query->where('id', $courseId);
+        }
+
+        $query->orderBy('id', 'asc');
+
+        $batchSize = SearchAbleTable::TOOL->getBatchSize();
+
+        $offset = $batchNo * $batchSize;
+
+        return $query->offset($offset)->limit($batchSize)->get()->toArray();
+    }
+
+    public static function documentsForSearchTotalBatches(): int
+    {
+        return ceil(self::count() / SearchAbleTable::TOOL->getBatchSize());
     }
 }
