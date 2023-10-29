@@ -13,8 +13,7 @@ class ExtractedToolDomain extends Model
         'domain_name',
         'home_page_url',
         'process_status',
+        'should_process',
         'process_error',
-        'created_at',
-        'updated_at',
     ];
 }

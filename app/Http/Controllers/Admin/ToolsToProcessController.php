@@ -3,6 +3,7 @@
 namespace App\Http\Controllers\Admin;
 
 use App\Http\Controllers\Controller;
+use App\Models\ExtractedToolDomain;
 use Illuminate\Http\Request;
 
 class ToolsToProcessController extends Controller
@@ -44,7 +45,11 @@ class ToolsToProcessController extends Controller
      */
     public function edit(string $id)
     {
-        return view('admin.tools-to-process.edit');
+        $extractedToolDomain = ExtractedToolDomain::find($id);
+
+        return view('admin.tools-to-process.edit', [
+            'extractedToolDomain' => $extractedToolDomain
+        ]);
     }
 
     /**
@@ -52,7 +57,13 @@ class ToolsToProcessController extends Controller
      */
     public function update(Request $request, string $id)
     {
-        //
+        ExtractedToolDomain::find($id)->update([
+            'domain_name' => $request->domain_name,
+            'home_page_url' => $request->home_page_url,
+            'should_process' => $request->has('should_process'),
+        ]);
+
+        return redirect()->back()->with('success', 'Domain updated successfully');
     }
 
     /**

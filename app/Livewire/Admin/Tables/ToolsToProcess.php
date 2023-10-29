@@ -20,6 +20,16 @@ final class ToolsToProcess extends PowerGridComponent
 {
     use WithExport;
 
+    public function header(): array
+    {
+        return [
+            Button::add('Add New')
+                ->slot('Add New')
+                ->class('btn btn-light btn-outline-primary')
+                ->route('admin.tools-to-process.create', []),
+        ];
+    }
+
     public function setUp(): array
     {
         $this->showCheckBox();
@@ -40,7 +50,7 @@ final class ToolsToProcess extends PowerGridComponent
         return DB::table('extracted_tool_domains')
             ->whereNotIn('domain_name', function ($query) {
                 $query->select('domain_name')->from('tools');
-            });
+            })->where('should_process', 1);
     }
 
     public function addColumns(): PowerGridColumns
@@ -54,9 +64,7 @@ final class ToolsToProcess extends PowerGridComponent
 
             ->addColumn('home_page_url')
             ->addColumn('process_status')
-            ->addColumn('process_error')
-            ->addColumn('created_at_formatted', fn ($model) => Carbon::parse($model->created_at)->format('d/m/Y H:i:s'))
-            ->addColumn('updated_at_formatted', fn ($model) => Carbon::parse($model->updated_at)->format('d/m/Y H:i:s'));
+            ->addColumn('process_error');
     }
 
     public function columns(): array
@@ -94,6 +102,17 @@ final class ToolsToProcess extends PowerGridComponent
             Filter::inputText('process_error')->operators(['contains']),
             Filter::datetimepicker('created_at'),
             Filter::datetimepicker('updated_at'),
+        ];
+    }
+
+
+    public function actions($row): array
+    {
+        return [
+            Button::add('edit')
+                ->slot('edit')
+                ->class('btn btn-sm btn-outline-primary')
+                ->route('admin.tools-to-process.edit', ['tools_to_process' => $row->id]),
         ];
     }
 
