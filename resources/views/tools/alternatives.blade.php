@@ -22,8 +22,8 @@
                 <div class="blur-[106px] h-[200px] bg-gradient-to-br from-primary-500 to-purple-400"></div>
             </div>
             @if (!empty($tool->uploaded_screenshot))
-                <div class="w-2/5">
-                    <img class="w-full shadow-sm shadow-gray-200 rounded-2xl border"
+                <div class="w-full md:w-2/5">
+                    <img class="w-full shadow-gray-200 rounded"
                         src="{{ asset('/tools/' . $tool->slug . '/screenshot.webp') }}" alt="{{ $tool->name }}">
                 </div>
             @endif
