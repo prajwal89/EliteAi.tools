@@ -123,6 +123,33 @@
                                 </a>
                             </p>
                         @endif
+                        @if (!empty($toolSocialHandlesDTO['telegramChannelId']))
+                            <p>
+                                <span>telegramChannelId:</span>
+                                <a target="_blank"
+                                    href="https://t.me/{{ $toolSocialHandlesDTO['telegramChannelId'] }}">
+                                    {{ $toolSocialHandlesDTO['telegramChannelId'] }}
+                                </a>
+                            </p>
+                        @endif
+                        @if (!empty($toolSocialHandlesDTO['discordChannelInviteId']))
+                            <p>
+                                <span>discordChannelInviteId:</span>
+                                <a target="_blank"
+                                    href="https://discord.com/invite/{{ $toolSocialHandlesDTO['discordChannelInviteId'] }}">
+                                    {{ $toolSocialHandlesDTO['discordChannelInviteId'] }}
+                                </a>
+                            </p>
+                        @endif
+                        @if (!empty($toolSocialHandlesDTO['subredditId']))
+                            <p>
+                                <span>subredditId:</span>
+                                <a target="_blank"
+                                    href="https://www.reddit.com/r/{{ $toolSocialHandlesDTO['subredditId'] }}">
+                                    {{ $toolSocialHandlesDTO['subredditId'] }}
+                                </a>
+                            </p>
+                        @endif
                     </div>
 
                     <div class="form-group mb-4">

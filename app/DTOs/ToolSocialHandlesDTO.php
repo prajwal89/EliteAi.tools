@@ -11,6 +11,9 @@ class ToolSocialHandlesDTO
         public ?string $instagramUserId = null,
         public ?string $youtubeChannelId = null,
         public ?string $linkedinCompanyId = null,
+        public ?string $telegramChannelId = null,
+        public ?string $subredditId = null,
+        public ?string $discordChannelInviteId = null,
 
         public ?string $emailId = null,
 
@@ -28,6 +31,9 @@ class ToolSocialHandlesDTO
             instagramUserId: $array['instagram'] ?? null,
             youtubeChannelId: $array['youtube_channel'] ?? null,
             linkedinCompanyId: $array['linkedin_company'] ?? null,
+            telegramChannelId: $array['telegram_channel_id'] ?? null,
+            subredditId: $array['subreddit_id'] ?? null,
+            discordChannelInviteId: $array['discord_channel_invite_id'] ?? null,
 
             emailId: $array['email'] ?? null,
 
@@ -48,6 +54,9 @@ class ToolSocialHandlesDTO
             instagramUserId: $data['instagramUserId'] ?? null,
             youtubeChannelId: $data['youtubeChannelId'] ?? null,
             linkedinCompanyId: $data['linkedinCompanyId'] ?? null,
+            telegramChannelId: $data['telegramChannelId'] ?? null,
+            subredditId: $data['subredditId'] ?? null,
+            discordChannelInviteId: $data['discordChannelInviteId'] ?? null,
 
             emailId: $data['emailId'] ?? null,
 

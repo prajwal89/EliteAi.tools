@@ -39,6 +39,9 @@ class Tool extends Model implements MeilisearchAble
         'linkedin_company_id',
         'facebook_id', //profile id
         'youtube_channel_id',
+        'telegram_channel_id',
+        'subreddit_id',
+        'discord_channel_invite_id',
 
         'android_app_id',
         'ios_app_id',

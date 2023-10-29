@@ -67,6 +67,10 @@ Tool Url: ' . $this->url . '
             'youtube_channel' => '/youtube\.com/i',
             'linkedin_company' => '/linkedin\.com\/company\//i',
 
+            'discord_channel_invite_id' => '/discord\.com/i',
+            'subreddit_id' => '/reddit\.com/i',
+            'telegram_channel_id' => '/t\.me/i',
+
             'android_app' => '/play\.google\.com/i',
             'ios_app' => '/apps\.apple\.com/i',
 
@@ -114,6 +118,15 @@ Tool Url: ' . $this->url . '
             preg_match('/facebook\.com\/profile\.php\?id=([^&]+)/', $url, $matches);
         } elseif ($platform === 'youtube_channel') {
             preg_match('/youtube\.com\/channel\/([^\/]+)/', $url, $matches);
+        } elseif ($platform === 'discord_channel_invite_id') {
+            // https://discord.com/invite/Naa2qkyMkt
+            preg_match('/discord\.com\/invite\/([^\/]+)/', $url, $matches);
+        } elseif ($platform === 'subreddit_id') {
+            // https://www.reddit.com/r/NSFWCharacterAI/
+            preg_match('/www.reddit.com\/r\/([^\/]+)/', $url, $matches);
+        } elseif ($platform === 'telegram_channel_id') {
+            // https://t.me/+J_J28uSPzTM1NWZl
+            preg_match('/t.me\/([^\/]+)/', $url, $matches);
         } elseif ($platform === 'email') {
             preg_match('/mailto:(.*)/', $url, $matches);
             if (isset($matches[1])) {

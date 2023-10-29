@@ -40,5 +40,20 @@
             <input type="text" placeholder="UCFO-zeRBQpoKecuOYyG4Mcw" class="form-control" name="youtube_channel_id"
                 value="{{ $toolSocialHandlesDTO->youtubeChannelId ?? ($tool->youtube_channel_id ?? '') }}">
         </div>
+        <div class="form-group mb-4">
+            <label class="fw-bold">discord_channel_invite_id</label>
+            <input type="text" placeholder="" class="form-control" name="discord_channel_invite_id"
+                value="{{ $toolSocialHandlesDTO->discordChannelInviteId ?? ($tool->discord_channel_invite_id ?? '') }}">
+        </div>
+        <div class="form-group mb-4">
+            <label class="fw-bold">telegram_channel_id</label>
+            <input type="text" placeholder="" class="form-control" name="telegram_channel_id"
+                value="{{ $toolSocialHandlesDTO->telegramChannelId ?? ($tool->telegram_channel_id ?? '') }}">
+        </div>
+        <div class="form-group mb-4">
+            <label class="fw-bold">subreddit_id</label>
+            <input type="text" placeholder="" class="form-control" name="subreddit_id"
+                value="{{ $toolSocialHandlesDTO->subredditId ?? ($tool->subreddit_id ?? '') }}">
+        </div>
     </div>
 </div>
