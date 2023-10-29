@@ -75,6 +75,9 @@ Tool Url: ' . $this->url . '
             'ios_app' => '/apps\.apple\.com/i',
 
             'email' => '/mailto\:/i',
+
+            'chrome_extension_id' => '/chrome.google.com\/webstore\//i',
+            'firefox_extension_id' => '/addons\.mozilla\.org/i',
         ];
 
         // Initialize an empty array to store the matched social media user handles
@@ -163,6 +166,9 @@ Tool Url: ' . $this->url . '
             'discord_channel_invite_id' => '/discord\.com\/invite\/([^\/]+)/',
             'subreddit_id' => '/www.reddit.com\/r\/([^\/]+)/',
             'telegram_channel_id' => '/t.me\/([^\/]+)/',
+
+            'chrome_extension_id' => '/chrome\.google\.com\/webstore\/detail\/.*?\/([^\/]+)/',
+            'firefox_extension_id' => '/addons.mozilla.org\/en-US\/firefox\/([^\/]+)/',
         ];
 
         // Check if the platform exists in the mapping

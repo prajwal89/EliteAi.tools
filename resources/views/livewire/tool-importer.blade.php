@@ -150,6 +150,24 @@
                                 </a>
                             </p>
                         @endif
+                        @if (!empty($toolSocialHandlesDTO['chromeExtensionId']))
+                            <p>
+                                <span>chromeExtensionId:</span>
+                                <a target="_blank"
+                                    href="https://chrome.google.com/webstore/detail/{{ $toolSocialHandlesDTO['chromeExtensionId'] }}">
+                                    {{ $toolSocialHandlesDTO['chromeExtensionId'] }}
+                                </a>
+                            </p>
+                        @endif
+                        @if (!empty($toolSocialHandlesDTO['firefoxExtensionId']))
+                            <p>
+                                <span>firefoxExtensionId:</span>
+                                <a target="_blank"
+                                    href="https://addons.mozilla.org/en-US/firefox/addon/{{ $toolSocialHandlesDTO['firefoxExtensionId'] }}">
+                                    {{ $toolSocialHandlesDTO['firefoxExtensionId'] }}
+                                </a>
+                            </p>
+                        @endif
                     </div>
 
                     <div class="form-group mb-4">
