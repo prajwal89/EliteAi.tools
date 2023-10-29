@@ -99,38 +99,82 @@ Tool Url: ' . $this->url . '
         return ToolSocialHandlesDTO::fromArray($socialMediaUserHandles);
     }
 
-    // Function to extract user handles based on platform
-    public function extractUserHandle($url, $platform)
-    {
-        // return $url;
+    // // Function to extract user handles based on platform
+    // public function extractUserHandle($url, $platform)
+    // {
+    //     // return $url;
 
-        if ($platform === 'instagram') {
-            preg_match('/instagram\.com\/([^\/]+)/', $url, $matches);
-        } elseif ($platform === 'tiktok') {
-            preg_match('/tiktok\.com\/@([^\/]+)/', $url, $matches);
-        } elseif ($platform === 'twitter') {
-            preg_match('/twitter\.com\/([^\/]+)/', $url, $matches);
-        } elseif ($platform === 'linkedin') {
-            preg_match('/linkedin\.com\/in\/([^\/]+)/', $url, $matches);
-        } elseif ($platform === 'linkedin_company') {
-            preg_match('/linkedin\.com\/company\/([^\/]+)/', $url, $matches);
-        } elseif ($platform === 'facebook') {
-            preg_match('/facebook\.com\/profile\.php\?id=([^&]+)/', $url, $matches);
-        } elseif ($platform === 'youtube_channel') {
-            preg_match('/youtube\.com\/channel\/([^\/]+)/', $url, $matches);
-        } elseif ($platform === 'discord_channel_invite_id') {
-            // https://discord.com/invite/Naa2qkyMkt
-            preg_match('/discord\.com\/invite\/([^\/]+)/', $url, $matches);
-        } elseif ($platform === 'subreddit_id') {
-            // https://www.reddit.com/r/NSFWCharacterAI/
-            preg_match('/www.reddit.com\/r\/([^\/]+)/', $url, $matches);
-        } elseif ($platform === 'telegram_channel_id') {
-            // https://t.me/+J_J28uSPzTM1NWZl
-            preg_match('/t.me\/([^\/]+)/', $url, $matches);
+    //     if ($platform === 'instagram') {
+    //         preg_match('/instagram\.com\/([^\/]+)/', $url, $matches);
+    //     } elseif ($platform === 'tiktok') {
+    //         preg_match('/tiktok\.com\/@([^\/]+)/', $url, $matches);
+    //     } elseif ($platform === 'twitter') {
+    //         preg_match('/twitter\.com\/([^\/]+)/', $url, $matches);
+    //     } elseif ($platform === 'linkedin') {
+    //         preg_match('/linkedin\.com\/in\/([^\/]+)/', $url, $matches);
+    //     } elseif ($platform === 'linkedin_company') {
+    //         preg_match('/linkedin\.com\/company\/([^\/]+)/', $url, $matches);
+    //     } elseif ($platform === 'facebook') {
+    //         preg_match('/facebook\.com\/profile\.php\?id=([^&]+)/', $url, $matches);
+    //     } elseif ($platform === 'youtube_channel') {
+    //         preg_match('/youtube\.com\/channel\/([^\/]+)/', $url, $matches);
+    //     } elseif ($platform === 'discord_channel_invite_id') {
+    //         // https://discord.com/invite/Naa2qkyMkt
+    //         preg_match('/discord\.com\/invite\/([^\/]+)/', $url, $matches);
+    //     } elseif ($platform === 'subreddit_id') {
+    //         // https://www.reddit.com/r/NSFWCharacterAI/
+    //         preg_match('/www.reddit.com\/r\/([^\/]+)/', $url, $matches);
+    //     } elseif ($platform === 'telegram_channel_id') {
+    //         // https://t.me/+J_J28uSPzTM1NWZl
+    //         preg_match('/t.me\/([^\/]+)/', $url, $matches);
+    //     } elseif ($platform === 'email') {
+    //         preg_match('/mailto:(.*)/', $url, $matches);
+    //         if (isset($matches[1])) {
+    //             $handle = str($matches[1])->before('?')->toString();
+    //         }
+    //     } elseif ($platform === 'android_app') {
+    //         // Parse the URL and extract the query string
+    //         $queryString = parse_url($url, PHP_URL_QUERY);
+
+    //         // Parse the query string and extract the 'id' parameter
+    //         parse_str($queryString, $queryParameters);
+
+    //         $handle = isset($queryParameters['id']) ? $queryParameters['id'] : '';
+    //     } elseif ($platform === 'ios_app') {
+    //         if (preg_match('/id(\d+)/', $url, $matches)) {
+    //             $handle = 'id' . $matches[1];
+    //         }
+    //     }
+
+    //     return $handle ?? $matches[1] ?? '';
+    // }
+
+    public function extractUserHandle(string $url, string $platform): string
+    {
+        // Define a mapping of platforms to regular expressions
+        $platformRegexMap = [
+            'instagram' => '/instagram\.com\/([^\/]+)/',
+            'tiktok' => '/tiktok\.com\/@([^\/]+)/',
+            'twitter' => '/twitter\.com\/([^\/]+)/',
+            'linkedin' => '/linkedin\.com\/in\/([^\/]+)/',
+            'linkedin_company' => '/linkedin\.com\/company\/([^\/]+)/',
+            'facebook' => '/facebook\.com\/profile\.php\?id=([^&]+)/',
+            'youtube_channel' => '/youtube\.com\/channel\/([^\/]+)/',
+            'discord_channel_invite_id' => '/discord\.com\/invite\/([^\/]+)/',
+            'subreddit_id' => '/www.reddit.com\/r\/([^\/]+)/',
+            'telegram_channel_id' => '/t.me\/([^\/]+)/',
+        ];
+
+        // Check if the platform exists in the mapping
+        if (isset($platformRegexMap[$platform])) {
+            // Use the corresponding regular expression
+            preg_match($platformRegexMap[$platform], $url, $matches);
+            return $matches[1] ?? '';
         } elseif ($platform === 'email') {
             preg_match('/mailto:(.*)/', $url, $matches);
             if (isset($matches[1])) {
                 $handle = str($matches[1])->before('?')->toString();
+                return $handle;
             }
         } elseif ($platform === 'android_app') {
             // Parse the URL and extract the query string
@@ -139,15 +183,14 @@ Tool Url: ' . $this->url . '
             // Parse the query string and extract the 'id' parameter
             parse_str($queryString, $queryParameters);
 
-            $handle = isset($queryParameters['id']) ? $queryParameters['id'] : '';
-        } elseif ($platform === 'ios_app') {
-            if (preg_match('/id(\d+)/', $url, $matches)) {
-                $handle = 'id' . $matches[1];
-            }
+            return $queryParameters['id'] ?? '';
+        } elseif ($platform === 'ios_app' && preg_match('/id(\d+)/', $url, $matches)) {
+            return 'id' . $matches[1];
         }
 
-        return $handle ?? $matches[1] ?? '';
+        return '';
     }
+
 
     public function render()
     {
