@@ -3,12 +3,14 @@
         <p class="fw-bold text-success text-lg">Apps</p>
         <div class="form-group mb-4">
             <label class="fw-bold">android_app_id</label>
-            <input type="text" placeholder="com.mcqmate.app" value="{{ $tool->android_app_id ?? '' }}"
-                class="form-control" name="android_app_id">
+            <input type="text" placeholder="com.mcqmate.app"
+                value="{{ $toolSocialHandlesDTO->androidApId ?? ($tool->android_app_id ?? '') }}" class="form-control"
+                name="android_app_id">
         </div>
         <div class="form-group mb-4">
             <label class="fw-bold">ios_app_id</label>
-            <input type="text" placeholder="id6445975220" value="{{ $tool->ios_app_id ?? '' }}" class="form-control"
+            <input type="text" placeholder="id6445975220"
+                value="{{ $toolSocialHandlesDTO->IOSAppID ?? ($tool->ios_app_id ?? '') }}" class="form-control"
                 name="ios_app_id">
         </div>
     </div>

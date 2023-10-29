@@ -2,18 +2,18 @@
     <img class="object-cover aspect-video rounded-lg  border w-full sm:w-2/5"
         src="{{ asset('/tools/' . $tool->slug . '/screenshot.webp') }}" alt="{{ $tool->name }}">
 
-    <div class="p-4">
-        <a class="text-xl sm:text-2xl hover:underline text-primary-800"
+    <div class="p-2 md:p-4">
+        <a class="text-xl sm:text-2xl hover:underline text-primary-800 my-2"
             href="{{ route('tool.show', ['tool' => $tool->slug]) }}">
             <span class="font-bold"> {{ $tool->name }}</span> - {{ $tool->tag_line }}
         </a>
 
-        <p class="text-gray-600 py-2">
+        <p class="text-gray-600 my-2">
             {{ $tool->summary }}
         </p>
 
 
-        <ul class="flex flex-wrap items-center justify-start my-1 text-sm gap-2">
+        <ul class="flex flex-wrap items-center justify-start my-2 text-sm gap-2">
 
             <li title="Pricing type"
                 class="flex items-center cursor-pointer gap-0.5 bg-gray-200/50 text-black my-2 px-2 py-0.5 rounded-full">

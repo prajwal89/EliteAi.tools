@@ -11,7 +11,11 @@ class ToolSocialHandlesDTO
         public ?string $instagramUserId = null,
         public ?string $youtubeChannelId = null,
         public ?string $linkedinCompanyId = null,
+
         public ?string $emailId = null,
+
+        public ?string $androidApId = null,
+        public ?string $IOSAppID = null,
     ) {
     }
 
@@ -24,7 +28,12 @@ class ToolSocialHandlesDTO
             instagramUserId: $array['instagram'] ?? null,
             youtubeChannelId: $array['youtube_channel'] ?? null,
             linkedinCompanyId: $array['linkedin_company'] ?? null,
+
             emailId: $array['email'] ?? null,
+
+            androidApId: $array['android_app'] ?? null,
+            IOSAppID: $array['ios_app'] ?? null,
+
         );
     }
 
@@ -39,7 +48,12 @@ class ToolSocialHandlesDTO
             instagramUserId: $data['instagramUserId'] ?? null,
             youtubeChannelId: $data['youtubeChannelId'] ?? null,
             linkedinCompanyId: $data['linkedinCompanyId'] ?? null,
-            emailId: $data['emailId'] ?? null
+
+            emailId: $data['emailId'] ?? null,
+
+            androidApId: $data['androidApId'] ?? null,
+            IOSAppID: $data['IOSAppID'] ?? null,
+
         );
     }
 }

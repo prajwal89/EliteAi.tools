@@ -66,6 +66,10 @@ Tool Url: ' . $this->url . '
             'tiktok' => '/tiktok\.com/i',
             'youtube_channel' => '/youtube\.com/i',
             'linkedin_company' => '/linkedin\.com\/company\//i',
+
+            'android_app' => '/play\.google\.com/i',
+            'ios_app' => '/apps\.apple\.com/i',
+
             'email' => '/mailto\:/i',
         ];
 
@@ -114,6 +118,18 @@ Tool Url: ' . $this->url . '
             preg_match('/mailto:(.*)/', $url, $matches);
             if (isset($matches[1])) {
                 $handle = str($matches[1])->before('?')->toString();
+            }
+        } elseif ($platform === 'android_app') {
+            // Parse the URL and extract the query string
+            $queryString = parse_url($url, PHP_URL_QUERY);
+
+            // Parse the query string and extract the 'id' parameter
+            parse_str($queryString, $queryParameters);
+
+            $handle = isset($queryParameters['id']) ? $queryParameters['id'] : '';
+        } elseif ($platform === 'ios_app') {
+            if (preg_match('/id(\d+)/', $url, $matches)) {
+                $handle = 'id' . $matches[1];
             }
         }
 
