@@ -36,12 +36,10 @@ class TestController extends Controller
 
     public function __invoke()
     {
-        // return (new MeilisearchService())->indexAllDocumentsOfTable(SearchAbleTable::TOOL);
+        return (new MeilisearchService())->indexAllDocumentsOfTable(SearchAbleTable::TOOL);
         // return (new MeilisearchService())->deIndexTable(SearchAbleTable::TOOL);
 
-        return $this->vectorEmbedding();
-        // return $this->vectorSearchWithCurl();
-        // return $this->vectorSearch();
+        return $this->vectorSearch();
 
 
         return $this->loginSuperAdmin();
@@ -61,6 +59,26 @@ class TestController extends Controller
         // return $this->crawlTopAiTools3();
 
         return $this->loginSuperAdmin();
+    }
+
+    public function vectorSearch()
+    {
+        // Start the timer
+        $start_time = microtime(true);
+
+        // Call the function you want to measure
+        $results = MeilisearchService::vectorSearch(SearchAbleTable::TOOL, 'real time crypto news');
+
+        // Stop the timer
+        $end_time = microtime(true);
+
+        // Calculate the elapsed time in seconds
+        $elapsed_time = $end_time - $start_time;
+
+        // Print or log the elapsed time
+        echo "Total time taken: {$elapsed_time} seconds";
+
+        dd($results);
     }
 
     public function vectorEmbedding()
@@ -121,73 +139,6 @@ class TestController extends Controller
             // dd($response);
             // dd($paragraphToEmbed);
         }
-    }
-
-    public function vectorSearch()
-    {
-        $query = 'Crypto News Today';
-
-        exec('python E:\PHP\Microservices\service\embeddings\generate_embeddings.py "' . $query . '"', $output, $result);
-
-        try {
-            $response = json_decode($output[0]);
-        } catch (Exception $e) {
-        }
-
-        $response->embeddings;
-
-
-        // Define the search query
-        $query = ['query' => 'Your Search Query', 'vector' => [0, 1, 2]]; // Replace 'Your Search Query' with the actual search query
-
-
-        $searchResult = (new MeilisearchService)
-            ->meilisearchClient
-            ->index(SearchAbleTable::TOOL->getIndexName())
-            ->search('yo');
-
-
-        // Print the search result
-        dd($searchResult);
-    }
-
-    public function vectorSearchWithCurl()
-    {
-        $meiliSearchUrl = 'http://localhost:7700';
-        $apiKey = 'YOUR_MEILISEARCH_API_KEY'; // Replace with your MeiliSearch API key
-
-
-        $query = 'i want ai for doing citation';
-
-        exec('python E:\PHP\Microservices\service\embeddings\generate_embeddings.py "' . $query . '"', $output, $result);
-
-        try {
-            $response = json_decode($output[0]);
-        } catch (Exception $e) {
-        }
-
-        // Specify the search query
-        $searchQuery = [
-            'vector' =>  $response->embeddings
-        ];
-
-        // Create an array with headers, including the content-type and authentication
-        $headers = [
-            'Content-Type' => 'application/json',
-            'X-Meili-API-Key' => $apiKey,
-        ];
-
-        // Define the full URL for the search endpoint
-        $searchEndpoint = $meiliSearchUrl . '/indexes/' . SearchAbleTable::TOOL->getIndexName() . '/search';
-
-        // Send the POST request using the HTTP facade
-        $response = Http::withHeaders($headers)->post($searchEndpoint, $searchQuery);
-
-        // Get the JSON response content
-        $responseData = $response->json();
-
-        // Print or use the response data as needed
-        dd($responseData);
     }
 
     public function buildToolDto()

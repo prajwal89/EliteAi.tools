@@ -121,7 +121,7 @@ class MeilisearchService
         $responseData = $response->json();
 
         // Print or use the response data as needed
-        dd($responseData);
+        return $responseData;
     }
 
     public static function getVectorEmbeddings(string $text)
