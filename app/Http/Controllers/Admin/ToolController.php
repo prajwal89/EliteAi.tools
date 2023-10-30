@@ -51,6 +51,13 @@ class ToolController extends Controller
             );
         }
 
+        if ($request->has('should_get_favicon_from_google')) {
+            $toolData['uploaded_favicon'] = ToolServices::saveFaviconFromGoogle(
+                $request->domain_name,
+                $slug
+            );
+        }
+
         $tool = DB::transaction(function () use ($request, $slug, $toolData) {
             $insertedTool = Tool::create([
                 'name' => $request->name,
@@ -155,6 +162,7 @@ class ToolController extends Controller
             );
         }
 
+
         DB::transaction(function () use ($request, $tool, $toolData) {
             $tool->update([
                 'name' => $request->name,
@@ -187,6 +195,7 @@ class ToolController extends Controller
                 'top_features' => collect($request->top_features)->filter(function ($value) {
                     return !empty($value);
                 }),
+
                 'use_cases' => collect($request->use_cases)->filter(function ($value) {
                     return !empty($value);
                 }),

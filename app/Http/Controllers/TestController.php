@@ -11,9 +11,11 @@ use Facebook\WebDriver\Remote\DesiredCapabilities;
 use Facebook\WebDriver\Remote\RemoteWebDriver;
 use HeadlessChromium\BrowserFactory;
 use Illuminate\Support\Facades\DB;
+use Illuminate\Support\Facades\File;
 use Illuminate\Support\Facades\Http;
 use League\Uri\Uri;
 use voku\helper\HtmlDomParser;
+use Intervention\Image\Facades\Image;
 
 /**
  * For testing out misc things

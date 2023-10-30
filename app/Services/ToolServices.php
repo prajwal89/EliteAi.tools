@@ -55,4 +55,23 @@ class ToolServices
 
         return true;
     }
+
+    public static function saveFaviconFromGoogle(string $domainName, string $slug): bool
+    {
+        $downloadUrl = "https://www.google.com/s2/favicons?domain=$domainName";
+
+        $toolAssetPath = public_path('tools/' . $slug);
+
+        if (!File::isDirectory($toolAssetPath)) {
+            File::makeDirectory($toolAssetPath, 0755, true, true);
+        }
+
+        $newImage = Image::make($downloadUrl);
+
+        $newImage->resize(100, 400, function ($constraint) {
+            $constraint->aspectRatio();
+        })->save($toolAssetPath . '/favicon.webp');
+
+        return true;
+    }
 }

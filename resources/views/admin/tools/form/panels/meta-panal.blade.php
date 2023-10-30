@@ -55,9 +55,8 @@
         <div class="form-group mb-4">
             <label class="fw-bold">
                 <span>*uploaded_screenshot</span>
-                <br>
                 @if (!empty($tool->uploaded_screenshot))
-                    <span class="text-success">Already available</span>
+                    <span class="text-success">(Already available)</span>
                 @else
                     <a href="https://pikwy.com/" target="_blank">Capture</a>
                 @endif
@@ -68,22 +67,38 @@
         </div>
 
         <div class="form-group mb-4">
-            <label class="fw-bold">
-                <span>*uploaded_favicon</span>
-                <br>
+            <label>
+                <span class="fw-bold">*uploaded_favicon</span>
                 @if (!empty($tool->uploaded_favicon))
-                    <span class="text-success">Already available</span>
+                    <span class="text-success">(Already available)</span>
                 @else
                     <a href="https://onlineminitools.com/website-favicon-downloader" target="_blank">Fetch</a>
                 @endif
             </label>
-            <input type="file" class="form-control" name="uploaded_favicon"
-                {{ request()->routeIs('admin.tools.create') ? 'required' : '' }}
-                {{ request()->routeIs('admin.tools.import') ? 'required' : '' }}>
+            <input type="file" class="form-control" name="uploaded_favicon" {{-- {{ request()->routeIs('admin.tools.create') ? 'required' : '' }}
+                {{ request()->routeIs('admin.tools.import') ? 'required' : '' }} --}}>
         </div>
 
 
-        <div class="form-group mb-2">
+        @if (request()->routeIs('admin.tools.create') || request()->routeIs('admin.tools.import'))
+            <div class="form-check fw-bold mb-4">
+                <label class="form-check-label" for="checkbox1">
+                    <span>Should get favicon from goole</span>
+                    <br>
+                    @if (empty($tool->uploaded_favicon))
+                        <span>
+                            <span>Favicon from google</span>
+                            <img height="32" width="32"
+                                src="https://www.google.com/s2/favicons?domain={{ isset($tool->domain_name) ? $tool->domain_name : (isset($home_page_url) ? getDomainFromUrl($home_page_url) : '') }}&sz=128"
+                                alt="">
+                        </span>
+                    @endif
+                </label>
+                <input class="form-check-input" type="checkbox" name="should_get_favicon_from_google">
+            </div>
+        @endif
+
+        <div class="form-group mb-4">
             <label class="fw-bold">*pricing type</label>
             <select type="select" class="form-control" name="pricing_type" required>
                 @if (isset($toolDto->pricingType))
