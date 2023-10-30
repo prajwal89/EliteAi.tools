@@ -2,6 +2,8 @@
 
 namespace App\Services;
 
+use App\Enums\SearchAbleTable;
+use App\Models\Tool;
 use Illuminate\Http\UploadedFile;
 use Illuminate\Support\Facades\File;
 use Intervention\Image\Facades\Image;
@@ -73,5 +75,16 @@ class ToolServices
         })->save($toolAssetPath . '/favicon.webp');
 
         return true;
+    }
+
+    public static function updateVectorEmbeddings(int $toolId): bool
+    {
+        $tool = Tool::find($toolId);
+
+        $embeddings = MeilisearchService::getVectorEmbeddings($tool->paragraphToEmbed);
+
+        return (new MeilisearchService)->updateDocument(SearchAbleTable::TOOL, $tool->id, [
+            '_vectors' => $embeddings,
+        ]);
     }
 }

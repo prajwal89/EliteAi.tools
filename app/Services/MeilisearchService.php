@@ -74,7 +74,7 @@ class MeilisearchService
         return false;
     }
 
-    public function updateDocument(SearchAbleTable $table, $documentId, array $newData)
+    public function updateDocument(SearchAbleTable $table, $documentId, array $newData): bool
     {
         $searchableModel = $table->getModelInstance();
 
@@ -102,6 +102,8 @@ class MeilisearchService
             // Example:
             // $this->indexDocument($table, $newData);
         }
+
+        return true;
     }
 
     public static function vectorSearch(SearchAbleTable $table, string $query)

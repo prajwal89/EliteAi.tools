@@ -103,6 +103,8 @@ class ToolController extends Controller
             return $insertedTool;
         });
 
+        ToolServices::updateVectorEmbeddings($tool->id);
+
         return redirect()->route('admin.tools.edit', ['tool' => $tool->id])->with('success', '
         tool created successfully. 
         <br>
@@ -205,6 +207,8 @@ class ToolController extends Controller
 
             $tool->categories()->sync($request->categories);
         });
+
+        ToolServices::updateVectorEmbeddings($tool->id);
 
         return redirect()->back()->with('success', 'tool updated successfully');
     }
