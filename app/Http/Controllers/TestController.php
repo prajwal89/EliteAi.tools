@@ -29,9 +29,9 @@ class TestController extends Controller
 {
     public function __construct()
     {
-        if (app()->isProduction()) {
-            abort(404);
-        }
+        // if (app()->isProduction()) {
+        //     abort(404);
+        // }
     }
 
     public function __invoke()
