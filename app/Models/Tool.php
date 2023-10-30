@@ -69,6 +69,34 @@ class Tool extends Model implements MeilisearchAble
         return $this->belongsToMany(Category::class);
     }
 
+    public function getParagraphToEmbedAttribute(): string
+    {
+        $paragraphToEmbed = '';
+
+        $paragraphToEmbed .= $this->name . PHP_EOL;
+        $paragraphToEmbed .= $this->tag_line . PHP_EOL;
+        $paragraphToEmbed .= $this->summary . PHP_EOL;
+        $paragraphToEmbed .= strip_tags($this->description) . PHP_EOL;
+
+        if (!empty($this->top_features)) {
+            $paragraphToEmbed .=  PHP_EOL . 'Features' . PHP_EOL;
+
+            foreach ($this->top_features as $feature) {
+                $paragraphToEmbed .= $feature . PHP_EOL;
+            }
+        }
+
+        if (!empty($this->use_cases)) {
+            $paragraphToEmbed .=   PHP_EOL . 'Use-Cases' . PHP_EOL;
+
+            foreach ($this->use_cases as $useCase) {
+                $paragraphToEmbed .= $useCase . PHP_EOL;
+            }
+        }
+
+        return $paragraphToEmbed;
+    }
+
     public static function documentsForSearch(int $documentId = null, int $batchNo = 0): array
     {
         $query = self::select(

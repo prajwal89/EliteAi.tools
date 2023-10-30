@@ -36,13 +36,15 @@ class TestController extends Controller
 
     public function __invoke()
     {
-        return (new MeilisearchService())->indexAllDocumentsOfTable(SearchAbleTable::TOOL);
+        // dd((new MeilisearchService)->meilisearchClient->version());
+        // return (new MeilisearchService())->indexAllDocumentsOfTable(SearchAbleTable::TOOL);
         // return (new MeilisearchService())->deIndexTable(SearchAbleTable::TOOL);
 
-        return $this->vectorSearch();
+        // return $this->vectorSearch();
 
 
-        return $this->loginSuperAdmin();
+        return $this->sendVectorEmbeddingsToMeilisearch();
+        // return $this->loginSuperAdmin();
 
         // return $this->buildToolDto();
 
@@ -81,64 +83,30 @@ class TestController extends Controller
         dd($results);
     }
 
-    public function vectorEmbedding()
+    public function sendVectorEmbeddingsToMeilisearch()
     {
-        // exec('python E:\PHP\Microservices\service\embeddings\generate_embeddings.py "sample"', $output, $result);
-        // dd($output);
-
         $allTools = Tool::whereNotIn('id', [])->get();
 
         foreach ($allTools as $tool) {
-            $paragraphToEmbed = '';
+            $embeddings = MeilisearchService::getVectorEmbeddings($tool->paragraphToEmbed);
 
-            $paragraphToEmbed .= $tool->name . PHP_EOL;
-            $paragraphToEmbed .= $tool->tag_line . PHP_EOL;
-            $paragraphToEmbed .= $tool->summary . PHP_EOL;
-            $paragraphToEmbed .= strip_tags($tool->description) . PHP_EOL;
-
-            if (!empty($tool->top_features)) {
-                $paragraphToEmbed .=  PHP_EOL . 'Features' . PHP_EOL;
-
-                foreach ($tool->top_features as $feature) {
-                    $paragraphToEmbed .= $feature . PHP_EOL;
-                }
-            }
-
-            if (!empty($tool->use_cases)) {
-                $paragraphToEmbed .=   PHP_EOL . 'Use-Cases' . PHP_EOL;
-
-                foreach ($tool->use_cases as $useCase) {
-                    $paragraphToEmbed .= $useCase . PHP_EOL;
-                }
-            }
-
-            exit($paragraphToEmbed);
-
-
-            exec('python E:\PHP\Microservices\service\embeddings\generate_embeddings.py "' . $paragraphToEmbed . '"', $output, $result);
-
-            try {
-                $response = json_decode($output[0]);
-            } catch (Exception $e) {
-            }
+            dd($embeddings);
 
             (new MeilisearchService)->updateDocument(
                 SearchAbleTable::TOOL,
                 $tool->id,
                 [
-                    '_vectors' => $response->embeddings
+                    '_vectors' => $embeddings
                 ]
             );
 
-            $tool->update(['vectors' => $response->embeddings]);
-
-            unset($output);
-            unset($response);
+            $tool->update(['vectors' => $embeddings]);
 
             // dump($paragraphToEmbed);
             // dd($response);
             // dd($paragraphToEmbed);
         }
+        echo 'done';
     }
 
     public function buildToolDto()
