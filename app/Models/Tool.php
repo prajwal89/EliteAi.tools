@@ -23,6 +23,7 @@ class Tool extends Model implements MeilisearchAble
         'description',
         'top_features',
         'use_cases',
+        'vectors',
 
         'domain_name',
         'pricing_type',

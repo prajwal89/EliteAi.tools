@@ -6,7 +6,7 @@ return [
     'admin_panel_base_url' => 'admin-area',
     'admin_email' => 'example@mail.com',
     'meilisearch' => [
-        'prefix' => 'ai_tools_repo_',
+        'prefix' => 'ai_tools_repo',
         'host' => env('MEILISEARCH_HOST', 'http://localhost:7700'),
         'key' => env('MEILISEARCH_KEY', null),
     ],

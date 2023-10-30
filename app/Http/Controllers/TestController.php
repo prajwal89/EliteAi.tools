@@ -2,11 +2,16 @@
 
 namespace App\Http\Controllers;
 
+ini_set('memory_limit', '2048M');
+ini_set('max_execution_time', 600); //10 min
+
 use App\DTOs\ToolDTO;
 use App\Enums\SearchAbleTable;
 use App\Models\ExtractedToolDomain;
+use App\Models\Tool;
 use App\Services\ExtractedToolProcessor;
 use App\Services\MeilisearchService;
+use Exception;
 use Facebook\WebDriver\Remote\DesiredCapabilities;
 use Facebook\WebDriver\Remote\RemoteWebDriver;
 use HeadlessChromium\BrowserFactory;
@@ -31,8 +36,13 @@ class TestController extends Controller
 
     public function __invoke()
     {
+        // return (new MeilisearchService())->indexAllDocumentsOfTable(SearchAbleTable::TOOL);
+        // return (new MeilisearchService())->deIndexTable(SearchAbleTable::TOOL);
 
-        // (new MeilisearchService())->indexAllDocumentsOfTable(SearchAbleTable::TOOL);
+        return $this->vectorEmbedding();
+        // return $this->vectorSearchWithCurl();
+        // return $this->vectorSearch();
+
 
         return $this->loginSuperAdmin();
 
@@ -51,6 +61,133 @@ class TestController extends Controller
         // return $this->crawlTopAiTools3();
 
         return $this->loginSuperAdmin();
+    }
+
+    public function vectorEmbedding()
+    {
+        // exec('python E:\PHP\Microservices\service\embeddings\generate_embeddings.py "sample"', $output, $result);
+        // dd($output);
+
+        $allTools = Tool::whereNotIn('id', [])->get();
+
+        foreach ($allTools as $tool) {
+            $paragraphToEmbed = '';
+
+            $paragraphToEmbed .= $tool->name . PHP_EOL;
+            $paragraphToEmbed .= $tool->tag_line . PHP_EOL;
+            $paragraphToEmbed .= $tool->summary . PHP_EOL;
+            $paragraphToEmbed .= strip_tags($tool->description) . PHP_EOL;
+
+            if (!empty($tool->top_features)) {
+                $paragraphToEmbed .=  PHP_EOL . 'Features' . PHP_EOL;
+
+                foreach ($tool->top_features as $feature) {
+                    $paragraphToEmbed .= $feature . PHP_EOL;
+                }
+            }
+
+            if (!empty($tool->use_cases)) {
+                $paragraphToEmbed .=   PHP_EOL . 'Use-Cases' . PHP_EOL;
+
+                foreach ($tool->use_cases as $useCase) {
+                    $paragraphToEmbed .= $useCase . PHP_EOL;
+                }
+            }
+
+            exit($paragraphToEmbed);
+
+
+            exec('python E:\PHP\Microservices\service\embeddings\generate_embeddings.py "' . $paragraphToEmbed . '"', $output, $result);
+
+            try {
+                $response = json_decode($output[0]);
+            } catch (Exception $e) {
+            }
+
+            (new MeilisearchService)->updateDocument(
+                SearchAbleTable::TOOL,
+                $tool->id,
+                [
+                    '_vectors' => $response->embeddings
+                ]
+            );
+
+            $tool->update(['vectors' => $response->embeddings]);
+
+            unset($output);
+            unset($response);
+
+            // dump($paragraphToEmbed);
+            // dd($response);
+            // dd($paragraphToEmbed);
+        }
+    }
+
+    public function vectorSearch()
+    {
+        $query = 'Crypto News Today';
+
+        exec('python E:\PHP\Microservices\service\embeddings\generate_embeddings.py "' . $query . '"', $output, $result);
+
+        try {
+            $response = json_decode($output[0]);
+        } catch (Exception $e) {
+        }
+
+        $response->embeddings;
+
+
+        // Define the search query
+        $query = ['query' => 'Your Search Query', 'vector' => [0, 1, 2]]; // Replace 'Your Search Query' with the actual search query
+
+
+        $searchResult = (new MeilisearchService)
+            ->meilisearchClient
+            ->index(SearchAbleTable::TOOL->getIndexName())
+            ->search('yo');
+
+
+        // Print the search result
+        dd($searchResult);
+    }
+
+    public function vectorSearchWithCurl()
+    {
+        $meiliSearchUrl = 'http://localhost:7700';
+        $apiKey = 'YOUR_MEILISEARCH_API_KEY'; // Replace with your MeiliSearch API key
+
+
+        $query = 'i want ai for doing citation';
+
+        exec('python E:\PHP\Microservices\service\embeddings\generate_embeddings.py "' . $query . '"', $output, $result);
+
+        try {
+            $response = json_decode($output[0]);
+        } catch (Exception $e) {
+        }
+
+        // Specify the search query
+        $searchQuery = [
+            'vector' =>  $response->embeddings
+        ];
+
+        // Create an array with headers, including the content-type and authentication
+        $headers = [
+            'Content-Type' => 'application/json',
+            'X-Meili-API-Key' => $apiKey,
+        ];
+
+        // Define the full URL for the search endpoint
+        $searchEndpoint = $meiliSearchUrl . '/indexes/' . SearchAbleTable::TOOL->getIndexName() . '/search';
+
+        // Send the POST request using the HTTP facade
+        $response = Http::withHeaders($headers)->post($searchEndpoint, $searchQuery);
+
+        // Get the JSON response content
+        $responseData = $response->json();
+
+        // Print or use the response data as needed
+        dd($responseData);
     }
 
     public function buildToolDto()
