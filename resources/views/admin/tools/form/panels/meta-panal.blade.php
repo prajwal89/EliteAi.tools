@@ -63,7 +63,8 @@
             </label>
             <input type="file" class="form-control" name="uploaded_screenshot"
                 {{ request()->routeIs('admin.tools.create') ? 'required' : '' }}
-                {{ request()->routeIs('admin.tools.import') ? 'required' : '' }}>
+                {{ request()->routeIs('admin.tools.import') ? 'required' : '' }}
+                {{ request()->routeIs('admin.tools.importGo') ? 'required' : '' }}>
         </div>
 
         <div class="form-group mb-4">
@@ -80,7 +81,9 @@
         </div>
 
 
-        @if (request()->routeIs('admin.tools.create') || request()->routeIs('admin.tools.import'))
+        @if (request()->routeIs('admin.tools.create') ||
+                request()->routeIs('admin.tools.import') ||
+                request()->routeIs('admin.tools.importGo'))
             <div class="form-check fw-bold mb-4">
                 <label class="form-check-label" for="checkbox1">
                     <span>Should get favicon from goole</span>

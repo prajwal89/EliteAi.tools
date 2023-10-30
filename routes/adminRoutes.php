@@ -12,7 +12,7 @@ use Illuminate\Support\Facades\Route;
 Route::prefix(config('custom.admin_panel_base_url'))->name('admin.')->middleware(AdminAccess::class)->group(function () {
 
     Route::get('tools/import', [ToolImportController::class, 'importForm'])->name('tools.import');
-    Route::post('tools/import', [ToolImportController::class, 'import'])->name('tools.import');
+    Route::post('tools/import', [ToolImportController::class, 'import'])->name('tools.importGo');
 
     Route::get('dashboard', DashboardController::class)->name('dashboard');
     Route::resource('users', UserController::class);
