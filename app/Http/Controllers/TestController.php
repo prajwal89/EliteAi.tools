@@ -11,16 +11,13 @@ use App\Models\ExtractedToolDomain;
 use App\Models\Tool;
 use App\Services\ExtractedToolProcessor;
 use App\Services\MeilisearchService;
-use Exception;
 use Facebook\WebDriver\Remote\DesiredCapabilities;
 use Facebook\WebDriver\Remote\RemoteWebDriver;
 use HeadlessChromium\BrowserFactory;
 use Illuminate\Support\Facades\DB;
-use Illuminate\Support\Facades\File;
 use Illuminate\Support\Facades\Http;
 use League\Uri\Uri;
 use voku\helper\HtmlDomParser;
-use Intervention\Image\Facades\Image;
 
 /**
  * For testing out misc things
@@ -41,7 +38,6 @@ class TestController extends Controller
         // return (new MeilisearchService())->deIndexTable(SearchAbleTable::TOOL);
 
         // return $this->vectorSearch();
-
 
         return $this->sendVectorEmbeddingsToMeilisearch();
         // return $this->loginSuperAdmin();
@@ -96,7 +92,7 @@ class TestController extends Controller
                 SearchAbleTable::TOOL,
                 $tool->id,
                 [
-                    '_vectors' => $embeddings
+                    '_vectors' => $embeddings,
                 ]
             );
 

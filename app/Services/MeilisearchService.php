@@ -116,7 +116,7 @@ class MeilisearchService
             'Content-Type' => 'application/json',
             'X-Meili-API-Key' => config('custom.meilisearch.key'),
         ])->post($searchEndpoint, [
-            'vector' =>  self::getVectorEmbeddings($query),
+            'vector' => self::getVectorEmbeddings($query),
         ]);
 
         // Get the JSON response content
@@ -138,7 +138,7 @@ class MeilisearchService
         //     return $response->embeddings;
         // }
 
-        $response = file_get_contents("http://194.163.34.183/Microservices/service/embeddings/GenerateEmbeddings.php?text=" . urlencode($text));
+        $response = file_get_contents('http://194.163.34.183/Microservices/service/embeddings/GenerateEmbeddings.php?text=' . urlencode($text));
 
         // dd($response);
         return json_decode($response, true)['data']['embeddings'];

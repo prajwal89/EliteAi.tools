@@ -79,7 +79,7 @@ class Tool extends Model implements MeilisearchAble
         $paragraphToEmbed .= strip_tags($this->description) . PHP_EOL;
 
         if (!empty($this->top_features)) {
-            $paragraphToEmbed .=  PHP_EOL . 'Features' . PHP_EOL;
+            $paragraphToEmbed .= PHP_EOL . 'Features' . PHP_EOL;
 
             foreach ($this->top_features as $feature) {
                 $paragraphToEmbed .= $feature . PHP_EOL;
@@ -87,7 +87,7 @@ class Tool extends Model implements MeilisearchAble
         }
 
         if (!empty($this->use_cases)) {
-            $paragraphToEmbed .=   PHP_EOL . 'Use-Cases' . PHP_EOL;
+            $paragraphToEmbed .= PHP_EOL . 'Use-Cases' . PHP_EOL;
 
             foreach ($this->use_cases as $useCase) {
                 $paragraphToEmbed .= $useCase . PHP_EOL;

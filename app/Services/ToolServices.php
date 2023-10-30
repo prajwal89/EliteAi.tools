@@ -83,6 +83,8 @@ class ToolServices
 
         $embeddings = MeilisearchService::getVectorEmbeddings($tool->paragraphToEmbed);
 
+        $tool->update(['vectors' => $embeddings]);
+
         return (new MeilisearchService)->updateDocument(SearchAbleTable::TOOL, $tool->id, [
             '_vectors' => $embeddings,
         ]);

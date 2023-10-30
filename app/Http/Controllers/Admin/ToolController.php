@@ -164,7 +164,6 @@ class ToolController extends Controller
             );
         }
 
-
         DB::transaction(function () use ($request, $tool, $toolData) {
             $tool->update([
                 'name' => $request->name,

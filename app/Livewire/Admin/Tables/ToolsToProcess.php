@@ -3,7 +3,6 @@
 namespace App\Livewire\Admin\Tables;
 
 use Illuminate\Database\Query\Builder;
-use Illuminate\Support\Carbon;
 use Illuminate\Support\Facades\DB;
 use PowerComponents\LivewirePowerGrid\Button;
 use PowerComponents\LivewirePowerGrid\Column;
@@ -104,7 +103,6 @@ final class ToolsToProcess extends PowerGridComponent
             Filter::datetimepicker('updated_at'),
         ];
     }
-
 
     public function actions($row): array
     {

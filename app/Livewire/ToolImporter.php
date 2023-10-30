@@ -175,11 +175,13 @@ Tool Url: ' . $this->url . '
         if (isset($platformRegexMap[$platform])) {
             // Use the corresponding regular expression
             preg_match($platformRegexMap[$platform], $url, $matches);
+
             return $matches[1] ?? '';
         } elseif ($platform === 'email') {
             preg_match('/mailto:(.*)/', $url, $matches);
             if (isset($matches[1])) {
                 $handle = str($matches[1])->before('?')->toString();
+
                 return $handle;
             }
         } elseif ($platform === 'android_app') {
@@ -196,7 +198,6 @@ Tool Url: ' . $this->url . '
 
         return '';
     }
-
 
     public function render()
     {

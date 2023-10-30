@@ -48,7 +48,7 @@ class ToolsToProcessController extends Controller
         $extractedToolDomain = ExtractedToolDomain::find($id);
 
         return view('admin.tools-to-process.edit', [
-            'extractedToolDomain' => $extractedToolDomain
+            'extractedToolDomain' => $extractedToolDomain,
         ]);
     }
 
