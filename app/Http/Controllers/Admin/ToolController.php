@@ -223,6 +223,8 @@ class ToolController extends Controller
     {
         Tool::find($id)->delete();
 
+        MeilisearchService::deleteDocument(SearchAbleTable::TOOL, 1);
+
         return redirect()->route('admin.tools.index')->with('success', 'deleted successfully');
     }
 }

@@ -8,6 +8,7 @@ ini_set('max_execution_time', 600); //10 min
 use App\Enums\SearchAbleTable;
 use App\Interfaces\MeilisearchAble;
 use Exception;
+use GuzzleHttp\Client as GuzzleHttpClient;
 use Illuminate\Support\Facades\Http;
 use MeiliSearch\Client;
 
@@ -15,11 +16,16 @@ class MeilisearchService
 {
     public $meilisearchClient;
 
-    public function __construct()
+    public array $defaultHttpClientConfigs = [
+        'timeout' => 10,
+    ];
+
+    public function __construct(array $httpClientConfigs = [])
     {
         $this->meilisearchClient = new Client(
             config('custom.meilisearch.host'),
-            config('custom.meilisearch.key')
+            config('custom.meilisearch.key'),
+            new GuzzleHttpClient(array_merge($this->defaultHttpClientConfigs, $httpClientConfigs)),
         );
     }
 
@@ -53,6 +59,29 @@ class MeilisearchService
         return $output;
     }
 
+    public function deIndexTable(SearchAbleTable $table)
+    {
+        return $this
+            ->meilisearchClient
+            ->deleteIndex(
+                $table->getIndexName()
+            );
+    }
+
+    public static function deleteDocument(SearchAbleTable $table, int $documentId): bool
+    {
+        $response = (new self())
+            ->meilisearchClient
+            ->index($table->getIndexName())
+            ->deleteDocument($documentId);
+
+        if ($response['status'] === 'enqueued') {
+            return true;
+        } else {
+            throw new Exception('Meilisearch failed to delete document for ' . $table->getIndexName());
+        }
+    }
+
     public static function indexDocument(SearchAbleTable $table, int $documentId): bool
     {
         $response = (new self())
@@ -69,11 +98,6 @@ class MeilisearchService
         return true;
     }
 
-    public function deIndexTable(SearchAbleTable $table)
-    {
-        return $this->meilisearchClient
-            ->deleteIndex($table->getIndexName());
-    }
 
     public function getTotalDocumentsInIndex(SearchAbleTable $table)
     {

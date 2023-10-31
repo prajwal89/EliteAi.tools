@@ -34,8 +34,15 @@ class TestController extends Controller
 
     public function __invoke()
     {
-        dump(MeilisearchService::indexDocument(SearchAbleTable::TOOL, 31));
-        dd(ToolServices::updateVectorEmbeddings(31));
+        // dd((new MeilisearchService(['timeout' => 234234])));
+        MeilisearchService::indexDocument(SearchAbleTable::TOOL, 1);
+
+        ToolServices::updateVectorEmbeddings(1);
+
+        // dd(MeilisearchService::deleteDocument(SearchAbleTable::TOOL, 1));
+
+        // dump(MeilisearchService::indexDocument(SearchAbleTable::TOOL, 31));
+        // dd(ToolServices::updateVectorEmbeddings(31));
 
         // return MeilisearchService::getVectorEmbeddings('ds');
 
