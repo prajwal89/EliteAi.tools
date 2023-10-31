@@ -8,6 +8,7 @@ ini_set('max_execution_time', 600); //10 min
 use App\DTOs\ToolDTO;
 use App\Enums\SearchAbleTable;
 use App\Models\ExtractedToolDomain;
+use App\Models\SemanticScore;
 use App\Models\Tool;
 use App\Services\ExtractedToolProcessor;
 use App\Services\MeilisearchService;
@@ -34,6 +35,7 @@ class TestController extends Controller
 
     public function __invoke()
     {
+        return $this->getAlternativeTools();
         return $this->recommendationWithVectorSearch();
 
 
@@ -80,10 +82,11 @@ class TestController extends Controller
         return $this->loginSuperAdmin();
     }
 
+
     public function recommendationWithVectorSearch()
     {
         // for tool pdf-pals
-        $tool = Tool::find(38);
+        $tool = Tool::find(6);
 
         $results = MeilisearchService::vectorSearch(
             SearchAbleTable::TOOL,
@@ -91,7 +94,56 @@ class TestController extends Controller
             ['limit' => 500]
         );
 
+        // _semanticScore
+
+        //* update or create  _semanticScore of current tool
+
+        foreach ($results['hits'] as $hit) {
+            SemanticScore::updateOrCreate([
+                'tool1_id' => min($tool->id, $hit['id']),
+                'tool2_id' => max($tool->id, $hit['id']),
+            ], [
+                'score' => $hit['_semanticScore']
+            ]);
+        }
+
+
         dd($results);
+    }
+
+    public function getAlternativeTools()
+    {
+        $forToolId = 6;
+
+        $scores = SemanticScore::where(function ($query) use ($forToolId) {
+            $query->where('tool1_id', $forToolId);
+            $query->orWhere('tool2_id', $forToolId);
+        })
+            ->where('score', '>', 0.5)
+            ->orderBy('score', 'desc')
+            ->get();
+
+        $toolIds = $scores->map(function ($score) {
+            return [$score->tool1_id, $score->tool2_id];
+        })
+            ->flatten()
+            ->filter(function ($tooId) use ($forToolId) {
+                //* remove current tool that we are getting alternatives for 
+                return $tooId !== $forToolId;
+            })
+            ->unique();
+
+        $resultTools = Tool::with(['categories'])
+            ->whereIn('id', $toolIds->toArray())
+            ->get()
+
+            ->sortBy(function ($tool) use ($toolIds) {
+                return array_search($tool->id, $toolIds->toArray());
+            });
+
+        dump($scores->toArray());
+        dump($toolIds->toArray());
+        dump($resultTools->toArray());
     }
 
     public function vectorSearch()
@@ -100,7 +152,10 @@ class TestController extends Controller
         $start_time = microtime(true);
 
         // Call the function you want to measure
-        $results = MeilisearchService::vectorSearch(SearchAbleTable::TOOL, 'real time crypto news');
+        $results = MeilisearchService::vectorSearch(
+            SearchAbleTable::TOOL,
+            'real time crypto news'
+        );
 
         // Stop the timer
         $end_time = microtime(true);
