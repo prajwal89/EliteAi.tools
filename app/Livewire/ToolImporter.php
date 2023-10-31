@@ -158,6 +158,7 @@ Tool Url: ' . $this->url . '
         $platformRegexMap = [
             'instagram' => '/instagram\.com\/([^\/]+)/',
             'tiktok' => '/tiktok\.com\/@([^\/]+)/',
+            // match x.com
             'twitter' => '/twitter\.com\/([^\/]+)/',
             'linkedin' => '/linkedin\.com\/in\/([^\/]+)/',
             'linkedin_company' => '/linkedin\.com\/company\/([^\/]+)/',

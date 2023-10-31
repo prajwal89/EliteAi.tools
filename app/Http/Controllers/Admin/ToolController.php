@@ -53,13 +53,6 @@ class ToolController extends Controller
             );
         }
 
-        if ($request->has('should_get_favicon_from_google')) {
-            $toolData['uploaded_favicon'] = ToolServices::saveFaviconFromGoogle(
-                $request->domain_name,
-                $slug
-            );
-        }
-
         $tool = DB::transaction(function () use ($request, $slug, $toolData) {
             $insertedTool = Tool::create([
                 'name' => $request->name,
@@ -104,6 +97,15 @@ class ToolController extends Controller
 
             return $insertedTool;
         });
+
+        // download and save favicons
+        if ($request->has('should_get_favicon_from_google')) {
+            $tool->update(
+                [
+                    'uploaded_favicon' => ToolServices::saveFaviconFromGoogle($tool)
+                ]
+            );
+        }
 
         MeilisearchService::indexDocument(SearchAbleTable::TOOL, $tool->id);
 

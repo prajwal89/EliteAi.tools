@@ -98,7 +98,6 @@ class MeilisearchService
         return true;
     }
 
-
     public function getTotalDocumentsInIndex(SearchAbleTable $table)
     {
         return $this->meilisearchClient->index($table->getIndexName())

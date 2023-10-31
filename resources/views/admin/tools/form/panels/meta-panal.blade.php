@@ -76,7 +76,7 @@
                     <a href="https://onlineminitools.com/website-favicon-downloader" target="_blank">Fetch</a>
                 @endif
             </label>
-            <input type="file" class="form-control" name="uploaded_favicon" checked {{-- {{ request()->routeIs('admin.tools.create') ? 'required' : '' }}
+            <input type="file" class="form-control" name="uploaded_favicon" {{-- {{ request()->routeIs('admin.tools.create') ? 'required' : '' }}
                 {{ request()->routeIs('admin.tools.import') ? 'required' : '' }} --}}>
         </div>
 
@@ -97,7 +97,7 @@
                         </span>
                     @endif
                 </label>
-                <input class="form-check-input" type="checkbox" name="should_get_favicon_from_google">
+                <input class="form-check-input" type="checkbox" name="should_get_favicon_from_google" checked>
             </div>
         @endif
 
