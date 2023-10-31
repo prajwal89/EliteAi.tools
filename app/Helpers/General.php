@@ -45,3 +45,20 @@ function truncate($string, $length, $dots = '...')
 {
     return (strlen($string) > $length) ? substr($string, 0, $length - strlen($dots)) . $dots : $string;
 }
+
+
+if (!function_exists('getGoogleThumbnailUrl')) {
+    function getGoogleThumbnailUrl(string $url): string
+    {
+        $params['client'] = 'SOCIAL';
+        $params['type'] = 'FAVICON';
+        $params['fallback_opts'] = 'TYPE,SIZE,URL';
+        $params['url'] = $url;
+        $params['size'] = '128';
+
+        $faviconUrl = 'https://t0.gstatic.com/faviconV2';
+        $faviconUrl .= '?' . http_build_query($params);
+
+        return $faviconUrl;
+    }
+}

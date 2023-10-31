@@ -60,24 +60,13 @@ class ToolServices
 
     public static function saveFaviconFromGoogle(Tool $tool): bool
     {
-        // $googleEndpoint = "https://www.google.com/s2/favicons?domain=$domainName";
-
-        $params['client'] = 'SOCIAL';
-        $params['type'] = 'FAVICON';
-        $params['fallback_opts'] = 'TYPE,SIZE,URL';
-        $params['url'] = $tool->home_page_url;
-        $params['size'] = '128';
-
-        $googleEndpoint = 'https://t0.gstatic.com/faviconV2';
-        $googleEndpoint .= '?' . http_build_query($params);
-
         $toolAssetPath = public_path('tools/' . $tool->slug);
 
         if (!File::isDirectory($toolAssetPath)) {
             File::makeDirectory($toolAssetPath, 0755, true, true);
         }
 
-        $newImage = Image::make($googleEndpoint);
+        $newImage = Image::make(getGoogleThumbnailUrl($tool->home_page_url));
 
         $newImage->resize(100, 400, function ($constraint) {
             $constraint->aspectRatio();

@@ -92,7 +92,7 @@
                         <span>
                             <span>Favicon from google</span>
                             <img height="32" width="32"
-                                src="https://www.google.com/s2/favicons?domain={{ isset($tool->domain_name) ? $tool->domain_name : (isset($home_page_url) ? getDomainFromUrl($home_page_url) : '') }}&sz=128"
+                                src="{{ isset($tool->domain_name) ? $tool->domain_name : (isset($home_page_url) ? getGoogleThumbnailUrl($home_page_url) : '') }}"
                                 alt="">
                         </span>
                     @endif
