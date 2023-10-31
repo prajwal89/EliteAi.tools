@@ -58,7 +58,7 @@ class MeilisearchService
         $response = (new self())
             ->meilisearchClient
             ->index($table->getIndexName())
-            ->addDocuments($table->getModelInstance::documentsForSearch(
+            ->addDocuments($table->getModelInstance()::documentsForSearch(
                 documentId: $documentId
             ));
 
