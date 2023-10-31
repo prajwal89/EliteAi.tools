@@ -83,9 +83,13 @@ class TestController extends Controller
     public function recommendationWithVectorSearch()
     {
         // for tool pdf-pals
-        $tool = Tool::find(20);
+        $tool = Tool::find(38);
 
-        $results = MeilisearchService::vectorSearch(SearchAbleTable::TOOL, $tool->getParagraphForVectorEmbeddings());
+        $results = MeilisearchService::vectorSearch(
+            SearchAbleTable::TOOL,
+            $tool->getParagraphForVectorEmbeddings(),
+            ['limit' => 500]
+        );
 
         dd($results);
     }
