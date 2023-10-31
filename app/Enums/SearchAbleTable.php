@@ -12,8 +12,6 @@ enum SearchAbleTable: string
 
     /**
      * index name is {prefix}_{tableName}
-     *
-     * @return string
      */
     public function getIndexName(): string
     {
@@ -25,8 +23,6 @@ enum SearchAbleTable: string
 
     /**
      * For sending data for indexing
-     *
-     * @return string
      */
     public function getBatchSize(): string
     {

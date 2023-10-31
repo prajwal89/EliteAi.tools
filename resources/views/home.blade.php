@@ -36,7 +36,7 @@
 
 
         @if (isset($resultTools))
-            <div class="flex justify-center relative -mt-20">
+            <div class="flex justify-center relative -mt-16">
                 <span class="text-2xl md:text-3xl font-bold mb-4">
                     Search results
                 </span>

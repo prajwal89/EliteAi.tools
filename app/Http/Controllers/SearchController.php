@@ -15,6 +15,8 @@ class SearchController extends Controller
         $query = $request->input('query');
 
         if (!empty($query)) {
+            $startTime = microtime(true);
+
             $response = MeilisearchService::vectorSearch(SearchAbleTable::TOOL, $query);
 
             $toolIds = collect($response['hits'])->map(function ($tool) {
@@ -30,9 +32,9 @@ class SearchController extends Controller
                     return array_search($tool->id, $toolIds->toArray());
                 });
 
+            dump('Total time: ' . round(microtime('true') - $startTime, 2) . ' sec');
             // dd($resultTools->toArray());
         }
-
 
         return view('home', [
             'pageDataDTO' => new PageDataDTO(
@@ -41,7 +43,7 @@ class SearchController extends Controller
                 conicalUrl: route('search')
             ),
             'query' => $query,
-            'resultTools' => $resultTools ?? collect([])
+            'resultTools' => $resultTools ?? collect([]),
         ]);
     }
 }
