@@ -81,7 +81,10 @@ class TestController extends Controller
 
     public function sendVectorEmbeddingsToMeilisearch()
     {
-        $allTools = Tool::whereNotIn('id', [])->get();
+        // $allTools = Tool::whereNotIn('id', [])->get();
+        $allTools = Tool::whereNull('vectors')->get();
+
+        // dd($allTools);
 
         foreach ($allTools as $tool) {
             $embeddings = MeilisearchService::getVectorEmbeddings($tool->paragraphToEmbed);
