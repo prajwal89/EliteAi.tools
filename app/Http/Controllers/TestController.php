@@ -11,6 +11,7 @@ use App\Models\ExtractedToolDomain;
 use App\Models\Tool;
 use App\Services\ExtractedToolProcessor;
 use App\Services\MeilisearchService;
+use App\Services\ToolServices;
 use Facebook\WebDriver\Remote\DesiredCapabilities;
 use Facebook\WebDriver\Remote\RemoteWebDriver;
 use HeadlessChromium\BrowserFactory;
@@ -33,6 +34,11 @@ class TestController extends Controller
 
     public function __invoke()
     {
+        dump(MeilisearchService::indexDocument(SearchAbleTable::TOOL, 31));
+        dd(ToolServices::updateVectorEmbeddings(31));
+
+        // return MeilisearchService::getVectorEmbeddings('ds');
+
         dd(SearchAbleTable::TOOL->getIndexName());
         dd((new Tool())->getTable());
 

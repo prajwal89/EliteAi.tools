@@ -2,8 +2,10 @@
 
 namespace App\Http\Controllers\Admin;
 
+use App\Enums\SearchAbleTable;
 use App\Http\Controllers\Controller;
 use App\Models\Tool;
+use App\Services\MeilisearchService;
 use App\Services\ToolServices;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
@@ -102,6 +104,8 @@ class ToolController extends Controller
 
             return $insertedTool;
         });
+
+        MeilisearchService::indexDocument(SearchAbleTable::TOOL, $tool->id);
 
         ToolServices::updateVectorEmbeddings($tool->id);
 

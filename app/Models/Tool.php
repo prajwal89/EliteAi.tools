@@ -112,8 +112,8 @@ class Tool extends Model implements MeilisearchAble
             'use_cases',
         );
 
-        if (!empty($courseId)) {
-            $query->where('id', $courseId);
+        if (!empty($documentId)) {
+            $query->where('id', $documentId);
         }
 
         $query->orderBy('id', 'asc');
@@ -122,7 +122,11 @@ class Tool extends Model implements MeilisearchAble
 
         $offset = $batchNo * $batchSize;
 
-        return $query->offset($offset)->limit($batchSize)->get()->toArray();
+        return $query
+            ->offset($offset)
+            ->limit($batchSize)
+            ->get()
+            ->toArray();
     }
 
     public static function documentsForSearchTotalBatches(): int
