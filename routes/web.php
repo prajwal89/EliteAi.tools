@@ -2,6 +2,7 @@
 
 use App\Http\Controllers\CategoryController;
 use App\Http\Controllers\HomeController;
+use App\Http\Controllers\SearchController;
 use App\Http\Controllers\SocialAuthController;
 use App\Http\Controllers\TestController;
 use App\Http\Controllers\ToolController;
@@ -9,6 +10,7 @@ use App\Http\Controllers\TopAiToolsController;
 use Illuminate\Support\Facades\Route;
 
 Route::get('/', HomeController::class)->name('home');
+Route::get('/search', SearchController::class)->name('search');
 
 Route::controller(ToolController::class)->prefix('tool')->name('tool.')->group(function () {
     Route::get('submit-new-tool', 'submitNewTool')->name('submit');

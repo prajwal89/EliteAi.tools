@@ -33,6 +33,8 @@ class TestController extends Controller
 
     public function __invoke()
     {
+        MeilisearchService::enableVectorSearch();
+
         // dump((new MeilisearchService)->meilisearchClient->version());
         // return (new MeilisearchService())->indexAllDocumentsOfTable(SearchAbleTable::TOOL);
         // return (new MeilisearchService())->deIndexTable(SearchAbleTable::TOOL);

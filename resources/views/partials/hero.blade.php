@@ -46,36 +46,40 @@
             </span>
         </h1>
 
-        <div class="relative w-full max-w-3xl">
-            <input class="w-full border h-16 shadow p-4 pr-12 rounded-full" name=""
+        <form action="{{ route('search') }}" class="relative w-full max-w-3xl">
+            <input class="w-full border h-16 shadow p-4 pr-12 rounded-full" name="query" value="{{ $query ?? '' }}"
                 placeholder="Explain what do you want?">
-            <svg class="absolute top-4 right-4 w-8 h-8" xmlns="http://www.w3.org/2000/svg" fill="none"
-                viewBox="0 0 24 24" stroke-width="2" stroke="currentColor">
-                <path stroke-linecap="round" stroke-linejoin="round"
-                    d="M21 21l-5.197-5.197m0 0A7.5 7.5 0 105.196 5.196a7.5 7.5 0 0010.607 10.607z" />
-            </svg>
-        </div>
+            <button type="submit" class="absolute top-4 right-4 w-8 h-8">
+                <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="2"
+                    stroke="currentColor">
+                    <path stroke-linecap="round" stroke-linejoin="round"
+                        d="M21 21l-5.197-5.197m0 0A7.5 7.5 0 105.196 5.196a7.5 7.5 0 0010.607 10.607z" />
+                </svg>
+            </button>
+        </form>
 
 
-        <ul class="flex gap-2 md:gap-3 my-8 md:my-12 flex-wrap justify-center px-2 md:px-8">
-            @foreach ($categories as $c)
-                @if (isset($category) && $c->name == $category->name)
-                    <li
-                        class="px-2 py-1 md:text-lg relative md:min-w-[100px] flex justify-center items-center bg-gray-100 rounded-lg select-none cursor-pointer shadow shadow-primary-500 outline outline-primary-600">
-                        <a href="{{ route('category.show', ['category' => $c->slug]) }}">
-                            {{ $c->name }}
-                        </a>
-                    </li>
-                @else
-                    <li
-                        class="px-2 py-1 md:text-lg relative md:min-w-[100px] flex justify-center items-center bg-gray-100 rounded-lg select-none cursor-pointer hover:shadow hover:shadow-primary-500 hover:outline hover:outline-primary-600">
-                        <a href="{{ route('category.show', ['category' => $c->slug]) }}">
-                            {{ $c->name }}
-                        </a>
-                    </li>
-                @endif
-            @endforeach
-        </ul>
+        @if (!empty($categories))
+            <ul class="flex gap-2 md:gap-3 my-8 md:my-12 flex-wrap justify-center px-2 md:px-8">
+                @foreach ($categories as $c)
+                    @if (isset($category) && $c->name == $category->name)
+                        <li
+                            class="px-2 py-1 md:text-lg relative md:min-w-[100px] flex justify-center items-center bg-gray-100 rounded-lg select-none cursor-pointer shadow shadow-primary-500 outline outline-primary-600">
+                            <a href="{{ route('category.show', ['category' => $c->slug]) }}">
+                                {{ $c->name }}
+                            </a>
+                        </li>
+                    @else
+                        <li
+                            class="px-2 py-1 md:text-lg relative md:min-w-[100px] flex justify-center items-center bg-gray-100 rounded-lg select-none cursor-pointer hover:shadow hover:shadow-primary-500 hover:outline hover:outline-primary-600">
+                            <a href="{{ route('category.show', ['category' => $c->slug]) }}">
+                                {{ $c->name }}
+                            </a>
+                        </li>
+                    @endif
+                @endforeach
+            </ul>
+        @endif
 
     </div>
 </div>
