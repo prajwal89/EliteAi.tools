@@ -86,7 +86,7 @@ class TestController extends Controller
         foreach ($allTools as $tool) {
             $embeddings = MeilisearchService::getVectorEmbeddings($tool->paragraphToEmbed);
 
-            dd($embeddings);
+            // dd($embeddings);
 
             (new MeilisearchService)->updateDocument(
                 SearchAbleTable::TOOL,
@@ -98,7 +98,7 @@ class TestController extends Controller
 
             $tool->update(['vectors' => $embeddings]);
 
-            // dump($paragraphToEmbed);
+            dump($tool->paragraphToEmbed);
             // dd($response);
             // dd($paragraphToEmbed);
         }
