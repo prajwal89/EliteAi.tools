@@ -145,7 +145,7 @@ class MeilisearchService
         return true;
     }
 
-    public static function vectorSearch(SearchAbleTable $table, string $query)
+    public static function vectorSearch(SearchAbleTable $table, string $query, array $configs = [])
     {
         // Define the full URL for the search endpoint
         $searchEndpoint = config('custom.meilisearch.host') . '/indexes/' . $table->getIndexName() . '/search';
@@ -156,8 +156,8 @@ class MeilisearchService
             // 'X-Meili-API-Key' => config('custom.meilisearch.key'),
             'Authorization' => 'Bearer ' . config('custom.meilisearch.key'),
         ])->post($searchEndpoint, [
-            'vector' => self::getVectorEmbeddings($query),
-        ]);
+            'vector' => self::getVectorEmbeddings($query)
+        ] + $configs);
 
         // Get the JSON response content
         $responseData = $response->json();
