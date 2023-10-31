@@ -114,7 +114,8 @@ class MeilisearchService
         // Send the POST request using the HTTP facade
         $response = Http::withHeaders([
             'Content-Type' => 'application/json',
-            'X-Meili-API-Key' => config('custom.meilisearch.key'),
+            // 'X-Meili-API-Key' => config('custom.meilisearch.key'),
+            'Authorization' => 'Bearer ' . config('custom.meilisearch.key'),
         ])->post($searchEndpoint, [
             'vector' => self::getVectorEmbeddings($query),
         ]);
@@ -142,5 +143,18 @@ class MeilisearchService
 
         // dd($response);
         return json_decode($response, true)['data']['embeddings'];
+    }
+
+    public static function enableVectorSearch()
+    {
+        $response = Http::withHeaders([
+            'Content-Type' => 'application/json',
+            // 'X-Meili-API-Key' => config('custom.meilisearch.key'),
+            'Authorization' => 'Bearer ' . config('custom.meilisearch.key'),
+        ])->patch(config('custom.meilisearch.host') . '/experimental-features/', [
+            'vectorStore' => true,
+        ]);
+
+        dd($response);
     }
 }
