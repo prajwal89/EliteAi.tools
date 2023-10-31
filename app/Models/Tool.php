@@ -99,6 +99,7 @@ class Tool extends Model implements MeilisearchAble
 
     public static function documentsForSearch(int $documentId = null, int $batchNo = 0): array
     {
+        // ? or should i include paragraphToEmbed only
         $query = self::select(
             'id',
             'name',
