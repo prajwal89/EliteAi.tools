@@ -55,10 +55,6 @@ class MeilisearchService
 
     public static function indexDocument(SearchAbleTable $table, int $documentId): bool
     {
-        if (!($table instanceof MeilisearchAble)) {
-            throw new Exception(get_class($table) . ' does not implements MeilisearchAble interface');
-        }
-
         $response = (new self())
             ->meilisearchClient
             ->index($table->getIndexName())
