@@ -68,8 +68,8 @@
         </div>
 
         <div class="form-group mb-4">
-            <label>
-                <span class="fw-bold">*uploaded_favicon</span>
+            <label class="fw-bold">
+                <span>*uploaded_favicon</span>
                 @if (!empty($tool->uploaded_favicon))
                     <span class="text-success">(Already available)</span>
                 @else
