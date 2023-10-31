@@ -69,7 +69,15 @@ class Tool extends Model implements MeilisearchAble
         return $this->belongsToMany(Category::class);
     }
 
-    public function getParagraphToEmbedAttribute(): string
+    /**
+     * Output of the function will be used to calculate vector embeddings
+     * that embeddings can be later used for
+     * 1.Searching
+     * 2.Recommendation
+     *
+     * @return string
+     */
+    public function getParagraphForVectorEmbeddings(): string
     {
         $paragraphToEmbed = '';
 

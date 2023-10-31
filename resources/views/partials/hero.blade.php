@@ -47,8 +47,8 @@
         </h1>
 
         <form action="{{ route('search') }}" class="relative w-full max-w-3xl">
-            <input class="w-full border h-16 shadow p-4 pr-12 rounded-full" name="query" value="{{ $query ?? '' }}"
-                placeholder="Explain what do you want?">
+            <input class="w-full border h-16 shadow p-4 pr-12 rounded-full text-lg" name="query"
+                value="{{ $query ?? '' }}" placeholder="I want to chat with PDF">
             <button type="submit" class="absolute top-4 right-4 w-8 h-8">
                 <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="2"
                     stroke="currentColor">

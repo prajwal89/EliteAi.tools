@@ -34,6 +34,9 @@ class TestController extends Controller
 
     public function __invoke()
     {
+        return $this->recommendationWithVectorSearch();
+
+
         // dd((new MeilisearchService(['timeout' => 234234])));
         MeilisearchService::indexDocument(SearchAbleTable::TOOL, 1);
 
@@ -77,6 +80,16 @@ class TestController extends Controller
         return $this->loginSuperAdmin();
     }
 
+    public function recommendationWithVectorSearch()
+    {
+        // for tool pdf-pals
+        $tool = Tool::find(20);
+
+        $results = MeilisearchService::vectorSearch(SearchAbleTable::TOOL, $tool->getParagraphForVectorEmbeddings());
+
+        dd($results);
+    }
+
     public function vectorSearch()
     {
         // Start the timer
@@ -105,7 +118,7 @@ class TestController extends Controller
         // dd($allTools);
 
         foreach ($allTools as $tool) {
-            $embeddings = MeilisearchService::getVectorEmbeddings($tool->paragraphToEmbed);
+            $embeddings = MeilisearchService::getVectorEmbeddings($tool->getParagraphForVectorEmbeddings());
 
             // dd($embeddings);
 
@@ -119,9 +132,9 @@ class TestController extends Controller
 
             $tool->update(['vectors' => $embeddings]);
 
-            dump($tool->paragraphToEmbed);
+            dump($tool->getParagraphForVectorEmbeddings());
             // dd($response);
-            // dd($paragraphToEmbed);
+            // dd($getParagraphForVectorEmbeddings());
         }
         echo 'done';
     }

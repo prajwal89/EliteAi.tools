@@ -79,7 +79,7 @@ class ToolServices
     {
         $tool = Tool::find($toolId);
 
-        $embeddings = MeilisearchService::getVectorEmbeddings($tool->paragraphToEmbed);
+        $embeddings = MeilisearchService::getVectorEmbeddings($tool->getParagraphForVectorEmbeddings());
 
         $tool->update(['vectors' => $embeddings]);
 
