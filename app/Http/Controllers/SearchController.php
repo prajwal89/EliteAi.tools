@@ -21,7 +21,16 @@ class SearchController extends Controller
                 return $tool['id'];
             });
 
-            $resultTools = Tool::with(['categories'])->whereIn('id', $toolIds->toArray())->get();
+            // dump($response['hits']);
+
+            $resultTools = Tool::with(['categories'])
+                ->whereIn('id', $toolIds->toArray())
+                ->get()
+                ->sortBy(function ($tool) use ($toolIds) {
+                    return array_search($tool->id, $toolIds->toArray());
+                });
+
+            // dd($resultTools->toArray());
         }
 
 
