@@ -8,8 +8,8 @@ enum PricingType: string
     case PAID = 'Paid';
     case FREEMIUM = 'Freemium';
     case FREE_TRIAL = 'Free Trial';
-    case CONTACT_FOR_PRICING = 'Contact for pricing';
-    case USAGE_BASED = 'Usage based';
+    case CONTACT_FOR_PRICING = 'Contact for Pricing';
+    case USAGE_BASED = 'Usage Based';
     case OTHER = 'Other';
 
     public static function values()
