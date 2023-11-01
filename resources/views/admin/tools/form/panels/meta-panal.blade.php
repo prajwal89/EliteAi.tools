@@ -37,7 +37,7 @@
         <div class="form-group mb-4">
             <label class="fw-bold">*Tags</small></label>
             <input type="text" class="form-control"
-                value="{{ isset($tool->tags) ? $tool->tags->pluck('name')->implode(',') : (isset($toolDto) ? collect($toolDto->tags)->implode(',') : '') }}"
+                value="{{ isset($tool->tags) ? $tool->tags->pluck('name')->implode(', ') : (isset($toolDto) ? collect($toolDto->tags)->implode(', ') : '') }}"
                 name="tags" required>
         </div>
 

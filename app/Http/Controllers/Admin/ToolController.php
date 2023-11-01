@@ -216,8 +216,8 @@ class ToolController extends Controller
             $tagIds = str($request->input('tags'))->explode(',')->map(function ($tag) use ($tool) {
 
                 $tag = Tag::firstOrCreate([
-                    'name' => $tag,
-                    'slug' => str($tag)->slug(),
+                    'name' => trim($tag),
+                    'slug' => str($tag)->trim()->slug(),
                 ]);
 
                 return $tag->id;

@@ -6,5 +6,11 @@
             <input type="text" value="{{ $tool->yt_introduction_video_id ?? '' }}" placeholder="2mSg-6UJdWQ"
                 class="form-control" name="yt_introduction_video_id">
         </div>
+
+        <div class="form-group mb-4">
+            <label class="fw-bold">getParagraphForVectorEmbeddings (for show only)</label>
+            <textarea class="form-control" name="" id="" rows="12">{{ $tool->getParagraphForVectorEmbeddings() }}</textarea>
+        </div>
+
     </div>
 </div>
