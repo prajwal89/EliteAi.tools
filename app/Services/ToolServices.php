@@ -75,10 +75,8 @@ class ToolServices
         return true;
     }
 
-    public static function updateVectorEmbeddings(int $toolId): bool
+    public static function updateVectorEmbeddings(Tool $tool): bool
     {
-        $tool = Tool::find($toolId);
-
         $embeddings = MeilisearchService::getVectorEmbeddings($tool->getParagraphForVectorEmbeddings());
 
         $tool->update(['vectors' => $embeddings]);

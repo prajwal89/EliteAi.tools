@@ -30,7 +30,7 @@ class MeilisearchService
     }
 
     // index all documents
-    public function indexAllDocumentsOfTable(SearchAbleTable $table)
+    public static function indexAllDocumentsOfTable(SearchAbleTable $table)
     {
         $output = [];
 
@@ -45,7 +45,8 @@ class MeilisearchService
         // send documents batch by batch
         for ($batchNo = 0; $batchNo < $totalBatches; $batchNo++) {
 
-            $response = $this->meilisearchClient
+            $response = (new self())
+                ->meilisearchClient
                 ->index($table->getIndexName())
                 ->addDocuments($searchableModel::documentsForSearch(batchNo: $batchNo));
 
@@ -59,9 +60,9 @@ class MeilisearchService
         return $output;
     }
 
-    public function deIndexTable(SearchAbleTable $table)
+    public static function deIndexTable(SearchAbleTable $table)
     {
-        return $this
+        return (new self())
             ->meilisearchClient
             ->deleteIndex(
                 $table->getIndexName()
@@ -168,15 +169,17 @@ class MeilisearchService
 
     public static function getVectorEmbeddings(string $text)
     {
-        // if (app()->isLocal()) {
-        //     exec('python E:\PHP\Microservices\service\embeddings\generate_embeddings.py "' . $text . '"', $output, $result);
-        //     $response = json_decode($output[0]);
-        //     // try {
-        //     //     $response = json_decode($output[0]);
-        //     // } catch (Exception $e) {
-        //     // }
-        //     return $response->embeddings;
-        // }
+        if (app()->isLocal()) {
+            exec('python E:\PHP\Microservices\service\embeddings\generate_embeddings.py "' . $text . '"', $output, $result);
+            $response = json_decode($output[0]);
+            // try {
+            //     $response = json_decode($output[0]);
+            // } catch (Exception $e) {
+            // }
+
+            // dd($response->embeddings);
+            return $response->embeddings;
+        }
 
         $response = file_get_contents('http://194.163.34.183/Microservices/service/embeddings/GenerateEmbeddings.php?text=' . urlencode($text));
 
@@ -188,12 +191,11 @@ class MeilisearchService
     {
         $response = Http::withHeaders([
             'Content-Type' => 'application/json',
-            // 'X-Meili-API-Key' => config('custom.meilisearch.key'),
             'Authorization' => 'Bearer ' . config('custom.meilisearch.key'),
-        ])->patch(config('custom.meilisearch.host') . '/experimental-features/', [
+        ])->patch(config('custom.meilisearch.host') . '/experimental-features', [
             'vectorStore' => true,
         ]);
 
-        dd($response);
+        return $response->json();
     }
 }

@@ -18,10 +18,8 @@ class RecommendationService
      *
      * @return void
      */
-    public static function saveSemanticDistanceFor(int $toolId, int $toolsLimit = 500)
+    public static function saveSemanticDistanceFor(Tool $tool, int $toolsLimit = 500)
     {
-        $tool = Tool::find($toolId);
-
         $results = MeilisearchService::vectorSearch(
             SearchAbleTable::TOOL,
             $tool->getParagraphForVectorEmbeddings(),
@@ -41,6 +39,8 @@ class RecommendationService
                 'score' => $hit['_semanticScore'],
             ]);
         }
+
+        return $results;
     }
 
     /**

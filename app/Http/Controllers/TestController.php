@@ -11,6 +11,7 @@ use App\Models\ExtractedToolDomain;
 use App\Models\Tool;
 use App\Services\ExtractedToolProcessor;
 use App\Services\MeilisearchService;
+use App\Services\RecommendationService;
 use App\Services\ToolServices;
 use Facebook\WebDriver\Remote\DesiredCapabilities;
 use Facebook\WebDriver\Remote\RemoteWebDriver;
@@ -34,24 +35,19 @@ class TestController extends Controller
 
     public function __invoke()
     {
-        collect(Tool::documentsForSearch(1))->dd();
+        // dd(MeilisearchService::enableVectorSearch());
+        // dd(MeilisearchService::indexAllDocumentsOfTable(SearchAbleTable::TOOL));
+        foreach (Tool::all() as $tool) {
+            dump(RecommendationService::saveSemanticDistanceFor($tool));
+        }
 
-        // dd((new MeilisearchService(['timeout' => 234234])));
-        // MeilisearchService::indexDocument(SearchAbleTable::TOOL, 1);
+        exit('');
 
-        ToolServices::updateVectorEmbeddings(1);
 
-        // dd(MeilisearchService::deleteDocument(SearchAbleTable::TOOL, 1));
 
-        // dump(MeilisearchService::indexDocument(SearchAbleTable::TOOL, 31));
-        // dd(ToolServices::updateVectorEmbeddings(31));
+        // dd(MeilisearchService::getVectorEmbeddings('sdf'));
+        // dd(MeilisearchService::indexAllDocumentsOfTable(SearchAbleTable::TOOL));
 
-        // return MeilisearchService::getVectorEmbeddings('ds');
-
-        dd(SearchAbleTable::TOOL->getIndexName());
-        dd((new Tool())->getTable());
-
-        MeilisearchService::enableVectorSearch();
 
         // dump((new MeilisearchService)->meilisearchClient->version());
         // return (new MeilisearchService())->indexAllDocumentsOfTable(SearchAbleTable::TOOL);
@@ -79,7 +75,23 @@ class TestController extends Controller
         return $this->loginSuperAdmin();
     }
 
+    public function totalCombos()
+    {
+        $min = 1;
+        $max = 39;
+        $count = 0;
 
+        for ($num1 = $min; $num1 <= $max; $num1++) {
+            for ($num2 = $num1 + 1; $num2 <= $max; $num2++) {
+                // Check if the pair has different numbers
+                if ($num1 !== $num2) {
+                    $count++;
+                }
+            }
+        }
+
+        dd("Total count of pairs: " . $count);
+    }
 
     public function vectorSearch()
     {
