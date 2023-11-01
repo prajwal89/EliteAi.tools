@@ -37,11 +37,20 @@ class TestController extends Controller
     {
         // dd(MeilisearchService::enableVectorSearch());
         // dd(MeilisearchService::indexAllDocumentsOfTable(SearchAbleTable::TOOL));
-        foreach (Tool::all() as $tool) {
+
+        // dd(Tool::offset(10)->limit(20)->get());
+
+        foreach (Tool::offset(0)->limit(10)->get() as $tool) {
             dump(RecommendationService::saveSemanticDistanceFor($tool));
         }
 
-        exit('');
+        exit('done till 10');
+
+        foreach (Tool::offset(10)->limit(20)->get() as $tool) {
+            dump(RecommendationService::saveSemanticDistanceFor($tool));
+        }
+
+        exit('done till 20');
 
 
 
@@ -55,14 +64,14 @@ class TestController extends Controller
 
         // return $this->vectorSearch();
 
-        return $this->sendVectorEmbeddingsToMeilisearch();
+        // return $this->sendVectorEmbeddingsToMeilisearch();
         // return $this->loginSuperAdmin();
 
         // return $this->buildToolDto();
 
-        $prompt = ExtractedToolProcessor::buildSystemPrompt(public_path('/prompts/system-1.txt'));
+        // $prompt = ExtractedToolProcessor::buildSystemPrompt(public_path('/prompts/system-1.txt'));
 
-        echo nl2br($prompt);
+        // echo nl2br($prompt);
 
         // (new ExtractedToolProcessor(ExtractedToolDomain::find(1)))->process();
 
@@ -72,7 +81,7 @@ class TestController extends Controller
         // auth()->login(\App\Models\User::find(1));
         // return $this->crawlTopAiTools3();
 
-        return $this->loginSuperAdmin();
+        // return $this->loginSuperAdmin();
     }
 
     public function totalCombos()
