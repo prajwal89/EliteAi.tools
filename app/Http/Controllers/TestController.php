@@ -36,7 +36,7 @@ class TestController extends Controller
 
     public function __invoke()
     {
-        DomainNameExtractors::extractsDomainsFromToolify();
+        // DomainNameExtractors::extractsDomainsFromToolify();
         // dd(MeilisearchService::enableVectorSearch());
         // dd(MeilisearchService::indexAllDocumentsOfTable(SearchAbleTable::TOOL));
 

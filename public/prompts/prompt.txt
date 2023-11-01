@@ -10,6 +10,7 @@ Your response JSON format is
     "use_cases":["",""]
     "pricing_type":"",
     "categories":["",""],
+    "tags":["",""]
     "has_api":"",
     "has_documentation":"",
 }
@@ -21,7 +22,6 @@ top_features: array of features. like "feature name: feature details"
 use_cases: possible use cases of this tool.
 pricing_type: choose between "{{ $pricingTypeString }}" (Where freemium is tool that basic services are provided free of charge while more advanced features must be paid for)
 categories: match categories in "{{ $categoriesString }}"
+tags: auto generated tags max 10 tags
 has_api: choose between (true, false)
 has_documentation: choose between (true, false)
-
-do you understand?

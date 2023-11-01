@@ -67,8 +67,8 @@
                 <ul>
                     @foreach ($tool->top_features as $feature)
                         <li>
-                            {{ $feature }}
-                            {{-- <strong>{{ str($feature)->before(':') }}</strong> : {{ str($feature)->after(':') }} --}}
+                            {{-- {{ $feature }} --}}
+                            <strong>{{ str($feature)->before(':') }}</strong> : {{ str($feature)->after(':') }}
                         </li>
                     @endforeach
                 </ul>

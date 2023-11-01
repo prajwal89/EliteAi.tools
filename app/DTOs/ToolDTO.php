@@ -17,6 +17,7 @@ class ToolDTO
         public bool $hasApi,
         public PricingType $pricingType,
         public array $categories,
+        public array $tags,
     ) {
     }
 
@@ -25,7 +26,6 @@ class ToolDTO
     {
         try {
             $toolData = json_decode($jsonString);
-
             // dd($toolData);
             return new self(
                 name: $toolData->name,
@@ -37,6 +37,7 @@ class ToolDTO
                 hasApi: $toolData->has_api,
                 pricingType: PricingType::from($toolData->pricing_type),
                 categories: $toolData->categories,
+                tags: $toolData->tags,
             );
         } catch (Exception $e) {
             return null;

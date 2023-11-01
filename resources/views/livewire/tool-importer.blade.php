@@ -4,31 +4,35 @@
     </div>
 
     <div class="card-body">
-        <div class="d-relative mb-4">
+        {{-- <div class="d-relative mb-4">
             <h4>Step1: Copy prompt</h4>
             <button class="btn btn-success" id="copy-button">Copy</button>
             <textarea class="form-control" name="" id="prompt" cols="100" rows="4">{{ $promptForSystem }}</textarea>
-        </div>
+        </div> --}}
 
-        <hr>
+        {{-- <hr> --}}
 
         <div class="mb-4">
-            <h4>Step 2: Get content</h4>
+            <h4>Generate Prompt:</h4>
             <div class="form-group mb-4">
                 <label class="fw-bold">Website Home Page</label>
                 <input type="url" class="form-control" wire:model="url" />
                 <button class="btn btn-primary" wire:click='getData()'>GetData</button>
             </div>
             @if (!empty($contentForPrompt))
-                <textarea class="form-control" name="" id="prompt" cols="100" rows="10">{{ $contentForPrompt }}</textarea>
+                <textarea class="form-control" name="" id="prompt" cols="100" rows="10">
+{{ $promptForSystem }}
+
+Content of the website is as following:
+{{ $contentForPrompt }}
+                </textarea>
             @endif
         </div>
-        <hr>
 
 
         @if (!empty($toolSocialHandlesDTO))
             <div class="mb-4">
-                <h4>Step 3: submit json</h4>
+                <h4>Submit JSON</h4>
                 <form method="POST" action="{{ route('admin.tools.import') }}" enctype="multipart/form-data">
                     @csrf
 
