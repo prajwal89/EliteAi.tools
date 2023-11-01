@@ -46,7 +46,6 @@ function truncate($string, $length, $dots = '...')
     return (strlen($string) > $length) ? substr($string, 0, $length - strlen($dots)) . $dots : $string;
 }
 
-
 if (!function_exists('getGoogleThumbnailUrl')) {
     function getGoogleThumbnailUrl(string $url): string
     {

@@ -74,8 +74,6 @@ class Tool extends Model implements MeilisearchAble
      * that embeddings can be later used for
      * 1.Searching
      * 2.Recommendation
-     *
-     * @return string
      */
     public function getParagraphForVectorEmbeddings(): string
     {

@@ -156,7 +156,7 @@ class MeilisearchService
             // 'X-Meili-API-Key' => config('custom.meilisearch.key'),
             'Authorization' => 'Bearer ' . config('custom.meilisearch.key'),
         ])->post($searchEndpoint, [
-            'vector' => self::getVectorEmbeddings($query)
+            'vector' => self::getVectorEmbeddings($query),
         ] + $configs);
 
         // Get the JSON response content

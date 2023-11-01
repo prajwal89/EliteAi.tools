@@ -102,7 +102,7 @@ class ToolController extends Controller
         if ($request->has('should_get_favicon_from_google')) {
             $tool->update(
                 [
-                    'uploaded_favicon' => ToolServices::saveFaviconFromGoogle($tool)
+                    'uploaded_favicon' => ToolServices::saveFaviconFromGoogle($tool),
                 ]
             );
         }
