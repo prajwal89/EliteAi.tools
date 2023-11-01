@@ -40,17 +40,29 @@ class TestController extends Controller
 
         // dd(Tool::offset(10)->limit(20)->get());
 
-        foreach (Tool::offset(0)->limit(10)->get() as $tool) {
-            dump(RecommendationService::saveSemanticDistanceFor($tool));
-        }
+        // foreach (Tool::offset(0)->limit(10)->get() as $tool) {
+        //     dump(RecommendationService::saveSemanticDistanceFor($tool));
+        // }
 
-        exit('done till 10');
+        // dump('done till 10');
 
         foreach (Tool::offset(10)->limit(20)->get() as $tool) {
             dump(RecommendationService::saveSemanticDistanceFor($tool));
         }
 
-        exit('done till 20');
+        dump('done till 20');
+
+        foreach (Tool::offset(20)->limit(30)->get() as $tool) {
+            dump(RecommendationService::saveSemanticDistanceFor($tool));
+        }
+
+        dump('done till 30');
+
+        foreach (Tool::offset(30)->limit(40)->get() as $tool) {
+            dump(RecommendationService::saveSemanticDistanceFor($tool));
+        }
+
+        dump('done till 40');
 
 
 
