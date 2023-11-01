@@ -213,15 +213,16 @@ class ToolController extends Controller
             ] + $toolData);
 
 
-            $tagIds = str($request->input('tags'))->explode(',')->map(function ($tag) use ($tool) {
-
-                $tag = Tag::firstOrCreate([
-                    'name' => trim($tag),
-                    'slug' => str($tag)->trim()->slug(),
-                ]);
-
-                return $tag->id;
-            });
+            $tagIds = str($request->input('tags'))
+                ->trim()
+                ->trim('.')
+                ->explode(',')
+                ->map(function ($tag) {
+                    return Tag::firstOrCreate([
+                        'name' => trim($tag),
+                        'slug' => str($tag)->trim()->slug(),
+                    ])->id;
+                });
 
             $tool->tags()->sync($tagIds->toArray()); // Attach the tag to the tool
 
