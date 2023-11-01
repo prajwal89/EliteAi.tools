@@ -61,3 +61,16 @@ if (!function_exists('getGoogleThumbnailUrl')) {
         return $faviconUrl;
     }
 }
+
+
+function estimateTokenUsage(string $text): int
+{
+    // Define token-to-char ratio for English text
+    $tokensPerChar = 1 / 4;
+
+    // Calculate the token count based on the text length
+    $textLength = strlen($text);
+    $tokenCount = ceil($textLength * $tokensPerChar);
+
+    return $tokenCount;
+}

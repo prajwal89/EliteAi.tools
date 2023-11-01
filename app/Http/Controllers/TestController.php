@@ -36,6 +36,9 @@ class TestController extends Controller
 
     public function __invoke()
     {
+        dd(estimateTokenUsage('You miss 100% of the shots you don\'t take'));
+
+        return $this->totalCombos(45);
         // DomainNameExtractors::extractsDomainsFromToolify();
         // dd(MeilisearchService::enableVectorSearch());
         // dd(MeilisearchService::indexAllDocumentsOfTable(SearchAbleTable::TOOL));
@@ -99,10 +102,9 @@ class TestController extends Controller
     }
 
 
-    public function totalCombos()
+    public function totalCombos($max = 10)
     {
         $min = 1;
-        $max = 39;
         $count = 0;
 
         for ($num1 = $min; $num1 <= $max; $num1++) {

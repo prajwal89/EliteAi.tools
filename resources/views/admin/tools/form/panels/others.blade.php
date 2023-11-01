@@ -9,7 +9,7 @@
 
         <div class="form-group mb-4">
             <label class="fw-bold">getParagraphForVectorEmbeddings (for show only)</label>
-            <textarea class="form-control" name="" id="" rows="12">{{ $tool->getParagraphForVectorEmbeddings() }}</textarea>
+            <textarea class="form-control" name="" id="" rows="12">{{ $tool->getParagraphForVectorEmbeddings() ?? '' }}</textarea>
         </div>
 
     </div>
