@@ -59,8 +59,10 @@ final class CategoryTable extends PowerGridComponent
             /** Example of custom column using a closure **/
             ->addColumn('name_lower', fn ($model) => strtolower(e($model->name)))
 
-            ->addColumn('slug')
-            ->addColumn('description')
+            // ->addColumn('slug')
+            ->addColumn('description', function ($model) {
+                return str($model->description)->words(8, '...')->toString();
+            })
             ->addColumn('created_at_formatted', fn ($model) => Carbon::parse($model->created_at)->format('d/m/Y H:i:s'))
             ->addColumn('updated_at_formatted', fn ($model) => Carbon::parse($model->updated_at)->format('d/m/Y H:i:s'));
     }
@@ -73,9 +75,9 @@ final class CategoryTable extends PowerGridComponent
                 ->sortable()
                 ->searchable(),
 
-            Column::make('Slug', 'slug')
-                ->sortable()
-                ->searchable(),
+            // Column::make('Slug', 'slug')
+            //     ->sortable()
+            //     ->searchable(),
 
             Column::make('Description', 'description')
                 ->sortable()

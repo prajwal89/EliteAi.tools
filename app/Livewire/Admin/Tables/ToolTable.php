@@ -63,7 +63,9 @@ final class ToolTable extends PowerGridComponent
             /** Example of custom column using a closure **/
             ->addColumn('name_lower', fn ($model) => strtolower(e($model->name)))
 
-            ->addColumn('tag_line')
+            ->addColumn('tag_line', function ($model) {
+                return str($model->tag_line)->words(10, '...')->toString();
+            })
             ->addColumn('summary')
             ->addColumn('domain_name')
             ->addColumn('home_page_url')
