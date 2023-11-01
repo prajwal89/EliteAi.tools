@@ -35,6 +35,13 @@
         </div>
 
         <div class="form-group mb-4">
+            <label class="fw-bold">*Tags</small></label>
+            <input type="text" class="form-control"
+                value="{{ isset($tool->tags) ? $tool->tags->pluck('name')->implode(',') : (isset($toolDto) ? collect($toolDto->tags)->implode(',') : '') }}"
+                name="tags" required>
+        </div>
+
+        <div class="form-group mb-4">
             <label class="fw-bold">*domain_name</label>
             <input type="text" class="form-control" name="domain_name" required
                 value="{{ isset($tool->domain_name) ? $tool->domain_name : (isset($home_page_url) ? getDomainFromUrl($home_page_url) : '') }}">

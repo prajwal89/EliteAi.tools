@@ -70,6 +70,11 @@ class Tool extends Model implements MeilisearchAble
         return $this->belongsToMany(Category::class);
     }
 
+    public function tags(): BelongsToMany
+    {
+        return $this->belongsToMany(Tag::class);
+    }
+
     /**
      * $paragraphToEmbed will be used to calculate vector embeddings
      * that embeddings can be later used for

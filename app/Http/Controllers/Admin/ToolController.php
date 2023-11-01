@@ -4,6 +4,7 @@ namespace App\Http\Controllers\Admin;
 
 use App\Enums\SearchAbleTable;
 use App\Http\Controllers\Controller;
+use App\Models\Tag;
 use App\Models\Tool;
 use App\Services\MeilisearchService;
 use App\Services\RecommendationService;
@@ -211,11 +212,23 @@ class ToolController extends Controller
                 }),
             ] + $toolData);
 
-            // $tool = Tool::find($insertedTool->id);
+
+            $tagIds = str($request->input('tags'))->explode(',')->map(function ($tag) use ($tool) {
+
+                $tag = Tag::firstOrCreate([
+                    'name' => $tag,
+                    'slug' => str($tag)->slug(),
+                ]);
+
+                return $tag->id;
+            });
+
+            $tool->tags()->sync($tagIds->toArray()); // Attach the tag to the tool
 
             $tool->categories()->sync($request->categories);
         });
 
+        // todo do this only if data in embedding paragraph changes
         ToolServices::updateVectorEmbeddings($tool);
 
         RecommendationService::saveSemanticDistanceFor($tool);

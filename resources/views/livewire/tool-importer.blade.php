@@ -15,18 +15,19 @@
         <div class="mb-4">
             <h4>Generate Prompt:</h4>
             <div class="form-group mb-4">
-                <label class="fw-bold">Website Home Page</label>
+                <label class="fw-bold">Home Page URL:</label>
                 <input type="url" class="form-control" wire:model="url" />
-                <button class="btn btn-primary" wire:click='getData()'>GetData</button>
+                <button class="btn btn-primary mt-2" wire:click='getData()'>Generate 🔥</button>
             </div>
-            @if (!empty($contentForPrompt))
+            <div style="display: {{ empty($contentForPrompt) ? 'none' : 'block' }}">
+                <button class="btn btn-success" id="copy-button">Copy</button>
                 <textarea class="form-control" name="" id="prompt" cols="100" rows="10">
-{{ $promptForSystem }}
+{{ @$promptForSystem }}
 
 Content of the website is as following:
-{{ $contentForPrompt }}
+{{ @$contentForPrompt }}
                 </textarea>
-            @endif
+            </div>
         </div>
 
 
@@ -187,6 +188,7 @@ Content of the website is as following:
         @endif
 
     </div>
+
 
 
     <script>

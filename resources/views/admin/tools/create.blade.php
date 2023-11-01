@@ -97,8 +97,8 @@
 
 
     <script>
-        var tom_select = new TomSelect('#categories', {
-            maxItems: 6,
+        new TomSelect('#categories', {
+            maxItems: 10,
             plugins: ['remove_button'],
             items: @json($categoryIds ?? [])
         });
