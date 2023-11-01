@@ -52,17 +52,17 @@ class TestController extends Controller
 
         // dump('done till 20');
 
-        foreach (Tool::offset(20)->limit(10)->get() as $tool) {
-            dump(RecommendationService::saveSemanticDistanceFor($tool));
-        }
+        // foreach (Tool::offset(20)->limit(10)->get() as $tool) {
+        //     dump(RecommendationService::saveSemanticDistanceFor($tool));
+        // }
 
-        dump('done till 30');
+        // dump('done till 30');
 
-        foreach (Tool::offset(30)->limit(10)->get() as $tool) {
-            dump(RecommendationService::saveSemanticDistanceFor($tool));
-        }
+        // foreach (Tool::offset(30)->limit(10)->get() as $tool) {
+        //     dump(RecommendationService::saveSemanticDistanceFor($tool));
+        // }
 
-        dump('done till 40');
+        // dump('done till 40');
 
 
 
@@ -94,6 +94,13 @@ class TestController extends Controller
         // return $this->crawlTopAiTools3();
 
         // return $this->loginSuperAdmin();
+    }
+
+
+    public function extractsDomains()
+    {
+        // max pages 69
+        // https://www.toolify.ai/self-api/v1/tools?order_by=recommended_at&page=1&per_page=100
     }
 
     public function totalCombos()

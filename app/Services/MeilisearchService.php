@@ -169,17 +169,17 @@ class MeilisearchService
 
     public static function getVectorEmbeddings(string $text)
     {
-        if (app()->isLocal()) {
-            exec('python E:\PHP\Microservices\service\embeddings\generate_embeddings.py "' . $text . '"', $output, $result);
-            $response = json_decode($output[0]);
-            // try {
-            //     $response = json_decode($output[0]);
-            // } catch (Exception $e) {
-            // }
+        // if (app()->isLocal()) {
+        //     exec('python E:\PHP\Microservices\service\embeddings\generate_embeddings.py "' . $text . '"', $output, $result);
+        //     $response = json_decode($output[0]);
+        //     // try {
+        //     //     $response = json_decode($output[0]);
+        //     // } catch (Exception $e) {
+        //     // }
 
-            // dd($response->embeddings);
-            return $response->embeddings;
-        }
+        //     // dd($response->embeddings);
+        //     return $response->embeddings;
+        // }
 
         $response = file_get_contents('http://194.163.34.183/Microservices/service/embeddings/GenerateEmbeddings.php?text=' . urlencode($text));
 

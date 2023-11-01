@@ -25,6 +25,8 @@ class ToolController extends Controller
             3 * 2
         );
 
+        // dd($alternativeTools);
+
         $categories = Category::has('tools')->take(9)->get();
 
         return view('tools.show', [
