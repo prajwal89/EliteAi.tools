@@ -49,7 +49,7 @@ final class ToolsToProcess extends PowerGridComponent
         return DB::table('extracted_tool_domains')
             ->whereNotIn('domain_name', function ($query) {
                 $query->select('domain_name')->from('tools');
-            })->where('should_process', 1);
+            })->where('should_process', 1)->inRandomOrder();
     }
 
     public function addColumns(): PowerGridColumns

@@ -51,7 +51,8 @@ final class ToolTable extends PowerGridComponent
 
     public function datasource(): Builder
     {
-        return DB::table('tools')->orderBy('id', 'desc');
+        return DB::table('tools')
+            ->orderBy('id', 'desc');
     }
 
     public function addColumns(): PowerGridColumns
