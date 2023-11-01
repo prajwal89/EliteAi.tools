@@ -18,7 +18,7 @@ class RecommendationService
      *
      * @return void
      */
-    public static function saveSemanticScoresFor(int $toolId, int $toolsLimit = 500)
+    public static function saveSemanticDistanceFor(int $toolId, int $toolsLimit = 500)
     {
         $tool = Tool::find($toolId);
 
@@ -61,7 +61,7 @@ class RecommendationService
         $semanticScore = new ValueObjectsSemanticScore($score);
 
         $scores = SemanticScore::where(function ($query) use ($forToolId) {
-            $query->where('tool1_id', $forToolId);
+            $query->orWhere('tool1_id', $forToolId);
             $query->orWhere('tool2_id', $forToolId);
         })
             ->where('score', '>', $semanticScore->getScore())

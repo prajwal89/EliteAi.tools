@@ -34,6 +34,7 @@ class TestController extends Controller
 
     public function __invoke()
     {
+        collect(Tool::documentsForSearch(1))->dd();
 
         // dd((new MeilisearchService(['timeout' => 234234])));
         // MeilisearchService::indexDocument(SearchAbleTable::TOOL, 1);

@@ -10,10 +10,12 @@ class SemanticScore extends Model
     use HasFactory;
 
     protected $fillable = [
-        'tool1_id',
-        'tool2_id',
+        'tool1_id', //this should be smaller than tool2_id
+        'tool2_id', //this should be greater than tool1_id
         'score',
-        'timestamp',
-        // Add other fillable fields if needed
+    ];
+
+    protected $casts = [
+        'score' => 'float',
     ];
 }
