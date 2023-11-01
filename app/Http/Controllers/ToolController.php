@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use App\DTOs\PageDataDTO;
 use App\Models\Category;
 use App\Models\Tool;
+use App\Services\RecommendationService;
 use Illuminate\Http\Request;
 use Illuminate\View\View;
 
@@ -18,7 +19,11 @@ class ToolController extends Controller
     {
         $tool = Tool::where('slug', $slug)->firstOrFail();
 
-        $relatedTools = Tool::all();
+        $relatedTools = RecommendationService::baseOnSemanticScores(
+            $tool->id,
+            0.2,
+            3 * 2
+        );
 
         $categories = Category::has('tools')->take(9)->get();
 
@@ -42,18 +47,24 @@ class ToolController extends Controller
 
         // $alternativeTools = Tool::with('categories')->get();
 
-        $alternativeTools = Tool::whereHas('categories', function ($query) use ($tool) {
-            $query->whereIn('category_id', $tool->categories->pluck('id'));
-        })
-            ->where('id', '!=', $tool->id)
-            // ->take(9)
-            ->get();
+        // $alternativeTools = Tool::whereHas('categories', function ($query) use ($tool) {
+        //     $query->whereIn('category_id', $tool->categories->pluck('id'));
+        // })
+        //     ->where('id', '!=', $tool->id)
+        //     // ->take(9)
+        //     ->get();
+
+        $alternativeTools = RecommendationService::baseOnSemanticScores(
+            $tool->id,
+            0.3
+        );
 
         return view('tools.alternatives', [
             'tool' => $tool,
             'alternativeTools' => $alternativeTools,
             'pageDataDTO' => new PageDataDTO(
-                title: ($alternativeTools->count() - 1) . '+ ' . $tool->name . ' - Alternatives',
+                // title: ($alternativeTools->count() - 1) . '+ ' . $tool->name . ' - Alternatives',
+                title: $tool->name . ' - Alternatives',
                 description: 'All Tools alternatives for ' . $tool->name . ' with comparison',
                 conicalUrl: route('tool.show', ['tool' => $tool->slug]),
                 thumbnailUrl: asset('/tools/' . $tool->slug . '/screenshot.webp')
