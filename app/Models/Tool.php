@@ -62,6 +62,7 @@ class Tool extends Model implements MeilisearchAble
         'top_features' => 'json',
         'use_cases' => 'json',
         'pricing_type' => PricingType::class,
+        'vectors' => 'json'
     ];
 
     public function categories(): BelongsToMany
@@ -70,7 +71,7 @@ class Tool extends Model implements MeilisearchAble
     }
 
     /**
-     * Output of the function will be used to calculate vector embeddings
+     * $paragraphToEmbed will be used to calculate vector embeddings
      * that embeddings can be later used for
      * 1.Searching
      * 2.Recommendation
@@ -103,6 +104,13 @@ class Tool extends Model implements MeilisearchAble
         return $paragraphToEmbed;
     }
 
+    /**
+     * array that will be sent for indexing on meilisearch
+     *
+     * @param integer|null $documentId
+     * @param integer $batchNo
+     * @return array
+     */
     public static function documentsForSearch(int $documentId = null, int $batchNo = 0): array
     {
         // ? or should i include paragraphToEmbed only
@@ -116,6 +124,7 @@ class Tool extends Model implements MeilisearchAble
             'domain_name',
             'top_features',
             'use_cases',
+            'vectors',
         );
 
         if (!empty($documentId)) {
