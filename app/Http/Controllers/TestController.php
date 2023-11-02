@@ -26,6 +26,7 @@ class TestController extends Controller
 
     public function __invoke()
     {
+        dd(MeilisearchService::getVectorEmbeddings('ds'));
         // return $this->blurHash();
         dd(estimateTokenUsage('You miss 100% of the shots you don\'t take'));
 

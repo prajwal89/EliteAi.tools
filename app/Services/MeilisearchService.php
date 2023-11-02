@@ -5,6 +5,7 @@ namespace App\Services;
 ini_set('memory_limit', '2048M');
 ini_set('max_execution_time', 600); //10 min
 
+use App\Enums\ModelType;
 use App\Enums\SearchAbleTable;
 use App\Interfaces\MeilisearchAble;
 use Exception;
@@ -169,22 +170,19 @@ class MeilisearchService
 
     public static function getVectorEmbeddings(string $text)
     {
-        // if (app()->isLocal()) {
-        //     exec('python E:\PHP\Microservices\service\embeddings\generate_embeddings.py "' . $text . '"', $output, $result);
-        //     $response = json_decode($output[0]);
-        //     // try {
-        //     //     $response = json_decode($output[0]);
-        //     // } catch (Exception $e) {
-        //     // }
+        $data = json_encode([
+            'model' => ModelType::All_MINI_LM_L6_V2->value,
+            'text' => $text
+        ]);
 
-        //     // dd($response->embeddings);
-        //     return $response->embeddings;
-        // }
+        $response = Http::withBody($data, 'application/json')
+            ->post('http://194.163.34.183/Microservices/service/embeddings/GenerateEmbeddings.php');
 
-        $response = file_get_contents('http://194.163.34.183/Microservices/service/embeddings/GenerateEmbeddings.php?text=' . urlencode($text));
+        if ($response->successful()) {
+            return  $response->json()['data']['embeddings'];
+        }
 
-        // dd($response);
-        return json_decode($response, true)['data']['embeddings'];
+        return null;
     }
 
     public static function enableVectorSearch()
