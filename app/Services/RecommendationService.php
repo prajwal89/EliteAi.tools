@@ -39,9 +39,9 @@ class RecommendationService
             SemanticScore::updateOrCreate([
                 'tool1_id' => min($tool->id, $hit['id']),
                 'tool2_id' => max($tool->id, $hit['id']),
-                'model_type' => $modelType->value
             ], [
                 'score' => $hit['_semanticScore'],
+                'model_type' => $modelType->value,
             ]);
         }
 

@@ -85,7 +85,7 @@ class ToolServices
 
         $tool->update([
             'vectors' => $embeddings,
-            'model_type' => $modelType->value
+            'model_type' => $modelType->value,
         ]);
 
         return (new MeilisearchService)->updateDocument(SearchAbleTable::TOOL, $tool->id, [

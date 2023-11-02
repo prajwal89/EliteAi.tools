@@ -121,7 +121,7 @@ class ToolController extends Controller
             );
         }
 
-        // todo: make this work job or use pipelines 
+        // todo: make this work job or use pipelines
         MeilisearchService::indexDocument(SearchAbleTable::TOOL, $tool->id);
 
         ToolServices::updateVectorEmbeddings($tool, ModelType::All_MINI_LM_L6_V2);

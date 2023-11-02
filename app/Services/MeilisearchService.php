@@ -172,14 +172,14 @@ class MeilisearchService
     {
         $data = json_encode([
             'model' => $modelType->value,
-            'text' => $text
+            'text' => $text,
         ]);
 
         $response = Http::withBody($data, 'application/json')
             ->post('http://194.163.34.183/Microservices/service/embeddings/GenerateEmbeddings.php');
 
         if ($response->successful()) {
-            return  $response->json()['data']['embeddings'];
+            return $response->json()['data']['embeddings'];
         }
 
         return null;
