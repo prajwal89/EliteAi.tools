@@ -71,10 +71,10 @@ Content of the website is as following:
                     </div>
                     <div class="d-flex justify-content-between gap-4">
                         <div>
-                            <button class="btn btn-outline-info" wire:click="getResponseFromOpenAi()">
-                                <span>Get JSON From OpenAi</span>
+                            <button class="btn btn-success text-white" wire:click="getResponseFromOpenAi()">
+                                <span>Get JSON From OpenAi 🔥</span>
                                 <div wire:loading wire:target="getResponseFromOpenAi"
-                                    class="spinner-border spinner-border-sm text-black" role="status">
+                                    class="spinner-border spinner-border-sm text-white" role="status">
                                     <span class="visually-hidden">Loading...</span>
                                 </div>
                             </button>
