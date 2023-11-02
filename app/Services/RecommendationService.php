@@ -5,6 +5,7 @@ namespace App\Services;
 ini_set('memory_limit', '2048M');
 ini_set('max_execution_time', 600); //10 min
 
+use App\Enums\ModelType;
 use App\Enums\SearchAbleTable;
 use App\Models\SemanticScore;
 use App\Models\Tool;
@@ -18,8 +19,11 @@ class RecommendationService
      *
      * @return void
      */
-    public static function saveSemanticDistanceFor(Tool $tool, int $toolsLimit = 500)
-    {
+    public static function saveSemanticDistanceFor(
+        Tool $tool,
+        int $toolsLimit = 500,
+        ModelType $modelType
+    ) {
         $results = MeilisearchService::vectorSearch(
             SearchAbleTable::TOOL,
             $tool->getParagraphForVectorEmbeddings(),
@@ -35,6 +39,7 @@ class RecommendationService
             SemanticScore::updateOrCreate([
                 'tool1_id' => min($tool->id, $hit['id']),
                 'tool2_id' => max($tool->id, $hit['id']),
+                'model_type' => $modelType->value
             ], [
                 'score' => $hit['_semanticScore'],
             ]);

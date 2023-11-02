@@ -121,11 +121,15 @@ class ToolController extends Controller
             );
         }
 
+        // todo: make this work job or use pipelines 
         MeilisearchService::indexDocument(SearchAbleTable::TOOL, $tool->id);
 
         ToolServices::updateVectorEmbeddings($tool, ModelType::All_MINI_LM_L6_V2);
 
-        RecommendationService::saveSemanticDistanceFor($tool);
+        RecommendationService::saveSemanticDistanceFor(
+            tool: $tool,
+            modelType: ModelType::All_MINI_LM_L6_V2,
+        );
 
         return redirect()->route('admin.tools.edit', ['tool' => $tool->id])->with('success', '
         tool created successfully. 
@@ -243,7 +247,10 @@ class ToolController extends Controller
         // todo do this only if data in embedding paragraph changes
         ToolServices::updateVectorEmbeddings($tool, ModelType::All_MINI_LM_L6_V2);
 
-        RecommendationService::saveSemanticDistanceFor($tool);
+        RecommendationService::saveSemanticDistanceFor(
+            tool: $tool,
+            modelType: ModelType::All_MINI_LM_L6_V2,
+        );
 
         return redirect()->back()->with('success', 'tool updated successfully');
     }
