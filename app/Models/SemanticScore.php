@@ -13,6 +13,7 @@ class SemanticScore extends Model
         'tool1_id', //this should be smaller than tool2_id
         'tool2_id', //this should be greater than tool1_id
         'score',
+        'model_type',
     ];
 
     protected $casts = [

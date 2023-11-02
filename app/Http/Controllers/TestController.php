@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 ini_set('memory_limit', '2048M');
 ini_set('max_execution_time', 600); //10 min
 
+use App\Enums\ModelType;
 use App\Enums\SearchAbleTable;
 use App\Models\Tool;
 use App\Services\MeilisearchService;
@@ -26,7 +27,10 @@ class TestController extends Controller
 
     public function __invoke()
     {
-        dd(MeilisearchService::getVectorEmbeddings('ds'));
+        dd(MeilisearchService::getVectorEmbeddings(
+            'ds',
+            ModelType::All_MINI_LM_L6_V2
+        ));
         // return $this->blurHash();
         dd(estimateTokenUsage('You miss 100% of the shots you don\'t take'));
 
@@ -132,7 +136,10 @@ class TestController extends Controller
         // dd($allTools);
 
         foreach ($allTools as $tool) {
-            $embeddings = MeilisearchService::getVectorEmbeddings($tool->getParagraphForVectorEmbeddings());
+            $embeddings = MeilisearchService::getVectorEmbeddings(
+                $tool->getParagraphForVectorEmbeddings(),
+                ModelType::All_MINI_LM_L6_V2
+            );
 
             // dd($embeddings);
 

@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers\Admin;
 
+use App\Enums\ModelType;
 use App\Enums\SearchAbleTable;
 use App\Http\Controllers\Controller;
 use App\Models\Tag;
@@ -122,7 +123,7 @@ class ToolController extends Controller
 
         MeilisearchService::indexDocument(SearchAbleTable::TOOL, $tool->id);
 
-        ToolServices::updateVectorEmbeddings($tool);
+        ToolServices::updateVectorEmbeddings($tool, ModelType::All_MINI_LM_L6_V2);
 
         RecommendationService::saveSemanticDistanceFor($tool);
 
@@ -240,7 +241,7 @@ class ToolController extends Controller
         });
 
         // todo do this only if data in embedding paragraph changes
-        ToolServices::updateVectorEmbeddings($tool);
+        ToolServices::updateVectorEmbeddings($tool, ModelType::All_MINI_LM_L6_V2);
 
         RecommendationService::saveSemanticDistanceFor($tool);
 

@@ -158,7 +158,7 @@ class MeilisearchService
             // 'X-Meili-API-Key' => config('custom.meilisearch.key'),
             'Authorization' => 'Bearer ' . config('custom.meilisearch.key'),
         ])->post($searchEndpoint, [
-            'vector' => self::getVectorEmbeddings($query),
+            'vector' => self::getVectorEmbeddings($query, ModelType::All_MINI_LM_L6_V2),
         ] + $configs);
 
         // Get the JSON response content
@@ -168,10 +168,10 @@ class MeilisearchService
         return $responseData;
     }
 
-    public static function getVectorEmbeddings(string $text)
+    public static function getVectorEmbeddings(string $text, ModelType $modelType)
     {
         $data = json_encode([
-            'model' => ModelType::All_MINI_LM_L6_V2->value,
+            'model' => $modelType->value,
             'text' => $text
         ]);
 
