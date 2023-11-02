@@ -19,8 +19,10 @@ use Facebook\WebDriver\Remote\RemoteWebDriver;
 use HeadlessChromium\BrowserFactory;
 use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Http;
+use kornrunner\Blurhash\Blurhash;
 use League\Uri\Uri;
 use voku\helper\HtmlDomParser;
+use Intervention\Image\Facades\Image;
 
 /**
  * For testing out misc things
@@ -36,6 +38,7 @@ class TestController extends Controller
 
     public function __invoke()
     {
+        return $this->blurHash();
         dd(estimateTokenUsage('You miss 100% of the shots you don\'t take'));
 
         return $this->totalCombos(45);
@@ -99,6 +102,32 @@ class TestController extends Controller
         // return $this->crawlTopAiTools3();
 
         // return $this->loginSuperAdmin();
+    }
+
+    public function blurHash()
+    {
+        $tool = Tool::inRandomOrder()->first();
+        $file  = asset('/tools/' . $tool->slug . '/screenshot.webp');
+        $image = Image::make($file);
+        $width = $image->width();
+        $height = $image->height();
+
+        $pixels = [];
+        for ($y = 0; $y < $height; ++$y) {
+            $row = [];
+            for ($x = 0; $x < $width; ++$x) {
+                $colors = $image->pickColor($x, $y);
+
+                $row[] = [$colors[0], $colors[1], $colors[2]];
+            }
+            $pixels[] = $row;
+        }
+
+        $components_x = 4;
+        $components_y = 3;
+        $blurhash = Blurhash::encode($pixels, $components_x, $components_y);
+
+        dump($blurhash);
     }
 
 
