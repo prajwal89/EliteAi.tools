@@ -4,35 +4,56 @@
     </div>
 
     <div class="card-body">
-        {{-- <div class="d-relative mb-4">
-            <h4>Step1: Copy prompt</h4>
-            <button class="btn btn-success" id="copy-button">Copy</button>
-            <textarea class="form-control" name="" id="prompt" cols="100" rows="4">{{ $promptForSystem }}</textarea>
-        </div> --}}
-
-        {{-- <hr> --}}
-
         <div class="mb-4">
             <div class="border border-danger p-4 mb-4 rounded">
                 <h4>Generate Prompt:</h4>
                 <div class="form-group mb-4">
                     <label class="fw-bold">Home Page URL:</label>
                     <input type="url" class="form-control" wire:model="url" />
-                    <button class="btn btn-primary mt-2" wire:click="getData()">Generate Prompt 🔥</button>
+                    <button class="btn btn-primary mt-2" wire:click="getData()" wire:target="getData">
+                        <span>Generate Prompt 🔥</span>
+                        <div wire:loading='getData' class="spinner-border spinner-border-sm text-white" role="status">
+                            <span class="visually-hidden">Loading...</span>
+                        </div>
+                    </button>
                 </div>
             </div>
             @php
+                // assuming we will get 1000 tokens from output
+                $totalAssitentTokens = 1000;
                 $sytemTokens = estimateTokenUsage($promptForSystem);
                 $userTokens = empty($contentForPrompt) ? 0 : estimateTokenUsage($contentForPrompt);
-                $totalTokensRequired = $sytemTokens + $userTokens + 2000;
-                $totalCents = ($sytemTokens + $userTokens) * 0.00003 + 1000 * 0.00006; //output is 6 cent per 1000 token
+                $totalTokensRequired = $sytemTokens + $userTokens + $totalAssitentTokens;
+                //output is 6 cent per 1000 token
+                $totalCents = ($sytemTokens + $userTokens) * 0.00003 + $totalAssitentTokens * 0.00006;
                 $totalRupees = $totalCents * 84;
             @endphp
             {{-- todo: show loader --}}
             {{-- todo: show estimated tokens and price and option to send request to openAI --}}
             <div class="border border-info p-4 mb-4 rounded"
-                style="display: {{ empty($contentForPrompt) ? 'none_d' : 'block' }}">
-                <div class="mb-2">
+                style="display: {{ empty($contentForPrompt) ? 'none' : 'block' }}">
+
+
+                <div class="row">
+                    <div class="col-8">
+                        <label for="">Prompt</label>
+                        <textarea class="form-control" id="prompt" cols="100" rows="10">
+{{ @$promptForSystem }}
+
+Content of the website is as following:
+{{ @$contentForPrompt }}
+</textarea>
+                    </div>
+                    <div class="col-4 w-full">
+                        <label for="">Extracted content</label>
+                        <textarea class="form-control" id="" cols="30" rows="10">{{ $contentForPrompt }}</textarea>
+                    </div>
+                </div>
+
+
+
+
+                <div class="mb-2  mt-4">
                     <div class="mb-2">
                         <span class="mr-2">
                             System toknes: <strong>{{ $sytemTokens }}</strong>
@@ -42,7 +63,7 @@
                             <strong>{{ $userTokens }}</strong>
                         </span>
                         <span>
-                            Assistent toknes: <strong>2000</strong>
+                            Assistant toknes: <strong>2000</strong>
                         </span>
                         <span>
                             Total: <strong>{{ $totalTokensRequired }}</strong>
@@ -50,27 +71,29 @@
                     </div>
                     <div class="d-flex justify-content-between gap-4">
                         <div>
-                            <button class="btn btn-outline-info">Get JSON From OpenAi</button>
-
-                            {{ round($totalCents, 2) }}$ {{ round($totalRupees, 2) }}rs
+                            <button class="btn btn-outline-info" wire:click="getResponseFromOpenAi()">
+                                <span>Get JSON From OpenAi</span>
+                                <div wire:loading wire:target="getResponseFromOpenAi"
+                                    class="spinner-border spinner-border-sm text-black" role="status">
+                                    <span class="visually-hidden">Loading...</span>
+                                </div>
+                            </button>
+                            <span>
+                                {{-- <strong>{{ round($totalCents, 2) }}</strong>$ --}}
+                                <strong>{{ round($totalRupees, 2) }}</strong>₹
+                            </span>
                         </div>
                         <button class="btn btn-success float-right" id="copy-button">
                             Copy prompt
                         </button>
                     </div>
                 </div>
-                <textarea class="form-control" name="" id="prompt" cols="100" rows="10">
-{{ @$promptForSystem }}
-
-Content of the website is as following:
-{{ @$contentForPrompt }}
-                </textarea>
             </div>
         </div>
 
 
         @if (!empty($toolSocialHandlesDTO))
-            <div class="mb-4 border border-success p-4">
+            <div class="mb-4 border border-success p-4 rounded">
                 <h4>Submit JSON</h4>
                 <form method="POST" action="{{ route('admin.tools.import') }}" enctype="multipart/form-data">
                     @csrf
@@ -84,7 +107,7 @@ Content of the website is as following:
                     </div>
 
                     {{-- social handles --}}
-                    <div class="border p-2 my-4">
+                    <div class="border p-2 my-4 rounded">
                         <p class="fw-bold text-success text-lg">Social media</p>
                         @if (!empty($toolSocialHandlesDTO['instagramUserId']))
                             <p>
@@ -215,7 +238,18 @@ Content of the website is as following:
 
                     <div class="form-group mb-4">
                         <label class="fw-bold">tool_json_string</label>
-                        <textarea type="text" class="form-control" rows="10" name="tool_json_string" required></textarea>
+                        @if ($jsonParseStatus == 1)
+                            <div class="alert alert-success alert-dismissible fade show" role="alert">
+                                <span>Json parsed successfully</span>
+                                <button type="button" class="btn-close" data-bs-dismiss="alert"></button>
+                            </div>
+                        @elseif ($jsonParseStatus == -1)
+                            <div class="alert alert-danger alert-dismissible fade show" role="alert">
+                                <span>Failed to Parse this JSON</span>
+                                <button type="button" class="btn-close" data-bs-dismiss="alert"></button>
+                            </div>
+                        @endif
+                        <textarea type="text" class="form-control" rows="10" name="tool_json_string" required>{{ @$responseJson }}</textarea>
                     </div>
 
                     <button type="submit" class="btn btn-primary float-right my-3">

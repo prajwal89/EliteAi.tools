@@ -2,10 +2,14 @@
 
 namespace App\Livewire;
 
+use App\DTOs\ToolDTO;
 use App\DTOs\ToolSocialHandlesDTO;
 use App\Services\ExtractedToolProcessor;
 use App\Services\WebPageFetcher;
+use Exception;
+use Illuminate\Support\Facades\Log;
 use Livewire\Component;
+use OpenAI\Laravel\Facades\OpenAI;
 use voku\helper\HtmlDomParser;
 
 class ToolImporter extends Component
@@ -15,6 +19,10 @@ class ToolImporter extends Component
     public $contentForPrompt;
 
     public string $promptForSystem;
+
+    public string $responseJson;
+
+    public int $jsonParseStatus = 0;
 
     public $toolSocialHandlesDTO = [];
 
@@ -27,14 +35,7 @@ class ToolImporter extends Component
     {
         $this->url = rtrim($this->url, '/');
 
-        $html = (new WebPageFetcher(
-            // $this->extractedToolDomain->home_page_url
-            // 'https://www.getrecall.ai/',
-            // 'https://www.photoecom.com/',
-            // 'https://voyp.app/', //has email
-            // 'https://qrdiffusion.com/'
-            $this->url
-        ))->get()->content;
+        $html = (new WebPageFetcher($this->url))->get()->content;
 
         // todo match all social media handles urls
         $dom = HtmlDomParser::str_get_html($html);
@@ -42,11 +43,59 @@ class ToolImporter extends Component
         $this->toolSocialHandlesDTO = collect($this->socialMediaHandles($dom))->toArray();
 
         // dd($this->toolSocialHandlesDTO);
+        $this->getContentForPrompt($html);
+    }
+
+    public function getResponseFromOpenAi()
+    {
+        $prompt = $this->promptForSystem;
+        $prompt .= "\n\nContent of the website as follows:\n\n";
+        $prompt .= $this->contentForPrompt;
+
+        // dd($prompt);
+        try {
+            $response = OpenAI::chat()->create([
+                // 'model' => 'gpt-4',
+                'model' => 'gpt-3.5-turbo',
+                'max_tokens' => 2000,
+                'messages' => [
+                    // [
+                    //     'role' => 'system',
+                    //     'content' => $systemPrompt,
+                    // ],
+                    [
+                        'role' => 'user',
+                        'content' => $prompt,
+                    ],
+                ],
+            ]);
+
+            $this->responseJson = trim($response->choices[0]->message->content);
+
+            Log::info($this->responseJson);
+
+            try {
+                ToolDTO::fromJson($this->responseJson);
+                $this->jsonParseStatus = 1;
+            } catch (Exception $e) {
+                $this->jsonParseStatus = -1;
+            }
+        } catch (Exception $e) {
+            Log::error($e);
+
+            dd($e->getMessage());
+        }
+    }
+
+    public function getContentForPrompt($html)
+    {
 
         $cleanContent = '
+
 ---------------------
 Tool Url: ' . $this->url . '
 ---------------------
+
         ';
 
         $cleanContent .= ExtractedToolProcessor::removeUnNecessaryThingsFromHTML(
@@ -101,6 +150,7 @@ Tool Url: ' . $this->url . '
 
         return ToolSocialHandlesDTO::fromArray($socialMediaUserHandles);
     }
+
 
     // // Function to extract user handles based on platform
     // public function extractUserHandle($url, $platform)

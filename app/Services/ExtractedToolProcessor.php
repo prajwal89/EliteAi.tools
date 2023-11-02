@@ -73,7 +73,8 @@ class ExtractedToolProcessor
             // ->replace("\t", '')
             ->replaceMatches('/<!--(.|\s)*?-->/', '') //remove comment
             ->stripTags()
-            // ->replaceMatches('/\n+/', "\n")
+            ->replaceMatches('/\n+/', "\n")
+            // ->replaceMatches('/\s+/', "\s")
             ->trim()
             ->toString();
 
