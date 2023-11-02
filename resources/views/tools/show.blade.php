@@ -62,15 +62,11 @@
                 {!! $tool->description !!}
             </div>
 
-            @if (!empty($tool->top_features))
+            @if (!empty($tool->getFormattedFeatures()))
                 <h3>Features:</h3>
                 <ul>
-                    @foreach ($tool->top_features as $feature)
-                        <li>
-                            {{ $feature }}
-                            {{-- ! if not found : it getting both sides same --}}
-                            {{-- <strong>{{ str($feature)->before(':') }}</strong> : {{ str($feature)->after(':') }} --}}
-                        </li>
+                    @foreach ($tool->getFormattedFeatures() as $feature)
+                        <li>{!! $feature !!}</li>
                     @endforeach
                 </ul>
             @endif

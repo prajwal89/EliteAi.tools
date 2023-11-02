@@ -110,6 +110,21 @@ class Tool extends Model implements MeilisearchAble
         return $paragraphToEmbed;
     }
 
+    public function getFormattedFeatures(): array
+    {
+        $formattedArray = [];
+
+        foreach ($this->top_features as $feature) {
+            if (str($feature)->contains(':')) {
+                $formattedArray[] =  "<strong>" . str($feature)->before(':') . ":</strong>" . str($feature)->after(':');
+            } else {
+                $formattedArray[] = $feature;
+            }
+        }
+
+        return $formattedArray;
+    }
+
     /**
      * array that will be sent for indexing on meilisearch
      */
