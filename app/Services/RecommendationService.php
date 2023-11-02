@@ -21,8 +21,8 @@ class RecommendationService
      */
     public static function saveSemanticDistanceFor(
         Tool $tool,
+        ModelType $modelType,
         int $toolsLimit = 500,
-        ModelType $modelType
     ) {
         $results = MeilisearchService::vectorSearch(
             SearchAbleTable::TOOL,
