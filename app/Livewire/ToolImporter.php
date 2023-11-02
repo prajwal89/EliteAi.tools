@@ -75,8 +75,11 @@ class ToolImporter extends Component
             Log::info($this->responseJson);
 
             try {
-                ToolDTO::fromJson($this->responseJson);
-                $this->jsonParseStatus = 1;
+                if (empty(ToolDTO::fromJson($this->responseJson))) {
+                    $this->jsonParseStatus = -1;
+                } else {
+                    $this->jsonParseStatus = 1;
+                }
             } catch (Exception $e) {
                 $this->jsonParseStatus = -1;
             }
