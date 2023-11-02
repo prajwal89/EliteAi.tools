@@ -13,14 +13,52 @@
         {{-- <hr> --}}
 
         <div class="mb-4">
-            <h4>Generate Prompt:</h4>
-            <div class="form-group mb-4">
-                <label class="fw-bold">Home Page URL:</label>
-                <input type="url" class="form-control" wire:model="url" />
-                <button class="btn btn-primary mt-2" wire:click='getData()'>Generate 🔥</button>
+            <div class="border border-danger p-4 mb-4 rounded">
+                <h4>Generate Prompt:</h4>
+                <div class="form-group mb-4">
+                    <label class="fw-bold">Home Page URL:</label>
+                    <input type="url" class="form-control" wire:model="url" />
+                    <button class="btn btn-primary mt-2" wire:click="getData()">Generate Prompt 🔥</button>
+                </div>
             </div>
-            <div style="display: {{ empty($contentForPrompt) ? 'none' : 'block' }}">
-                <button class="btn btn-success" id="copy-button">Copy</button>
+            @php
+                $sytemTokens = estimateTokenUsage($promptForSystem);
+                $userTokens = empty($contentForPrompt) ? 0 : estimateTokenUsage($contentForPrompt);
+                $totalTokensRequired = $sytemTokens + $userTokens + 2000;
+                $totalCents = ($sytemTokens + $userTokens) * 0.00003 + 1000 * 0.00006; //output is 6 cent per 1000 token
+                $totalRupees = $totalCents * 84;
+            @endphp
+            {{-- todo: show loader --}}
+            {{-- todo: show estimated tokens and price and option to send request to openAI --}}
+            <div class="border border-info p-4 mb-4 rounded"
+                style="display: {{ empty($contentForPrompt) ? 'none_d' : 'block' }}">
+                <div class="mb-2">
+                    <div class="mb-2">
+                        <span class="mr-2">
+                            System toknes: <strong>{{ $sytemTokens }}</strong>
+                        </span>
+                        <span class="mr-2">
+                            User toknes:
+                            <strong>{{ $userTokens }}</strong>
+                        </span>
+                        <span>
+                            Assistent toknes: <strong>2000</strong>
+                        </span>
+                        <span>
+                            Total: <strong>{{ $totalTokensRequired }}</strong>
+                        </span>
+                    </div>
+                    <div class="d-flex justify-content-between gap-4">
+                        <div>
+                            <button class="btn btn-outline-info">Get JSON From OpenAi</button>
+
+                            {{ round($totalCents, 2) }}$ {{ round($totalRupees, 2) }}rs
+                        </div>
+                        <button class="btn btn-success float-right" id="copy-button">
+                            Copy prompt
+                        </button>
+                    </div>
+                </div>
                 <textarea class="form-control" name="" id="prompt" cols="100" rows="10">
 {{ @$promptForSystem }}
 
@@ -32,7 +70,7 @@ Content of the website is as following:
 
 
         @if (!empty($toolSocialHandlesDTO))
-            <div class="mb-4">
+            <div class="mb-4 border border-success p-4">
                 <h4>Submit JSON</h4>
                 <form method="POST" action="{{ route('admin.tools.import') }}" enctype="multipart/form-data">
                     @csrf
