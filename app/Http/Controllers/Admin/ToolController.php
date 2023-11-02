@@ -106,7 +106,6 @@ class ToolController extends Controller
 
             $insertedTool->tags()->sync($tagIds->toArray()); // Attach the tag to the tool
 
-
             $insertedTool->categories()->sync($request->categories);
 
             return $insertedTool;
@@ -223,7 +222,6 @@ class ToolController extends Controller
                     return !empty($value);
                 }),
             ] + $toolData);
-
 
             $tagIds = str($request->input('tags'))
                 ->trim()

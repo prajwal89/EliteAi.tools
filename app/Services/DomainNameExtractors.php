@@ -5,11 +5,6 @@ namespace App\Services;
 ini_set('memory_limit', '2048M');
 ini_set('max_execution_time', 600); //10 min
 
-
-use App\Enums\PricingType;
-use App\Models\Category;
-use App\Models\ExtractedToolDomain;
-use Facebook\WebDriver\Remote\DesiredCapabilities;
 use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Http;
 use League\Uri\Uri;

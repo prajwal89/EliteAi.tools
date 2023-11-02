@@ -151,7 +151,6 @@ Tool Url: ' . $this->url . '
         return ToolSocialHandlesDTO::fromArray($socialMediaUserHandles);
     }
 
-
     // // Function to extract user handles based on platform
     // public function extractUserHandle($url, $platform)
     // {

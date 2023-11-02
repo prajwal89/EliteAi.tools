@@ -5,24 +5,12 @@ namespace App\Http\Controllers;
 ini_set('memory_limit', '2048M');
 ini_set('max_execution_time', 600); //10 min
 
-use App\DTOs\ToolDTO;
 use App\Enums\SearchAbleTable;
-use App\Models\ExtractedToolDomain;
 use App\Models\Tool;
-use App\Services\DomainNameExtractors;
-use App\Services\ExtractedToolProcessor;
 use App\Services\MeilisearchService;
-use App\Services\RecommendationService;
-use App\Services\ToolServices;
-use Facebook\WebDriver\Remote\DesiredCapabilities;
-use Facebook\WebDriver\Remote\RemoteWebDriver;
-use HeadlessChromium\BrowserFactory;
-use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Http;
-use kornrunner\Blurhash\Blurhash;
-use League\Uri\Uri;
-use voku\helper\HtmlDomParser;
 use Intervention\Image\Facades\Image;
+use kornrunner\Blurhash\Blurhash;
 
 /**
  * For testing out misc things
@@ -38,98 +26,62 @@ class TestController extends Controller
 
     public function __invoke()
     {
-        return $this->blurHash();
+        // return $this->blurHash();
         dd(estimateTokenUsage('You miss 100% of the shots you don\'t take'));
-
-        return $this->totalCombos(45);
-        // DomainNameExtractors::extractsDomainsFromToolify();
-        // dd(MeilisearchService::enableVectorSearch());
-        // dd(MeilisearchService::indexAllDocumentsOfTable(SearchAbleTable::TOOL));
-
-        // dd(Tool::offset(10)->limit(20)->get());
-
-        // foreach (Tool::offset(0)->limit(10)->get() as $tool) {
-        //     dump(RecommendationService::saveSemanticDistanceFor($tool));
-        // }
-
-        // dump('done till 10');
-
-        // foreach (Tool::offset(10)->limit(10)->get() as $tool) {
-        //     dump(RecommendationService::saveSemanticDistanceFor($tool));
-        // }
-
-        // dump('done till 20');
-
-        // foreach (Tool::offset(20)->limit(10)->get() as $tool) {
-        //     dump(RecommendationService::saveSemanticDistanceFor($tool));
-        // }
-
-        // dump('done till 30');
-
-        // foreach (Tool::offset(30)->limit(10)->get() as $tool) {
-        //     dump(RecommendationService::saveSemanticDistanceFor($tool));
-        // }
-
-        // dump('done till 40');
-
-
-
-        // dd(MeilisearchService::getVectorEmbeddings('sdf'));
-        // dd(MeilisearchService::indexAllDocumentsOfTable(SearchAbleTable::TOOL));
-
-
-        // dump((new MeilisearchService)->meilisearchClient->version());
-        // return (new MeilisearchService())->indexAllDocumentsOfTable(SearchAbleTable::TOOL);
-        // return (new MeilisearchService())->deIndexTable(SearchAbleTable::TOOL);
-
-        // return $this->vectorSearch();
-
-        // return $this->sendVectorEmbeddingsToMeilisearch();
-        // return $this->loginSuperAdmin();
-
-        // return $this->buildToolDto();
-
-        // $prompt = ExtractedToolProcessor::buildSystemPrompt(public_path('/prompts/system-1.txt'));
-
-        // echo nl2br($prompt);
-
-        // (new ExtractedToolProcessor(ExtractedToolDomain::find(1)))->process();
-
-        // $this->insertTools();
-
-        // code...
-        // auth()->login(\App\Models\User::find(1));
-        // return $this->crawlTopAiTools3();
 
         // return $this->loginSuperAdmin();
     }
 
     public function blurHash()
     {
-        $tool = Tool::inRandomOrder()->first();
-        $file  = asset('/tools/' . $tool->slug . '/screenshot.webp');
-        $image = Image::make($file);
-        $width = $image->width();
-        $height = $image->height();
 
-        $pixels = [];
-        for ($y = 0; $y < $height; ++$y) {
-            $row = [];
-            for ($x = 0; $x < $width; ++$x) {
-                $colors = $image->pickColor($x, $y);
+        // L26a@nDj00.R0D.5-gDj~kVZA2l6
+        $blurhash = 'LEHV6nWB2yk8pyo0adR*.7kCMdnj';
+        $width = 269;
+        $height = 173;
 
-                $row[] = [$colors[0], $colors[1], $colors[2]];
+        $pixels = Blurhash::decode($blurhash, $width, $height);
+        $image = imagecreatetruecolor($width, $height);
+        for ($y = 0; $y < $height; $y++) {
+            for ($x = 0; $x < $width; $x++) {
+                [$r, $g, $b] = $pixels[$y][$x];
+                imagesetpixel($image, $x, $y, imagecolorallocate($image, $r, $g, $b));
             }
-            $pixels[] = $row;
         }
 
-        $components_x = 4;
-        $components_y = 3;
-        $blurhash = Blurhash::encode($pixels, $components_x, $components_y);
+        // Set the appropriate HTTP headers to display the image
+        header('Content-Type: image/png');
 
-        dump($blurhash);
+        // Output the image
+        return imagejpeg($image);
+
+        // Free up memory
+        imagedestroy($image);
+        // dump($img);
+
+        // $tool = Tool::inRandomOrder()->first();
+        // $file  = asset('/tools/' . $tool->slug . '/screenshot.webp');
+        // $image = Image::make($file);
+        // $width = $image->width();
+        // $height = $image->height();
+
+        // $pixels = [];
+        // for ($y = 0; $y < $height; ++$y) {
+        //     $row = [];
+        //     for ($x = 0; $x < $width; ++$x) {
+        //         $colors = $image->pickColor($x, $y);
+
+        //         $row[] = [$colors[0], $colors[1], $colors[2]];
+        //     }
+        //     $pixels[] = $row;
+        // }
+
+        // $components_x = 4;
+        // $components_y = 3;
+        // $blurhash = Blurhash::encode($pixels, $components_x, $components_y);
+
+        // dump($blurhash);
     }
-
 
     public function totalCombos($max = 10)
     {
@@ -145,7 +97,7 @@ class TestController extends Controller
             }
         }
 
-        dd("Total count of pairs: " . $count);
+        dd('Total count of pairs: ' . $count);
     }
 
     public function vectorSearch()
@@ -199,7 +151,6 @@ class TestController extends Controller
         }
         echo 'done';
     }
-
 
     public function loginSuperAdmin()
     {

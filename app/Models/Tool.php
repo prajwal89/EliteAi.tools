@@ -62,7 +62,7 @@ class Tool extends Model implements MeilisearchAble
         'top_features' => 'json',
         'use_cases' => 'json',
         'pricing_type' => PricingType::class,
-        'vectors' => 'json'
+        'vectors' => 'json',
     ];
 
     public function categories(): BelongsToMany
@@ -111,10 +111,6 @@ class Tool extends Model implements MeilisearchAble
 
     /**
      * array that will be sent for indexing on meilisearch
-     *
-     * @param integer|null $documentId
-     * @param integer $batchNo
-     * @return array
      */
     public static function documentsForSearch(int $documentId = null, int $batchNo = 0): array
     {

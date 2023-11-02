@@ -44,13 +44,8 @@ class RecommendationService
     }
 
     /**
-     * hint for scrutiny: count of all possible combinations of pairs of numbers from e.g, 1,39 
+     * hint for scrutiny: count of all possible combinations of pairs of numbers from e.g, 1,39
      * and do not count pair having same digits
-     *
-     * @param integer $forToolId
-     * @param float $score
-     * @param integer $maxTools
-     * @return Collection
      */
     public static function baseOnSemanticScores(
         int $forToolId,

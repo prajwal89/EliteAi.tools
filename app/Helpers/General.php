@@ -62,7 +62,6 @@ if (!function_exists('getGoogleThumbnailUrl')) {
     }
 }
 
-
 function estimateTokenUsage(string $text): int
 {
     // Define token-to-char ratio for English text

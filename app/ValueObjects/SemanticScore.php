@@ -13,7 +13,7 @@ class SemanticScore
         if ($score >= 0.0 && $score <= 1.0) {
             $this->score = $score;
         } else {
-            throw new InvalidArgumentException("Semantic score must be between 0.0 and 1.0");
+            throw new InvalidArgumentException('Semantic score must be between 0.0 and 1.0');
         }
     }
 
