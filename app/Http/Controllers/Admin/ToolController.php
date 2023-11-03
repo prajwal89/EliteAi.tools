@@ -2,9 +2,14 @@
 
 namespace App\Http\Controllers\Admin;
 
+use App\Enums\BlogType;
 use App\Enums\ModelType;
 use App\Enums\SearchAbleTable;
 use App\Http\Controllers\Controller;
+use App\Jobs\SaveSemanticDistanceForToolJob;
+use App\Jobs\UpdateSemanticDistanceBetweenBlogAndToolJob;
+use App\Jobs\UpdateVectorEmbeddingsJob;
+use App\Models\Blog;
 use App\Models\Tag;
 use App\Models\Tool;
 use App\Services\MeilisearchService;
@@ -124,14 +129,20 @@ class ToolController extends Controller
         // todo: make this work job or use pipelines
         MeilisearchService::indexDocument(SearchAbleTable::TOOL, $tool->id);
 
-        ToolServices::updateVectorEmbeddings($tool, ModelType::All_MINI_LM_L6_V2);
+        dispatch(new UpdateVectorEmbeddingsJob($tool));
+        // ToolServices::updateVectorEmbeddings($tool, ModelType::All_MINI_LM_L6_V2);
 
-        RecommendationService::saveSemanticDistanceFor(
-            tool: $tool,
-            modelType: ModelType::All_MINI_LM_L6_V2,
-        );
+        dispatch(new SaveSemanticDistanceForToolJob($tool));
+        // RecommendationService::saveSemanticDistanceFor(
+        //     tool: $tool,
+        //     modelType: ModelType::All_MINI_LM_L6_V2,
+        // );
 
         // todo update BlogToolSemanticScore for all blog post having blogType:SEMANTIC_SCORE
+        Blog::where('blog_type', BlogType::SEMANTIC_SCORE)
+            ->get()->map(function ($blog) {
+                dispatch(new UpdateSemanticDistanceBetweenBlogAndToolJob($blog));
+            });
 
         return redirect()->route('admin.tools.edit', ['tool' => $tool->id])->with('success', '
         tool created successfully. 
