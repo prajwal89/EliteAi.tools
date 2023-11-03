@@ -2,9 +2,11 @@
 
 namespace App\Http\Controllers\Admin;
 
+use App\Enums\ModelType;
 use App\Http\Controllers\Controller;
 use App\Models\Blog;
 use App\Models\User;
+use App\Services\BlogService;
 use Illuminate\Http\Request;
 
 class BlogController extends Controller
@@ -38,6 +40,11 @@ class BlogController extends Controller
             'description' => $request->description,
         ]);
 
+        BlogService::saveSemanticDistanceBetweenBlogAndTools(
+            $blog,
+            ModelType::All_MINI_LM_L6_V2
+        );
+
         return redirect()
             ->route('admin.blogs.edit', ['blog' => $blog->id])
             ->with('success', 'blog created successfully');
@@ -66,13 +73,18 @@ class BlogController extends Controller
      */
     public function update(Request $request, string $id)
     {
-        Blog::find($id)->update([
+        $blog = Blog::find($id)->update([
             'title' => $request->title,
             'slug' => str($request->title)->slug(),
             'blog_type' => $request->blog_type,
             // 'user_id' => User::where('email', '00prajwal@gmail.com')->first()->id,
             'description' => $request->description,
         ]);
+
+        BlogService::saveSemanticDistanceBetweenBlogAndTools(
+            $blog,
+            ModelType::All_MINI_LM_L6_V2
+        );
 
         return redirect()
             ->back()
@@ -84,6 +96,10 @@ class BlogController extends Controller
      */
     public function destroy(string $id)
     {
-        //
+        Blog::find($id)->delete();
+
+        return redirect()
+            ->route('admin.blogs.index')
+            ->with('success', 'deleted successfully');
     }
 }

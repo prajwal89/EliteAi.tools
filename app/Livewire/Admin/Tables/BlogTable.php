@@ -59,10 +59,7 @@ final class BlogTable extends PowerGridComponent
     {
         return PowerGrid::columns()
             ->addColumn('id')
-            ->addColumn('blog_type')
-
-            /** Example of custom column using a closure **/
-            ->addColumn('blog_type_lower', fn (Blog $model) => strtolower(e($model->blog_type)))
+            // ->addColumn('blog_type', fn (Blog $model) => e($model->blog_type->value))
 
             ->addColumn('title')
             ->addColumn('slug')
@@ -76,9 +73,9 @@ final class BlogTable extends PowerGridComponent
     {
         return [
             Column::make('Id', 'id'),
-            Column::make('Blog type', 'blog_type')
-                ->sortable()
-                ->searchable(),
+            // Column::make('Blog type', 'blog_type')
+            //     ->sortable()
+            //     ->searchable(),
 
             Column::make('Title', 'title')
                 ->sortable()

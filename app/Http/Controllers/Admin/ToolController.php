@@ -131,6 +131,8 @@ class ToolController extends Controller
             modelType: ModelType::All_MINI_LM_L6_V2,
         );
 
+        // todo update BlogToolSemanticScore for all blog post having blogType:SEMANTIC_SCORE
+
         return redirect()->route('admin.tools.edit', ['tool' => $tool->id])->with('success', '
         tool created successfully. 
         <br>
