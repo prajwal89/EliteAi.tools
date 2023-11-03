@@ -6,7 +6,7 @@ use App\Enums\BlogType;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 
-// ? should i add category and tags for blog 
+// ? should i add category and tags for blog
 // ? should i stores vectors and model type
 class Blog extends Model
 {

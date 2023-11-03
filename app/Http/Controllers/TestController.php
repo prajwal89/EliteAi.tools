@@ -8,7 +8,6 @@ ini_set('max_execution_time', 600); //10 min
 use App\Enums\ModelType;
 use App\Enums\SearchAbleTable;
 use App\Models\Blog;
-use App\Models\BlogToolSemanticScore;
 use App\Models\Tool;
 use App\Services\BlogService;
 use App\Services\MeilisearchService;

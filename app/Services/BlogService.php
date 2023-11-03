@@ -6,14 +6,9 @@ use App\Enums\ModelType;
 use App\Enums\SearchAbleTable;
 use App\Models\Blog;
 use App\Models\BlogToolSemanticScore;
-use App\Models\Tool;
-use Illuminate\Http\UploadedFile;
-use Illuminate\Support\Facades\File;
-use Intervention\Image\Facades\Image;
 
 class BlogService
 {
-
     public static function saveSemanticDistanceBetweenBlogAndTools(
         Blog $blog,
         ModelType $modelType
