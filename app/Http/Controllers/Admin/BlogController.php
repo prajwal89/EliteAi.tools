@@ -43,11 +43,6 @@ class BlogController extends Controller
 
         dispatch(new UpdateSemanticDistanceBetweenBlogAndToolJob($blog));
 
-        // BlogService::saveSemanticDistanceBetweenBlogAndTools(
-        //     $blog,
-        //     ModelType::All_MINI_LM_L6_V2
-        // );
-
         return redirect()
             ->route('admin.blogs.edit', ['blog' => $blog->id])
             ->with('success', 'blog created successfully');
@@ -84,10 +79,7 @@ class BlogController extends Controller
             'description' => $request->description,
         ]);
 
-        BlogService::saveSemanticDistanceBetweenBlogAndTools(
-            $blog,
-            ModelType::All_MINI_LM_L6_V2
-        );
+        dispatch(new UpdateSemanticDistanceBetweenBlogAndToolJob($blog));
 
         return redirect()
             ->back()
