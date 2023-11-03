@@ -62,6 +62,7 @@ class ToolController extends Controller
         }
 
         $tool = DB::transaction(function () use ($request, $slug, $toolData) {
+
             $insertedTool = Tool::create([
                 'name' => $request->name,
                 'slug' => $slug,
@@ -105,6 +106,8 @@ class ToolController extends Controller
                 ->explode(',')
                 ->map(function ($tag) {
                     return Tag::firstOrCreate([
+                        'slug' => str($tag)->trim()->slug(),
+                    ], [
                         'name' => trim($tag),
                         'slug' => str($tag)->trim()->slug(),
                     ])->id;
