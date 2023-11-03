@@ -2,6 +2,7 @@
 
 use App\Http\Controllers\BlogController;
 use App\Http\Controllers\CategoryController;
+use App\Http\Controllers\CronJobsController;
 use App\Http\Controllers\HomeController;
 use App\Http\Controllers\SearchController;
 use App\Http\Controllers\SocialAuthController;
@@ -36,6 +37,11 @@ Route::controller(SocialAuthController::class)->prefix('auth')->name('auth.')->g
     Route::get('redirect/{social}', 'socialRedirect')->name('redirect');
     Route::get('callback/{social}', 'socialCallback')->name('callback');
 });
+
+Route::controller(CronJobsController::class)->prefix('cron')->group(function () {
+    Route::get('/per-minute/run-all-jobs', 'runAllJobs');
+});
+
 
 Route::get('/test', TestController::class);
 Route::get('/test/413512', function () {
