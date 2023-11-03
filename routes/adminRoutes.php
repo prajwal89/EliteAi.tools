@@ -1,5 +1,6 @@
 <?php
 
+use App\Http\Controllers\Admin\BlogController;
 use App\Http\Controllers\Admin\CategoryController;
 use App\Http\Controllers\Admin\DashboardController;
 use App\Http\Controllers\Admin\ToolController;
@@ -19,4 +20,5 @@ Route::prefix(config('custom.admin_panel_base_url'))->name('admin.')->middleware
     Route::resource('categories', CategoryController::class);
     Route::resource('tools', ToolController::class);
     Route::resource('tools-to-process', ToolsToProcessController::class);
+    Route::resource('blogs', BlogController::class);
 });

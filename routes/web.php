@@ -1,5 +1,6 @@
 <?php
 
+use App\Http\Controllers\BlogController;
 use App\Http\Controllers\CategoryController;
 use App\Http\Controllers\HomeController;
 use App\Http\Controllers\SearchController;
@@ -23,6 +24,10 @@ Route::get('/top-{category:slug}-ai-tools', [TopAiToolsController::class, 'show'
 
 Route::controller(CategoryController::class)->prefix('category')->name('category.')->group(function () {
     Route::get('{category:slug}', 'show')->name('show');
+});
+
+Route::controller(BlogController::class)->prefix('blog')->name('blog.')->group(function () {
+    Route::get('{blog:slug}', 'show')->name('show');
 });
 
 Route::controller(SocialAuthController::class)->prefix('auth')->name('auth.')->group(function () {
