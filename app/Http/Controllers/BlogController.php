@@ -15,7 +15,7 @@ class BlogController extends Controller
 
         $tools = BlogToolSemanticScore::with('tool')
             ->where('blog_id', $blog->id)
-            ->where('score', '>', 0.2)
+            ->where('score', '>', 0.4)
             ->get()
             ->map(function ($toolWithScores) {
                 return $toolWithScores->tool;
