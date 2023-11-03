@@ -4,6 +4,7 @@ namespace App\Http\Controllers\Admin;
 
 use App\Enums\ModelType;
 use App\Http\Controllers\Controller;
+use App\Jobs\UpdateSemanticDistanceBetweenBlogAndToolJob;
 use App\Models\Blog;
 use App\Models\User;
 use App\Services\BlogService;
@@ -40,10 +41,12 @@ class BlogController extends Controller
             'description' => $request->description,
         ]);
 
-        BlogService::saveSemanticDistanceBetweenBlogAndTools(
-            $blog,
-            ModelType::All_MINI_LM_L6_V2
-        );
+        dispatch(new UpdateSemanticDistanceBetweenBlogAndToolJob($blog));
+
+        // BlogService::saveSemanticDistanceBetweenBlogAndTools(
+        //     $blog,
+        //     ModelType::All_MINI_LM_L6_V2
+        // );
 
         return redirect()
             ->route('admin.blogs.edit', ['blog' => $blog->id])

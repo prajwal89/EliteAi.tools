@@ -126,7 +126,6 @@ class ToolController extends Controller
             );
         }
 
-        // todo: make this work job or use pipelines
         MeilisearchService::indexDocument(SearchAbleTable::TOOL, $tool->id);
 
         dispatch(new UpdateVectorEmbeddingsJob($tool));
@@ -257,13 +256,18 @@ class ToolController extends Controller
             $tool->categories()->sync($request->categories);
         });
 
-        // todo do this only if data in embedding paragraph changes
-        ToolServices::updateVectorEmbeddings($tool, ModelType::All_MINI_LM_L6_V2);
+        MeilisearchService::indexDocument(SearchAbleTable::TOOL, $tool->id);
 
-        RecommendationService::saveSemanticDistanceFor(
-            tool: $tool,
-            modelType: ModelType::All_MINI_LM_L6_V2,
-        );
+        dispatch(new UpdateVectorEmbeddingsJob($tool));
+
+        dispatch(new SaveSemanticDistanceForToolJob($tool));
+
+        // todo update BlogToolSemanticScore for all blog post having blogType:SEMANTIC_SCORE
+        Blog::where('blog_type', BlogType::SEMANTIC_SCORE->value)
+            ->get()
+            ->map(function ($blog) {
+                dispatch(new UpdateSemanticDistanceBetweenBlogAndToolJob($blog));
+            });
 
         return redirect()->back()->with('success', 'tool updated successfully');
     }
