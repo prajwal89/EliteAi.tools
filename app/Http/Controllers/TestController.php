@@ -8,7 +8,9 @@ ini_set('max_execution_time', 600); //10 min
 use App\Enums\ModelType;
 use App\Enums\SearchAbleTable;
 use App\Models\Blog;
+use App\Models\BlogToolSemanticScore;
 use App\Models\Tool;
+use App\Services\BlogService;
 use App\Services\MeilisearchService;
 use Illuminate\Support\Facades\Http;
 use Intervention\Image\Facades\Image;
@@ -44,14 +46,11 @@ class TestController extends Controller
     {
         $blog = Blog::find(1);
 
-        dump($blog->getParagraphForVectorEmbeddings());
-
-        $tools = MeilisearchService::vectorSearch(
-            SearchAbleTable::TOOL,
-            $blog->getParagraphForVectorEmbeddings()
+        BlogService::saveSemanticDistanceBetweenBlogAndTools(
+            $blog,
+            ModelType::All_MINI_LM_L6_V2
         );
-
-        dd($tools);
+        // dd($tools);
     }
 
     public function blurHash()

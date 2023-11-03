@@ -6,7 +6,8 @@ use App\Enums\BlogType;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 
-// todo should i add category and tags for blog 
+// ? should i add category and tags for blog 
+// ? should i stores vectors and model type
 class Blog extends Model
 {
     use HasFactory;
@@ -27,6 +28,11 @@ class Blog extends Model
     public function author()
     {
         return $this->belongsTo(User::class);
+    }
+
+    public function toolSemanticScores()
+    {
+        return $this->hasMany(BlogToolSemanticScore::class);
     }
 
     /**

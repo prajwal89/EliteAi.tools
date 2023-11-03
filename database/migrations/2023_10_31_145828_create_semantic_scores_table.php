@@ -13,6 +13,7 @@ return new class extends Migration
             $table->unsignedBigInteger('tool1_id');
             $table->unsignedBigInteger('tool2_id');
             $table->decimal('score', 9, 8);
+            $table->string('model_type')->nullable();
             $table->timestamps();
 
             $table->foreign('tool1_id')->references('id')->on('tools')->onDelete('cascade');
