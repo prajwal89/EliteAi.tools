@@ -147,7 +147,7 @@ class MeilisearchService
         return true;
     }
 
-    public static function vectorSearch(SearchAbleTable $table, string $query, array $configs = [])
+    public static function vectorSearch(SearchAbleTable $table, string $query, array $configs = []): array
     {
         // Define the full URL for the search endpoint
         $searchEndpoint = config('custom.meilisearch.host') . '/indexes/' . $table->getIndexName() . '/search';

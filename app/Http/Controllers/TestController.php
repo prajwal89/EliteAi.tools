@@ -7,6 +7,7 @@ ini_set('max_execution_time', 600); //10 min
 
 use App\Enums\ModelType;
 use App\Enums\SearchAbleTable;
+use App\Models\Blog;
 use App\Models\Tool;
 use App\Services\MeilisearchService;
 use Illuminate\Support\Facades\Http;
@@ -27,6 +28,8 @@ class TestController extends Controller
 
     public function __invoke()
     {
+        return $this->semanticBlog();
+
         dd(MeilisearchService::getVectorEmbeddings(
             'ds',
             ModelType::All_MINI_LM_L6_V2
@@ -37,9 +40,22 @@ class TestController extends Controller
         // return $this->loginSuperAdmin();
     }
 
+    public function semanticBlog()
+    {
+        $blog = Blog::find(1);
+
+        dump($blog->getParagraphForVectorEmbeddings());
+
+        $tools = MeilisearchService::vectorSearch(
+            SearchAbleTable::TOOL,
+            $blog->getParagraphForVectorEmbeddings()
+        );
+
+        dd($tools);
+    }
+
     public function blurHash()
     {
-
         // L26a@nDj00.R0D.5-gDj~kVZA2l6
         $blurhash = 'LEHV6nWB2yk8pyo0adR*.7kCMdnj';
         $width = 269;
