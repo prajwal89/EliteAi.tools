@@ -116,7 +116,7 @@ class Tool extends Model implements MeilisearchAble
 
         foreach ($this->top_features as $feature) {
             if (str($feature)->contains(':')) {
-                $formattedArray[] =  "<strong>" . str($feature)->before(':') . ":</strong>" . str($feature)->after(':');
+                $formattedArray[] = '<strong>' . str($feature)->before(':') . ':</strong>' . str($feature)->after(':');
             } else {
                 $formattedArray[] = $feature;
             }
