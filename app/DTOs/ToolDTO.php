@@ -27,7 +27,15 @@ class ToolDTO
         try {
             $toolData = json_decode($jsonString);
 
+            // try {
+            //     $pricingType = PricingType::from($toolData->pricing_type);
+            // } catch (Exception $e) {
+            //     // Handle the exception here
+            //     // You can log the error, provide a default value, or take other appropriate actions
+            // }
+
             // dd($toolData);
+
             return new self(
                 name: $toolData->name,
                 tagLine: $toolData->tag_line,
