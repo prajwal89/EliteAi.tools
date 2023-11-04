@@ -33,9 +33,9 @@
             </p> --}}
         </div>
 
-        <div class="flex flex-col items-center justify-center sm:flex-row gap-4">
+        <div class="flex flex-col md:items-center justify-center sm:flex-row gap-4">
 
-            <div class="relative">
+            <div class="relative max-w-xl">
                 <div aria-hidden="true" class="absolute -z-10 -inset-10 h-max w-full m-auto opacity-40">
                     <div class="blur-[106px] h-[320px] bg-gradient-to-br from-primary-500 to-purple-400"></div>
                 </div>
@@ -50,10 +50,10 @@
 
         <article class="prose max-w-screen-lg lg:prose-lg py-4 sm:py-8">
 
-            <h2>What is {{ $tool->name }}</h2>
+            <h2 class="sm:mt-4">What is {{ $tool->name }}?</h2>
 
             @if (!empty($tool->yt_introduction_video_id))
-                <div class="relative" style="padding-bottom: 56.25%;">
+                <div class="relative mb-10" style="padding-bottom: 56.25%;">
                     <iframe class="absolute top-0 left-0 w-full h-full rounded-lg" width="560" height="315"
                         src="https://www.youtube.com/embed/{{ $tool->yt_introduction_video_id }}" frameborder="0"
                         allowfullscreen></iframe>

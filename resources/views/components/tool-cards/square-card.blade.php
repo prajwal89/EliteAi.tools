@@ -33,10 +33,12 @@
 
     <div class="flex flex-col justify-beetween gap-3 px-4 py-3">
         <a href="{{ route('tool.show', ['tool' => $tool->slug]) }}"
-            class="text-xl font-semibold text-primary-700 hover:text-primary-800 two-lines">
-            {{ $tool->name }}
+            class="flex justify-center items-center text-xl font-semibold text-primary-700 hover:text-primary-800 two-lines text-ellipsis">
+            <span>{{ $tool->name }}</span>
             {{-- - {{ $tool->tag_line }} --}}
+            <small class="font-medium text-sm">- {{ $tool->tag_line }}</small>
         </a>
+
 
         <p class="text-gray-600 two-lines">
             {{ $tool->summary }}
