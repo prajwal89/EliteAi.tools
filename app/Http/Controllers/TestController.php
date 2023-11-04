@@ -33,9 +33,9 @@ class TestController extends Controller
     {
         // dd(MeilisearchService::deIndexTable(SearchAbleTable::TOOL));
 
-        dd(MeilisearchService::indexAllDocumentsOfTable(SearchAbleTable::TOOL));
+        // dd(MeilisearchService::indexAllDocumentsOfTable(SearchAbleTable::TOOL));
 
-        // return $this->updateEmbeddingsOfAllTools();
+        return $this->updateEmbeddingsOfAllTools();
 
         dd(BlogService::saveSemanticDistanceBetweenBlogAndTools(Blog::find(1)));
 
