@@ -8,7 +8,7 @@
 @stop
 
 @section('content')
-    <div class="bg-gradient-to-b w-full from-primary-50 to-white absolute h-[400px] -z-20"></div>
+    {{-- <div class="bg-gradient-to-b w-full from-primary-50 to-white absolute h-[400px] -z-20"></div> --}}
     <div class="mx-auto max-w-7xl px-2 md:px-8 ">
 
         <div class="py-8">
