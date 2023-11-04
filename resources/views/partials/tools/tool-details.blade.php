@@ -88,6 +88,7 @@
                 !empty($tool->youtube_channel_id) ||
                 !empty($tool->facebook_id) ||
                 !empty($tool->linkedin_id) ||
+                !empty($tool->discord_channel_invite_id) ||
                 !empty($tool->linkedin_company_id))
             <div class="py-2 flex items-center gap-4">
                 <span>Social:</span>
@@ -227,6 +228,25 @@
                                         d="M12.008 9.17784L15.169 11.3258C15.3738 11.4454 15.4997 11.6647 15.4997 11.9018C15.4997 12.139 15.3738 12.3583 15.169 12.4778L12.008 14.8278C11.408 15.2348 10.5 14.8878 10.5 14.2518V9.75184C10.5 9.11884 11.409 8.77084 12.008 9.17784Z"
                                         stroke="currentColor" stroke-width="1.5" stroke-linecap="round"
                                         stroke-linejoin="round" />
+                                </svg>
+                            </a>
+                        </li>
+                    @endif
+
+                    @if (!empty($tool->discord_channel_invite_id))
+                        <li>
+                            <a href="https://discord.com/invite/{{ $tool->discord_channel_invite_id }}"
+                                target="_blank" title="Discord channel invite"
+                                class="text-gray-500 hover:text-gray-900 dark:hover:text-white dark:text-gray-400">
+                                <svg class="w-7 h-7" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 192 192"
+                                    fill="none">
+                                    <path stroke="currentColor" stroke-linecap="round" stroke-linejoin="round"
+                                        stroke-width="12"
+                                        d="m68 138-8 16c-10.19-4.246-20.742-8.492-31.96-15.8-3.912-2.549-6.284-6.88-6.378-11.548-.488-23.964 5.134-48.056 19.369-73.528 1.863-3.334 4.967-5.778 8.567-7.056C58.186 43.02 64.016 40.664 74 39l6 11s6-2 16-2 16 2 16 2l6-11c9.984 1.664 15.814 4.02 24.402 7.068 3.6 1.278 6.704 3.722 8.567 7.056 14.235 25.472 19.857 49.564 19.37 73.528-.095 4.668-2.467 8.999-6.379 11.548-11.218 7.308-21.769 11.554-31.96 15.8l-8-16m-68-8s20 10 40 10 40-10 40-10" />
+                                    <ellipse cx="71" cy="101" fill="currentColor" rx="13"
+                                        ry="15" />
+                                    <ellipse cx="121" cy="101" fill="currentColor" rx="13"
+                                        ry="15" />
                                 </svg>
                             </a>
                         </li>
