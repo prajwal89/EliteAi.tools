@@ -44,19 +44,6 @@
         </div>
     @endif
 
-    @if (!$tool->tags->isEmpty())
-        <ul class="flex gap-2 mt-4 flex-wrap gap-x-2">
-            @foreach ($tool->tags as $tag)
-                <li>
-                    <p class="flex items-center gap-2 hover:text-primary-600" href="">
-                        <span>#{{ $tag->name }}</span>
-                    </p>
-                </li>
-            @endforeach
-        </ul>
-    @endif
-
-
     @if (
         !empty($tool->instagram_id) ||
             !empty($tool->twitter_id) ||
@@ -282,6 +269,18 @@
                 </a>
             @endif
         </div>
+    @endif
+
+    @if (!$tool->tags->isEmpty())
+        <ul class="flex gap-2 mt-4 flex-wrap gap-x-2">
+            @foreach ($tool->tags as $tag)
+                <li>
+                    <p class="flex items-center gap-2 hover:text-primary-600" href="">
+                        <span>#{{ $tag->name }}</span>
+                    </p>
+                </li>
+            @endforeach
+        </ul>
     @endif
 
 </div>

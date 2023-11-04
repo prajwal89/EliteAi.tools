@@ -29,7 +29,7 @@
                         <br>
                         ex. Top {count}+|{count} TTS AI tools
                     </label>
-                    <input type="text" class="form-control" name="serp_title" required>
+                    <input type="text" class="form-control" name="serp_title">
                 </div>
 
                 <div class="form-group mb-2">
