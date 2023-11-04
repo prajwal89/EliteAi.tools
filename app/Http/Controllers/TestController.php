@@ -31,7 +31,9 @@ class TestController extends Controller
 
     public function __invoke()
     {
-        return $this->updateEmbeddingsOfAllTools();
+        dd(MeilisearchService::indexAllDocumentsOfTable(SearchAbleTable::TOOL));
+
+        // return $this->updateEmbeddingsOfAllTools();
 
         dd(BlogService::saveSemanticDistanceBetweenBlogAndTools(Blog::find(1)));
 
@@ -39,7 +41,6 @@ class TestController extends Controller
         // dd(Tool::documentsForSearch(1));
         // dd(MeilisearchService::deIndexTable(SearchAbleTable::TOOL));
 
-        // dd(MeilisearchService::indexAllDocumentsOfTable(SearchAbleTable::TOOL));
 
         return $this->updateEmbeddingsOfAllTools();
 
