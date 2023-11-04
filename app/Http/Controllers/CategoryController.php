@@ -10,6 +10,18 @@ class CategoryController extends Controller
 {
     public function index()
     {
+        $categories = Category::withCount('tools')
+            ->orderBy('tools_count', 'desc') // Order by tool count in ascending order
+            ->get();
+
+        return view('categories.index', [
+            'categories' => $categories,
+            'pageDataDTO' => new PageDataDTO(
+                title: 'All categories',
+                description: 'Browse tools by categories',
+                conicalUrl: route('category.index')
+            ),
+        ]);
     }
 
     public function show(Request $request, string $slug)
