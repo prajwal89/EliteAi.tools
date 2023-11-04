@@ -60,10 +60,10 @@ Content of the website is as following:
                         </span>
                         <span class="mr-2">
                             User toknes:
-                            @if ($userToken > 500)
-                                <strong class="text-success">{{ $userTokens }}</strong>
+                            @if (@$userTokens > 500)
+                                <strong class="text-success">{{ @$userTokens }}</strong>
                             @else
-                                <strong class="text-danger">{{ $userTokens }}</strong>
+                                <strong class="text-danger">{{ @$userTokens }}</strong>
                             @endif
                         </span>
                         <span>

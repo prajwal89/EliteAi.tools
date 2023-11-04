@@ -28,7 +28,7 @@
                 </div>
 
                 <div class="form-check">
-                    <input class="form-check-input" type="checkbox" name="should_process"
+                    <input class="form-check-input" type="checkbox" id="checkbox1" name="should_process"
                         {{ $extractedToolDomain->should_process ? 'checked' : '' }}>
                     <label class="form-check-label" for="checkbox1">Should Process</label>
                 </div>
@@ -36,8 +36,6 @@
                 <button type="submit" class="btn btn-primary my-3">Update</button>
             </form>
         </div>
-
-
 
 
 
