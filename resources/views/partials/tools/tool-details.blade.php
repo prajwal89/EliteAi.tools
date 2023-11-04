@@ -30,7 +30,7 @@
     </p>
 
     @if (!$tool->categories->isEmpty())
-        <div class="flex items-center gap-2 py-2">
+        <div class="flex gap-2 py-2">
             <strong>Categories:</strong>
             <ul class="flex flex-wrap gap-2">
                 @foreach ($tool->categories as $category)

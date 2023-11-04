@@ -47,6 +47,20 @@
         </h1>
 
 
+        <form action="{{ route('search') }}" class="relative w-full max-w-3xl my-4 md:my-8">
+            <input class="w-full border h-16 shadow p-4 pr-12 rounded-full text-lg" name="query"
+                value="{{ $query ?? '' }}" placeholder="I want to chat with PDF">
+            <button type="submit" class="absolute top-4 right-4 w-8 h-8">
+                <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="2"
+                    stroke="currentColor">
+                    <path stroke-linecap="round" stroke-linejoin="round"
+                        d="M21 21l-5.197-5.197m0 0A7.5 7.5 0 105.196 5.196a7.5 7.5 0 0010.607 10.607z" />
+                </svg>
+            </button>
+        </form>
+
+
+
         @if (!empty($categories))
             <ul class="flex gap-2 md:gap-3 flex-wrap justify-center max-w-5xl py-2 md:py-6 px-2 md:px-8">
                 @foreach ($categories as $c)
@@ -74,18 +88,6 @@
                 </li>
             </ul>
         @endif
-
-        <form action="{{ route('search') }}" class="relative w-full max-w-3xl my-2 md:my-6">
-            <input class="w-full border h-16 shadow p-4 pr-12 rounded-full text-lg" name="query"
-                value="{{ $query ?? '' }}" placeholder="I want to chat with PDF">
-            <button type="submit" class="absolute top-4 right-4 w-8 h-8">
-                <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="2"
-                    stroke="currentColor">
-                    <path stroke-linecap="round" stroke-linejoin="round"
-                        d="M21 21l-5.197-5.197m0 0A7.5 7.5 0 105.196 5.196a7.5 7.5 0 0010.607 10.607z" />
-                </svg>
-            </button>
-        </form>
 
     </div>
 </div>

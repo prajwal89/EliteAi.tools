@@ -33,7 +33,7 @@
             </p> --}}
         </div>
 
-        <div class="flex flex-col md:items-center justify-center sm:flex-row gap-4">
+        <div class="flex flex-col md:items-center justify-center md:flex-row gap-4">
 
             <div class="relative max-w-xl">
                 <div aria-hidden="true" class="absolute -z-10 -inset-10 h-max w-full m-auto opacity-40">
