@@ -31,6 +31,8 @@ class TestController extends Controller
 
     public function __invoke()
     {
+        return $this->updateEmbeddingsOfAllTools();
+
         dd(BlogService::saveSemanticDistanceBetweenBlogAndTools(Blog::find(1)));
 
         dd(BlogService::updateVectorEmbeddings(Blog::find(1)->_vectors));
@@ -59,23 +61,23 @@ class TestController extends Controller
 
     public function updateEmbeddingsOfAllTools()
     {
-        // foreach (Tool::offset(0)->limit(20)->get() as $tool) {
-        //     $results = ToolServices::updateVectorEmbeddings($tool);
-        //     // dd($results);
-        // }
-        // dump('done upto 20');
+        foreach (Tool::offset(0)->limit(20)->get() as $tool) {
+            $results = ToolServices::updateVectorEmbeddings($tool);
+            // dd($results);
+        }
+        dump('done upto 20');
 
-        // foreach (Tool::offset(20)->limit(20)->get() as $tool) {
-        //     $results = ToolServices::updateVectorEmbeddings($tool);
-        //     // dd($results);
-        // }
-        // dump('done upto 40');
+        foreach (Tool::offset(20)->limit(20)->get() as $tool) {
+            $results = ToolServices::updateVectorEmbeddings($tool);
+            // dd($results);
+        }
+        dump('done upto 40');
 
-        // foreach (Tool::offset(40)->limit(20)->get() as $tool) {
-        //     $results = ToolServices::updateVectorEmbeddings($tool);
-        //     // dd($results);
-        // }
-        // dump('done upto 60');
+        foreach (Tool::offset(40)->limit(20)->get() as $tool) {
+            $results = ToolServices::updateVectorEmbeddings($tool);
+            // dd($results);
+        }
+        dump('done upto 60');
     }
 
     public function openAiEmbeddings()
