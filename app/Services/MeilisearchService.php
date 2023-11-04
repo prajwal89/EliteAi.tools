@@ -11,6 +11,7 @@ use App\Interfaces\MeilisearchAble;
 use Exception;
 use GuzzleHttp\Client as GuzzleHttpClient;
 use Illuminate\Support\Facades\Http;
+use InvalidArgumentException;
 use MeiliSearch\Client;
 use OpenAI\Laravel\Facades\OpenAI;
 
@@ -156,16 +157,30 @@ class MeilisearchService
     }
 
     // todo use OpenAi facade far this when available
-    public static function vectorSearch(SearchAbleTable $table, string $query, array $configs = []): array
-    {
-        $searchEndpoint = config('custom.meilisearch.host') . '/indexes/' . $table->getIndexName() . '/search';
+    public static function vectorSearch(
+        SearchAbleTable $table,
+        ?string $query = null,
+        array $vectors = [],
+        array $configs = []
+    ): array {
+
+        if (empty($query) && empty($vectors)) {
+            throw new InvalidArgumentException('query or vectors required for performing a search');
+        }
+
+        if (!empty($vectors)) {
+            $configs['vector'] = $vectors;
+        } else {
+            $configs['vector'] = MeilisearchService::getVectorEmbeddings($query, config('custom.current_embedding_model'));
+        }
 
         $response = Http::withHeaders([
             'Content-Type' => 'application/json',
             'Authorization' => 'Bearer ' . config('custom.meilisearch.key'),
-        ])->post($searchEndpoint, [
-            'vector' => MeilisearchService::getVectorEmbeddings($query, ModelType::OPEN_AI_ADA_002),
-        ] + $configs);
+        ])->post(
+            config('custom.meilisearch.host') . '/indexes/' . $table->getIndexName() . '/search',
+            $configs
+        );
 
         $responseData = $response->json();
 
@@ -189,12 +204,11 @@ class MeilisearchService
         }
 
         if ($modelType == ModelType::OPEN_AI_ADA_002) {
+
             $response = OpenAI::embeddings()->create([
                 'model' => 'text-embedding-ada-002',
                 'input' => $text,
             ]);
-
-            // dd($response);
 
             return $response->embeddings[0]->embedding;
         }

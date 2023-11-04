@@ -25,6 +25,7 @@ class Blog extends Model
 
     protected $casts = [
         'blog_type' => BlogType::class,
+        '_vectors' => 'json',
     ];
 
     public function author()

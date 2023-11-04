@@ -13,8 +13,9 @@ class BlogService
     ): bool {
 
         $tools = MeilisearchService::vectorSearch(
-            SearchAbleTable::TOOL,
-            $blog->getParagraphForVectorEmbeddings()
+            table: SearchAbleTable::TOOL,
+            //query: $blog->getParagraphForVectorEmbeddings(),
+            vectors: $blog->_vectors //already calculated vectors
         );
 
         foreach ($tools['hits'] as $tool) {
