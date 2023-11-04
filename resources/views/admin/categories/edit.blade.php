@@ -3,13 +3,6 @@
 @section('content')
     <div class="card">
 
-        {{-- <div class="card-header d-flex justify-content-between">
-            <h3>Edit Category</h3>
-            <button type="button" class="btn btn-outline-danger" data-bs-toggle="modal" data-bs-target="#deleteModal">
-                Delete
-            </button>
-        </div> --}}
-
         <div class="card-header d-flex justify-content-between">
             <span>Edit Category</span>
             <div>
@@ -31,6 +24,16 @@
                 <div class="form-group mb-2">
                     <label>name</label>
                     <input type="text" class="form-control" value="{{ $category->name }}" name="name" required>
+                </div>
+
+                <div class="form-group mb-2">
+                    <label>
+                        <span>serp_title</span>
+                        <br>
+                        ex. Top {count}+|{count} TTS AI tools
+                    </label>
+                    <input type="text" value="{{ $category->serp_title }}" class="form-control" name="serp_title"
+                        required>
                 </div>
 
                 <div class="form-group mb-2">

@@ -32,6 +32,7 @@ class CategoryController extends Controller
         $category = Category::create([
             'name' => $request->name,
             'slug' => str($request->name)->slug(),
+            'serp_title' => $request->serp_title,
             'description' => $request->description,
         ]);
 
@@ -61,7 +62,7 @@ class CategoryController extends Controller
      */
     public function update(Request $request, string $id)
     {
-        $isUpdated = Category::find($id)->update($request->only('name', 'description'));
+        $isUpdated = Category::find($id)->update($request->only('name', 'description', 'serp_title'));
 
         return redirect()->back()->with('success', 'Updated successfully');
     }

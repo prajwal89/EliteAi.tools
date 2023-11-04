@@ -26,19 +26,24 @@ class CategoryController extends Controller
 
     public function show(Request $request, string $slug)
     {
-
-        $categories = Category::withCount('tools')
-            ->orderBy('tools_count', 'desc') // Order by tool count in ascending order
-            ->take(12)
-            ->get();
-
         $category = Category::where('slug', $slug)->firstOrFail();
 
+        if (!empty($category->serp_title)) {
+            $serpTitle = str($category->serp_title)
+                ->replace('{count}+', ($category->tools->count() - 1) . '+')
+                ->replace('{count}', $category->tools->count());
+        } else {
+            $serpTitle = 'Top ' . $category->tools->count() . ' ' . $category->name . ' AI Tools';
+        }
+
         return view('home', [
-            'categories' => $categories,
+            'categories' => Category::withCount('tools')  //for hero section
+                ->orderBy('tools_count', 'desc') // Order by tool count in ascending order
+                ->take(12)
+                ->get(),
             'category' => $category,
             'pageDataDTO' => new PageDataDTO(
-                title: 'Top ' . $category->tools->count() . ' ' . $category->name . ' AI Tools',
+                title: $serpTitle,
                 description: 'Browse vast collection of ai tools in ' . $category->name,
                 conicalUrl: route('category.show', [
                     'category' => $category->slug,
