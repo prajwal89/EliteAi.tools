@@ -31,9 +31,9 @@ class TestController extends Controller
 
     public function __invoke()
     {
-        dd(MeilisearchService::deIndexTable(SearchAbleTable::TOOL));
+        // dd(MeilisearchService::deIndexTable(SearchAbleTable::TOOL));
 
-        // dd(MeilisearchService::indexAllDocumentsOfTable(SearchAbleTable::TOOL));
+        dd(MeilisearchService::indexAllDocumentsOfTable(SearchAbleTable::TOOL));
 
         // return $this->updateEmbeddingsOfAllTools();
 
