@@ -10,6 +10,7 @@
             <u>
                 <li>?Should be searchable e.g. "Top ai video tools" is not good instead of "top AI video editing tools"</li>
                 <li>Specific about tool but not so specific</li>
+                <li>Search on website for matching tools to the current categry</li>
             </u>
 
         </div>
@@ -34,7 +35,7 @@
 
                 <div class="form-group mb-2">
                     <label>description</label>
-                    <textarea type="text" class="form-control" name="description"></textarea>
+                    <textarea type="text" rows="30" class="form-control" name="description"></textarea>
                 </div>
 
                 <button type="submit" class="btn btn-primary my-3">Add</button>
