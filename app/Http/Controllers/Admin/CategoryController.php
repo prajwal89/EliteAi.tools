@@ -74,6 +74,6 @@ class CategoryController extends Controller
     {
         Category::find($id)->delete();
 
-        return redirect()->back()->with('success', 'tool deleted successfully');
+        return redirect()->route('admin.categories.index')->with('success', 'Category deleted successfully');
     }
 }

@@ -28,7 +28,7 @@
         <h1 class="mx-auto py-2 md:py-6 text-center text-shadow-xl z-20">
             <span class="block font-bold text-2xl sm:text-3xl md:text-5xl">
                 @if (isset($category))
-                    <big>{{ $category->tools()->count() }}</big> {{ $category->name }} AI tools
+                    {{ $category->tools()->count() }} {{ $category->name }} AI tools
 
                     @if (isAdmin())
                         <a href="{{ route('admin.categories.edit', ['category' => $category->id]) }}">...</a>
@@ -39,7 +39,7 @@
             </span>
             <span class="text-lg block sm:text-xl pt-4 w-full max-w-5xl mx-auto">
                 @if (isset($category))
-                    {{ $category->description }}
+                    {!! nl2br($category->description) !!}
                 @else
                     Find the one you need
                 @endif
