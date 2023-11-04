@@ -10,7 +10,7 @@ class HomeController extends Controller
 {
     public function __invoke()
     {
-        $recentTools = Tool::with(['categories'])->get();
+        $recentTools = Tool::with(['categories'])->limit(12)->latest()->get();
         // $categories = Category::has('tools')->get();
         $categories = Category::withCount('tools')
             ->orderBy('tools_count', 'desc') // Order by tool count in ascending order
