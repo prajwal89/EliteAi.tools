@@ -14,6 +14,7 @@ use App\Services\MeilisearchService;
 use Illuminate\Support\Facades\Http;
 use Intervention\Image\Facades\Image;
 use kornrunner\Blurhash\Blurhash;
+use OpenAI\Laravel\Facades\OpenAI;
 
 /**
  * For testing out misc things
@@ -29,6 +30,7 @@ class TestController extends Controller
 
     public function __invoke()
     {
+        return $this->openAiEmbeddings();
         return $this->semanticBlog();
 
         dd(MeilisearchService::getVectorEmbeddings(
@@ -39,6 +41,29 @@ class TestController extends Controller
         dd(estimateTokenUsage('You miss 100% of the shots you don\'t take'));
 
         // return $this->loginSuperAdmin();
+    }
+
+    public function openAiEmbeddings()
+    {
+        dd(MeilisearchService::getVectorEmbeddings(
+            Tool::find(1)->getParagraphForVectorEmbeddings(),
+            ModelType::OPEN_AI_ADA_002
+        ));
+
+        $start_time = microtime(true);  // Record the start time
+
+        // Make the API request
+        $response = OpenAI::embeddings()->create([
+            'model' => 'text-embedding-ada-002',
+            'input' => 'The food was delicious and the waiter...',
+        ]);
+
+        $end_time = microtime(true);  // Record the end time
+        $elapsed_time = $end_time - $start_time;  // Calculate the elapsed time in seconds
+
+        echo "API request took " . round($elapsed_time, 2) . " seconds.";
+
+        dd($response);
     }
 
     public function semanticBlog()

@@ -12,6 +12,7 @@ use Exception;
 use GuzzleHttp\Client as GuzzleHttpClient;
 use Illuminate\Support\Facades\Http;
 use MeiliSearch\Client;
+use OpenAI\Laravel\Facades\OpenAI;
 
 class MeilisearchService
 {
@@ -170,16 +171,28 @@ class MeilisearchService
 
     public static function getVectorEmbeddings(string $text, ModelType $modelType)
     {
-        $data = json_encode([
-            'model' => $modelType->value,
-            'text' => $text,
-        ]);
+        if ($modelType == ModelType::All_MINI_LM_L6_V2) {
+            $data = json_encode([
+                'model' => $modelType->value,
+                'text' => $text,
+            ]);
 
-        $response = Http::withBody($data, 'application/json')
-            ->post('http://194.163.34.183/Microservices/service/embeddings/GenerateEmbeddings.php');
+            $response = Http::withBody($data, 'application/json')
+                ->post('http://194.163.34.183/Microservices/service/embeddings/GenerateEmbeddings.php');
 
-        if ($response->successful()) {
-            return $response->json()['data']['embeddings'];
+            if ($response->successful()) {
+                return $response->json()['data']['embeddings'];
+            }
+        }
+
+
+        if ($modelType == ModelType::OPEN_AI_ADA_002) {
+            $response = OpenAI::embeddings()->create([
+                'model' => 'text-embedding-ada-002',
+                'input' => $text,
+            ]);
+            dd($response);
+            return $response->embeddings[0]->embedding;
         }
 
         return null;
