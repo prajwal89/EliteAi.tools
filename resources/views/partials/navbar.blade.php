@@ -1,6 +1,6 @@
 {{-- top navbar --}}
 {{-- bg-primary-50 --}}
-<nav class="sticky top-0 z-50 px-4 py-2 flex gap-4  justify-between items-center">
+<nav class="sticky top-0 z-50 px-4 py-2 flex gap-4 bg-white justify-between items-center">
 
     <a href="/" class="shrink-0 flex gap-1">
         <div class="flex items-center gap-2">

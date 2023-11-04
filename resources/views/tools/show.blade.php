@@ -95,7 +95,7 @@
     </div>
 
 
-    <div class="max-w-6xl mx-auto my-8 px-2">
+    <div class="max-w-7xl mx-auto my-8 px-2">
         <div class="flex justify-center relative">
             <span class="text-2xl md:text-3xl font-bold">
                 Related Tools
