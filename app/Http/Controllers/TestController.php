@@ -30,7 +30,10 @@ class TestController extends Controller
 
     public function __invoke()
     {
+        dd(config('custom.current_embedding_model')->value);
+
         return $this->openAiEmbeddings();
+
         return $this->semanticBlog();
 
         dd(MeilisearchService::getVectorEmbeddings(
@@ -61,7 +64,7 @@ class TestController extends Controller
         $end_time = microtime(true);  // Record the end time
         $elapsed_time = $end_time - $start_time;  // Calculate the elapsed time in seconds
 
-        echo "API request took " . round($elapsed_time, 2) . " seconds.";
+        echo 'API request took ' . round($elapsed_time, 2) . ' seconds.';
 
         dd($response);
     }

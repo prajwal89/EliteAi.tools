@@ -5,7 +5,6 @@ namespace App\Http\Controllers;
 use App\DTOs\PageDataDTO;
 use App\Models\Blog;
 use App\Models\BlogToolSemanticScore;
-use App\Models\SemanticScore;
 
 class BlogController extends Controller
 {
@@ -29,7 +28,7 @@ class BlogController extends Controller
                 title: $blog->title,
                 description: strip_tags($blog->description),
                 conicalUrl: route('blog.show', ['blog' => $blog->slug])
-            )
+            ),
         ]);
     }
 }

@@ -2,7 +2,6 @@
 
 namespace App\Services;
 
-use App\Enums\ModelType;
 use App\Enums\SearchAbleTable;
 use App\Models\Tool;
 use Illuminate\Http\UploadedFile;
@@ -76,16 +75,16 @@ class ToolServices
         return true;
     }
 
-    public static function updateVectorEmbeddings(Tool $tool, ModelType $modelType): bool
+    public static function updateVectorEmbeddings(Tool $tool): bool
     {
         $embeddings = MeilisearchService::getVectorEmbeddings(
             $tool->getParagraphForVectorEmbeddings(),
-            $modelType
+            config('custom.current_embedding_model')
         );
 
         $tool->update([
             'vectors' => $embeddings,
-            'model_type' => $modelType->value,
+            'model_type' => config('custom.current_embedding_model')->value,
         ]);
 
         return (new MeilisearchService)->updateDocument(SearchAbleTable::TOOL, $tool->id, [

@@ -2,7 +2,6 @@
 
 namespace App\Services;
 
-use App\Enums\ModelType;
 use App\Enums\SearchAbleTable;
 use App\Models\Blog;
 use App\Models\BlogToolSemanticScore;
@@ -11,7 +10,6 @@ class BlogService
 {
     public static function saveSemanticDistanceBetweenBlogAndTools(
         Blog $blog,
-        ModelType $modelType
     ): bool {
 
         $tools = MeilisearchService::vectorSearch(

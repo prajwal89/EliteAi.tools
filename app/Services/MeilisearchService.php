@@ -148,24 +148,20 @@ class MeilisearchService
         return true;
     }
 
+    // todo use OpenAi facade far this when available
     public static function vectorSearch(SearchAbleTable $table, string $query, array $configs = []): array
     {
-        // Define the full URL for the search endpoint
         $searchEndpoint = config('custom.meilisearch.host') . '/indexes/' . $table->getIndexName() . '/search';
 
-        // Send the POST request using the HTTP facade
         $response = Http::withHeaders([
             'Content-Type' => 'application/json',
-            // 'X-Meili-API-Key' => config('custom.meilisearch.key'),
             'Authorization' => 'Bearer ' . config('custom.meilisearch.key'),
         ])->post($searchEndpoint, [
-            'vector' => self::getVectorEmbeddings($query, ModelType::All_MINI_LM_L6_V2),
+            'vector' => MeilisearchService::getVectorEmbeddings($query, ModelType::OPEN_AI_ADA_002),
         ] + $configs);
 
-        // Get the JSON response content
         $responseData = $response->json();
 
-        // Print or use the response data as needed
         return $responseData;
     }
 
@@ -185,13 +181,13 @@ class MeilisearchService
             }
         }
 
-
         if ($modelType == ModelType::OPEN_AI_ADA_002) {
             $response = OpenAI::embeddings()->create([
                 'model' => 'text-embedding-ada-002',
                 'input' => $text,
             ]);
             dd($response);
+
             return $response->embeddings[0]->embedding;
         }
 

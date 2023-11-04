@@ -2,11 +2,9 @@
 
 namespace App\Jobs;
 
-use App\Enums\ModelType;
 use App\Models\Tool;
 use App\Services\ToolServices;
 use Illuminate\Bus\Queueable;
-use Illuminate\Contracts\Queue\ShouldBeUnique;
 use Illuminate\Contracts\Queue\ShouldQueue;
 use Illuminate\Foundation\Bus\Dispatchable;
 use Illuminate\Queue\InteractsWithQueue;
@@ -29,8 +27,7 @@ class UpdateVectorEmbeddingsJob implements ShouldQueue
     public function handle(): void
     {
         ToolServices::updateVectorEmbeddings(
-            $this->tool,
-            ModelType::All_MINI_LM_L6_V2
+            $this->tool
         );
     }
 }
