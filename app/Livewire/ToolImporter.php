@@ -159,7 +159,6 @@ Tool Url: ' . $this->url . '
         return ToolSocialHandlesDTO::fromArray($socialMediaUserHandles);
     }
 
-
     public function extractUserHandle(string $url, string $platform): string
     {
         // Define a mapping of platforms to regular expressions
