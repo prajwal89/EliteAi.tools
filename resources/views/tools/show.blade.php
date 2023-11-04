@@ -8,9 +8,10 @@
 @stop
 
 @section('content')
-    <div class="mx-auto max-w-3xl px-2">
+    <div class="bg-gradient-to-b w-full from-primary-50 to-white absolute h-[400px] -z-20"></div>
+    <div class="mx-auto max-w-7xl px-2 md:px-8 ">
 
-        <div class="my-8">
+        <div class="py-8">
             <h1 class="flex gap-2 md:gap-4 items-center mb-4">
                 @if (!empty($tool->uploaded_favicon))
                     <img class="h-10 w-10 md:h-14 md:w-14 rounded"
@@ -32,21 +33,22 @@
             </p> --}}
         </div>
 
+        <div class="flex flex-col items-center justify-center sm:flex-row gap-4">
 
-
-        <div class="relative">
-            <div aria-hidden="true" class="absolute -z-10 inset-0 h-max w-full m-auto opacity-40">
-                <div class="blur-[106px] h-[200px] bg-gradient-to-br from-primary-500 to-purple-400"></div>
+            <div class="relative">
+                <div aria-hidden="true" class="absolute -z-10 -inset-10 h-max w-full m-auto opacity-40">
+                    <div class="blur-[106px] h-[320px] bg-gradient-to-br from-primary-500 to-purple-400"></div>
+                </div>
+                @if (!empty($tool->uploaded_screenshot))
+                    <img class="w-full mx-auto shadow-sm shadow-gray-200 rounded-2xl max-w-3xl border  "
+                        src="{{ asset('/tools/' . $tool->slug . '/screenshot.webp') }}" alt="{{ $tool->name }}">
+                @endif
             </div>
-            @if (!empty($tool->uploaded_screenshot))
-                <img class="w-full mx-auto shadow-sm shadow-gray-200 rounded-2xl max-w-3xl border"
-                    src="{{ asset('/tools/' . $tool->slug . '/screenshot.webp') }}" alt="{{ $tool->name }}">
-            @endif
+
+            @include('partials.tools.tool-details')
         </div>
 
-        @include('partials.tools.tool-details')
-
-        <article class="prose max-w-screen-lg lg:prose-lg py-4">
+        <article class="prose max-w-screen-lg lg:prose-lg py-4 sm:py-8">
 
             <h2>What is {{ $tool->name }}</h2>
 
@@ -83,12 +85,12 @@
 
         </article>
 
-        <div class="flex justify-center py-8">
+        {{-- <div class="flex justify-center py-8">
             <a class="px-4 py-2 border border-primary-600 bg-primary-50 hover:bg-primary-100 text-lg md:text-xl rounded"
                 href="{{ $tool->home_page_url }}" target="_blank">
                 Visit website
             </a>
-        </div>
+        </div> --}}
 
     </div>
 

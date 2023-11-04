@@ -1,4 +1,4 @@
-<div class="px-4 py-6 bg-gradient-to-b from-primary-100 via-primary-50 to-white relative">
+<div class="px-4 py-6 bg-gradient-to-b from-primary-50 via-primary-50 to-white relative">
     <div class="flex flex-col items-center w-full min-h-[280px] md:min-h-[420px] relative">
         <div class="absolute inset-0 blur-[4px]">
             <img class="animate-img opacity-90 absolute w-10 h-10" style="top: 70%; left: 46%;"

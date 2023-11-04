@@ -1,4 +1,4 @@
-<div class="px-4 md:px-8 pt-8 mx-auto bg-white border-t-2">
+<div class="px-4 md:px-8 pt-8 mx-auto bg-primary-50">
     <div class="grid gap-12 row-gap-6 mb-8 sm:grid-cols-2 lg:grid-cols-4">
         <div class="sm:col-span-2">
             <a href="/" aria-label="Go home" title="{{ config('app.name') }}" class="inline-flex items-center">
