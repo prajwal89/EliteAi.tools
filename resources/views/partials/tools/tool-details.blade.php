@@ -68,7 +68,7 @@
             !empty($tool->discord_channel_invite_id) ||
             !empty($tool->linkedin_company_id))
         <div class="py-2 flex items-center gap-4">
-            <span>Social:</span>
+            <strong>Social:</strong>
             <ul class="flex flex-wrap items-center justify-center gap-2">
 
                 @if (!empty($tool->github_id))
@@ -233,7 +233,7 @@
 
     @if (!empty($tool->android_app_id) || !empty($tool->ios_app_id))
         <div class="flex items-center gap-1 py-2">
-            <span>Apps:</span>
+            <strong>Apps:</strong>
             @if (!empty($tool->android_app_id))
                 <a target="_blank" href="https://play.google.com/store/apps/details?id={{ $tool->android_app_id }}">
                     <img class="h-8" src="{{ asset('/images/play-store-logo.png') }}" alt="Playstore Logo">
@@ -249,7 +249,7 @@
 
     @if (!empty($tool->firefox_extension_id) || !empty($tool->chrome_extension_id))
         <div class="flex items-center gap-2 py-2">
-            <span>Extension:</span>
+            <strong>Extension:</strong>
             @if (!empty($tool->chrome_extension_id))
                 <a target="_blank" class="text-gray-500 hover:text-gray-900 dark:hover:text-white dark:text-gray-400"
                     href="https://chrome.google.com/webstore/detail/{{ $tool->chrome_extension_id }}">
