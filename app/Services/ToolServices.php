@@ -84,8 +84,8 @@ class ToolServices
     public static function updateVectorEmbeddings(Tool $tool): bool
     {
         $embeddings = MeilisearchService::getVectorEmbeddings(
-            $tool->getParagraphForVectorEmbeddings(),
-            config('custom.current_embedding_model')
+            text: $tool->getParagraphForVectorEmbeddings(),
+            modelType: config('custom.current_embedding_model')
         );
 
         $tool->update([
@@ -93,8 +93,12 @@ class ToolServices
             'model_type' => config('custom.current_embedding_model')->value,
         ]);
 
-        return (new MeilisearchService)->updateDocument(SearchAbleTable::TOOL, $tool->id, [
-            '_vectors' => $embeddings,
-        ]);
+        return (new MeilisearchService)->updateDocument(
+            table: SearchAbleTable::TOOL,
+            documentId: $tool->id,
+            newData: [
+                '_vectors' => $embeddings,
+            ]
+        );
     }
 }
