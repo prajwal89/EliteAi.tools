@@ -12,9 +12,9 @@
             Top {{ $tag->name }} Ai tools
         </h1>
 
-        <p class="mt-2 text-lg">
+        {{-- <p class="mt-2 text-lg">
             Small description about theese tools
-        </p>
+        </p> --}}
 
         <div class="mt-6">
             <h3 class="font-bold mb-2 text-lg">Table of Contents</h3>

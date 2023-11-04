@@ -1,6 +1,6 @@
-<div class="px-4 mb-4 pb-8 bg-gradient-to-b from-primary-100 via-primary-50 to-white relative">
-    <div class="flex flex-col items-center w-full min-h-[280px] md:min-h-[420px]  relative z-10">
-        <div class="absolute inset-0 blur-[1px] -z-10">
+<div class="px-4 py-6 bg-gradient-to-b from-primary-100 via-primary-50 to-white relative">
+    <div class="flex flex-col items-center w-full min-h-[280px] md:min-h-[420px] relative">
+        <div class="absolute inset-0 blur-[4px]">
             <img class="animate-img opacity-90 absolute w-10 h-10" style="top: 70%; left: 46%;"
                 src="{{ asset('/images/home/1.svg') }}">
             <img class="animate-img hidden md:block opacity-90 absolute w-10 h-10" style="top: 55%; left: 13%;"
@@ -25,7 +25,7 @@
                 src="{{ asset('/images/home/11.svg') }}">
         </div>
 
-        <h1 class="mx-auto my-8 md:my-12 text-center z-10">
+        <h1 class="mx-auto py-2 md:py-6 text-center text-shadow-xl">
             <span class="block font-bold text-2xl sm:text-3xl md:text-5xl">
                 @if (isset($category))
                     <big>{{ $category->tools()->count() }}</big> {{ $category->name }} AI tools
@@ -46,7 +46,36 @@
             </span>
         </h1>
 
-        <form action="{{ route('search') }}" class="relative w-full max-w-3xl">
+
+        @if (!empty($categories))
+            <ul class="flex gap-2 md:gap-3 flex-wrap justify-center max-w-5xl py-2 md:py-6 px-2 md:px-8">
+                @foreach ($categories as $c)
+                    @if (isset($category) && $c->name == $category->name)
+                        <li
+                            class="text-center border border-primary-500 px-2 py-1 md:text-lg relative md:min-w-[100px] flex justify-center items-center bg-gray-100 rounded-lg select-none cursor-pointer shadow shadow-primary-500 outline outline-primary-600">
+                            <a class="w-full h-full" href="{{ route('category.show', ['category' => $c->slug]) }}">
+                                {{ $c->name }}
+                            </a>
+                        </li>
+                    @else
+                        <li
+                            class="text-center border border-primary-500 px-2 py-1 md:text-lg relative md:min-w-[100px] flex justify-center items-center bg-gray-100 rounded-lg select-none cursor-pointer hover:shadow hover:shadow-primary-500 hover:outline hover:outline-primary-600">
+                            <a class="w-full h-full" href="{{ route('category.show', ['category' => $c->slug]) }}">
+                                {{ $c->name }}
+                            </a>
+                        </li>
+                    @endif
+                @endforeach
+                <li
+                    class="text-center border border-primary-500 px-2 py-1 md:text-lg relative md:min-w-[100px] flex justify-center items-center bg-gray-100 rounded-lg select-none cursor-pointer hover:shadow hover:shadow-primary-500 hover:outline hover:outline-primary-600">
+                    <a class="w-full h-full" href="{{ route('category.index') }}">
+                        More +
+                    </a>
+                </li>
+            </ul>
+        @endif
+
+        <form action="{{ route('search') }}" class="relative w-full max-w-3xl my-2 md:my-6">
             <input class="w-full border h-16 shadow p-4 pr-12 rounded-full text-lg" name="query"
                 value="{{ $query ?? '' }}" placeholder="I want to chat with PDF">
             <button type="submit" class="absolute top-4 right-4 w-8 h-8">
@@ -57,29 +86,6 @@
                 </svg>
             </button>
         </form>
-
-
-        @if (!empty($categories))
-            <ul class="flex gap-2 md:gap-3 my-8 md:my-12 flex-wrap justify-center px-2 md:px-8">
-                @foreach ($categories as $c)
-                    @if (isset($category) && $c->name == $category->name)
-                        <li
-                            class="text-center px-2 py-1 md:text-lg relative md:min-w-[100px] flex justify-center items-center bg-gray-100 rounded-lg select-none cursor-pointer shadow shadow-primary-500 outline outline-primary-600">
-                            <a class="w-full h-full" href="{{ route('category.show', ['category' => $c->slug]) }}">
-                                {{ $c->name }}
-                            </a>
-                        </li>
-                    @else
-                        <li
-                            class="text-center px-2 py-1 md:text-lg relative md:min-w-[100px] flex justify-center items-center bg-gray-100 rounded-lg select-none cursor-pointer hover:shadow hover:shadow-primary-500 hover:outline hover:outline-primary-600">
-                            <a class="w-full h-full" href="{{ route('category.show', ['category' => $c->slug]) }}">
-                                {{ $c->name }}
-                            </a>
-                        </li>
-                    @endif
-                @endforeach
-            </ul>
-        @endif
 
     </div>
 </div>

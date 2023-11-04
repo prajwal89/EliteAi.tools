@@ -27,8 +27,10 @@ class CategoryController extends Controller
     public function show(Request $request, string $slug)
     {
 
-        $categories = Category::has('tools')->get();
-        // $categories = Category::withCount(['tools'])->get();
+        $categories = Category::withCount('tools')
+            ->orderBy('tools_count', 'desc') // Order by tool count in ascending order
+            ->take(12)
+            ->get();
 
         $category = Category::where('slug', $slug)->firstOrFail();
 
