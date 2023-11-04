@@ -77,9 +77,6 @@ class ToolServices
 
     /**
      * updates in DB and Meilisearch
-     *
-     * @param Tool $tool
-     * @return boolean
      */
     public static function updateVectorEmbeddings(Tool $tool): bool
     {

@@ -14,11 +14,9 @@ class UpdateVectorEmbeddingsJob implements ShouldQueue
 {
     use Dispatchable, InteractsWithQueue, Queueable, SerializesModels;
 
-
     public function __construct(public Tool $tool)
     {
     }
-
 
     public function handle(): void
     {

@@ -20,6 +20,6 @@ class SaveSemanticDistanceForToolJob implements ShouldQueue
 
     public function handle(): void
     {
-        RecommendationService::saveSemanticDistanceFor(tool: $this->tool,);
+        RecommendationService::saveSemanticDistanceFor(tool: $this->tool);
     }
 }

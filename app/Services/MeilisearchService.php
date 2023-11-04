@@ -88,10 +88,6 @@ class MeilisearchService
 
     /**
      * This will also update the document if document is already available
-     *
-     * @param SearchAbleTable $table
-     * @param integer $documentId
-     * @return boolean
      */
     public static function indexDocument(SearchAbleTable $table, int $documentId): bool
     {
@@ -159,13 +155,13 @@ class MeilisearchService
     // todo use OpenAi facade far this when available
     public static function vectorSearch(
         SearchAbleTable $table,
-        ?string $query = null,
+        string $query = null,
         array $vectors = [],
         array $configs = []
     ): array {
 
         $configs = array_merge($configs, [
-            'limit' => 500
+            'limit' => 500,
         ]);
 
         if (empty($query) && empty($vectors)) {

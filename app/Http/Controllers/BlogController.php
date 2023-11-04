@@ -19,6 +19,7 @@ class BlogController extends Controller
             ->get()
             ->map(function ($toolWithScores) {
                 $toolWithScores->tool->score = $toolWithScores->score;
+
                 return $toolWithScores->tool;
             });
 

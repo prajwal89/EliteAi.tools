@@ -137,7 +137,7 @@ class Tool extends Model implements MeilisearchAble
         // ? or should i include paragraphToEmbed only
         $query = self::with([
             'tags',
-            'categories'
+            'categories',
         ])->select(
             'id',
             'name',
@@ -163,6 +163,7 @@ class Tool extends Model implements MeilisearchAble
             ->map(function ($model) {
                 $model->tags = $model->tags->pluck('name')->toArray();
                 $model->categories = $model->categories->pluck('name')->toArray();
+
                 return $model->withoutRelations();
             })
             ->toArray();

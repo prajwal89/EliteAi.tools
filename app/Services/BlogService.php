@@ -31,10 +31,7 @@ class BlogService
     }
 
     /**
-     *  updates in DB 
-     *
-     * @param Blog $blog
-     * @return boolean
+     *  updates in DB
      */
     public static function updateVectorEmbeddings(Blog $blog): bool
     {
