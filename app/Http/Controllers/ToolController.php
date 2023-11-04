@@ -35,7 +35,8 @@ class ToolController extends Controller
             'categories' => $categories,
             'pageDataDTO' => new PageDataDTO(
                 // title: $tool->name . ' - Pricing, Use cases, Reviews, Features',
-                title: $tool->name . ' - Use cases, Features',
+                // title: $tool->name . ' - Use cases, Features',
+                title: $tool->name . ' - ' . $tool->tag_line,
                 description: $tool->summary,
                 conicalUrl: route('tool.show', ['tool' => $tool->slug]),
                 thumbnailUrl: asset('/tools/' . $tool->slug . '/screenshot.webp')
