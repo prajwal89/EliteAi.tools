@@ -6,6 +6,7 @@ use App\Http\Controllers\CronJobsController;
 use App\Http\Controllers\HomeController;
 use App\Http\Controllers\SearchController;
 use App\Http\Controllers\SocialAuthController;
+use App\Http\Controllers\TagController;
 use App\Http\Controllers\TestController;
 use App\Http\Controllers\ToolController;
 use App\Http\Controllers\TopAiToolsController;
@@ -26,6 +27,11 @@ Route::get('/top-{category:slug}-ai-tools', [TopAiToolsController::class, 'show'
 Route::controller(CategoryController::class)->prefix('category')->name('category.')->group(function () {
     Route::get('/', 'index')->name('index');
     Route::get('{category:slug}', 'show')->name('show');
+});
+
+Route::controller(TagController::class)->prefix('tag')->name('tag.')->group(function () {
+    Route::get('/', 'index')->name('index');
+    Route::get('{tag:slug}', 'show')->name('show');
 });
 
 Route::controller(BlogController::class)->prefix('blog')->name('blog.')->group(function () {
