@@ -51,16 +51,16 @@ class RecommendationService
      * and do not count pair having same digits
      */
     public static function baseOnSemanticScores(
-        int $forToolId,
+        Tool $tool,
         float $score = 0.5,
         int $maxTools = 500
     ): Collection {
 
         $semanticScore = new ValueObjectsSemanticScore($score);
 
-        $scores = SemanticScore::where(function ($query) use ($forToolId) {
-            $query->orWhere('tool1_id', $forToolId);
-            $query->orWhere('tool2_id', $forToolId);
+        $scores = SemanticScore::where(function ($query) use ($tool) {
+            $query->orWhere('tool1_id', $tool->id);
+            $query->orWhere('tool2_id', $tool->id);
         })
             ->where('score', '>', $semanticScore->getScore())
             ->orderBy('score', 'desc')
@@ -71,9 +71,9 @@ class RecommendationService
             return [$score->tool1_id, $score->tool2_id];
         })
             ->flatten()
-            ->filter(function ($tooId) use ($forToolId) {
+            ->filter(function ($tooId) use ($tool) {
                 //* remove current tool that we are getting alternatives for
-                return $tooId !== $forToolId;
+                return $tooId !== $tool->id;
             })
             ->unique();
 

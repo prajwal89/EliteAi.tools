@@ -32,6 +32,7 @@ class TestController extends Controller
 
     public function __invoke()
     {
+        dd($this->totalCombos());
         // dd(MeilisearchService::deIndexTable(SearchAbleTable::TOOL));
 
         // dd(MeilisearchService::indexAllDocumentsOfTable(SearchAbleTable::TOOL));
@@ -170,7 +171,7 @@ class TestController extends Controller
         // dump($blurhash);
     }
 
-    public function totalCombos($max = 10)
+    public function totalCombos($max = 57)
     {
         $min = 1;
         $count = 0;

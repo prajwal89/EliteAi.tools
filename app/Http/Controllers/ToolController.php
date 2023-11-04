@@ -20,9 +20,9 @@ class ToolController extends Controller
         $tool = Tool::where('slug', $slug)->firstOrFail();
 
         $relatedTools = RecommendationService::baseOnSemanticScores(
-            $tool->id,
-            0.2,
-            3 * 2
+            tool: $tool,
+            score: 0.4,
+            maxTools: 3 * 2
         );
 
         // dd($alternativeTools);
@@ -47,18 +47,10 @@ class ToolController extends Controller
     {
         $tool = Tool::where('slug', $slug)->firstOrFail();
 
-        // $alternativeTools = Tool::with('categories')->get();
-
-        // $alternativeTools = Tool::whereHas('categories', function ($query) use ($tool) {
-        //     $query->whereIn('category_id', $tool->categories->pluck('id'));
-        // })
-        //     ->where('id', '!=', $tool->id)
-        //     // ->take(9)
-        //     ->get();
-
         $alternativeTools = RecommendationService::baseOnSemanticScores(
-            $tool->id,
-            0.3
+            tool: $tool,
+            score: 0.4,
+            maxTools: 3 * 2
         );
 
         return view('tools.alternatives', [
