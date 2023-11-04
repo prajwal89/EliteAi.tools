@@ -32,7 +32,7 @@ class SearchController extends Controller
                     return array_search($tool->id, $toolIds->toArray());
                 });
 
-            dump('Total time: ' . round(microtime('true') - $startTime, 2) . ' sec');
+            // dump('Total time: ' . round(microtime('true') - $startTime, 2) . ' sec');
             // dd($resultTools->toArray());
         }
 

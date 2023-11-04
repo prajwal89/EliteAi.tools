@@ -13,7 +13,7 @@ use App\Http\Controllers\TopAiToolsController;
 use Illuminate\Support\Facades\Route;
 
 Route::get('/', HomeController::class)->name('home');
-Route::get('/search', SearchController::class)->name('search');
+Route::get('/search', SearchController::class)->name('search')->middleware('throttle:10,1');
 
 Route::controller(ToolController::class)->prefix('tool')->name('tool.')->group(function () {
     Route::get('submit-new-tool', 'submitNewTool')->name('submit');
