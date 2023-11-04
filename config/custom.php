@@ -13,4 +13,6 @@ return [
     'open_ai' => [
         'api_key' => env('OPENAI_API_KEY'),
     ],
+    // ! we need to change all embeddings if we are going to change this key
+    'current_embedding_model' => \App\Enums\ModelType::OPEN_AI_ADA_002,
 ];

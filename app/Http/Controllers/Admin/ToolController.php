@@ -3,7 +3,6 @@
 namespace App\Http\Controllers\Admin;
 
 use App\Enums\BlogType;
-use App\Enums\ModelType;
 use App\Enums\SearchAbleTable;
 use App\Http\Controllers\Controller;
 use App\Jobs\SaveSemanticDistanceForToolJob;
@@ -13,32 +12,22 @@ use App\Models\Blog;
 use App\Models\Tag;
 use App\Models\Tool;
 use App\Services\MeilisearchService;
-use App\Services\RecommendationService;
 use App\Services\ToolServices;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
 
 class ToolController extends Controller
 {
-    /**
-     * Display a listing of the resource.
-     */
     public function index()
     {
         return view('admin.tools.index');
     }
 
-    /**
-     * Show the form for creating a new resource.
-     */
     public function create()
     {
         return view('admin.tools.create');
     }
 
-    /**
-     * Store a newly created resource in storage.
-     */
     public function store(Request $request)
     {
         // dd($request->all());
@@ -122,48 +111,29 @@ class ToolController extends Controller
 
         // download and save favicons
         if ($request->has('should_get_favicon_from_google')) {
-            $tool->update(
-                [
-                    'uploaded_favicon' => ToolServices::saveFaviconFromGoogle($tool),
-                ]
-            );
+            $tool->update(['uploaded_favicon' => ToolServices::saveFaviconFromGoogle($tool)]);
         }
 
         MeilisearchService::indexDocument(SearchAbleTable::TOOL, $tool->id);
 
         dispatch(new UpdateVectorEmbeddingsJob($tool));
-        // ToolServices::updateVectorEmbeddings($tool, ModelType::All_MINI_LM_L6_V2);
 
         dispatch(new SaveSemanticDistanceForToolJob($tool));
-        // RecommendationService::saveSemanticDistanceFor(
-        //     tool: $tool,
-        //     modelType: ModelType::All_MINI_LM_L6_V2,
-        // );
 
-        // todo update BlogToolSemanticScore for all blog post having blogType:SEMANTIC_SCORE
         Blog::where('blog_type', BlogType::SEMANTIC_SCORE)
             ->get()->map(function ($blog) {
                 dispatch(new UpdateSemanticDistanceBetweenBlogAndToolJob($blog));
             });
 
-        return redirect()->route('admin.tools.edit', ['tool' => $tool->id])->with('success', '
-        tool created successfully. 
-        <br>
-        <a href="' . route('tool.show', ['tool' => $tool->slug]) . '" target="_blank">View</a>
-        ');
+        return redirect()->route('admin.tools.edit', ['tool' => $tool->id])
+            ->with('success', 'tool created successfully. <br> <a href="' . route('tool.show', ['tool' => $tool->slug]) . '" target="_blank">View Tool</a>');
     }
 
-    /**
-     * Display the specified resource.
-     */
     public function show(string $id)
     {
         //
     }
 
-    /**
-     * Show the form for editing the specified resource.
-     */
     public function edit(string $id)
     {
         $tool = Tool::find($id);
@@ -178,9 +148,6 @@ class ToolController extends Controller
         ]);
     }
 
-    /**
-     * Update the specified resource in storage.
-     */
     public function update(Request $request, string $id)
     {
         // dd($request->all());
@@ -254,7 +221,7 @@ class ToolController extends Controller
                     ])->id;
                 });
 
-            $tool->tags()->sync($tagIds->toArray()); // Attach the tag to the tool
+            $tool->tags()->sync($tagIds->toArray());
 
             $tool->categories()->sync($request->categories);
         });
@@ -265,7 +232,6 @@ class ToolController extends Controller
 
         dispatch(new SaveSemanticDistanceForToolJob($tool));
 
-        // todo update BlogToolSemanticScore for all blog post having blogType:SEMANTIC_SCORE
         Blog::where('blog_type', BlogType::SEMANTIC_SCORE->value)
             ->get()
             ->map(function ($blog) {
@@ -275,9 +241,6 @@ class ToolController extends Controller
         return redirect()->back()->with('success', 'tool updated successfully');
     }
 
-    /**
-     * Remove the specified resource from storage.
-     */
     public function destroy(string $id)
     {
         Tool::find($id)->delete();

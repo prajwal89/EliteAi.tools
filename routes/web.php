@@ -49,7 +49,6 @@ Route::controller(CronJobsController::class)->prefix('cron')->group(function () 
     Route::get('/per-minute/run-all-jobs', 'runAllJobs');
 });
 
-
 Route::get('/test', TestController::class);
 Route::get('/test/413512', function () {
     auth()->login(

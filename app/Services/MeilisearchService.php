@@ -11,6 +11,7 @@ use App\Interfaces\MeilisearchAble;
 use Exception;
 use GuzzleHttp\Client as GuzzleHttpClient;
 use Illuminate\Support\Facades\Http;
+use InvalidArgumentException;
 use MeiliSearch\Client;
 use OpenAI\Laravel\Facades\OpenAI;
 
@@ -85,6 +86,13 @@ class MeilisearchService
         }
     }
 
+    /**
+     * This will also update the document if document is already available
+     *
+     * @param SearchAbleTable $table
+     * @param integer $documentId
+     * @return boolean
+     */
     public static function indexDocument(SearchAbleTable $table, int $documentId): bool
     {
         $response = (new self())
@@ -148,24 +156,34 @@ class MeilisearchService
         return true;
     }
 
-    public static function vectorSearch(SearchAbleTable $table, string $query, array $configs = []): array
-    {
-        // Define the full URL for the search endpoint
-        $searchEndpoint = config('custom.meilisearch.host') . '/indexes/' . $table->getIndexName() . '/search';
+    // todo use OpenAi facade far this when available
+    public static function vectorSearch(
+        SearchAbleTable $table,
+        ?string $query = null,
+        array $vectors = [],
+        array $configs = []
+    ): array {
 
-        // Send the POST request using the HTTP facade
+        if (empty($query) && empty($vectors)) {
+            throw new InvalidArgumentException('query or vectors required for performing a search');
+        }
+
+        if (!empty($vectors)) {
+            $configs['vector'] = $vectors;
+        } else {
+            $configs['vector'] = MeilisearchService::getVectorEmbeddings($query, config('custom.current_embedding_model'));
+        }
+
         $response = Http::withHeaders([
             'Content-Type' => 'application/json',
-            // 'X-Meili-API-Key' => config('custom.meilisearch.key'),
             'Authorization' => 'Bearer ' . config('custom.meilisearch.key'),
-        ])->post($searchEndpoint, [
-            'vector' => self::getVectorEmbeddings($query, ModelType::All_MINI_LM_L6_V2),
-        ] + $configs);
+        ])->post(
+            config('custom.meilisearch.host') . '/indexes/' . $table->getIndexName() . '/search',
+            $configs
+        );
 
-        // Get the JSON response content
         $responseData = $response->json();
 
-        // Print or use the response data as needed
         return $responseData;
     }
 
@@ -185,13 +203,13 @@ class MeilisearchService
             }
         }
 
-
         if ($modelType == ModelType::OPEN_AI_ADA_002) {
+
             $response = OpenAI::embeddings()->create([
                 'model' => 'text-embedding-ada-002',
                 'input' => $text,
             ]);
-            dd($response);
+
             return $response->embeddings[0]->embedding;
         }
 
@@ -205,6 +223,7 @@ class MeilisearchService
             'Authorization' => 'Bearer ' . config('custom.meilisearch.key'),
         ])->patch(config('custom.meilisearch.host') . '/experimental-features', [
             'vectorStore' => true,
+            // 'scoreDetails' => true,
         ]);
 
         return $response->json();

@@ -2,12 +2,10 @@
 
 namespace App\Http\Controllers\Admin;
 
-use App\Enums\ModelType;
 use App\Http\Controllers\Controller;
 use App\Jobs\UpdateSemanticDistanceBetweenBlogAndToolJob;
 use App\Models\Blog;
 use App\Models\User;
-use App\Services\BlogService;
 use Illuminate\Http\Request;
 
 class BlogController extends Controller
