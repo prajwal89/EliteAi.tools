@@ -28,4 +28,23 @@ class BlogService
 
         return true;
     }
+
+    /**
+     *  updates in DB 
+     *
+     * @param Blog $blog
+     * @return boolean
+     */
+    public static function updateVectorEmbeddings(Blog $blog): bool
+    {
+        $embeddings = MeilisearchService::getVectorEmbeddings(
+            $blog->getParagraphForVectorEmbeddings(),
+            config('custom.current_embedding_model')
+        );
+
+        return $blog->update([
+            '_vectors' => $embeddings,
+            'model_type' => config('custom.current_embedding_model')->value,
+        ]);
+    }
 }

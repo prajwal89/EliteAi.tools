@@ -11,6 +11,7 @@ use App\Models\Blog;
 use App\Models\Tool;
 use App\Services\BlogService;
 use App\Services\MeilisearchService;
+use App\Services\ToolServices;
 use Illuminate\Support\Facades\Http;
 use Intervention\Image\Facades\Image;
 use kornrunner\Blurhash\Blurhash;
@@ -30,6 +31,14 @@ class TestController extends Controller
 
     public function __invoke()
     {
+        dd(BlogService::updateVectorEmbeddings(Blog::find(1)));
+        // dd(Tool::documentsForSearch(1));
+        // dd(MeilisearchService::deIndexTable(SearchAbleTable::TOOL));
+
+        // dd(MeilisearchService::indexAllDocumentsOfTable(SearchAbleTable::TOOL));
+
+        return $this->updateEmbeddingsOfAllTools();
+
         dd(config('custom.current_embedding_model')->value);
 
         return $this->openAiEmbeddings();
@@ -44,6 +53,27 @@ class TestController extends Controller
         dd(estimateTokenUsage('You miss 100% of the shots you don\'t take'));
 
         // return $this->loginSuperAdmin();
+    }
+
+    public function updateEmbeddingsOfAllTools()
+    {
+        // foreach (Tool::offset(0)->limit(20)->get() as $tool) {
+        //     $results = ToolServices::updateVectorEmbeddings($tool);
+        //     // dd($results);
+        // }
+        // dump('done upto 20');
+
+        // foreach (Tool::offset(20)->limit(20)->get() as $tool) {
+        //     $results = ToolServices::updateVectorEmbeddings($tool);
+        //     // dd($results);
+        // }
+        // dump('done upto 40');
+
+        // foreach (Tool::offset(40)->limit(20)->get() as $tool) {
+        //     $results = ToolServices::updateVectorEmbeddings($tool);
+        //     // dd($results);
+        // }
+        // dump('done upto 60');
     }
 
     public function openAiEmbeddings()

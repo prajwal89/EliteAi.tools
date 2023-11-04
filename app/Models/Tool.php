@@ -23,7 +23,7 @@ class Tool extends Model implements MeilisearchAble
         'description',
         'top_features',
         'use_cases',
-        'vectors',
+        '_vectors',
         'model_type',
 
         'domain_name',
@@ -63,7 +63,7 @@ class Tool extends Model implements MeilisearchAble
         'top_features' => 'json',
         'use_cases' => 'json',
         'pricing_type' => PricingType::class,
-        'vectors' => 'json',
+        '_vectors' => 'json',
     ];
 
     public function categories(): BelongsToMany
@@ -127,11 +127,18 @@ class Tool extends Model implements MeilisearchAble
 
     /**
      * array that will be sent for indexing on meilisearch
+     * it will output single document if document id is given
+     * else it will give array of bached documents
      */
     public static function documentsForSearch(int $documentId = null, int $batchNo = 0): array
     {
+        $batchSize = SearchAbleTable::TOOL->getBatchSize();
+
         // ? or should i include paragraphToEmbed only
-        $query = self::select(
+        $query = self::with([
+            'tags',
+            'categories'
+        ])->select(
             'id',
             'name',
             'slug',
@@ -141,7 +148,7 @@ class Tool extends Model implements MeilisearchAble
             'domain_name',
             'top_features',
             'use_cases',
-            'vectors',
+            'model_type',
         );
 
         if (!empty($documentId)) {
@@ -150,14 +157,14 @@ class Tool extends Model implements MeilisearchAble
 
         $query->orderBy('id', 'asc');
 
-        $batchSize = SearchAbleTable::TOOL->getBatchSize();
-
-        $offset = $batchNo * $batchSize;
-
-        return $query
-            ->offset($offset)
+        return $query->offset($batchNo * $batchSize)
             ->limit($batchSize)
             ->get()
+            ->map(function ($model) {
+                $model->tags = $model->tags->pluck('name')->toArray();
+                $model->categories = $model->categories->pluck('name')->toArray();
+                return $model->withoutRelations();
+            })
             ->toArray();
     }
 

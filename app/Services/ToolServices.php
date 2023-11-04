@@ -75,6 +75,12 @@ class ToolServices
         return true;
     }
 
+    /**
+     * updates in DB and Meilisearch
+     *
+     * @param Tool $tool
+     * @return boolean
+     */
     public static function updateVectorEmbeddings(Tool $tool): bool
     {
         $embeddings = MeilisearchService::getVectorEmbeddings(
@@ -83,7 +89,7 @@ class ToolServices
         );
 
         $tool->update([
-            'vectors' => $embeddings,
+            '_vectors' => $embeddings,
             'model_type' => config('custom.current_embedding_model')->value,
         ]);
 

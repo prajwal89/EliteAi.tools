@@ -85,6 +85,13 @@ class MeilisearchService
         }
     }
 
+    /**
+     * This will also update the document if document is already available
+     *
+     * @param SearchAbleTable $table
+     * @param integer $documentId
+     * @return boolean
+     */
     public static function indexDocument(SearchAbleTable $table, int $documentId): bool
     {
         $response = (new self())
@@ -186,7 +193,8 @@ class MeilisearchService
                 'model' => 'text-embedding-ada-002',
                 'input' => $text,
             ]);
-            dd($response);
+
+            // dd($response);
 
             return $response->embeddings[0]->embedding;
         }
@@ -201,6 +209,7 @@ class MeilisearchService
             'Authorization' => 'Bearer ' . config('custom.meilisearch.key'),
         ])->patch(config('custom.meilisearch.host') . '/experimental-features', [
             'vectorStore' => true,
+            // 'scoreDetails' => true,
         ]);
 
         return $response->json();

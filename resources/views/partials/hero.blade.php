@@ -25,7 +25,7 @@
                 src="{{ asset('/images/home/11.svg') }}">
         </div>
 
-        <h1 class="mx-auto py-2 md:py-6 text-center text-shadow-xl">
+        <h1 class="mx-auto py-2 md:py-6 text-center text-shadow-xl z-20">
             <span class="block font-bold text-2xl sm:text-3xl md:text-5xl">
                 @if (isset($category))
                     <big>{{ $category->tools()->count() }}</big> {{ $category->name }} AI tools

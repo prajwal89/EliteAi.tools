@@ -19,6 +19,8 @@ class Blog extends Model
         'description',
         'content',
         'user_id',
+        '_vectors',
+        'model_type',
     ];
 
     protected $casts = [

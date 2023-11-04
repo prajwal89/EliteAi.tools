@@ -20,8 +20,6 @@ class UpdateSemanticDistanceBetweenBlogAndToolJob implements ShouldQueue
 
     public function handle(): void
     {
-        BlogService::saveSemanticDistanceBetweenBlogAndTools(
-            $this->blog
-        );
+        BlogService::saveSemanticDistanceBetweenBlogAndTools($this->blog);
     }
 }
