@@ -161,10 +161,12 @@ class MeilisearchService
         SearchAbleTable $table,
         ?string $query = null,
         array $vectors = [],
-        array $configs = [
-            'limit' => 500
-        ]
+        array $configs = []
     ): array {
+
+        $configs = array_merge($configs, [
+            'limit' => 500
+        ]);
 
         if (empty($query) && empty($vectors)) {
             throw new InvalidArgumentException('query or vectors required for performing a search');

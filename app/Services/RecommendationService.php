@@ -23,9 +23,9 @@ class RecommendationService
         int $toolsLimit = 500,
     ) {
         $results = MeilisearchService::vectorSearch(
-            SearchAbleTable::TOOL,
-            $tool->getParagraphForVectorEmbeddings(),
-            ['limit' => $toolsLimit]
+            table: SearchAbleTable::TOOL,
+            query: $tool->getParagraphForVectorEmbeddings(),
+            configs: ['limit' => $toolsLimit]
         );
 
         foreach ($results['hits'] as $hit) {
