@@ -70,6 +70,7 @@ class ToolController extends Controller
                 'linkedin_company_id' => $request->linkedin_company_id,
                 'facebook_id' => $request->facebook_id,
                 'youtube_channel_id' => $request->youtube_channel_id,
+                'discord_channel_invite_id' => $request->discord_channel_invite_id,
 
                 'ios_app_id' => $request->ios_app_id,
                 'android_app_id' => $request->android_app_id,
@@ -190,6 +191,7 @@ class ToolController extends Controller
                 'linkedin_company_id' => $request->linkedin_company_id,
                 'facebook_id' => $request->facebook_id,
                 'youtube_channel_id' => $request->youtube_channel_id,
+                'discord_channel_invite_id' => $request->discord_channel_invite_id,
 
                 'ios_app_id' => $request->ios_app_id,
                 'android_app_id' => $request->android_app_id,
