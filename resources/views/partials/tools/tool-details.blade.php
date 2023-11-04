@@ -1,4 +1,5 @@
 <div class="rounded-lg flex-1 px-2 text-lg self-start">
+
     <div class="flex gap-2 items-center py-2">
         {{-- <span>Features:</span> --}}
         <div title="Pricing type"
@@ -29,7 +30,7 @@
     </p>
 
     @if (!$tool->categories->isEmpty())
-        <div class="flex items-center gap-2 my-2">
+        <div class="flex items-center gap-2 py-2">
             <strong>Categories:</strong>
             <ul class="flex flex-wrap gap-2">
                 @foreach ($tool->categories as $category)
@@ -272,7 +273,7 @@
     @endif
 
     @if (!$tool->tags->isEmpty())
-        <ul class="flex gap-2 mt-4 flex-wrap gap-x-2">
+        <ul class="flex gap-2 py-2 flex-wrap gap-x-2">
             @foreach ($tool->tags as $tag)
                 <li>
                     <p class="flex items-center gap-2 hover:text-primary-600" href="">

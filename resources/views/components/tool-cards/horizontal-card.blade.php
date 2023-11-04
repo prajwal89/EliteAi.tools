@@ -3,9 +3,9 @@
         src="{{ asset('/tools/' . $tool->slug . '/screenshot.webp') }}" alt="{{ $tool->name }}">
 
     <div class="p-2 md:p-4">
-        <a class="flex items-center text-xl sm:text-2xl hover:underline text-primary-800 my-2 two-line"
+        <a class="text-xl sm:text-2xl hover:underline text-primary-800 my-2 two-line"
             href="{{ route('tool.show', ['tool' => $tool->slug]) }}">
-            <span class="font-bold flex-1">{{ $tool->name }}</span>
+            <span class="font-bold">{{ $tool->name }}</span>
             <small class="font-medium text-sm">- {{ $tool->tag_line }}</small>
         </a>
 
