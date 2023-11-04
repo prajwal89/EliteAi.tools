@@ -161,7 +161,9 @@ class MeilisearchService
         SearchAbleTable $table,
         ?string $query = null,
         array $vectors = [],
-        array $configs = []
+        array $configs = [
+            'limit' => 500
+        ]
     ): array {
 
         if (empty($query) && empty($vectors)) {

@@ -69,7 +69,9 @@ class BlogController extends Controller
      */
     public function update(Request $request, string $id)
     {
-        $blog = Blog::find($id)->update([
+        $blog = Blog::find($id);
+
+        $blog->update([
             'title' => $request->title,
             'slug' => str($request->title)->slug(),
             'blog_type' => $request->blog_type,
