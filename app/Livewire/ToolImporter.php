@@ -110,6 +110,8 @@ Tool Url: ' . $this->url . '
             $html
         );
 
+        // todo include pricing page if available
+
         $this->contentForPrompt = $cleanContent;
     }
 

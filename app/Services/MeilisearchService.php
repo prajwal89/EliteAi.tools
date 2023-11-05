@@ -169,6 +169,7 @@ class MeilisearchService
      *
      * @return void
      */
+    // ! return types are different
     public function search(
         SearchAbleTable $table,
         string $query,

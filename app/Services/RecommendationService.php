@@ -77,6 +77,7 @@ class RecommendationService
             })
             ->unique();
 
+        // sort by order of toolids in toolIds
         $resultTools = Tool::with(['categories'])
             ->whereIn('id', $toolIds->toArray())
             ->get()
