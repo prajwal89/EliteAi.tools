@@ -36,9 +36,6 @@ class MeilisearchService
 
     /**
      * Index all documents for ann table
-     *
-     * @param SearchAbleTable $table
-     * @return array
      */
     public static function indexAllDocumentsOfTable(SearchAbleTable $table): array
     {
@@ -72,9 +69,6 @@ class MeilisearchService
 
     /**
      * De-Index Whole table
-     *
-     * @param SearchAbleTable $table
-     * @return array
      */
     public static function deIndexTable(SearchAbleTable $table): array
     {
@@ -173,10 +167,6 @@ class MeilisearchService
     /**
      * Default wrapper for meilisearch search
      *
-     * @param SearchAbleTable $table
-     * @param string $query
-     * @param array $searchParams
-     * @param array $options
      * @return void
      */
     public function search(
@@ -194,7 +184,9 @@ class MeilisearchService
         } catch (Exception $e) {
             Log::error($e->getMessage());
 
-            if (app()->isLocal()) throw $e;
+            if (app()->isLocal()) {
+                throw $e;
+            }
 
             try {
                 $results = self::fulltextSearch($table, $query);
@@ -202,7 +194,9 @@ class MeilisearchService
 
                 Log::error($es->getMessage());
 
-                if (app()->isLocal()) throw $e;
+                if (app()->isLocal()) {
+                    throw $e;
+                }
             }
         }
 
@@ -211,12 +205,6 @@ class MeilisearchService
 
     /**
      * Use only if you want to search with vectors
-     *
-     * @param SearchAbleTable $table
-     * @param string|null $query
-     * @param array $vectors
-     * @param array $configs
-     * @return array
      */
     public static function vectorSearch(
         SearchAbleTable $table,

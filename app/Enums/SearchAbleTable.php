@@ -44,7 +44,6 @@ enum SearchAbleTable: string
      * fallback if search meilisearch fails
      * we need to have fulltext index on these columns
      * e.g $table->fullText(['name', 'summary', 'description'])
-     * @return array
      */
     public function searchAbleColumns(): array
     {
