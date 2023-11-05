@@ -10,7 +10,9 @@ use App\Enums\SearchAbleTable;
 use App\Interfaces\MeilisearchAble;
 use Exception;
 use GuzzleHttp\Client as GuzzleHttpClient;
+use Illuminate\Support\Collection;
 use Illuminate\Support\Facades\Http;
+use Illuminate\Support\Facades\Log;
 use InvalidArgumentException;
 use MeiliSearch\Client;
 use OpenAI\Laravel\Facades\OpenAI;
@@ -32,8 +34,13 @@ class MeilisearchService
         );
     }
 
-    // index all documents
-    public static function indexAllDocumentsOfTable(SearchAbleTable $table)
+    /**
+     * Index all documents for ann table
+     *
+     * @param SearchAbleTable $table
+     * @return array
+     */
+    public static function indexAllDocumentsOfTable(SearchAbleTable $table): array
     {
         $output = [];
 
@@ -63,7 +70,13 @@ class MeilisearchService
         return $output;
     }
 
-    public static function deIndexTable(SearchAbleTable $table)
+    /**
+     * De-Index Whole table
+     *
+     * @param SearchAbleTable $table
+     * @return array
+     */
+    public static function deIndexTable(SearchAbleTable $table): array
     {
         return (new self())
             ->meilisearchClient
@@ -107,7 +120,9 @@ class MeilisearchService
 
     public function getTotalDocumentsInIndex(SearchAbleTable $table)
     {
-        return $this->meilisearchClient->index($table->getIndexName())
+        return $this
+            ->meilisearchClient
+            ->index($table->getIndexName())
             ->stats()['numberOfDocuments'];
     }
 
@@ -120,8 +135,11 @@ class MeilisearchService
         return false;
     }
 
-    public function updateDocument(SearchAbleTable $table, $documentId, array $newData): bool
-    {
+    public function updateDocument(
+        SearchAbleTable $table,
+        int $documentId,
+        array $newData
+    ): bool {
         $searchableModel = $table->getModelInstance();
 
         if (!($searchableModel instanceof MeilisearchAble)) {
@@ -152,7 +170,56 @@ class MeilisearchService
         return true;
     }
 
-    // todo use OpenAi facade far this when available
+    /**
+     * Default wrapper for meilisearch search
+     *
+     * @param SearchAbleTable $table
+     * @param string $query
+     * @param array $searchParams
+     * @param array $options
+     * @return void
+     */
+    public function search(
+        SearchAbleTable $table,
+        string $query,
+        array $searchParams = [],
+        array $options = []
+    ) {
+
+        try {
+            $results = $this
+                ->meilisearchClient
+                ->index($table->getIndexName())
+                ->search($query, $searchParams, $options);
+        } catch (Exception $e) {
+            Log::error($e->getMessage());
+
+            if (app()->isLocal()) {
+                throw $e;
+            }
+
+            try {
+                $results = self::fulltextSearch($table, $query);
+            } catch (Exception $es) {
+                Log::error($es->getMessage());
+                if (app()->isLocal()) {
+                    throw $e;
+                }
+            }
+        }
+
+        return $results;
+    }
+
+    /**
+     * Use only if you want to search with vectors
+     *
+     * @param SearchAbleTable $table
+     * @param string|null $query
+     * @param array $vectors
+     * @param array $configs
+     * @return array
+     */
     public static function vectorSearch(
         SearchAbleTable $table,
         string $query = null,
@@ -214,6 +281,13 @@ class MeilisearchService
         }
 
         return null;
+    }
+
+    public static function fulltextSearch(SearchAbleTable $table, string $query): Collection
+    {
+        return $table->getModelInstance()::query()
+            ->whereFullText($table->searchAbleColumns(), $query)
+            ->get();
     }
 
     public static function enableVectorSearch()

@@ -3,7 +3,7 @@
     <div class="flex gap-2 items-center py-2">
         {{-- <span>Features:</span> --}}
         <div title="Pricing type"
-            class="flex items-center cursor-pointer gap-0.5 bg-gray-400/30 text-black px-2 py-0.5 rounded-full">
+            class="flex items-center cursor-pointer gap-0.5 bg-gray-100 shadow-sm text-black px-2 py-0.5 rounded-full">
             <svg class="w-5 h-5" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5"
                 stroke="currentColor">
                 <path stroke-linecap="round" stroke-linejoin="round"
@@ -13,7 +13,7 @@
         </div>
         @if ($tool->has_api)
             <div title="Support for API"
-                class="flex items-center cursor-pointer gap-0.5 bg-gray-400/30 text-black px-2 py-0.5 rounded-full">
+                class="flex items-center cursor-pointer gap-0.5 bg-gray-100 shadow-sm text-black px-2 py-0.5 rounded-full">
                 <svg class="w-5 h-5" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none">
                     <path
                         d="M17 9V12C17 14.7614 14.7614 17 12 17M7 9V12C7 14.7614 9.23858 17 12 17M12 17V21M8 3V6M16 3V6M5 9H19"
@@ -35,7 +35,7 @@
             <ul class="flex flex-wrap gap-2">
                 @foreach ($tool->categories as $category)
                     <li>
-                        <a class="flex items-center gap-2 hover:text-primary-600"
+                        <a class="flex items-center gap-2 text-gray-700 hover:text-primary-600"
                             href="{{ route('category.show', ['category' => $category->slug]) }}">
                             <span>{{ $category->name }}{{ $loop->last ? '' : ',' }}</span>
                         </a>
@@ -276,7 +276,7 @@
         <ul class="flex gap-2 py-2 flex-wrap gap-x-2">
             @foreach ($tool->tags as $tag)
                 <li>
-                    <p class="flex items-center gap-2 hover:text-primary-600" href="">
+                    <p class="flex items-center gap-2 hover:text-primary-600 text-gray-700" href="">
                         <span>#{{ $tag->name }}</span>
                     </p>
                 </li>
