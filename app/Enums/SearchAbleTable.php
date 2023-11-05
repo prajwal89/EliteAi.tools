@@ -40,6 +40,20 @@ enum SearchAbleTable: string
         };
     }
 
+    /**
+     * fallback if search meilisearch fails
+     * we need to have fulltext index on these columns
+     * e.g $table->fullText(['name', 'summary', 'description'])
+     * @return array
+     */
+    public function searchAbleColumns(): array
+    {
+        return match ($this) {
+            SearchAbleTable::TOOL => ['name', 'summary', 'description'],
+            default => throw new Exception("Searchable columns are not set for table {$this->value}"),
+        };
+    }
+
     public static function values(): array
     {
         return array_column(self::cases(), 'value');
