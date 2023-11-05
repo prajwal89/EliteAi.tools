@@ -17,8 +17,13 @@
                 </div>
 
                 <div class="form-group mb-2">
+                    <label>min_semantic_score</label>
+                    <input type="text" class="form-control" value="0.85" name="min_semantic_score" required>
+                </div>
+
+                <div class="form-group mb-2">
                     <label>description</label>
-                    <textarea type="text" class="form-control" name="description"></textarea>
+                    <textarea type="text" rows="24" class="form-control" name="description"></textarea>
                 </div>
 
                 <div class="form-group mb-4">

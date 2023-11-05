@@ -18,6 +18,7 @@ class Blog extends Model
         'slug',
         'description',
         'content',
+        'min_semantic_score',
         'user_id',
         '_vectors',
         'model_type',

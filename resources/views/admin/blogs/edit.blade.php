@@ -31,6 +31,13 @@
                     <textarea type="text" rows="10" class="form-control" name="description">{{ $blog->description }}</textarea>
                 </div>
 
+                <div class="form-group mb-2">
+                    <label>min_semantic_score</label>
+                    <input type="text" class="form-control" value="{{ $blog->min_semantic_score }}"
+                        name="min_semantic_score" required>
+                </div>
+
+
                 <div class="form-group mb-4">
                     <label class="fw-bold">*Blog type</label>
                     <select type="select" class="form-control" name="blog_type" required>
