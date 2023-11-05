@@ -32,6 +32,11 @@ class TestController extends Controller
 
     public function __invoke()
     {
+        dd((new MeilisearchService())->search(SearchAbleTable::TOOL, 'Chat with pdf'));
+
+
+
+        dd(MeilisearchService::fulltextSearch(SearchAbleTable::TOOL, 'Chat with the pdf'));
         dd($this->totalCombos());
         // dd(MeilisearchService::deIndexTable(SearchAbleTable::TOOL));
 

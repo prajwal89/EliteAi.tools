@@ -9,6 +9,8 @@ return [
         'prefix' => 'ai_tools_repo',
         'host' => env('MEILISEARCH_HOST', 'http://localhost:7700'),
         'key' => env('MEILISEARCH_KEY', null),
+        'search_timeout' => 4, //fallback to search with fulltext search
+        'vector_search_timeout' => 8,
     ],
     'open_ai' => [
         'api_key' => env('OPENAI_API_KEY'),

@@ -194,17 +194,15 @@ class MeilisearchService
         } catch (Exception $e) {
             Log::error($e->getMessage());
 
-            if (app()->isLocal()) {
-                throw $e;
-            }
+            if (app()->isLocal()) throw $e;
 
             try {
                 $results = self::fulltextSearch($table, $query);
             } catch (Exception $es) {
+
                 Log::error($es->getMessage());
-                if (app()->isLocal()) {
-                    throw $e;
-                }
+
+                if (app()->isLocal()) throw $e;
             }
         }
 
