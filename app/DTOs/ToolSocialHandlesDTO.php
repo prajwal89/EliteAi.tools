@@ -22,6 +22,8 @@ class ToolSocialHandlesDTO
 
         public ?string $chromeExtensionId = null,
         public ?string $firefoxExtensionId = null,
+
+        public ?string $githubRepositoryPath = null,
     ) {
     }
 
@@ -45,6 +47,8 @@ class ToolSocialHandlesDTO
 
             chromeExtensionId: $array['chrome_extension_id'] ?? null,
             firefoxExtensionId: $array['firefox_extension_id'] ?? null,
+
+            githubRepositoryPath: $array['github_repository_path'] ?? null,
         );
     }
 
@@ -70,6 +74,8 @@ class ToolSocialHandlesDTO
 
             chromeExtensionId: $data['chromeExtensionId'] ?? null,
             firefoxExtensionId: $data['firefoxExtensionId'] ?? null,
+
+            githubRepositoryPath: $data['githubRepositoryPath'] ?? null,
         );
     }
 }

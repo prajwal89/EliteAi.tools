@@ -34,6 +34,7 @@ class Tool extends Model implements MeilisearchAble
         'owner_id',
         'contact_email',
 
+        // social handles
         'instagram_id',
         'tiktok_id',
         'twitter_id',
@@ -44,6 +45,7 @@ class Tool extends Model implements MeilisearchAble
         'telegram_channel_id',
         'subreddit_id',
         'discord_channel_invite_id',
+        'github_repository_path',
 
         'android_app_id',
         'ios_app_id',

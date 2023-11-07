@@ -12,11 +12,14 @@ use App\Models\Tool;
 use App\Services\BlogService;
 use App\Services\MeilisearchService;
 use App\Services\RecommendationService;
+use App\Services\SocialMediaHandlesExtractor;
 use App\Services\ToolServices;
+use App\Services\WebPageFetcher;
 use Illuminate\Support\Facades\Http;
 use Intervention\Image\Facades\Image;
 use kornrunner\Blurhash\Blurhash;
 use OpenAI\Laravel\Facades\OpenAI;
+use voku\helper\HtmlDomParser;
 
 /**
  * For testing out misc things
@@ -32,6 +35,16 @@ class TestController extends Controller
 
     public function __invoke()
     {
+        $html = (new WebPageFetcher('https://www.pixelfy.ai/'))->get()->content;
+
+        // todo match all social media handles urls
+        $dom = HtmlDomParser::str_get_html($html);
+
+
+        $handle = (new SocialMediaHandlesExtractor($dom))->extractSocialHandles();
+
+        dd($handle);
+
         dd((new MeilisearchService())->search(SearchAbleTable::TOOL, 'Chat with pdf'));
 
         dd(MeilisearchService::fulltextSearch(SearchAbleTable::TOOL, 'Chat with the pdf'));
