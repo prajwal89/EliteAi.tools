@@ -98,19 +98,15 @@ class ToolImporter extends Component
     public function getContentForPrompt($html)
     {
 
-        $cleanContent = '
-
----------------------
+        $cleanContent = '---------------------
 Tool Url: ' . $this->url . '
----------------------
-
-        ';
+---------------------';
 
         $cleanContent .= ExtractedToolProcessor::removeUnNecessaryThingsFromHTML(
             $html
         );
 
-        // todo include pricing page if available
+        // todo include pricing page if available  e.g  /pricing  /plans
 
         $this->contentForPrompt = $cleanContent;
     }
