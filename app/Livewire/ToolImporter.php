@@ -46,6 +46,8 @@ class ToolImporter extends Component
         // todo match all social media handles urls
         $dom = HtmlDomParser::str_get_html($html);
 
+        // dd((new SocialMediaHandlesExtractor($dom))->extractSocialHandles());
+
         $this->toolSocialHandlesDTO = collect(
             (new SocialMediaHandlesExtractor($dom))->extractSocialHandles()
         )->toArray();

@@ -71,6 +71,7 @@ class ToolController extends Controller
                 'facebook_id' => $request->facebook_id,
                 'youtube_channel_id' => $request->youtube_channel_id,
                 'discord_channel_invite_id' => $request->discord_channel_invite_id,
+                'github_repository_path' => $request->github_repository_path,
 
                 'ios_app_id' => $request->ios_app_id,
                 'android_app_id' => $request->android_app_id,
@@ -192,6 +193,7 @@ class ToolController extends Controller
                 'facebook_id' => $request->facebook_id,
                 'youtube_channel_id' => $request->youtube_channel_id,
                 'discord_channel_invite_id' => $request->discord_channel_invite_id,
+                'github_repository_path' => $request->github_repository_path,
 
                 'ios_app_id' => $request->ios_app_id,
                 'android_app_id' => $request->android_app_id,

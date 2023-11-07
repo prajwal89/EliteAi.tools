@@ -102,6 +102,8 @@ class SocialMediaHandlesExtractor
 
         $allSocialMedias = $socialHandles + $this->extractOtherHandles();
 
+        // dd($allSocialMedias);
+
         return ToolSocialHandlesDTO::fromArray($allSocialMedias);
     }
 

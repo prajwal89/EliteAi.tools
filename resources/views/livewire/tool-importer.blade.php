@@ -101,7 +101,6 @@ Content of the website is as following:
                 <h4>Submit JSON</h4>
                 <form method="POST" action="{{ route('admin.tools.import') }}" enctype="multipart/form-data">
                     @csrf
-
                     <input type="hidden" name="toolSocialHandlesDTO" value="{{ json_encode($toolSocialHandlesDTO) }}">
 
                     <div class="form-group mb-4">
@@ -217,6 +216,15 @@ Content of the website is as following:
                                 <a target="_blank"
                                     href="https://www.reddit.com/r/{{ $toolSocialHandlesDTO['subredditId'] }}">
                                     {{ $toolSocialHandlesDTO['subredditId'] }}
+                                </a>
+                            </p>
+                        @endif
+                        @if (!empty($toolSocialHandlesDTO['githubRepositoryPath']))
+                            <p>
+                                <span>githubRepositoryPath:</span>
+                                <a target="_blank"
+                                    href="https://github.com//{{ $toolSocialHandlesDTO['githubRepositoryPath'] }}">
+                                    {{ $toolSocialHandlesDTO['githubRepositoryPath'] }}
                                 </a>
                             </p>
                         @endif

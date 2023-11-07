@@ -55,5 +55,10 @@
             <input type="text" placeholder="" class="form-control" name="subreddit_id"
                 value="{{ $toolSocialHandlesDTO->subredditId ?? ($tool->subreddit_id ?? '') }}">
         </div>
+        <div class="form-group mb-4">
+            <label class="fw-bold">github_repository_path</label>
+            <input type="text" placeholder="" class="form-control" name="github_repository_path"
+                value="{{ $toolSocialHandlesDTO->githubRepositoryPath ?? ($tool->github_repository_path ?? '') }}">
+        </div>
     </div>
 </div>

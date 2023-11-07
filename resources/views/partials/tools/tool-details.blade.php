@@ -59,6 +59,7 @@
             !empty($tool->facebook_id) ||
             !empty($tool->linkedin_id) ||
             !empty($tool->discord_channel_invite_id) ||
+            !empty($tool->github_repository_path) ||
             !empty($tool->linkedin_company_id))
         <div class="py-2 flex items-center gap-4">
             <strong>Social:</strong>
@@ -215,6 +216,21 @@
                                     ry="15" />
                                 <ellipse cx="121" cy="101" fill="currentColor" rx="13"
                                     ry="15" />
+                            </svg>
+                        </a>
+                    </li>
+                @endif
+
+                @if (!empty($tool->github_repository_path))
+                    <li>
+                        <a href="https://github.com/{{ $tool->github_repository_path }}" target="_blank"
+                            title="Discord channel invite"
+                            class="text-gray-500 hover:text-gray-900 dark:hover:text-white dark:text-gray-400">
+                            <svg class="w-7 h-7" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 192 192"
+                                fill="none">
+                                <path stroke="currentColor" stroke-linecap="round" stroke-linejoin="round"
+                                    stroke-width="12"
+                                    d="M120.755 170c.03-4.669.059-20.874.059-27.29 0-9.272-3.167-15.339-6.719-18.41 22.051-2.464 45.201-10.863 45.201-49.067 0-10.855-3.824-19.735-10.175-26.683 1.017-2.516 4.413-12.63-.987-26.32 0 0-8.296-2.672-27.202 10.204-7.912-2.213-16.371-3.308-24.784-3.352-8.414.044-16.872 1.14-24.785 3.352C52.457 19.558 44.162 22.23 44.162 22.23c-5.4 13.69-2.004 23.804-.987 26.32C36.824 55.498 33 64.378 33 75.233c0 38.204 23.149 46.603 45.2 49.067-3.551 3.071-6.719 9.138-6.719 18.41 0 6.416.03 22.621.059 27.29M27 130c9.939.703 15.67 9.735 15.67 9.735 8.834 15.199 23.178 10.803 28.815 8.265" />
                             </svg>
                         </a>
                     </li>
