@@ -120,7 +120,7 @@ class ToolController extends Controller
                     'slug' => str($query)->trim()->slug(),
                     'extracted_from_tool_id' => $insertedTool->id
                 ]);
-                // todo update vectors for top search and update semantic scores top_search_tool 
+                dispatch(new UpdateVectorEmbeddingsJob($topSearch));
             });
 
             return $insertedTool;
