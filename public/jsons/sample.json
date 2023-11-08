@@ -1,0 +1,43 @@
+{
+    "name": "Postwise",
+    "tag_line": "Write, Schedule & Grow with Twitter & LinkedIn AI",
+    "summary": "Postwise is an AI-powered platform that assists in creating engaging posts for Twitter and LinkedIn, helping to increase engagement and grow your audience.",
+    "description": "<p>Postwise is a personal AI ghostwriter trained to write engaging, viral content for Twitter and LinkedIn. It simplifies the process of creating and scheduling posts, enhancing engagement, and helping to grow your audience. Postwise is tailored not just for engagement, but also for sales growth, offering tools that optimize your content for sales, allowing you to plug links, retweet winning content, send automated DMs, and more.</p>",
+    "top_features": [
+        "Go viral: Powerful AI that works like 1000 writers creating engaging posts day and night.",
+        "Save time: Simply write your topic, edit your post and hit schedule, Postwise takes care of the rest.",
+        "Increase followers: The GrowthTools™ suite enhances follower growth with minimal effort.",
+        "Monetize: Tools designed for sales earnings, aiding in linking, retweeting, auto sending DMs, etc."
+    ],
+    "use_cases": [
+        "Write engaging posts that enhance online presence",
+        "Convert engaging posts to sales",
+        "Time-efficient post scheduling",
+        "Increase followers on Twitter and LinkedIn",
+        "Overcoming writer's block"
+    ],
+    "related_searches": [
+        "Twitter management tool",
+        "LinkedIn engagement boost",
+        "AI Content generation",
+        "Social Media growth tool",
+        "Post scheduling tool"
+    ],
+    "pricing_type": "Paid",
+    "categories": [
+        "Social Media",
+        "Marketing",
+        "Productivity"
+    ],
+    "tags": [
+        "AI Ghostwriter",
+        "Engaging Content",
+        "Sales Optimization",
+        "Follower Growth",
+        "Twitter Tool",
+        "LinkedIn Tool",
+        "Content Scheduling"
+    ],
+    "has_api": false,
+    "has_documentation": false
+}

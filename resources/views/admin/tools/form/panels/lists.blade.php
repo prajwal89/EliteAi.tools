@@ -77,5 +77,21 @@
                 @endforeach
             @endif
         </div>
+
+        @if (!empty($toolDto->relatedSearches))
+            <div class="form-group mb-4">
+                <label class="fw-bold">Top Searches</label>
+                {{-- *for create --}}
+                @if (!empty($toolDto->relatedSearches))
+                    @foreach ($toolDto->relatedSearches as $searchQuery)
+                        <div class="input-group mt-2">
+                            <input type="text" value="{{ $searchQuery }}" class="form-control"
+                                name="top_searches[]">
+                        </div>
+                    @endforeach
+                @endif
+            </div>
+        @endif
+
     </div>
 </div>

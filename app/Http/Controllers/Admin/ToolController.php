@@ -11,6 +11,7 @@ use App\Jobs\UpdateVectorEmbeddingsJob;
 use App\Models\Blog;
 use App\Models\Tag;
 use App\Models\Tool;
+use App\Models\TopSearch;
 use App\Services\MeilisearchService;
 use App\Services\ToolServices;
 use Illuminate\Http\Request;
@@ -109,14 +110,27 @@ class ToolController extends Controller
 
             $insertedTool->categories()->sync($request->categories);
 
+            // * this is for store only
+            collect($request->input('top_searches'))->map(function ($query) use ($insertedTool) {
+                $topSearch = TopSearch::firstOrCreate([
+                    'slug' => str($query)->trim()->slug(),
+                ], [
+                    'query' => trim($query),
+                    'slug' => str($query)->trim()->slug(),
+                    'extracted_from_tool_id' => $insertedTool->id
+                ]);
+                // todo update vectors for top search and update semantic scores top_search_tool 
+            });
+
             return $insertedTool;
         });
 
-        // download and save favicons
+        // *download and save favicons
         if ($request->has('should_get_favicon_from_google')) {
             $tool->update(['uploaded_favicon' => ToolServices::saveFaviconFromGoogle($tool)]);
         }
 
+        // todo use pipeline 
         MeilisearchService::indexDocument(SearchAbleTable::TOOL, $tool->id);
 
         dispatch(new UpdateVectorEmbeddingsJob($tool));
