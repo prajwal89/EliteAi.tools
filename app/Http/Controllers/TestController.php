@@ -38,12 +38,14 @@ class TestController extends Controller
 
     public function __invoke()
     {
+        MeilisearchService::deIndexTable(SearchAbleTable::TOOL);
+        MeilisearchService::indexAllDocumentsOfTable(SearchAbleTable::TOOL);
 
-        TopSearch::get()->map(function ($topSearch) {
-            TopSearchService::saveSemanticDistanceBetweenTopSearchAndTools(
-                $topSearch
-            );
-        });
+        // TopSearch::get()->map(function ($topSearch) {
+        //     TopSearchService::saveSemanticDistanceBetweenTopSearchAndTools(
+        //         $topSearch
+        //     );
+        // });
 
         exit('sdsf');
 
