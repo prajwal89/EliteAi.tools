@@ -39,18 +39,13 @@ class TestController extends Controller
     public function __invoke()
     {
 
-        match (get_class(Tool::find(1))) {
-            Tool::class => dd('Tool'),
-            default => throw new InvalidArgumentException('Cannot update embeddings of: ' . get_class(Tool::find(1)))
-        };
+        TopSearch::get()->map(function ($topSearch) {
+            TopSearchService::saveSemanticDistanceBetweenTopSearchAndTools(
+                $topSearch
+            );
+        });
 
         exit('sdsf');
-        dd(TopSearchService::saveSemanticDistanceBetweenTopSearchAndTools(TopSearch::find(1)));
-
-        dd((new MeilisearchService())->vectorSearch(
-            table: SearchAbleTable::TOOL,
-            vectors: Blog::find(1)->_vectors
-        ));
 
 
 
