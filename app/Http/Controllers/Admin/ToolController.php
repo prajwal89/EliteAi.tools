@@ -137,10 +137,13 @@ class ToolController extends Controller
 
         dispatch(new SaveSemanticDistanceForToolJob($tool));
 
-        Blog::where('blog_type', BlogType::SEMANTIC_SCORE)
-            ->get()->map(function ($blog) {
+        Blog::where('blog_type', BlogType::SEMANTIC_SCORE->value)
+            ->get()
+            ->map(function ($blog) {
                 dispatch(new UpdateSemanticDistanceBetweenBlogAndToolJob($blog));
             });
+
+        // todo update top_search_semantic distances
 
         return redirect()->route('admin.tools.edit', ['tool' => $tool->id])
             ->with('success', 'tool created successfully. <br> <a href="' . route('tool.show', ['tool' => $tool->slug]) . '" target="_blank">View Tool</a>');

@@ -35,6 +35,16 @@ class TestController extends Controller
 
     public function __invoke()
     {
+
+        dd((new MeilisearchService())->vectorSearch(
+            table: SearchAbleTable::TOOL,
+            vectors: Blog::find(1)->_vectors
+        ));
+
+
+
+
+
         $html = (new WebPageFetcher('https://www.pixelfy.ai/'))->get()->content;
 
         // todo match all social media handles urls
