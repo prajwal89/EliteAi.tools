@@ -33,4 +33,9 @@ class TopSearch extends Model
     {
         return $this->belongsTo(Tool::class, 'extracted_from_tool_id');
     }
+
+    public function getParagraphForVectorEmbeddings(): string
+    {
+        return $this->query;
+    }
 }
