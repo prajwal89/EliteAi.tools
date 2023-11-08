@@ -18,6 +18,8 @@ class BlogService
             vectors: $blog->_vectors //already calculated vectors
         );
 
+        dd($tools);
+
         foreach ($tools['hits'] as $tool) {
             BlogToolSemanticScore::updateOrCreate([
                 'tool_id' => $tool['id'],

@@ -38,13 +38,17 @@ class TestController extends Controller
 
     public function __invoke()
     {
-        // MeilisearchService::deIndexTable(SearchAbleTable::TOOL);
-        // MeilisearchService::indexAllDocumentsOfTable(SearchAbleTable::TOOL);
+        // dd(
+        //     BlogService::saveSemanticDistanceBetweenBlogAndTools(Blog::find(1))
+        // );
+        // dd($this->totalCombos(132));
 
-        TopSearch::get()->map(function ($topSearch) {
-            TopSearchService::saveSemanticDistanceBetweenTopSearchAndTools(
-                $topSearch
-            );
+        MeilisearchService::deIndexTable(SearchAbleTable::TOOL);
+        MeilisearchService::indexAllDocumentsOfTable(SearchAbleTable::TOOL);
+
+        TopSearch::all()->map(function ($topSearch) {
+            TopSearchService::saveSemanticDistanceBetweenTopSearchAndTools($topSearch);
+            dump($topSearch);
         });
 
         exit('sdsf');
@@ -64,7 +68,6 @@ class TestController extends Controller
         dd((new MeilisearchService())->search(SearchAbleTable::TOOL, 'Chat with pdf'));
 
         dd(MeilisearchService::fulltextSearch(SearchAbleTable::TOOL, 'Chat with the pdf'));
-        dd($this->totalCombos());
         // dd(MeilisearchService::deIndexTable(SearchAbleTable::TOOL));
 
         // dd(MeilisearchService::indexAllDocumentsOfTable(SearchAbleTable::TOOL));

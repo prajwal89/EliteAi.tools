@@ -151,6 +151,7 @@ class Tool extends Model implements MeilisearchAble
             'domain_name',
             'top_features',
             'use_cases',
+            '_vectors',
             'model_type',
         );
 
