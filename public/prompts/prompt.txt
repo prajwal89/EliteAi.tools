@@ -1,5 +1,5 @@
-I will give you the content of the AI tool website. 
-after that, you will return JSON
+I will give you the content of the AI tool website. after that, you will return JSON
+
 Your response JSON format is
 {
     "name":"",
@@ -15,18 +15,54 @@ Your response JSON format is
     "has_api":"",
     "has_documentation":"",
 }
-where
-name: name of the tool
-summary: Short summary of the AI tool for SERP description.
-description: This HTML string that provides a description of the AI tool in the third person, and use proper HTML tags if needed.
-top_features: array of features. like "feature name: feature details"
-use_cases: possible use cases of this tool.
-related_searches: possible search terms for this tool should be greater than 2 words and can go upto 7 words also keep seo in mind.
-pricing_type: choose between "{{ $pricingTypeString }}" (Where freemium is tool that offers basic services for free while more advanced features must be paid for)
-categories: match categories in "{{ $categoriesString }}"
-tags: auto generated tags max 10 tags and do not include categories in these tags
-has_api: choose between (true, false)
-has_documentation: choose between (true, false)
 
+where
+
+name: 
+Name of the tool
+
+tag_line: 
+Tag line of the tool
+
+summary: 
+Short summary of the AI tool for SERP description.
+
+description: 
+This HTML string that provides a description of the AI tool in the third person.
+use proper HTML tags if needed ex. (li,strong,u,i).
+make it long if needed
+
+top_features: 
+array of features. like "feature name: feature details"
+
+use_cases: 
+array of possible use cases of this ai tool.
+
+related_searches: 
+array of possible search terms for this tool.
+should be greater than 2 words and can go upto 7 words.
+also keep seo in mind.
+
+pricing_type: 
+Choose from options ({{ $pricingTypeString }}) 
+  Where 
+  Freemium: tool that offers basic services for free while more advanced features must be paid for
+  Usage Based: Pay per use
+  Other: If you cannot decide choose this option 
+
+categories: 
+Choose multiple categories from these ({{ $categoriesString }})
+
+tags: 
+auto generated tags max 10 tags and do not include categories in these tags
+
+has_api: 
+This is boolean field choose between (true, false)
+
+has_documentation: 
+This is boolean field choose between (true, false)
+
+
+extra instructions
 you should write this with SEO in mind
 use formal tone 
