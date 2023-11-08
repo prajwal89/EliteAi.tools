@@ -8,6 +8,7 @@ Your response JSON format is
     "description":"",
     "top_features":["",""]
     "use_cases":["",""]
+    "related_search":["",""]
     "pricing_type":"",
     "categories":["",""],
     "tags":["",""]
@@ -20,10 +21,12 @@ summary: Short summary of the AI tool for SERP description.
 description: This HTML string that provides a description of the AI tool in the third person, and use proper HTML tags if needed.
 top_features: array of features. like "feature name: feature details"
 use_cases: possible use cases of this tool.
+related_searches: possible search terms for this tool should be greater than 2 words.
 pricing_type: choose between "{{ $pricingTypeString }}" (Where freemium is tool that offers basic services for free while more advanced features must be paid for)
 categories: match categories in "{{ $categoriesString }}"
-tags: auto generated tags max 10 tags
+tags: auto generated tags max 10 tags and do not include categories in these tags
 has_api: choose between (true, false)
 has_documentation: choose between (true, false)
 
 you should write this with SEO in mind
+use formal tone 
