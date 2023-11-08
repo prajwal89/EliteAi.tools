@@ -14,6 +14,7 @@ class BlogController extends Controller
         $blog = Blog::where('slug', $slug)->firstOrFail();
 
         if ($blog->blog_type == BlogType::SEMANTIC_SCORE) {
+            // ! N+1 as we are accessing categories on tool model in views
             $tools = BlogToolSemanticScore::with('tool')
                 ->where('blog_id', $blog->id)
                 ->where('score', '>', $blog->min_semantic_score)

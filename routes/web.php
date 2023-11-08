@@ -10,6 +10,7 @@ use App\Http\Controllers\TagController;
 use App\Http\Controllers\TestController;
 use App\Http\Controllers\ToolController;
 use App\Http\Controllers\TopAiToolsController;
+use App\Http\Controllers\TopSearchController;
 use Illuminate\Support\Facades\Route;
 
 Route::get('/', HomeController::class)->name('home');
@@ -36,6 +37,10 @@ Route::controller(TagController::class)->prefix('tag')->name('tag.')->group(func
 
 Route::controller(BlogController::class)->prefix('blog')->name('blog.')->group(function () {
     Route::get('{blog:slug}', 'show')->name('show');
+});
+
+Route::controller(TopSearchController::class)->prefix('popular')->name('popular.')->group(function () {
+    Route::get('{top_search:slug}', 'show')->name('show');
 });
 
 Route::controller(SocialAuthController::class)->prefix('auth')->name('auth.')->group(function () {

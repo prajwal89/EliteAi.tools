@@ -18,6 +18,14 @@
             </ul>
         @endif
 
+        @if (isset($searchRelatedTools))
+            <ul class="flex flex-col gap-4 w-full max-w-5xl mx-auto">
+                @foreach ($searchRelatedTools as $cTool)
+                    <x-tool-cards.horizontal-card :tool="$cTool" />
+                @endforeach
+            </ul>
+        @endif
+
         @if (isset($recentTools))
             <div class="flex justify-center relative">
                 <span class="text-2xl md:text-3xl font-bold">

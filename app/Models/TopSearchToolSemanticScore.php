@@ -15,4 +15,9 @@ class TopSearchToolSemanticScore extends Model
         'score',
         'model_type',
     ];
+
+    public function tool()
+    {
+        return $this->belongsTo(Tool::class);
+    }
 }
