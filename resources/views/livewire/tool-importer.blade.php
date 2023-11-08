@@ -157,6 +157,15 @@ Content of the website is as following:
                                 </a>
                             </p>
                         @endif
+                        @if (!empty($toolSocialHandlesDTO['pinterestUserId']))
+                            <p>
+                                <span>Pinterest:</span>
+                                <a target="_blank"
+                                    href="https://in.pinterest.com/{{ $toolSocialHandlesDTO['pinterestUserId'] }}">
+                                    {{ $toolSocialHandlesDTO['pinterestUserId'] }}
+                                </a>
+                            </p>
+                        @endif
                         @if (!empty($toolSocialHandlesDTO['linkedinCompanyId']))
                             <p>
                                 <span>Linkedin Company:</span>

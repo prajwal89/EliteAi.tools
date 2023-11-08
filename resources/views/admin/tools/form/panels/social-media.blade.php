@@ -36,6 +36,11 @@
                 value="{{ $toolSocialHandlesDTO->facebookUserId ?? ($tool->facebook_id ?? '') }}" />
         </div>
         <div class="form-group mb-4">
+            <label class="fw-bold">pinterest_id</label>
+            <input type="text" placeholder="" class="form-control" name="pinterest_id"
+                value="{{ $toolSocialHandlesDTO->pinterestUserId ?? ($tool->pinterest_id ?? '') }}" />
+        </div>
+        <div class="form-group mb-4">
             <label class="fw-bold">youtube_channel_id</label>
             <input type="text" placeholder="UCFO-zeRBQpoKecuOYyG4Mcw" class="form-control" name="youtube_channel_id"
                 value="{{ $toolSocialHandlesDTO->youtubeChannelId ?? ($tool->youtube_channel_id ?? '') }}">

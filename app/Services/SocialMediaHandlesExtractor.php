@@ -21,6 +21,8 @@ class SocialMediaHandlesExtractor
             // *Order matters
             // https://twitter.com/intent/follow?screen_name=MURFAISTUDIO
             '/twitter\.com\/intent\/follow\?screen_name=([^&]+)/',
+            // https://twitter.com/intent/user?screen_name=PublerNation
+            '/twitter\.com\/intent\/user\?screen_name=([^&]+)/',
             '/twitter\.com\/([^\/]+)/',
         ],
         'linkedin' => [
@@ -32,8 +34,16 @@ class SocialMediaHandlesExtractor
         'facebook' => [
             '/facebook\.com\/profile\.php\?id=([^&]+)/'
         ],
+        // https://in.pinterest.com/PublerNation/
+        'pinterest' => [
+            '/pinterest\.com\/([^\/]+)/'
+        ],
         'youtube_channel' => [
+            // This is channel id
             '/youtube\.com\/channel\/([^\/]+)/',
+            // https://www.youtube.com/c/PublerNation?sub_confirmation=1
+            //   this is different 
+            // '/youtube\.com\/c\/([^\/\?]+)/',
         ],
         'discord_channel_invite_id' => [
             '/discord\.com\/invite\/([^\/]+)/',
