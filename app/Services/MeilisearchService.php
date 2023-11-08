@@ -189,6 +189,7 @@ class MeilisearchService
                 throw $e;
             }
 
+            // fallback to fulltext search
             try {
                 $results = self::fulltextSearch($table, $query);
             } catch (Exception $es) {

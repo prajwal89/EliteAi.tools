@@ -13,11 +13,36 @@ AlsRepo.com
 AlToolFinder.com
 AlWonder.tools
 aitooladviser.com
-Oaiamazing.tools
+aiamazing.tools
 simplyai.tools
-Oleagueofai.tools
+leagueofai.tools
 Ratemyai.tools
 Otheaidirectory.com
 1000ai.tools
 aiindex.tools
 AIWizardry.tools
+
+
+Design pricing JSON column for ai tools that have flexible pricings
+
+pricings can be like following
+pricing_starts_from:10
+pricing_type:it can be per item or time based
+per_itme:0.1
+currency:$
+
+i want to show it like on frontend
+10$ / month
+0.1$ / per image 
+
+
+Pricing data json column 
+
+{
+    pricing_starts_from: 10,
+    time_period: monthly,
+    pricing_goes_upto:100,
+    currency:$,
+    pricing_per_entity: 0.1,
+    entity_name: Image
+}
