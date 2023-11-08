@@ -7,6 +7,7 @@ use App\Enums\SearchAbleTable;
 use App\Http\Controllers\Controller;
 use App\Jobs\SaveSemanticDistanceForToolJob;
 use App\Jobs\UpdateSemanticDistanceBetweenBlogAndToolJob;
+use App\Jobs\UpdateSemanticDistanceBetweenTopSearchAndToolJob;
 use App\Jobs\UpdateVectorEmbeddingsJob;
 use App\Models\Blog;
 use App\Models\Tag;
@@ -143,7 +144,9 @@ class ToolController extends Controller
                 dispatch(new UpdateSemanticDistanceBetweenBlogAndToolJob($blog));
             });
 
-        // todo update top_search_semantic distances
+        TopSearch::get()->map(function ($topSearch) {
+            dispatch(new UpdateSemanticDistanceBetweenTopSearchAndToolJob($topSearch));
+        });
 
         return redirect()->route('admin.tools.edit', ['tool' => $tool->id])
             ->with('success', 'tool created successfully. <br> <a href="' . route('tool.show', ['tool' => $tool->slug]) . '" target="_blank">View Tool</a>');
@@ -260,6 +263,10 @@ class ToolController extends Controller
             ->map(function ($blog) {
                 dispatch(new UpdateSemanticDistanceBetweenBlogAndToolJob($blog));
             });
+
+        TopSearch::get()->map(function ($topSearch) {
+            dispatch(new UpdateSemanticDistanceBetweenTopSearchAndToolJob($topSearch));
+        });
 
         return redirect()->back()->with('success', 'tool updated successfully');
     }

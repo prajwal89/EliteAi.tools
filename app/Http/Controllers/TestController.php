@@ -9,14 +9,17 @@ use App\Enums\ModelType;
 use App\Enums\SearchAbleTable;
 use App\Models\Blog;
 use App\Models\Tool;
+use App\Models\TopSearch;
 use App\Services\BlogService;
 use App\Services\MeilisearchService;
 use App\Services\RecommendationService;
 use App\Services\SocialMediaHandlesExtractor;
 use App\Services\ToolServices;
+use App\Services\TopSearchService;
 use App\Services\WebPageFetcher;
 use Illuminate\Support\Facades\Http;
 use Intervention\Image\Facades\Image;
+use InvalidArgumentException;
 use kornrunner\Blurhash\Blurhash;
 use OpenAI\Laravel\Facades\OpenAI;
 use voku\helper\HtmlDomParser;
@@ -36,12 +39,18 @@ class TestController extends Controller
     public function __invoke()
     {
 
+        match (get_class(Tool::find(1))) {
+            Tool::class => dd('Tool'),
+            default => throw new InvalidArgumentException('Cannot update embeddings of: ' . get_class(Tool::find(1)))
+        };
+
+        exit('sdsf');
+        dd(TopSearchService::saveSemanticDistanceBetweenTopSearchAndTools(TopSearch::find(1)));
+
         dd((new MeilisearchService())->vectorSearch(
             table: SearchAbleTable::TOOL,
             vectors: Blog::find(1)->_vectors
         ));
-
-
 
 
 
