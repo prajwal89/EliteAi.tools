@@ -17,7 +17,7 @@
         </div>
 
         <div class="card-body">
-            <form method="POST" action="{{ route('admin.top-searches.update', ['category' => $topSearch->id]) }}">
+            <form method="POST" action="{{ route('admin.top-searches.update', ['top_search' => $topSearch->id]) }}">
                 @csrf
                 @method('PUT')
 
@@ -37,7 +37,7 @@
 
                 <div class="form-group mb-2">
                     <label>description</label>
-                    <textarea type="text" rows="30" class="form-control" name="description">{{ $topSearch->description }}</textarea>
+                    <textarea type="text" rows="10" class="form-control" name="description">{{ $topSearch->description }}</textarea>
                 </div>
 
 
@@ -62,7 +62,7 @@
                     </div>
                     <div class="modal-footer">
                         <form method="POST"
-                            action="{{ route('admin.top-searches.destroy', ['category' => $topSearch->id]) }}">
+                            action="{{ route('admin.top-searches.destroy', ['top_search' => $topSearch->id]) }}">
                             @csrf
                             @method('DELETE')
                             <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>

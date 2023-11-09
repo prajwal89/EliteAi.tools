@@ -141,17 +141,16 @@ class ToolController extends Controller
 
         dispatch(new SaveSemanticDistanceForToolJob($tool));
 
-        Blog::where('blog_type', BlogType::SEMANTIC_SCORE->value)
-            ->get()
-            ->map(function ($blog) {
-                dispatch(new UpdateSemanticDistanceBetweenBlogAndToolJob($blog));
-            });
+        Blog::where('blog_type', BlogType::SEMANTIC_SCORE->value)->get()->map(function ($blog) {
+            dispatch(new UpdateSemanticDistanceBetweenBlogAndToolJob($blog));
+        });
 
         TopSearch::get()->map(function ($topSearch) {
             dispatch(new UpdateSemanticDistanceBetweenTopSearchAndToolJob($topSearch));
         });
 
-        return redirect()->route('admin.tools.edit', ['tool' => $tool->id])
+        return redirect()
+            ->route('admin.tools.edit', ['tool' => $tool->id])
             ->with('success', 'tool created successfully. <br> <a href="' . route('tool.show', ['tool' => $tool->slug]) . '" target="_blank">View Tool</a>');
     }
 
@@ -261,11 +260,9 @@ class ToolController extends Controller
 
         dispatch(new SaveSemanticDistanceForToolJob($tool));
 
-        Blog::where('blog_type', BlogType::SEMANTIC_SCORE->value)
-            ->get()
-            ->map(function ($blog) {
-                dispatch(new UpdateSemanticDistanceBetweenBlogAndToolJob($blog));
-            });
+        Blog::where('blog_type', BlogType::SEMANTIC_SCORE->value)->get()->map(function ($blog) {
+            dispatch(new UpdateSemanticDistanceBetweenBlogAndToolJob($blog));
+        });
 
         TopSearch::get()->map(function ($topSearch) {
             dispatch(new UpdateSemanticDistanceBetweenTopSearchAndToolJob($topSearch));

@@ -35,12 +35,13 @@ class TopSearchController extends Controller
 
         return view('home', [
             'pageDataDTO' => new PageDataDTO(
-                title: 'Home',
+                title: $topSearch->query . ' - AI tools',
                 description: null,
-                conicalUrl: route('home')
+                conicalUrl: route('popular.show', ['top_search' => $topSearch->slug])
             ),
             'searchRelatedTools' => $searchRelatedTools,
             'categories' => $categories,
+            'topSearch' => $topSearch,
         ]);
     }
 }

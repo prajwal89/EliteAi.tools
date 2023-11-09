@@ -35,7 +35,7 @@
 
                 <div class="form-group mb-2">
                     <label>description</label>
-                    <textarea type="text" rows="30" class="form-control" name="description"></textarea>
+                    <textarea type="text" rows="10" class="form-control" name="description"></textarea>
                 </div>
 
                 <button type="submit" class="btn btn-primary my-3">Add</button>

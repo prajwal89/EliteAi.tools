@@ -33,6 +33,12 @@
                     @if (isAdmin())
                         <a href="{{ route('admin.categories.edit', ['category' => $category->id]) }}">...</a>
                     @endif
+                @elseif (isset($searchRelatedTools))
+                    {{ $pageDataDTO->title }}
+
+                    @if (isAdmin())
+                        <a href="{{ route('admin.top-searches.edit', ['top_search' => $topSearch->id]) }}">...</a>
+                    @endif
                 @else
                     {{ config('app.name') }}
                 @endif
@@ -40,6 +46,7 @@
             <span class="text-lg block sm:text-xl pt-4 w-full max-w-5xl mx-auto">
                 @if (isset($category))
                     {!! nl2br($category->description) !!}
+                @elseif (isset($searchRelatedTools))
                 @else
                     Find the one you need
                 @endif
