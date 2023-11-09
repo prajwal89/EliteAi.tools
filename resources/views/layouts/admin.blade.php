@@ -70,6 +70,7 @@
                             Categories
                         </a>
 
+
                         <a class="nav-link" href="{{ route('admin.tools.index') }}">
                             <div class="sb-nav-link-icon"><i class="fas fa-key"></i></div>
                             Tools
@@ -88,6 +89,17 @@
                         <a class="nav-link" href="{{ route('admin.blogs.index') }}">
                             <div class="sb-nav-link-icon"><i class="fas fa-code"></i></div>
                             Blogs
+                        </a>
+
+
+                        <a class="nav-link" href="{{ route('admin.tags.index') }}">
+                            <div class="sb-nav-link-icon"><i class="fas fa-hashtag"></i></div>
+                            Tags
+                        </a>
+
+                        <a class="nav-link" href="{{ route('admin.top-searches.index') }}">
+                            <div class="sb-nav-link-icon"><i class="fas fa-hashtag"></i></div>
+                            Top Searches
                         </a>
 
                         <a class="nav-link" href="{{ config('log-viewer.route_path') }}">
