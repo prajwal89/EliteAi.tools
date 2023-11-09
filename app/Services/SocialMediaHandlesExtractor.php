@@ -103,7 +103,7 @@ class SocialMediaHandlesExtractor
                     if (preg_match($pattern, $href, $matches)) {
                         // Extracted a handle for the current platform
                         $handle = end($matches);
-                        $socialHandles[$platform] = trim($handle);
+                        $socialHandles[$platform] = str($handle)->trim()->before('?');
                         break;
                     }
                 }

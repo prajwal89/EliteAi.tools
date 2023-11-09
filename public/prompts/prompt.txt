@@ -29,7 +29,7 @@ Short summary of the AI tool for SERP description.
 
 description: 
 This HTML string that provides a description of the AI tool in the third person.
-use proper HTML tags if needed ex. (li,strong,u,i).
+use proper HTML tags if needed.
 make it long if needed
 
 top_features: 
