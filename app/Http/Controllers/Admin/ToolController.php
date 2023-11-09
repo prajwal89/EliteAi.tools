@@ -15,6 +15,7 @@ use App\Models\Tool;
 use App\Models\TopSearch;
 use App\Services\MeilisearchService;
 use App\Services\ToolServices;
+use App\Services\TopSearchService;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
 
@@ -113,14 +114,16 @@ class ToolController extends Controller
 
             // * this is for store only
             collect($request->input('top_searches'))->map(function ($query) use ($insertedTool) {
-                $topSearch = TopSearch::firstOrCreate([
-                    'slug' => str($query)->trim()->slug(),
-                ], [
-                    'query' => trim($query),
-                    'slug' => str($query)->trim()->slug(),
-                    'extracted_from_tool_id' => $insertedTool->id
-                ]);
-                dispatch(new UpdateVectorEmbeddingsJob($topSearch));
+
+                $slug = str($query)->trim()->slug()->toString();
+
+                if (!TopSearch::where('slug', $slug)->exists()) {
+                    TopSearchService::store([
+                        'query' => trim($query),
+                        'slug' => $slug,
+                        'extracted_from_tool_id' => $insertedTool->id
+                    ]);
+                }
             });
 
             return $insertedTool;

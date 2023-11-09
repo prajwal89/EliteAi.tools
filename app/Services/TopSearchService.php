@@ -3,6 +3,8 @@
 namespace App\Services;
 
 use App\Enums\SearchAbleTable;
+use App\Jobs\UpdateSemanticDistanceBetweenTopSearchAndToolJob;
+use App\Jobs\UpdateVectorEmbeddingsJob;
 use App\Models\Tool;
 use App\Models\TopSearch;
 use App\Models\TopSearchToolSemanticScore;
@@ -12,6 +14,20 @@ use Intervention\Image\Facades\Image;
 
 class TopSearchService
 {
+    public static function store(array $attributes): ?TopSearch
+    {
+        $topSearch = TopSearch::create([
+            'query' => $attributes['query'],
+            'slug' => str($attributes['query'])->slug()->toString(),
+        ]);
+
+        // ! if this fails semantic distance will not work is vectors are not updated
+        dispatch(new UpdateVectorEmbeddingsJob($topSearch));
+
+        dispatch(new UpdateSemanticDistanceBetweenTopSearchAndToolJob($topSearch));
+
+        return $topSearch;
+    }
 
     public static function saveSemanticDistanceBetweenTopSearchAndTools(
         TopSearch $topSearch,

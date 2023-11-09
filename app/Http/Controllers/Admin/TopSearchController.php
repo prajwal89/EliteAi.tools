@@ -3,6 +3,8 @@
 namespace App\Http\Controllers\Admin;
 
 use App\Http\Controllers\Controller;
+use App\Models\TopSearch;
+use App\Services\TopSearchService;
 use Illuminate\Http\Request;
 
 class TopSearchController extends Controller
@@ -20,7 +22,7 @@ class TopSearchController extends Controller
      */
     public function create()
     {
-        //
+        return view('admin.top-searches.create');
     }
 
     /**
@@ -28,7 +30,9 @@ class TopSearchController extends Controller
      */
     public function store(Request $request)
     {
-        //
+        TopSearchService::store($request->only('query'));
+
+        return redirect()->back()->with('success', 'Top search created successfully');
     }
 
     /**
@@ -44,7 +48,7 @@ class TopSearchController extends Controller
      */
     public function edit(string $id)
     {
-        //
+        return view('admin.top-searches.edit', ['topSearch' => TopSearch::findOrFail($id)]);
     }
 
     /**
@@ -52,7 +56,9 @@ class TopSearchController extends Controller
      */
     public function update(Request $request, string $id)
     {
-        //
+        $isUpdated = TopSearch::find($id)->update($request->only('name', 'description', 'serp_title'));
+
+        return redirect()->back()->with('success', 'Updated successfully');
     }
 
     /**
@@ -60,6 +66,8 @@ class TopSearchController extends Controller
      */
     public function destroy(string $id)
     {
-        //
+        TopSearch::find($id)->delete();
+
+        return redirect()->route('admin.top-searches.index')->with('success', 'TopSearch deleted successfully');
     }
 }

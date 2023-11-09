@@ -7,7 +7,7 @@
             <span>Edit Category</span>
             <div>
                 <a class="btn btn-outline-primary float-right" target="_blank"
-                    href="{{ route('category.show', ['category' => $category->slug]) }}">
+                    href="{{ route('popular.show', ['top_search' => $topSearch->slug]) }}">
                     View
                 </a>
                 <button type="button" class="btn btn-outline-danger" data-bs-toggle="modal" data-bs-target="#deleteModal">
@@ -17,13 +17,13 @@
         </div>
 
         <div class="card-body">
-            <form method="POST" action="{{ route('admin.categories.update', ['category' => $category->id]) }}">
+            <form method="POST" action="{{ route('admin.top-searches.update', ['category' => $topSearch->id]) }}">
                 @csrf
                 @method('PUT')
 
                 <div class="form-group mb-2">
-                    <label>name</label>
-                    <input type="text" class="form-control" value="{{ $category->name }}" name="name" required>
+                    <label>query</label>
+                    <input type="text" class="form-control" value="{{ $topSearch->query }}" name="query" required>
                 </div>
 
                 <div class="form-group mb-2">
@@ -32,12 +32,12 @@
                         <br>
                         ex. Top {count}+|{count} TTS AI tools
                     </label>
-                    <input type="text" value="{{ $category->serp_title }}" class="form-control" name="serp_title">
+                    <input type="text" value="{{ $topSearch->serp_title }}" class="form-control" name="serp_title">
                 </div>
 
                 <div class="form-group mb-2">
                     <label>description</label>
-                    <textarea type="text" rows="30" class="form-control" name="description">{{ $category->description }}</textarea>
+                    <textarea type="text" rows="30" class="form-control" name="description">{{ $topSearch->description }}</textarea>
                 </div>
 
 
@@ -54,7 +54,7 @@
             <div class="modal-dialog">
                 <div class="modal-content">
                     <div class="modal-header">
-                        <h5 class="modal-title" id="deleteModalLabel">Delete User: {{ $category->name }}</h5>
+                        <h5 class="modal-title" id="deleteModalLabel">Delete User: {{ $topSearch->name }}</h5>
                         <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
                     </div>
                     <div class="modal-body">
@@ -62,7 +62,7 @@
                     </div>
                     <div class="modal-footer">
                         <form method="POST"
-                            action="{{ route('admin.categories.destroy', ['category' => $category->id]) }}">
+                            action="{{ route('admin.top-searches.destroy', ['category' => $topSearch->id]) }}">
                             @csrf
                             @method('DELETE')
                             <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>

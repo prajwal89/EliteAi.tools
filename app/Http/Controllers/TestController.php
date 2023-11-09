@@ -39,6 +39,7 @@ class TestController extends Controller
 
     public function __invoke()
     {
+
         // dd((new MeilisearchService())->search(
         //     SearchAbleTable::TOOL,
         //     'sample',
