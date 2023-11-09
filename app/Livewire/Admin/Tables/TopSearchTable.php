@@ -32,7 +32,7 @@ final class TopSearchTable extends PowerGridComponent
 
     public function setUp(): array
     {
-        $this->showCheckBox();
+        // $this->showCheckBox();
 
         return [
             Exportable::make('export')
@@ -48,7 +48,7 @@ final class TopSearchTable extends PowerGridComponent
     public function datasource(): Builder
     {
         // add total qualified tools on each search
-        return TopSearch::query();
+        return TopSearch::query()->orderBy('id', 'desc');
     }
 
     public function relationSearch(): array

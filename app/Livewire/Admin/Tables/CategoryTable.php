@@ -2,6 +2,7 @@
 
 namespace App\Livewire\Admin\Tables;
 
+use App\Models\Category;
 use Illuminate\Database\Query\Builder;
 use Illuminate\Support\Carbon;
 use Illuminate\Support\Facades\DB;
@@ -45,9 +46,11 @@ final class CategoryTable extends PowerGridComponent
         ];
     }
 
-    public function datasource(): Builder
+    public function datasource()
     {
-        return DB::table('categories')->orderBy('id', 'desc');
+        // Tag::withCount(['tools'])->orderBy('tools_count', 'desc');
+
+        return Category::withCount(['tools'])->orderBy('tools_count', 'desc');
     }
 
     public function addColumns(): PowerGridColumns
@@ -55,6 +58,7 @@ final class CategoryTable extends PowerGridComponent
         return PowerGrid::columns()
             ->addColumn('id')
             ->addColumn('name')
+            ->addColumn('total_tools')
 
             /** Example of custom column using a closure **/
             ->addColumn('name_lower', fn ($model) => strtolower(e($model->name)))
@@ -75,9 +79,9 @@ final class CategoryTable extends PowerGridComponent
                 ->sortable()
                 ->searchable(),
 
-            // Column::make('Slug', 'slug')
-            //     ->sortable()
-            //     ->searchable(),
+            Column::make('Total Tools', 'tools_count')
+                ->sortable(),
+
 
             Column::make('Description', 'description')
                 ->sortable()
