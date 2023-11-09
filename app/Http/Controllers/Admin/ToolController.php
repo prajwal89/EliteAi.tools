@@ -121,7 +121,7 @@ class ToolController extends Controller
                     TopSearchService::store([
                         'query' => trim($query),
                         'slug' => $slug,
-                        'extracted_from_tool_id' => $insertedTool->id
+                        'extracted_from_tool_id' => $insertedTool->id,
                     ]);
                 }
             });
@@ -134,7 +134,7 @@ class ToolController extends Controller
             $tool->update(['uploaded_favicon' => ToolServices::saveFaviconFromGoogle($tool)]);
         }
 
-        // todo use pipeline 
+        // todo use pipeline
         MeilisearchService::indexDocument(SearchAbleTable::TOOL, $tool->id);
 
         dispatch(new UpdateVectorEmbeddingsJob($tool));

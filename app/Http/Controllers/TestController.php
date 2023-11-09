@@ -19,9 +19,7 @@ use App\Services\TopSearchService;
 use App\Services\WebPageFetcher;
 use Illuminate\Support\Facades\Http;
 use Intervention\Image\Facades\Image;
-use InvalidArgumentException;
 use kornrunner\Blurhash\Blurhash;
-use Meilisearch\Meilisearch;
 use OpenAI\Laravel\Facades\OpenAI;
 use voku\helper\HtmlDomParser;
 
@@ -58,7 +56,6 @@ class TestController extends Controller
 
         // dd($this->totalCombos(132));
 
-
         TopSearch::all()->map(function ($topSearch) {
             TopSearchService::saveSemanticDistanceBetweenTopSearchAndTools($topSearch);
             dump($topSearch);
@@ -66,13 +63,10 @@ class TestController extends Controller
 
         exit('sdsf');
 
-
-
         $html = (new WebPageFetcher('https://www.pixelfy.ai/'))->get()->content;
 
         // todo match all social media handles urls
         $dom = HtmlDomParser::str_get_html($html);
-
 
         $handle = (new SocialMediaHandlesExtractor($dom))->extractSocialHandles();
 

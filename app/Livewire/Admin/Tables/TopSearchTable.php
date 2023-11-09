@@ -3,8 +3,8 @@
 namespace App\Livewire\Admin\Tables;
 
 use App\Models\TopSearch;
-use Illuminate\Support\Carbon;
 use Illuminate\Database\Eloquent\Builder;
+use Illuminate\Support\Carbon;
 use PowerComponents\LivewirePowerGrid\Button;
 use PowerComponents\LivewirePowerGrid\Column;
 use PowerComponents\LivewirePowerGrid\Exportable;
@@ -73,7 +73,7 @@ final class TopSearchTable extends PowerGridComponent
                 ->sortable()
                 ->searchable(),
 
-            Column::action('Action')
+            Column::action('Action'),
         ];
     }
 

@@ -3,8 +3,8 @@
 namespace App\Livewire\Admin\Tables;
 
 use App\Models\Tag;
-use Illuminate\Support\Carbon;
 use Illuminate\Database\Eloquent\Builder;
+use Illuminate\Support\Carbon;
 use PowerComponents\LivewirePowerGrid\Button;
 use PowerComponents\LivewirePowerGrid\Column;
 use PowerComponents\LivewirePowerGrid\Exportable;
@@ -56,9 +56,8 @@ final class TagTable extends PowerGridComponent
             ->addColumn('name_lower', fn (Tag $model) => strtolower(e($model->name)))
 
             // ->addColumn('slug')
-            ->addColumn('description')
-            // ->addColumn('created_at_formatted', fn (Tag $model) => Carbon::parse($model->created_at)->format('d/m/Y H:i:s'))
-        ;
+            ->addColumn('description');
+        // ->addColumn('created_at_formatted', fn (Tag $model) => Carbon::parse($model->created_at)->format('d/m/Y H:i:s'))
     }
 
     public function columns(): array
@@ -82,7 +81,7 @@ final class TagTable extends PowerGridComponent
             // Column::make('Created at', 'created_at_formatted', 'created_at')
             //     ->sortable(),
 
-            Column::action('Action')
+            Column::action('Action'),
         ];
     }
 

@@ -26,23 +26,23 @@ class SocialMediaHandlesExtractor
             '/twitter\.com\/([^\/]+)/',
         ],
         'linkedin' => [
-            '/linkedin\.com\/in\/([^\/]+)/'
+            '/linkedin\.com\/in\/([^\/]+)/',
         ],
         'linkedin_company' => [
-            '/linkedin\.com\/company\/([^\/]+)/'
+            '/linkedin\.com\/company\/([^\/]+)/',
         ],
         'facebook' => [
-            '/facebook\.com\/profile\.php\?id=([^&]+)/'
+            '/facebook\.com\/profile\.php\?id=([^&]+)/',
         ],
         // https://in.pinterest.com/PublerNation/
         'pinterest' => [
-            '/pinterest\.com\/([^\/]+)/'
+            '/pinterest\.com\/([^\/]+)/',
         ],
         'youtube_channel' => [
             // This is channel id
             '/youtube\.com\/channel\/([^\/]+)/',
             // https://www.youtube.com/c/PublerNation?sub_confirmation=1
-            //   this is different 
+            //   this is different
             // '/youtube\.com\/c\/([^\/\?]+)/',
         ],
         'discord_channel_invite_id' => [
@@ -51,38 +51,38 @@ class SocialMediaHandlesExtractor
             '/discord\.gg\/([^\/]+)/',
         ],
         'subreddit_id' => [
-            '/www.reddit.com\/r\/([^\/]+)/'
+            '/www.reddit.com\/r\/([^\/]+)/',
         ],
         'telegram_channel_id' => [
-            '/t.me\/([^\/]+)/'
+            '/t.me\/([^\/]+)/',
         ],
         'github_repository_path' => [
             // https://github.com/DavidTParks/pixelfy
-            '/github\.com\/([^\/]+\/[^\/]+)/'
+            '/github\.com\/([^\/]+\/[^\/]+)/',
         ],
 
         // *Extension
         'chrome_extension_id' => [
-            '/chrome\.google\.com\/webstore\/detail\/.*?\/([^\/]+)/'
+            '/chrome\.google\.com\/webstore\/detail\/.*?\/([^\/]+)/',
         ],
         'firefox_extension_id' => [
-            '/addons.mozilla.org\/en-US\/firefox\/([^\/]+)/'
+            '/addons.mozilla.org\/en-US\/firefox\/([^\/]+)/',
         ],
 
         // *other social handles that requires special handling
         'email' => [
-            '/mailto:(.*)/'
+            '/mailto:(.*)/',
         ],
     ];
 
     // *write manual logic for all this handles
     public $manuallyExtractHandle = [
         'android_app' => [
-            'whole_url_pattern' => '/play\.google\.com/i'
+            'whole_url_pattern' => '/play\.google\.com/i',
         ],
         'ios_app' => [
-            'whole_url_pattern' => '/apps\.apple\.com/i'
-        ]
+            'whole_url_pattern' => '/apps\.apple\.com/i',
+        ],
     ];
 
     public function __construct(public HtmlDomParser $dom)
@@ -138,7 +138,6 @@ class SocialMediaHandlesExtractor
                     }
                 }
             }
-
 
             // ! we are iterating through all urls
             foreach ($this->manuallyExtractHandle as $platform => $data) {

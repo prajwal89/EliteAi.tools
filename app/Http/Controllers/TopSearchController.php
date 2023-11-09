@@ -23,6 +23,7 @@ class TopSearchController extends Controller
             ->get()
             ->map(function ($semanticScore) {
                 $semanticScore->tool->score = $semanticScore->score;
+
                 return $semanticScore->tool;
             });
 
@@ -31,7 +32,6 @@ class TopSearchController extends Controller
             ->orderBy('tools_count', 'desc') // Order by tool count in ascending order
             ->take(12)
             ->get();
-
 
         return view('home', [
             'pageDataDTO' => new PageDataDTO(

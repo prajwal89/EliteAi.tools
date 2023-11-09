@@ -5,12 +5,8 @@ namespace App\Services;
 use App\Enums\SearchAbleTable;
 use App\Jobs\UpdateSemanticDistanceBetweenTopSearchAndToolJob;
 use App\Jobs\UpdateVectorEmbeddingsJob;
-use App\Models\Tool;
 use App\Models\TopSearch;
 use App\Models\TopSearchToolSemanticScore;
-use Illuminate\Http\UploadedFile;
-use Illuminate\Support\Facades\File;
-use Intervention\Image\Facades\Image;
 
 class TopSearchService
 {
