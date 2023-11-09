@@ -117,6 +117,10 @@ class ToolController extends Controller
 
                 $slug = str($query)->trim()->slug()->toString();
 
+                if (empty($slug)) {
+                    return;
+                }
+
                 if (!TopSearch::where('slug', $slug)->exists()) {
                     TopSearchService::store([
                         'query' => trim($query),
