@@ -39,16 +39,16 @@ use_cases:
 array of possible use cases of this ai tool.
 
 related_searches: 
-array of possible search terms for this tool.
+array of possible general search terms for this tool.
 should be greater than 2 words and can go upto 7 words.
 also keep seo in mind.
 
 pricing_type: 
 Choose from options ({{ $pricingTypeString }}) 
   Where 
-  Freemium: tool that offers basic services for free while more advanced features must be paid for
-  Usage Based: Pay per use
-  Other: If you cannot decide choose this option 
+   Freemium: tool that offers basic services for free while more advanced features must be paid for
+   Usage Based: Pay per use
+   Other: If you cannot decide choose this option 
 
 categories: 
 Choose multiple categories from these ({{ $categoriesString }})
