@@ -41,7 +41,6 @@ array of possible use cases of this ai tool.
 related_searches: 
 array of possible general search terms for this tool.
 should be greater than 2 words and can go upto 7 words.
-also keep seo in mind.
 
 pricing_type: 
 Choose from options ({{ $pricingTypeString }}) 
@@ -64,5 +63,6 @@ This is boolean field choose between (true, false)
 
 
 extra instructions
-you should write this with SEO in mind
-use formal tone 
+you should write this with SEO in mind.
+use formal tone.
+do not add extra information by yourself.
