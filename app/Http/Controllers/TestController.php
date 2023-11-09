@@ -21,6 +21,7 @@ use Illuminate\Support\Facades\Http;
 use Intervention\Image\Facades\Image;
 use InvalidArgumentException;
 use kornrunner\Blurhash\Blurhash;
+use Meilisearch\Meilisearch;
 use OpenAI\Laravel\Facades\OpenAI;
 use voku\helper\HtmlDomParser;
 
@@ -38,13 +39,24 @@ class TestController extends Controller
 
     public function __invoke()
     {
-        // dd(
-        //     BlogService::saveSemanticDistanceBetweenBlogAndTools(Blog::find(1))
-        // );
+        // dd((new MeilisearchService())->search(
+        //     SearchAbleTable::TOOL,
+        //     'sample',
+        //     [
+        //         'limit' => 1000
+
+        //     ],
+        //     [
+        //         'limit' => 1000
+        //     ]
+        // ),);
+
+        dd(
+            BlogService::saveSemanticDistanceBetweenBlogAndTools(Blog::find(1))
+        );
+
         // dd($this->totalCombos(132));
 
-        MeilisearchService::deIndexTable(SearchAbleTable::TOOL);
-        MeilisearchService::indexAllDocumentsOfTable(SearchAbleTable::TOOL);
 
         TopSearch::all()->map(function ($topSearch) {
             TopSearchService::saveSemanticDistanceBetweenTopSearchAndTools($topSearch);

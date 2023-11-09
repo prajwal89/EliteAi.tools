@@ -216,7 +216,9 @@ class MeilisearchService
     ): array {
 
         $configs = array_merge($configs, [
-            'limit' => 500,
+            // these settings like this because we using this to saving semantic distances one to all
+            // 'limit' => 1000,
+            // 'hitsPerPage' => 1000
         ]);
 
         if (empty($query) && empty($vectors)) {

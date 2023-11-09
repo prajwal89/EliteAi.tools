@@ -12,13 +12,19 @@ class BlogService
         Blog $blog,
     ): bool {
 
-        $tools = MeilisearchService::vectorSearch(
+        $searchResults = MeilisearchService::vectorSearch(
             table: SearchAbleTable::TOOL,
-            //query: $blog->getParagraphForVectorEmbeddings(),
-            vectors: $blog->_vectors //already calculated vectors
+            vectors: $blog->_vectors, //already calculated vectors
+            configs: [
+                'limit' => 100,
+                'offset' => 100,
+                'attributesToRetrieve' => ['id', 'name'],
+            ]
         );
 
-        foreach ($tools['hits'] as $tool) {
+        // dd($searchResults);
+
+        foreach ($searchResults['hits'] as $tool) {
             BlogToolSemanticScore::updateOrCreate([
                 'tool_id' => $tool['id'],
                 'blog_id' => $blog->id,
