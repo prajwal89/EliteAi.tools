@@ -9,7 +9,7 @@
             <small class="font-medium text-sm">- {{ $tool->tag_line }}</small>
         </a>
 
-        <p class="text-gray-600 my-2">
+        <p class="text-gray-700 my-2">
             {{ $tool->summary }}
         </p>
 

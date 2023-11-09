@@ -17,8 +17,9 @@
                 {{-- <div class="absolute inset-0 bg-gray-300/30">
                 </div> --}}
 
-                <div class="absolute bottom-0 left-0 right-0 p-4 bg-gradient-to-b from-gray-800 to-gray-500 text-white">
-                    <h2 class="text-xl font-semibold">{{ $tool->name }}</h2>
+                {{-- <div class="absolute bottom-0 left-0 right-0 p-4 bg-gradient-to-b from-gray-800 to-gray-500 text-white"> --}}
+                <div class="absolute bottom-0 left-0 right-0 px-4 py-2 bg-gradient-to-b from-gray-100 to-gray-50">
+                    <h2 class="text-xl font-semibold text-primary-800">{{ $tool->name }}</h2>
                     <p class="font-medium text-sm">{{ $tool->tag_line }}</p>
                 </div>
             </div>
@@ -26,14 +27,14 @@
     </a>
 
 
-    <div class="flex flex-col justify-beetween gap-3 px-4 py-2">
+    <div class="flex flex-col justify-beetween gap-3 px-4 py-1">
         {{-- <a href="{{ route('tool.show', ['tool' => $tool->slug]) }}"
             class="flex justify-center items-center text-xl font-semibold text-primary-700 hover:text-primary-800 two-lines text-ellipsis">
             <span>{{ $tool->name }}</span>
             <small class="font-medium text-sm">- {{ $tool->tag_line }}</small>
         </a> --}}
 
-        <p class="text-gray-600 two-lines">
+        <p class="text-gray-700 two-lines">
             {{ $tool->summary }}
         </p>
 
