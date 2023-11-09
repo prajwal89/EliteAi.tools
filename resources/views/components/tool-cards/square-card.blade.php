@@ -1,20 +1,37 @@
 <li class="relative bg-white flex flex-col justify-between border rounded shadow-md hover:shadow-primary-400">
 
-    <a class="relative" href="{{ route('tool.show', ['tool' => $tool->slug]) }}">
+    {{-- <a class="relative" href="{{ route('tool.show', ['tool' => $tool->slug]) }}">
         @if (!empty($tool->uploaded_screenshot))
             <img class="rounded relative w-full object-cover aspect-video"
                 src="{{ asset('/tools/' . $tool->slug . '/screenshot.webp') }}" alt="{{ $tool->name }}" loading="lazy">
+        @endif
+    </a> --}}
+
+    <a class="relative" href="{{ route('tool.show', ['tool' => $tool->slug]) }}">
+        @if (!empty($tool->uploaded_screenshot))
+            <div class="relative w-full aspect-video">
+                <img class="rounded w-full h-full object-cover"
+                    src="{{ asset('/tools/' . $tool->slug . '/screenshot.webp') }}" alt="{{ $tool->name }}"
+                    loading="lazy">
+
+                {{-- <div class="absolute inset-0 bg-gray-300/30">
+                </div> --}}
+
+                <div class="absolute bottom-0 left-0 right-0 p-4 bg-gradient-to-b from-gray-800 to-gray-500 text-white">
+                    <h2 class="text-xl font-semibold">{{ $tool->name }}</h2>
+                    <p class="font-medium text-sm">{{ $tool->tag_line }}</p>
+                </div>
+            </div>
         @endif
     </a>
 
 
     <div class="flex flex-col justify-beetween gap-3 px-4 py-2">
-        <a href="{{ route('tool.show', ['tool' => $tool->slug]) }}"
+        {{-- <a href="{{ route('tool.show', ['tool' => $tool->slug]) }}"
             class="flex justify-center items-center text-xl font-semibold text-primary-700 hover:text-primary-800 two-lines text-ellipsis">
             <span>{{ $tool->name }}</span>
-            {{-- - {{ $tool->tag_line }} --}}
             <small class="font-medium text-sm">- {{ $tool->tag_line }}</small>
-        </a>
+        </a> --}}
 
         <p class="text-gray-600 two-lines">
             {{ $tool->summary }}
