@@ -7,7 +7,7 @@
     <div class="mx-auto max-w-3xl px-2 min-h-screen">
 
         <h1 class="font-bold text-2xl sm:text-3xl md:text-4xl mt-4">
-            Blog Home
+            Blog Home ({{ $allBlogs->count() }})
         </h1>
 
         <ul class="flex flex-col gap-4 font-semibold text-lg md:text-xl my-4">

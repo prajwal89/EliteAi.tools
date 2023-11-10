@@ -27,8 +27,8 @@ class ToolAlternativesController extends Controller
             'alternativeTools' => $alternativeTools,
             'pageDataDTO' => new PageDataDTO(
                 // title: ($alternativeTools->count() - 1) . '+ ' . $tool->name . ' - Alternatives',
-                title: $tool->name . ' - Alternatives',
-                description: 'All Tools alternatives for ' . $tool->name . ' with comparison',
+                title: $tool->name . ' - Alternatives and Competitors',
+                description: 'All Tools alternatives for ' . $tool->name,
                 conicalUrl: route('tool.alternatives.show', ['tool' => $tool->slug]),
                 thumbnailUrl: asset('/tools/' . $tool->slug . '/screenshot.webp')
             ),
