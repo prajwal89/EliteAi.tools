@@ -36,7 +36,8 @@
         <div class="text-gray-500">
             <p class="text-base font-bold tracking-wide text-gray-900">Links</p>
             <div class="flex gap-3 flex-col mt-2 text-sm">
-                <a href="/">Home</a>
+                <a href="{{ route('home') }}">Home</a>
+                <a href="{{ route('blog.index') }}">Blog</a>
             </div>
         </div>
     </div>

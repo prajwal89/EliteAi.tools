@@ -18,25 +18,24 @@ class ToolServices
             File::makeDirectory($toolAssetPath, 0755, true, true);
         }
 
-        $newImage = Image::make($imageFile);
+        $originalImage = Image::make($imageFile);
 
-        $newImage->resize(1280, 1000, function ($constraint) {
-            $constraint->aspectRatio();
-        })->save($toolAssetPath . '/screenshot.webp');
+        // Save the original screenshot
+        $originalImage->save($toolAssetPath . '/original.png');
 
-        $toolData['uploaded_screenshot'] = now();
+        // Resize and save screenshots in different sizes
+        $sizes = [
+            ['width' => 1280, 'height' => 1000, 'suffix' => 'screenshot'],
+            ['width' => 600, 'height' => 400, 'suffix' => 'screenshot-large'],
+            ['width' => 400, 'height' => 400, 'suffix' => 'screenshot-medium'],
+            ['width' => 100, 'height' => 400, 'suffix' => 'screenshot-small'],
+        ];
 
-        $newImage->resize(600, 400, function ($constraint) {
-            $constraint->aspectRatio();
-        })->save($toolAssetPath . '/screenshot-large.webp');
-
-        $newImage->resize(400, 400, function ($constraint) {
-            $constraint->aspectRatio();
-        })->save($toolAssetPath . '/screenshot-medium.webp');
-
-        $newImage->resize(100, 400, function ($constraint) {
-            $constraint->aspectRatio();
-        })->save($toolAssetPath . '/screenshot-small.webp');
+        foreach ($sizes as $size) {
+            $originalImage->resize($size['width'], $size['height'], function ($constraint) {
+                $constraint->aspectRatio();
+            })->save($toolAssetPath . '/' . $size['suffix'] . '.webp');
+        }
 
         return true;
     }
