@@ -34,6 +34,12 @@
             </svg>
             <span>{{ $tool->pricing_type }}</span>
         </div>
+        @if ($tool->monthly_subscription_starts_from)
+            <div
+                class="flex items-center cursor-pointer gap-0.5 bg-gray-100 shadow-sm text-black px-2 py-0.5 rounded-full">
+                Starts from <strong class="text-xl">{{ $tool->monthly_subscription_starts_from }}$</strong>
+            </div>
+        @endif
     </div>
 
     <div class="text-lg py-2">

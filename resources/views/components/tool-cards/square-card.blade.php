@@ -49,6 +49,13 @@
                 <span>{{ $tool->pricing_type }}</span>
             </li>
 
+            @if ($tool->monthly_subscription_starts_from)
+                <li title="Support for API"
+                    class="flex items-center cursor-pointer gap-0.5 bg-gray-100 text-black px-2 py-0.5 rounded-full">
+                    From <strong>{{ $tool->monthly_subscription_starts_from }}$</strong>
+                </li>
+            @endif
+
             @if ($tool->has_api)
                 <li title="Support for API"
                     class="flex items-center cursor-pointer gap-0.5 bg-gray-100 text-black px-2 py-0.5 rounded-full">

@@ -17,6 +17,7 @@ class ToolDTO
         public array $relatedSearches,
         public bool $hasApi,
         public PricingType $pricingType,
+        public ?int $monthlySubscriptionStartsFrom = null,
         public array $categories,
         public array $tags,
     ) {
@@ -47,6 +48,7 @@ class ToolDTO
                 relatedSearches: $toolData->related_searches,
                 hasApi: $toolData->has_api,
                 pricingType: PricingType::from($toolData->pricing_type),
+                monthlySubscriptionStartsFrom: $toolData->monthly_subscription_starts_from,
                 categories: $toolData->categories,
                 tags: $toolData->tags,
             );

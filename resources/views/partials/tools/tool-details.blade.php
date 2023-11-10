@@ -27,6 +27,12 @@
                 <span>API</span>
             </div>
         @endif
+        @if ($tool->monthly_subscription_starts_from)
+            <div
+                class="flex items-center cursor-pointer gap-0.5 bg-gray-100 shadow-sm text-black px-2 py-0.5 rounded-full">
+                From <strong class="text-xl">{{ $tool->monthly_subscription_starts_from }}$</strong>
+            </div>
+        @endif
     </div>
 
     <p class="py-2">
@@ -314,14 +320,12 @@
     @if (!$tool->tags->isEmpty())
         <ul class="flex gap-2 py-2 flex-wrap gap-x-2">
             @foreach ($tool->tags as $key => $tag)
-                @if ($key > 3)
-                @break
-            @endif
-            <li>
-                <p class="flex items-center gap-2 text-gray-700">#{{ $tag->name }}</p>
-            </li>
-        @endforeach
-    </ul>
-@endif
+                {{-- @if ($key > 3) @break @endif --}}
+                <li>
+                    <p class="flex items-center gap-2 text-gray-700">#{{ $tag->name }}</p>
+                </li>
+            @endforeach
+        </ul>
+    @endif
 
 </div>
