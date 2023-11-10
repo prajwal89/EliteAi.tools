@@ -28,7 +28,7 @@
 
                 <div class="form-group mb-2">
                     <label>description</label>
-                    <textarea type="text" rows="10" class="form-control" name="description">{{ $blog->description }}</textarea>
+                    <textarea type="text" rows="12" class="form-control" name="description">{{ $blog->description }}</textarea>
                 </div>
 
                 <div class="form-group mb-2">
@@ -41,8 +41,6 @@
                 <div class="form-group mb-4">
                     <label class="fw-bold">*Blog type</label>
                     <select type="select" class="form-control" name="blog_type" required>
-
-
                         @if (isset($blog->blog_type))
                             <option value="{{ $blog->blog_type->value }}" selected>
                                 {{ $blog->blog_type->value }}

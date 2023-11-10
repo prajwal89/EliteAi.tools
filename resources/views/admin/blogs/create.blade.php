@@ -23,7 +23,7 @@
 
                 <div class="form-group mb-2">
                     <label>description</label>
-                    <textarea type="text" rows="24" class="form-control" name="description"></textarea>
+                    <textarea type="text" rows="12" class="form-control" name="description"></textarea>
                 </div>
 
                 <div class="form-group mb-4">

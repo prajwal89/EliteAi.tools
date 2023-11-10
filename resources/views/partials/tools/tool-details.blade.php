@@ -53,7 +53,6 @@
     @if (
         !empty($tool->instagram_id) ||
             !empty($tool->twitter_id) ||
-            //  !empty($tool->github_id) ||
             !empty($tool->tiktok_id) ||
             !empty($tool->youtube_channel_id) ||
             !empty($tool->facebook_id) ||
@@ -314,14 +313,15 @@
 
     @if (!$tool->tags->isEmpty())
         <ul class="flex gap-2 py-2 flex-wrap gap-x-2">
-            @foreach ($tool->tags as $tag)
-                <li>
-                    <p class="flex items-center gap-2 hover:text-primary-600 text-gray-700" href="">
-                        <span>#{{ $tag->name }}</span>
-                    </p>
-                </li>
-            @endforeach
-        </ul>
-    @endif
+            @foreach ($tool->tags as $key => $tag)
+                @if ($key > 3)
+                @break
+            @endif
+            <li>
+                <p class="flex items-center gap-2 text-gray-700">#{{ $tag->name }}</p>
+            </li>
+        @endforeach
+    </ul>
+@endif
 
 </div>

@@ -4,6 +4,7 @@ namespace App\Http\Controllers\Admin;
 
 use App\Http\Controllers\Controller;
 use App\Jobs\UpdateSemanticDistanceBetweenBlogAndToolJob;
+use App\Jobs\UpdateVectorEmbeddingsJob;
 use App\Models\Blog;
 use App\Models\User;
 use App\Services\BlogService;
@@ -41,7 +42,7 @@ class BlogController extends Controller
             'description' => $request->description,
         ]);
 
-        BlogService::updateVectorEmbeddings($blog);
+        dispatch(new UpdateVectorEmbeddingsJob($blog));
 
         dispatch(new UpdateSemanticDistanceBetweenBlogAndToolJob($blog));
 
@@ -84,7 +85,7 @@ class BlogController extends Controller
             'description' => $request->description,
         ]);
 
-        BlogService::updateVectorEmbeddings($blog);
+        dispatch(new UpdateVectorEmbeddingsJob($blog));
 
         dispatch(new UpdateSemanticDistanceBetweenBlogAndToolJob($blog));
 

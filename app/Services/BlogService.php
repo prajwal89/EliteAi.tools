@@ -17,7 +17,6 @@ class BlogService
             vectors: $blog->_vectors, //already calculated vectors
             configs: [
                 'limit' => 100,
-                'offset' => 100,
                 'attributesToRetrieve' => ['id', 'name'],
             ]
         );
