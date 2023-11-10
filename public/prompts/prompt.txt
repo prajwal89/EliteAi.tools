@@ -10,6 +10,7 @@ Your response JSON format is
     "use_cases":["",""]
     "related_searches":["",""]
     "pricing_type":"",
+    "monthly_subscription_starts_from":"",
     "categories":["",""],
     "tags":["",""]
     "has_api":"",
@@ -47,7 +48,11 @@ Choose from options ({{ $pricingTypeString }})
   Where 
    Freemium: tool that offers basic services for free while more advanced features must be paid for
    Usage Based: Pay per use
-   Other: If you cannot decide choose this option 
+   Other: If you cannot decide choose this option
+
+monthly_subscription_starts_from:
+ This is an integer field. 
+ get lowest monthly plan amount. If their is no mention add Null
 
 categories: 
 Choose multiple categories from these ({{ $categoriesString }})
