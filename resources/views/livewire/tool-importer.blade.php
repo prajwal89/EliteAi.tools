@@ -303,6 +303,28 @@ Content of the website is as following:
                 console.error("Unable to copy text to clipboard");
             }
         });
+
+        document.addEventListener('livewire:initialized', () => {
+            @this.on('playSound', (event, status) => {
+
+                // alert(status)
+                var audio;
+                audio = new Audio('/success.mp3');
+
+                // if (status === 'success') {
+                //     audio = new Audio('/success.mp3');
+                // } else if (status === 'error') {
+                //     audio = new Audio('/success.mp3');
+                // } else {
+                //     console.error('Invalid sound status');
+                //     return;
+                // }
+
+                audio.play();
+
+            });
+        });
     </script>
+
 
 </div>

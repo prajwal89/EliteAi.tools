@@ -30,11 +30,14 @@ class ToolImporter extends Component
 
     public function mount()
     {
-        $this->promptForSystem = \App\Services\ExtractedToolProcessor::buildSystemPrompt(public_path('/prompts/prompt.txt'));
+        $this->promptForSystem = ExtractedToolProcessor::buildSystemPrompt(
+            public_path('/prompts/prompt.txt')
+        );
     }
 
     public function getData()
     {
+
         $this->url = rtrim($this->url, '/');
 
         if (Tool::where('domain_name', getDomainFromUrl($this->url))->exists()) {
@@ -94,6 +97,8 @@ class ToolImporter extends Component
             } catch (Exception $e) {
                 $this->jsonParseStatus = -1;
             }
+
+            $this->dispatch('playSound');
         } catch (Exception $e) {
             Log::error($e);
 
