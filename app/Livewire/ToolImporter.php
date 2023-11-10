@@ -97,13 +97,13 @@ class ToolImporter extends Component
             } catch (Exception $e) {
                 $this->jsonParseStatus = -1;
             }
-
-            $this->dispatch('playSound');
         } catch (Exception $e) {
             Log::error($e);
 
             dd($e->getMessage());
         }
+
+        $this->dispatch('playSound');
     }
 
     public function getContentForPrompt($html)

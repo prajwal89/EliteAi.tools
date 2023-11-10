@@ -63,12 +63,15 @@
         </ul>
 
         <ul class="flex flex-wrap text-sm gap-2 my-1">
-            @foreach ($tool->categories as $category)
-                <li class="flex items-center gap-2">
-                    <span>{{ $category->name }}{{ $loop->last ? '' : ',' }}</span>
-                </li>
-            @endforeach
-        </ul>
-    </div>
+            @foreach ($tool->categories as $key => $category)
+                @if ($key > 4)
+                @break
+            @endif
+            <li class="flex items-center gap-2">
+                <span>{{ $category->name }}{{ $loop->last ? '' : ',' }}</span>
+            </li>
+        @endforeach
+    </ul>
+</div>
 
 </li>
