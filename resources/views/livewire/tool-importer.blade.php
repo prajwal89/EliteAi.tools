@@ -309,7 +309,7 @@ Content of the website is as following:
 
                 // alert(status)
                 var audio;
-                audio = new Audio('/success.mp3');
+                audio = new Audio('{{ asset('/success.mp3') }}');
 
                 // if (status === 'success') {
                 //     audio = new Audio('/success.mp3');
