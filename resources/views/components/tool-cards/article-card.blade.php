@@ -2,7 +2,8 @@
     <h2 class="flex gap-2 md:gap-4 items-center my-8">
         @if (!empty($tool->uploaded_favicon))
             <img class="h-8 w-8 md:h-10 md:w-10 bg-white shadow rounded"
-                src="{{ asset('/tools/' . $tool->slug . '/favicon.webp') }}" alt="{{ $tool->name }} favicon">
+                src="{{ asset('/tools/' . $tool->slug . '/favicon.webp') }}" alt="{{ $tool->name }} favicon"
+                loading="lazy">
         @endif
         <div>
             <a class="font-bold text-xl sm:text-2xl" href="{{ route('tool.show', ['tool' => $tool->slug]) }}">

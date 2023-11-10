@@ -1,6 +1,6 @@
 <li class="border flex flex-col sm:flex-row gap-2 rounded-lg shadow bg-white">
     <img class="object-cover aspect-video rounded-lg  border w-full sm:w-2/5"
-        src="{{ asset('/tools/' . $tool->slug . '/screenshot.webp') }}" alt="{{ $tool->name }}">
+        src="{{ asset('/tools/' . $tool->slug . '/screenshot.webp') }}" alt="{{ $tool->name }}" loading="lazy">
 
     <div class="p-2 md:p-4">
         <a class="text-xl sm:text-2xl hover:underline text-primary-800 my-2 two-line"

@@ -46,3 +46,39 @@ Pricing data json column
     pricing_per_entity: 0.1,
     entity_name: Image
 }
+
+
+
+
+JSON structure
+
+for plan types that can be like this
+9$ per month
+0.1$ per use
+0.1$ per item (image,output, etc)
+1.$ hour
+
+{
+    "planTypes": [
+        {
+            "name": "Monthly Plan",
+            "price": 9,
+            "billingCycle": "per_month"
+        },
+        {
+            "name": "Usage-based Plan",
+            "price": 0.1,
+            "billingCycle": "per_use"
+        },
+        {
+            "name": "Item-based Plan",
+            "price": 0.1,
+            "billingCycle": "per_item"
+        },
+        {
+            "name": "Hourly Plan",
+            "price": 1,
+            "billingCycle": "per_hour"
+        }
+    ]
+}
