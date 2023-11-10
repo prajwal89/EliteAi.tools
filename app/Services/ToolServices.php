@@ -26,11 +26,11 @@ class ToolServices
 
         $toolData['uploaded_screenshot'] = now();
 
-        $newImage->resize(400, 400, function ($constraint) {
+        $newImage->resize(600, 400, function ($constraint) {
             $constraint->aspectRatio();
         })->save($toolAssetPath . '/screenshot-large.webp');
 
-        $newImage->resize(200, 400, function ($constraint) {
+        $newImage->resize(400, 400, function ($constraint) {
             $constraint->aspectRatio();
         })->save($toolAssetPath . '/screenshot-medium.webp');
 

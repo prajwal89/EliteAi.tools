@@ -22,7 +22,7 @@ Route::controller(ToolController::class)->prefix('tool')->name('tool.')->group(f
     Route::get('{tool:slug}/alternatives', 'alternatives')->name('alternatives');
 });
 
-// experimental
+// !experimental feature
 Route::get('/top-{category:slug}-ai-tools', [TopAiToolsController::class, 'show']);
 
 Route::controller(CategoryController::class)->prefix('category')->name('category.')->group(function () {
@@ -39,6 +39,7 @@ Route::controller(BlogController::class)->prefix('blog')->name('blog.')->group(f
     Route::get('{blog:slug}', 'show')->name('show');
 });
 
+// !experimental feature
 Route::controller(TopSearchController::class)->prefix('popular')->name('popular.')->group(function () {
     Route::get('{top_search:slug}', 'show')->name('show');
 });

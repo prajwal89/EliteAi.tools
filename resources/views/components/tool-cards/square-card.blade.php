@@ -11,7 +11,7 @@
         @if (!empty($tool->uploaded_screenshot))
             <div class="relative w-full aspect-video">
                 <img class="rounded w-full h-full object-cover"
-                    src="{{ asset('/tools/' . $tool->slug . '/screenshot.webp') }}" alt="{{ $tool->name }}"
+                    src="{{ asset('/tools/' . $tool->slug . '/screenshot-large.webp') }}" alt="{{ $tool->name }}"
                     loading="lazy">
 
                 {{-- <div class="absolute inset-0 bg-gray-300/30">
