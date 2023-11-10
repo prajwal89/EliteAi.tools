@@ -36,7 +36,8 @@ Route::controller(TagController::class)->prefix('tag')->name('tag.')->group(func
 });
 
 Route::controller(BlogController::class)->prefix('blog')->name('blog.')->group(function () {
-    Route::get('{blog:slug}', 'show')->name('show');
+    Route::get('/', 'index')->name('index');
+    Route::get('/{blog:slug}', 'show')->name('show');
 });
 
 // !experimental feature

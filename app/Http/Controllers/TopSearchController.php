@@ -14,8 +14,7 @@ class TopSearchController extends Controller
     {
         $topSearch = TopSearch::where('slug', $slug)->firstOrFail();
 
-        // ! N+1 as we are accessing categories on tool model in views
-        $searchRelatedTools = TopSearchToolSemanticScore::with(['tool'])
+        $searchRelatedTools = TopSearchToolSemanticScore::with(['tool.categories'])
             ->where('top_search_id', $topSearch->id)
             ->where('score', '>', 0.85)
             ->orderBy('score', 'desc')
@@ -26,6 +25,8 @@ class TopSearchController extends Controller
 
                 return $semanticScore->tool;
             });
+
+        // dd($searchRelatedTools);
 
         // $categories = Category::has('tools')->get();
         $categories = Category::withCount('tools')

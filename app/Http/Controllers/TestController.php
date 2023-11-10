@@ -7,9 +7,11 @@ ini_set('max_execution_time', 600); //10 min
 
 use App\Enums\ModelType;
 use App\Enums\SearchAbleTable;
+use App\Jobs\UpdateSemanticDistanceBetweenBlogAndToolJob;
 use App\Models\Blog;
 use App\Models\Tool;
 use App\Models\TopSearch;
+use App\Models\TopSearchToolSemanticScore;
 use App\Services\BlogService;
 use App\Services\MeilisearchService;
 use App\Services\RecommendationService;
@@ -17,6 +19,7 @@ use App\Services\SocialMediaHandlesExtractor;
 use App\Services\ToolServices;
 use App\Services\TopSearchService;
 use App\Services\WebPageFetcher;
+use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Http;
 use Intervention\Image\Facades\Image;
 use kornrunner\Blurhash\Blurhash;
@@ -37,29 +40,37 @@ class TestController extends Controller
 
     public function __invoke()
     {
+        $blogTools = DB::table('blog_tool_semantic_scores')
+            ->select(['*', DB::raw('count(*) as total_tools')])
+            ->join('tools', 'tools.id', '=', 'blog_tool_semantic_scores.tool_id')
+            ->join('blogs', 'blogs.id', '=', 'blog_tool_semantic_scores.blog_id')
+            ->where('blog_tool_semantic_scores.score', '>', 0.850)
+            ->having('total_tools', '>', 4)
+            ->groupBy('blogs.id')
+            ->get();
 
-        // dd((new MeilisearchService())->search(
-        //     SearchAbleTable::TOOL,
-        //     'sample',
-        //     [
-        //         'limit' => 1000
+        dd($blogTools);
 
-        //     ],
-        //     [
-        //         'limit' => 1000
-        //     ]
-        // ),);
 
-        dd(
-            BlogService::saveSemanticDistanceBetweenBlogAndTools(Blog::find(1))
-        );
+        BlogService::updateVectorEmbeddings(Blog::find(3));
 
-        // dd($this->totalCombos(132));
+        dispatch(new UpdateSemanticDistanceBetweenBlogAndToolJob(Blog::find(3)));
 
-        TopSearch::all()->map(function ($topSearch) {
-            TopSearchService::saveSemanticDistanceBetweenTopSearchAndTools($topSearch);
-            dump($topSearch);
-        });
+        // $searchRelatedTools = TopSearchToolSemanticScore::with(['tool.categories'])
+        //     ->where('score', '>', 0.85)
+        //     // ->groupBy('top_search_tool_semantic_scores.top_search_id')
+        //     ->orderBy('score', 'desc')
+        //     ->limit(24)
+        //     ->get()
+        //     // ->map(function ($semanticScore) {
+        //     //     $semanticScore->tool->score = $semanticScore->score;
+
+        //     //     return $semanticScore->tool;
+        //     // })
+
+        // ;
+
+        // dd($searchRelatedTools);
 
         exit('sdsf');
 

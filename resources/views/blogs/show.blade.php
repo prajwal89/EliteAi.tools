@@ -3,8 +3,6 @@
 @section('description', $pageDataDTO->description)
 @section('conical_url', $pageDataDTO->conicalUrl)
 
-
-
 @section('content')
     <div class="mx-auto max-w-3xl px-2">
 
@@ -32,6 +30,4 @@
             @endforeach
         </ul>
     </div>
-
-
 @stop
