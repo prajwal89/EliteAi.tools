@@ -8,6 +8,7 @@ use App\Http\Controllers\SearchController;
 use App\Http\Controllers\SocialAuthController;
 use App\Http\Controllers\TagController;
 use App\Http\Controllers\TestController;
+use App\Http\Controllers\ToolAlternativesController;
 use App\Http\Controllers\ToolController;
 use App\Http\Controllers\TopAiToolsController;
 use App\Http\Controllers\TopSearchController;
@@ -17,9 +18,13 @@ Route::get('/', HomeController::class)->name('home');
 Route::get('/search', SearchController::class)->name('search')->middleware('throttle:10,1');
 
 Route::controller(ToolController::class)->prefix('tool')->name('tool.')->group(function () {
-    Route::get('submit-new-tool', 'submitNewTool')->name('submit');
-    Route::get('{tool:slug}', 'show')->name('show');
-    Route::get('{tool:slug}/alternatives', 'alternatives')->name('alternatives');
+    Route::controller(ToolAlternativesController::class)->name('alternatives.')->group(function () {
+        Route::get('/alternatives', 'index')->name('index');
+        Route::get('/{tool:slug}/alternatives', 'show')->name('show');
+    });
+
+    Route::get('/submit-new-tool', 'submitNewTool')->name('submit');
+    Route::get('/{tool:slug}', 'show')->name('show');
 });
 
 // !experimental feature

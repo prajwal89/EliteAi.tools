@@ -17,14 +17,14 @@
             </h1>
         </div>
 
-        <div class="relative flex gap-2 md:gap-4 flex-col md:flex-row my-4 border shadow bg-gray-50 rounded-xl p-4">
-            <div aria-hidden="true" class="absolute -z-10 inset-0 h-max w-full m-auto opacity-40">
+        <div class="relative flex gap-2 md:gap-4 flex-col md:flex-row my-4  bg-gray-50/50 rounded-xl p-4">
+            {{-- <div aria-hidden="true" class="absolute -z-10 inset-0 h-max w-full m-auto opacity-40">
                 <div class="blur-[106px] h-[200px] bg-gradient-to-br from-primary-500 to-purple-400"></div>
-            </div>
+            </div> --}}
             @if (!empty($tool->uploaded_screenshot))
                 <div class="w-full md:w-2/5">
                     <img class="w-full shadow-gray-200 rounded"
-                        src="{{ asset('/tools/' . $tool->slug . '/screenshot.webp') }}" alt="{{ $tool->name }}">
+                        src="{{ asset('/tools/' . $tool->slug . '/screenshot-large.webp') }}" alt="{{ $tool->name }}">
                 </div>
             @endif
 

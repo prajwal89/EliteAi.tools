@@ -7,6 +7,7 @@ use App\Models\Category;
 use App\Models\Tool;
 use App\Services\RecommendationService;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\DB;
 use Illuminate\View\View;
 
 class ToolController extends Controller
@@ -38,29 +39,6 @@ class ToolController extends Controller
                 // title: $tool->name . ' - Use cases, Features',
                 title: $tool->name . ' - ' . $tool->tag_line,
                 description: $tool->summary,
-                conicalUrl: route('tool.show', ['tool' => $tool->slug]),
-                thumbnailUrl: asset('/tools/' . $tool->slug . '/screenshot.webp')
-            ),
-        ]);
-    }
-
-    public function alternatives(Request $request, string $slug): View
-    {
-        $tool = Tool::where('slug', $slug)->firstOrFail();
-
-        $alternativeTools = RecommendationService::baseOnSemanticScores(
-            tool: $tool,
-            score: 0.4,
-            maxTools: 3 * 2
-        );
-
-        return view('tools.alternatives', [
-            'tool' => $tool,
-            'alternativeTools' => $alternativeTools,
-            'pageDataDTO' => new PageDataDTO(
-                // title: ($alternativeTools->count() - 1) . '+ ' . $tool->name . ' - Alternatives',
-                title: $tool->name . ' - Alternatives',
-                description: 'All Tools alternatives for ' . $tool->name . ' with comparison',
                 conicalUrl: route('tool.show', ['tool' => $tool->slug]),
                 thumbnailUrl: asset('/tools/' . $tool->slug . '/screenshot.webp')
             ),
