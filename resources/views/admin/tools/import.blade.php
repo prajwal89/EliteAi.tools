@@ -7,7 +7,7 @@
 @stop
 
 @section('content')
-    @livewire('tool-importer')
+    @livewire('tool-importer', ['tool_to_process_id' => request()->input('tool_to_process_id', null)])
 @stop
 
 @section('scripts')

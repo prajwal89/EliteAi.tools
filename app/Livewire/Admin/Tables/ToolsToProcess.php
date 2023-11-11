@@ -109,6 +109,13 @@ final class ToolsToProcess extends PowerGridComponent
     public function actions($row): array
     {
         return [
+
+            Button::add('Import')
+                ->slot('Import')
+                ->class('btn btn-sm btn-outline-success')
+                ->route('admin.tools.import', ['tool_to_process_id' => $row->id]),
+
+
             Button::add('Edit')
                 ->slot('Edit')
                 ->class('btn btn-sm btn-outline-primary')
@@ -120,10 +127,6 @@ final class ToolsToProcess extends PowerGridComponent
                 ->method('post')
                 ->route('admin.tools-to-process.do-not-process', ['tool_to_process_id' => $row->id]),
 
-            Button::add('Import')
-                ->slot('Import')
-                ->class('btn btn-sm btn-outline-success')
-                ->route('admin.tools.import', ['tool' => $row->id]),
         ];
     }
 }

@@ -4,6 +4,7 @@ namespace App\Livewire;
 
 use App\DTOs\ToolDTO;
 use App\DTOs\ToolSocialHandlesDTO;
+use App\Models\ExtractedToolDomain;
 use App\Models\Tool;
 use App\Services\ExtractedToolProcessor;
 use App\Services\SocialMediaHandlesExtractor;
@@ -20,6 +21,8 @@ class ToolImporter extends Component
 
     public $contentForPrompt;
 
+    public $tool_to_process_id;
+
     public string $promptForSystem;
 
     public string $responseJson;
@@ -33,6 +36,12 @@ class ToolImporter extends Component
         $this->promptForSystem = ExtractedToolProcessor::buildSystemPrompt(
             public_path('/prompts/prompt.txt')
         );
+
+        if (!empty($this->tool_to_process_id)) {
+            $tool = ExtractedToolDomain::find($this->tool_to_process_id);
+            $this->url = $tool->home_page_url;
+            $this->getData();
+        }
     }
 
     public function getData()
