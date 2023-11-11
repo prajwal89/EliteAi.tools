@@ -41,7 +41,7 @@ class ToolImporter extends Component
         $this->url = rtrim($this->url, '/');
 
         if (Tool::where('domain_name', getDomainFromUrl($this->url))->exists()) {
-            // dd('We already have this tool.');
+            dd('We already have this tool.');
         }
 
         $html = (new WebPageFetcher($this->url))->get()->content;
@@ -85,7 +85,11 @@ class ToolImporter extends Component
                 ],
             ]);
 
-            $this->responseJson = trim($response->choices[0]->message->content);
+            $this->responseJson = str($response->choices[0]->message->content)
+                ->trim()
+                ->ltrim('```json')
+                ->rtrim('```')
+                ->toString();
 
             Log::info($this->responseJson);
 
