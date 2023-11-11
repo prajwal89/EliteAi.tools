@@ -150,10 +150,19 @@ Content of the website is as following:
                         @endif
                         @if (!empty($toolSocialHandlesDTO['youtubeChannelId']))
                             <p>
-                                <span>Youtube Channel:</span>
+                                <span>Youtube Channel ID:</span>
                                 <a target="_blank"
                                     href="https://www.youtube.com/channel/{{ $toolSocialHandlesDTO['youtubeChannelId'] }}">
                                     {{ $toolSocialHandlesDTO['youtubeChannelId'] }}
+                                </a>
+                            </p>
+                        @endif
+                        @if (!empty($toolSocialHandlesDTO['youtubeHandleId']))
+                            <p>
+                                <span>Youtube Handle Id:</span>
+                                <a target="_blank"
+                                    href="https://www.youtube.com/{{ e('@') }}{{ $toolSocialHandlesDTO['youtubeHandleId'] }}">
+                                    {{ $toolSocialHandlesDTO['youtubeHandleId'] }}
                                 </a>
                             </p>
                         @endif

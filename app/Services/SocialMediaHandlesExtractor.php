@@ -47,11 +47,15 @@ class SocialMediaHandlesExtractor
             '/pinterest\.com\/([^\/]+)/',
         ],
         'youtube_channel' => [
-            // This is channel id
             '/youtube\.com\/channel\/([^\/]+)/',
+        ],
+
+        //how to handle this https://www.youtube.com/user/youtube
+        'youtube_handle_id' => [
             // https://www.youtube.com/c/PublerNation?sub_confirmation=1
-            //   this is different
-            // '/youtube\.com\/c\/([^\/\?]+)/',
+            '/youtube\.com\/c\/([^\/]+)/',
+            // https://www.youtube.com/@PublerNation
+            '/youtube\.com\/@([^\/]+)/',
         ],
         'discord_channel_invite_id' => [
             '/discord\.com\/invite\/([^\/]+)/',

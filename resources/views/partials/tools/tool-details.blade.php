@@ -61,9 +61,11 @@
             !empty($tool->twitter_id) ||
             !empty($tool->tiktok_id) ||
             !empty($tool->youtube_channel_id) ||
+            !empty($tool->youtube_handle_id) ||
             !empty($tool->facebook_id) ||
             !empty($tool->linkedin_id) ||
             !empty($tool->behance_id) ||
+            !empty($tool->pinterest_id) ||
             !empty($tool->dribbble_id) ||
             !empty($tool->discord_channel_invite_id) ||
             !empty($tool->github_repository_path) ||
@@ -71,19 +73,6 @@
         <div class="py-2 flex items-center gap-4">
             <strong>Social:</strong>
             <ul class="flex flex-wrap items-center justify-center gap-2">
-
-                @if (!empty($tool->github_id))
-                    <li>
-                        <a href="https://github.com/{{ $tool->github_id }}" target="_blank" title="Github"
-                            class="text-gray-600 hover:text-gray-900 dark:hover:text-white dark:text-gray-400">
-                            <svg class="w-6 h-6" fill="currentColor" viewBox="0 0 24 24" aria-hidden="true">
-                                <path fill-rule="evenodd"
-                                    d="M12 2C6.477 2 2 6.484 2 12.017c0 4.425 2.865 8.18 6.839 9.504.5.092.682-.217.682-.483 0-.237-.008-.868-.013-1.703-2.782.605-3.369-1.343-3.369-1.343-.454-1.158-1.11-1.466-1.11-1.466-.908-.62.069-.608.069-.608 1.003.07 1.531 1.032 1.531 1.032.892 1.53 2.341 1.088 2.91.832.092-.647.35-1.088.636-1.338-2.22-.253-4.555-1.113-4.555-4.951 0-1.093.39-1.988 1.029-2.688-.103-.253-.446-1.272.098-2.65 0 0 .84-.27 2.75 1.026A9.564 9.564 0 0112 6.844c.85.004 1.705.115 2.504.337 1.909-1.296 2.747-1.027 2.747-1.027.546 1.379.202 2.398.1 2.651.64.7 1.028 1.595 1.028 2.688 0 3.848-2.339 4.695-4.566 4.943.359.309.678.92.678 1.855 0 1.338-.012 2.419-.012 2.747 0 .268.18.58.688.482A10.019 10.019 0 0022 12.017C22 6.484 17.522 2 12 2z"
-                                    clip-rule="evenodd"></path>
-                            </svg>
-                        </a>
-                    </li>
-                @endif
 
                 @if (!empty($tool->tiktok_id))
                     <li>
@@ -179,8 +168,7 @@
                         <a href="https://www.facebook.com/profile.php?id={{ $tool->facebook_id }}" target="_blank"
                             title="Facebook profile"
                             class="text-gray-600 hover:text-gray-900 dark:hover:text-white dark:text-gray-400">
-                            <svg class="w-5 h-5" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"
-                                fill="none">
+                            <svg class="w-5 h-5" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none">
                                 <path fill-rule="evenodd" clip-rule="evenodd"
                                     d="M20 1C21.6569 1 23 2.34315 23 4V20C23 21.6569 21.6569 23 20 23H4C2.34315 23 1 21.6569 1 20V4C1 2.34315 2.34315 1 4 1H20ZM20 3C20.5523 3 21 3.44772 21 4V20C21 20.5523 20.5523 21 20 21H15V13.9999H17.0762C17.5066 13.9999 17.8887 13.7245 18.0249 13.3161L18.4679 11.9871C18.6298 11.5014 18.2683 10.9999 17.7564 10.9999H15V8.99992C15 8.49992 15.5 7.99992 16 7.99992H18C18.5523 7.99992 19 7.5522 19 6.99992V6.31393C19 5.99091 18.7937 5.7013 18.4813 5.61887C17.1705 5.27295 16 5.27295 16 5.27295C13.5 5.27295 12 6.99992 12 8.49992V10.9999H10C9.44772 10.9999 9 11.4476 9 11.9999V12.9999C9 13.5522 9.44771 13.9999 10 13.9999H12V21H4C3.44772 21 3 20.5523 3 20V4C3 3.44772 3.44772 3 4 3H20Z"
                                     fill="currentColor" />
@@ -264,6 +252,26 @@
                     </li>
                 @endif
 
+                @if (!empty($tool->youtube_handle_id))
+                    <li>
+                        <a href="https://www.youtube.com/{{ e('@') }}{{ $tool->youtube_handle_id }}"
+                            target="_blank" title="Youtube channel"
+                            class="text-gray-600 hover:text-gray-900 dark:hover:text-white dark:text-gray-400">
+                            <svg class="w-7 h-7" stroke="currentColor" fill="none"
+                                xmlns="http://www.w3.org/2000/svg" viewBox="0 -0.5 25 25">
+                                <path fill-rule="evenodd" clip-rule="evenodd"
+                                    d="M18.168 19.0028C20.4724 19.0867 22.41 17.29 22.5 14.9858V9.01982C22.41 6.71569 20.4724 4.91893 18.168 5.00282H6.832C4.52763 4.91893 2.58998 6.71569 2.5 9.01982V14.9858C2.58998 17.29 4.52763 19.0867 6.832 19.0028H18.168Z"
+                                    stroke="currentColor" stroke-width="1.5" stroke-linecap="round"
+                                    stroke-linejoin="round" />
+                                <path fill-rule="evenodd" clip-rule="evenodd"
+                                    d="M12.008 9.17784L15.169 11.3258C15.3738 11.4454 15.4997 11.6647 15.4997 11.9018C15.4997 12.139 15.3738 12.3583 15.169 12.4778L12.008 14.8278C11.408 15.2348 10.5 14.8878 10.5 14.2518V9.75184C10.5 9.11884 11.409 8.77084 12.008 9.17784Z"
+                                    stroke="currentColor" stroke-width="1.5" stroke-linecap="round"
+                                    stroke-linejoin="round" />
+                            </svg>
+                        </a>
+                    </li>
+                @endif
+
                 @if (!empty($tool->discord_channel_invite_id))
                     <li>
                         <a href="https://discord.com/invite/{{ $tool->discord_channel_invite_id }}" target="_blank"
@@ -297,7 +305,6 @@
                         </a>
                     </li>
                 @endif
-
             </ul>
         </div>
     @endif
@@ -376,7 +383,15 @@
             @foreach ($tool->tags as $key => $tag)
                 {{-- @if ($key > 3) @break @endif --}}
                 <li>
-                    <p class="flex items-center gap-2 text-gray-700">#{{ $tag->name }}</p>
+                    <p class="flex items-center gap-2 text-gray-700">
+                        @if ($tag->tools_count > 2)
+                            {{-- todo should i include this (Low quality page) --}}
+                            <a class="text-gray-800"
+                                href="{{ route('tag.show', ['tag' => $tag->slug]) }}">#{{ $tag->name }}</a>
+                        @else
+                            #{{ $tag->name }}
+                        @endif
+                    </p>
                 </li>
             @endforeach
         </ul>

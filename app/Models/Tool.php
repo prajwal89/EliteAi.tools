@@ -47,6 +47,7 @@ class Tool extends Model implements MeilisearchAble
         'behance_id',
         'pinterest_id',
         'youtube_channel_id',
+        'youtube_handle_id',
         'telegram_channel_id',
         'subreddit_id',
         'discord_channel_invite_id',

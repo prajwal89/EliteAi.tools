@@ -58,6 +58,11 @@
                 value="{{ $toolSocialHandlesDTO->youtubeChannelId ?? ($tool->youtube_channel_id ?? '') }}">
         </div>
         <div class="form-group mb-4">
+            <label class="fw-bold">youtube_handle_id</label>
+            <input type="text" placeholder="@ sample" class="form-control" name="youtube_handle_id"
+                value="{{ $toolSocialHandlesDTO->youtubeHandleId ?? ($tool->youtube_handle_id ?? '') }}">
+        </div>
+        <div class="form-group mb-4">
             <label class="fw-bold">discord_channel_invite_id</label>
             <input type="text" placeholder="" class="form-control" name="discord_channel_invite_id"
                 value="{{ $toolSocialHandlesDTO->discordChannelInviteId ?? ($tool->discord_channel_invite_id ?? '') }}">

@@ -18,7 +18,12 @@ class ToolController extends Controller
 
     public function show(Request $request, string $slug): View
     {
-        $tool = Tool::where('slug', $slug)->firstOrFail();
+        $tool = Tool::with([
+            'categories',
+            'tags' => function ($query) {
+                $query->withCount('tools');
+            }
+        ])->where('slug', $slug)->firstOrFail();
 
         $relatedTools = RecommendationService::baseOnSemanticScores(
             tool: $tool,
