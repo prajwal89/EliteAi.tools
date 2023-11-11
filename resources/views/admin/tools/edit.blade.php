@@ -12,8 +12,12 @@
             <span>Edit tool</span>
 
             <div>
-                <a class="btn btn-outline-primary float-right"
-                    href="{{ route('tool.show', ['tool' => $tool->slug]) }}">View</a>
+                <a class="btn btn-outline-primary float-right" href="{{ route('tool.show', ['tool' => $tool->slug]) }}">
+                    View
+                </a>
+                <a class="btn btn-outline-info float-right" href="{{ $tool->home_page_url }}">
+                    Visit website
+                </a>
                 <button type="button" class="btn btn-outline-danger" data-bs-toggle="modal" data-bs-target="#deleteModal">
                     Delete
                 </button>
