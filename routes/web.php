@@ -37,7 +37,7 @@ Route::controller(CategoryController::class)->prefix('category')->name('category
 
 Route::controller(TagController::class)->prefix('tag')->name('tag.')->group(function () {
     Route::get('/', 'index')->name('index');
-    Route::get('{tag:slug}', 'show')->name('show');
+    Route::get('/{tag:slug}', 'show')->name('show');
 });
 
 Route::controller(BlogController::class)->prefix('blog')->name('blog.')->group(function () {
@@ -47,14 +47,15 @@ Route::controller(BlogController::class)->prefix('blog')->name('blog.')->group(f
 
 // !experimental feature
 Route::controller(TopSearchController::class)->prefix('popular')->name('popular.')->group(function () {
-    Route::get('{top_search:slug}', 'show')->name('show');
+    Route::get('/', 'index')->name('index');
+    Route::get('/{top_search:slug}', 'show')->name('show');
 });
 
 Route::controller(SocialAuthController::class)->prefix('auth')->name('auth.')->group(function () {
-    Route::get('login', 'loginPage')->name('login');
-    Route::post('logout', 'logout')->name('logout')->middleware('auth');
-    Route::get('redirect/{social}', 'socialRedirect')->name('redirect');
-    Route::get('callback/{social}', 'socialCallback')->name('callback');
+    Route::get('/login', 'loginPage')->name('login');
+    Route::post('/logout', 'logout')->name('logout')->middleware('auth');
+    Route::get('/redirect/{social}', 'socialRedirect')->name('redirect');
+    Route::get('/callback/{social}', 'socialCallback')->name('callback');
 });
 
 Route::controller(CronJobsController::class)->prefix('cron')->group(function () {
