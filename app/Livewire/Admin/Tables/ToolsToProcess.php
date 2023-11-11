@@ -61,7 +61,9 @@ final class ToolsToProcess extends PowerGridComponent
             /** Example of custom column using a closure **/
             ->addColumn('domain_name_lower', fn ($model) => strtolower(e($model->domain_name)))
 
-            ->addColumn('home_page_url')
+            ->addColumn('home_page_url', function ($model) {
+                return  '<a href="' . $model->home_page_url . '" target="_blank">' . $model->home_page_url . '</a>';
+            })
             ->addColumn('process_status')
             ->addColumn('process_error');
     }
@@ -107,20 +109,21 @@ final class ToolsToProcess extends PowerGridComponent
     public function actions($row): array
     {
         return [
-            Button::add('edit')
-                ->slot('edit')
+            Button::add('Edit')
+                ->slot('Edit')
                 ->class('btn btn-sm btn-outline-primary')
                 ->route('admin.tools-to-process.edit', ['tools_to_process' => $row->id]),
+
+            Button::add('Do not process')
+                ->slot('Do not process')
+                ->class('btn btn-sm btn-outline-danger')
+                ->method('post')
+                ->route('admin.tools-to-process.do-not-process', ['tool_to_process_id' => $row->id]),
+
+            Button::add('Import')
+                ->slot('Import')
+                ->class('btn btn-sm btn-outline-success')
+                ->route('admin.tools.import', ['tool' => $row->id]),
         ];
     }
-
-    // public function actions($row): array
-    // {
-    //     return [
-    //         Button::add('edit')
-    //             ->slot('edit')
-    //             ->class('btn btn-sm btn-outline-primary')
-    //             ->route('admin.categories.edit', ['category' => $row->id]),
-    //     ];
-    // }
 }

@@ -73,4 +73,15 @@ class ToolsToProcessController extends Controller
     {
         //
     }
+
+    public function doNotProcess($id)
+    {
+        $tool = ExtractedToolDomain::find($id);
+
+        $tool->update([
+            'should_process' => 0,
+        ]);
+
+        return redirect()->back()->with('success', $tool->domain_name . ' tool will not be processed');
+    }
 }

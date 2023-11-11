@@ -16,6 +16,9 @@ Route::prefix(config('custom.admin_panel_base_url'))->name('admin.')->middleware
 
     Route::get('tools/import', [ToolImportController::class, 'importForm'])->name('tools.import');
     Route::post('tools/import', [ToolImportController::class, 'import'])->name('tools.importGo');
+    // we can improve this
+    Route::get('tools-to-process/do-not-process/{tool_to_process_id}', [ToolsToProcessController::class, 'doNotProcess'])
+        ->name('tools-to-process.do-not-process');
 
     Route::get('dashboard', DashboardController::class)->name('dashboard');
     Route::resource('users', UserController::class);
