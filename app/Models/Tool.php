@@ -35,13 +35,16 @@ class Tool extends Model implements MeilisearchAble
         'owner_id',
         'contact_email',
 
-        // social handles
+        //social handles
         'instagram_id',
         'tiktok_id',
         'twitter_id',
         'linkedin_id',
         'linkedin_company_id',
         'facebook_id', //profile id
+        'facebook_page_id', // https://www.facebook.com/PublerNation/
+        'dribbble_id',
+        'behance_id',
         'pinterest_id',
         'youtube_channel_id',
         'telegram_channel_id',
@@ -54,6 +57,9 @@ class Tool extends Model implements MeilisearchAble
 
         'chrome_extension_id',
         'firefox_extension_id',
+
+        'window_store_id',
+        'mac_store_id',
 
         //* feature flags
         'has_api',

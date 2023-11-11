@@ -166,6 +166,24 @@ Content of the website is as following:
                                 </a>
                             </p>
                         @endif
+                        @if (!empty($toolSocialHandlesDTO['behanceUserId']))
+                            <p>
+                                <span>Dribbble:</span>
+                                <a target="_blank"
+                                    href="https://dribbble.com/{{ $toolSocialHandlesDTO['behanceUserId'] }}">
+                                    {{ $toolSocialHandlesDTO['behanceUserId'] }}
+                                </a>
+                            </p>
+                        @endif
+                        @if (!empty($toolSocialHandlesDTO['dribbbleUserId']))
+                            <p>
+                                <span>Behance:</span>
+                                <a target="_blank"
+                                    href="https://www.behance.net/{{ $toolSocialHandlesDTO['dribbbleUserId'] }}">
+                                    {{ $toolSocialHandlesDTO['dribbbleUserId'] }}
+                                </a>
+                            </p>
+                        @endif
                         @if (!empty($toolSocialHandlesDTO['linkedinCompanyId']))
                             <p>
                                 <span>Linkedin Company:</span>

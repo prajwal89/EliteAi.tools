@@ -20,6 +20,18 @@
                 name="tiktok_id">
         </div>
         <div class="form-group mb-4">
+            <label class="fw-bold">dribbble_id</label>
+            <input type="text" placeholder=""
+                value="{{ $toolSocialHandlesDTO->dribbbleUserId ?? ($tool->dribbble_id ?? '') }}" class="form-control"
+                name="dribbble_id">
+        </div>
+        <div class="form-group mb-4">
+            <label class="fw-bold">behance_id</label>
+            <input type="text" placeholder=""
+                value="{{ $toolSocialHandlesDTO->behanceUserId ?? ($tool->behance_id ?? '') }}" class="form-control"
+                name="behance_id">
+        </div>
+        <div class="form-group mb-4">
             <label class="fw-bold">linkedin_id</label>
             <input type="text" placeholder="prajwal_hallae" value="{{ $tool->linkedin_id ?? '' }}"
                 class="form-control" name="linkedin_id">

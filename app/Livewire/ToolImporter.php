@@ -41,7 +41,7 @@ class ToolImporter extends Component
         $this->url = rtrim($this->url, '/');
 
         if (Tool::where('domain_name', getDomainFromUrl($this->url))->exists()) {
-            dd('We already have this tool.');
+            // dd('We already have this tool.');
         }
 
         $html = (new WebPageFetcher($this->url))->get()->content;
@@ -56,6 +56,7 @@ class ToolImporter extends Component
         )->toArray();
 
         // dd($this->toolSocialHandlesDTO);
+
         $this->getContentForPrompt($html);
     }
 

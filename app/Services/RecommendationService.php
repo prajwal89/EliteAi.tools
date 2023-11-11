@@ -28,6 +28,7 @@ class RecommendationService
             configs: ['limit' => $toolsLimit]
         );
 
+
         foreach ($results['hits'] as $hit) {
             // *same tool this will always result in 1.00000000
             if ($tool->id == $hit['id']) {

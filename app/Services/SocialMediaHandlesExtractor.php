@@ -34,6 +34,14 @@ class SocialMediaHandlesExtractor
         'facebook' => [
             '/facebook\.com\/profile\.php\?id=([^&]+)/',
         ],
+
+        'dribbble' => [
+            '/dribbble\.com\/([^\/]+)/',
+        ],
+        'behance' => [
+            '/behance\.net\/([^\/]+)/',
+        ],
+
         // https://in.pinterest.com/PublerNation/
         'pinterest' => [
             '/pinterest\.com\/([^\/]+)/',
@@ -61,6 +69,8 @@ class SocialMediaHandlesExtractor
             '/github\.com\/([^\/]+\/[^\/]+)/',
         ],
 
+
+
         // *Extension
         'chrome_extension_id' => [
             '/chrome\.google\.com\/webstore\/detail\/.*?\/([^\/]+)/',
@@ -68,6 +78,8 @@ class SocialMediaHandlesExtractor
         'firefox_extension_id' => [
             '/addons.mozilla.org\/en-US\/firefox\/([^\/]+)/',
         ],
+
+
 
         // *other social handles that requires special handling
         'email' => [
