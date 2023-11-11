@@ -57,8 +57,9 @@ class Tool extends Model implements MeilisearchAble
 
         'chrome_extension_id',
         'firefox_extension_id',
-
+        // https://www.microsoft.com/store/apps/9NNT80B3595S
         'window_store_id',
+        // https://apps.apple.com/us/app/podcast-player-podurama/id1497491520?platform=mac
         'mac_store_id',
 
         //* feature flags

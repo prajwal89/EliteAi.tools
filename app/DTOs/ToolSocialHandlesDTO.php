@@ -22,6 +22,8 @@ class ToolSocialHandlesDTO
 
         public ?string $androidApId = null,
         public ?string $IOSAppID = null,
+        public ?string $windowStoreId = null,
+        public ?string $macStoreId = null,
 
         public ?string $chromeExtensionId = null,
         public ?string $firefoxExtensionId = null,
@@ -50,6 +52,8 @@ class ToolSocialHandlesDTO
 
             androidApId: $array['android_app'] ?? null,
             IOSAppID: $array['ios_app'] ?? null,
+            macStoreId: $array['mac_store_id'] ?? null,
+            windowStoreId: $array['window_store_id'] ?? null,
 
             chromeExtensionId: $array['chrome_extension_id'] ?? null,
             firefoxExtensionId: $array['firefox_extension_id'] ?? null,
@@ -80,6 +84,8 @@ class ToolSocialHandlesDTO
 
             androidApId: $data['androidApId'] ?? null,
             IOSAppID: $data['IOSAppID'] ?? null,
+            macStoreId: $data['macStoreId'] ?? null,
+            windowStoreId: $data['windowStoreId'] ?? null,
 
             chromeExtensionId: $data['chromeExtensionId'] ?? null,
             firefoxExtensionId: $data['firefoxExtensionId'] ?? null,

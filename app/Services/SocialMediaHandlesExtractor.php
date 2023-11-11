@@ -79,6 +79,10 @@ class SocialMediaHandlesExtractor
             '/addons.mozilla.org\/en-US\/firefox\/([^\/]+)/',
         ],
 
+        // https://www.microsoft.com/store/apps/9NNT80B3595S
+        'window_store_id' => [
+            '/microsoft\.com\/store\/apps\/([^\/]+)/',
+        ],
 
 
         // *other social handles that requires special handling
@@ -94,6 +98,9 @@ class SocialMediaHandlesExtractor
         ],
         'ios_app' => [
             'whole_url_pattern' => '/apps\.apple\.com/i',
+        ],
+        'mac_store_id' => [
+            'whole_url_pattern' => '/apps.apple.com\/us\/app\//',
         ],
     ];
 
@@ -115,7 +122,10 @@ class SocialMediaHandlesExtractor
                     if (preg_match($pattern, $href, $matches)) {
                         // Extracted a handle for the current platform
                         $handle = end($matches);
-                        $socialHandles[$platform] = str($handle)->trim()->before('?');
+                        $socialHandles[$platform] = str($handle)
+                            ->trim()
+                            ->before('?')
+                            ->toString();
                         break;
                     }
                 }
@@ -166,6 +176,13 @@ class SocialMediaHandlesExtractor
                 } elseif ($platform === 'ios_app' && preg_match('/id(\d+)/', $href, $matches)) {
                     if (preg_match($data['whole_url_pattern'], $href)) {
                         $socialHandles[$platform] = 'id' .  trim($matches[1]);
+                    }
+                } elseif ($platform === 'mac_store_id' && preg_match('/id(\d+)/', $href, $matches)) {
+                    if (preg_match($data['whole_url_pattern'], $href)) {
+                        // https://apps.apple.com/us/app/podcast-player-podurama/id1497491520?platform=mac
+                        if (str($href)->contains('platform=mac')) {
+                            $socialHandles[$platform] = 'id' .  trim($matches[1]);
+                        }
                     }
                 }
             }

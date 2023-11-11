@@ -82,6 +82,8 @@ class ToolController extends Controller
 
                 'ios_app_id' => $request->ios_app_id,
                 'android_app_id' => $request->android_app_id,
+                'window_store_id' => $request->window_store_id,
+                'mac_store_id' => $request->mac_store_id,
 
                 'chrome_extension_id' => $request->chrome_extension_id,
                 'firefox_extension_id' => $request->firefox_extension_id,
@@ -231,6 +233,8 @@ class ToolController extends Controller
 
                 'ios_app_id' => $request->ios_app_id,
                 'android_app_id' => $request->android_app_id,
+                'window_store_id' => $request->window_store_id,
+                'mac_store_id' => $request->mac_store_id,
 
                 'chrome_extension_id' => $request->chrome_extension_id,
                 'firefox_extension_id' => $request->firefox_extension_id,

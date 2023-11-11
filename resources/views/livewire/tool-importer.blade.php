@@ -201,24 +201,6 @@ Content of the website is as following:
                                 </a>
                             </p>
                         @endif
-                        @if (!empty($toolSocialHandlesDTO['androidApId']))
-                            <p>
-                                <span>Android App:</span>
-                                <a target="_blank"
-                                    href="https://play.google.com/store/apps/details?id={{ $toolSocialHandlesDTO['androidApId'] }}">
-                                    {{ $toolSocialHandlesDTO['androidApId'] }}
-                                </a>
-                            </p>
-                        @endif
-                        @if (!empty($toolSocialHandlesDTO['IOSAppID']))
-                            <p>
-                                <span>IOS App:</span>
-                                <a target="_blank"
-                                    href="https://apps.apple.com/app/{{ $toolSocialHandlesDTO['IOSAppID'] }}">
-                                    {{ $toolSocialHandlesDTO['IOSAppID'] }}
-                                </a>
-                            </p>
-                        @endif
                         @if (!empty($toolSocialHandlesDTO['telegramChannelId']))
                             <p>
                                 <span>telegramChannelId:</span>
@@ -255,6 +237,8 @@ Content of the website is as following:
                                 </a>
                             </p>
                         @endif
+
+
                         @if (!empty($toolSocialHandlesDTO['chromeExtensionId']))
                             <p>
                                 <span>chromeExtensionId:</span>
@@ -273,6 +257,49 @@ Content of the website is as following:
                                 </a>
                             </p>
                         @endif
+
+
+                        @if (!empty($toolSocialHandlesDTO['androidApId']))
+                            <p>
+                                <span>Android App:</span>
+                                <a target="_blank"
+                                    href="https://play.google.com/store/apps/details?id={{ $toolSocialHandlesDTO['androidApId'] }}">
+                                    {{ $toolSocialHandlesDTO['androidApId'] }}
+                                </a>
+                            </p>
+                        @endif
+                        @if (!empty($toolSocialHandlesDTO['IOSAppID']))
+                            <p>
+                                <span>IOS App:</span>
+                                <a target="_blank"
+                                    href="https://apps.apple.com/app/{{ $toolSocialHandlesDTO['IOSAppID'] }}">
+                                    {{ $toolSocialHandlesDTO['IOSAppID'] }}
+                                </a>
+                            </p>
+                        @endif
+
+
+                        @if (!empty($toolSocialHandlesDTO['windowStoreId']))
+                            <p>
+                                <span>Windows App:</span>
+                                <a target="_blank"
+                                    href="https://www.microsoft.com/store/apps/{{ $toolSocialHandlesDTO['windowStoreId'] }}">
+                                    {{ $toolSocialHandlesDTO['windowStoreId'] }}
+                                </a>
+                            </p>
+                        @endif
+                        @if (!empty($toolSocialHandlesDTO['macStoreId']))
+                            <p>
+                                <span>Mac App:</span>
+                                <a target="_blank"
+                                    href="https://apps.apple.com/app/{{ $toolSocialHandlesDTO['macStoreId'] }}">
+                                    {{ $toolSocialHandlesDTO['macStoreId'] }}
+                                </a>
+                            </p>
+                        @endif
+
+
+
                     </div>
 
                     <div class="form-group mb-4">

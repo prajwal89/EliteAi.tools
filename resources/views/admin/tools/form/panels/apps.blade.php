@@ -13,5 +13,15 @@
                 value="{{ $toolSocialHandlesDTO->IOSAppID ?? ($tool->ios_app_id ?? '') }}" class="form-control"
                 name="ios_app_id">
         </div>
+        <div class="form-group mb-4">
+            <label class="fw-bold">window_store_id</label>
+            <input type="text" value="{{ $toolSocialHandlesDTO->windowStoreId ?? ($tool->window_store_id ?? '') }}"
+                class="form-control" name="window_store_id">
+        </div>
+        <div class="form-group mb-4">
+            <label class="fw-bold">mac_store_id</label>
+            <input type="text" value="{{ $toolSocialHandlesDTO->macStoreId ?? ($tool->mac_store_id ?? '') }}"
+                class="form-control" name="mac_store_id">
+        </div>
     </div>
 </div>

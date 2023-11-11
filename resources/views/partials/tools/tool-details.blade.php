@@ -302,17 +302,33 @@
         </div>
     @endif
 
-    @if (!empty($tool->android_app_id) || !empty($tool->ios_app_id))
-        <div class="flex items-center gap-1 py-2">
+    @if (
+        !empty($tool->android_app_id) ||
+            !empty($tool->ios_app_id) ||
+            !empty($tool->window_store_id) ||
+            !empty($tool->mac_store_id))
+        <div class="flex items-center flex-wrap gap-1 py-2">
             <strong>Apps:</strong>
             @if (!empty($tool->android_app_id))
                 <a target="_blank" href="https://play.google.com/store/apps/details?id={{ $tool->android_app_id }}">
-                    <img class="h-8" src="{{ asset('/images/play-store-logo.png') }}" alt="Playstore Logo">
+                    <img class="h-8" src="{{ asset('/images/social/google-play-store.svg') }}"
+                        alt="Playstore Logo">
                 </a>
             @endif
             @if (!empty($tool->ios_app_id))
                 <a target="_blank" href="https://apps.apple.com/app/{{ $tool->ios_app_id }}">
-                    <img class="h-10" src="{{ asset('/images/app-store-logo.png') }}" alt="AppStore Logo">
+                    <img class="h-8" src="{{ asset('/images/social/ios-app-store.svg') }}" alt="AppStore Logo">
+                </a>
+            @endif
+            @if (!empty($tool->window_store_id))
+                <a target="_blank" href="https://www.microsoft.com/store/apps/{{ $tool->window_store_id }}">
+                    <img class="h-16" style="height: 96px"
+                        src="{{ asset('/images/social/windows-app-store.svg') }}" alt="Windows store logo">
+                </a>
+            @endif
+            @if (!empty($tool->mac_store_id))
+                <a target="_blank" href="https://apps.apple.com/app/{{ $tool->mac_store_id }}?platform=mac">
+                    <img class="h-8" src="{{ asset('/images/social/mac-app-store.svg') }}" alt="Mac store logo">
                 </a>
             @endif
         </div>
