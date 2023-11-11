@@ -76,7 +76,7 @@ class SocialMediaHandlesExtractor
             '/chrome\.google\.com\/webstore\/detail\/.*?\/([^\/]+)/',
         ],
         'firefox_extension_id' => [
-            '/addons.mozilla.org\/en-US\/firefox\/([^\/]+)/',
+            '/addons.mozilla.org\/en-US\/firefox\/addon\/([^\/]+)/',
         ],
 
         // https://www.microsoft.com/store/apps/9NNT80B3595S

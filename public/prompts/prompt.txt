@@ -51,8 +51,8 @@ Choose from options ({{ $pricingTypeString }})
    Other: If you cannot decide choose this option
 
 monthly_subscription_starts_from:
- This is an integer field. 
- get lowest monthly plan amount. If their is no mention add Null
+ This is an integer or null field. 
+ get lowest monthly plan amount. If their is no amount available keep value as null
 
 categories: 
 Choose multiple categories from these ({{ $categoriesString }})
