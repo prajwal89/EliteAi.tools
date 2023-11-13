@@ -1,0 +1,73 @@
+I will give you the content of the AI tool website. after that, you will return JSON
+
+Your response JSON format is
+{
+    "name":"",
+    "tag_line",""
+    "summary":"",
+    "description":"",
+    "top_features":["",""]
+    "use_cases":["",""]
+    "related_searches":["",""]
+    "pricing_type":"",
+    "monthly_subscription_starts_from":"",
+    "categories":["",""],
+    "tags":["",""]
+    "has_api":"",
+    "has_documentation":"",
+}
+
+where
+
+name:
+Name of the tool
+
+tag_line:
+The tag line of the tool
+
+summary:
+Short summary of the AI tool for SERP description.
+
+description:
+This HTML string which gives the description of the AI tool.
+write this in third person.
+use proper HTML tags if needed.
+make it long if needed
+
+top_features:
+an array of features. like "feature name: feature details"
+
+use_cases:
+an array of possible use cases of this AI tool.
+
+related_searches:
+an array of possible general search terms for this tool.
+should be greater than 2 words and can go up to 7 words.
+
+pricing_type:
+Choose from options ({{ $pricingTypeString }}) 
+  Where
+{{ $explainPricingTypes }}
+
+monthly_subscription_starts_from:
+ This is an integer or null field. 
+ get the lowest monthly plan amount. 
+ If there is no amount available keep the value null.
+
+categories:
+Choose multiple categories from these ({{ $categoriesString }})
+
+tags:
+auto-generated tags max 10 tags and do not include categories in these tags
+
+has_api:
+This is a boolean field choose between (true, false)
+
+has_documentation:
+This is a boolean field choose between (true, false)
+
+
+extra instructions
+you should write this with SEO in mind.
+use formal tone.
+do not add extra information by yourself.

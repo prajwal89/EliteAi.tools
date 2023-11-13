@@ -118,8 +118,16 @@ class ExtractedToolProcessor
 
         $pricingTypeString = collect(PricingType::values())->implode(', ');
 
+        $explainPricingTypes = '';
+        foreach (PricingType::cases() as $pricingType) {
+            $explainPricingTypes .= str_repeat(" ", 4) . $pricingType->value . ": " . $pricingType->explain() . "\n";
+        }
+
+        // dd($explainPricingTypes);
+
         return str(file_get_contents($systemPromptTxtFileLocation))
             ->replace('{{ $categoriesString }}', $categoriesString)
-            ->replace('{{ $pricingTypeString }}', $pricingTypeString);
+            ->replace('{{ $pricingTypeString }}', $pricingTypeString)
+            ->replace('{{ $explainPricingTypes }}', $explainPricingTypes);
     }
 }

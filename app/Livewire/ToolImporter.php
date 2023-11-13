@@ -34,8 +34,10 @@ class ToolImporter extends Component
     public function mount()
     {
         $this->promptForSystem = ExtractedToolProcessor::buildSystemPrompt(
-            public_path('/prompts/prompt.txt')
+            public_path('/prompts/prompt-1.txt')
         );
+
+        // dd($this->promptForSystem);
 
         if (!empty($this->tool_to_process_id)) {
             $tool = ExtractedToolDomain::find($this->tool_to_process_id);
@@ -72,7 +74,7 @@ class ToolImporter extends Component
     public function getResponseFromOpenAi()
     {
         $prompt = $this->promptForSystem;
-        $prompt .= "\n\nContent of the website as follows:\n\n";
+        $prompt .= "\n\nThe content of the website is as follows:\n\n";
         $prompt .= $this->contentForPrompt;
 
         // dd($prompt);
@@ -94,13 +96,14 @@ class ToolImporter extends Component
                 ],
             ]);
 
+            Log::info($response->choices[0]->message->content);
+
             $this->responseJson = str($response->choices[0]->message->content)
                 ->trim()
                 ->ltrim('```json')
                 ->rtrim('```')
                 ->toString();
 
-            Log::info($this->responseJson);
 
             try {
                 if (empty(ToolDTO::fromJson($this->responseJson))) {
