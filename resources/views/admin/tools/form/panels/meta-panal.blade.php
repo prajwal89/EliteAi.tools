@@ -138,7 +138,8 @@
 
         <div class="form-group mb-4">
             <label class="fw-bold">pay_once_price_starts_from (in dollars)</label>
-            <input type="number" class="form-control" name="pay_once_price_starts_from">
+            <input type="number" class="form-control" value="{{ $tool->pay_once_price_starts_from ?? '' }}"
+                name="pay_once_price_starts_from">
         </div>
     </div>
 </div>

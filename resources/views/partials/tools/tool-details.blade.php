@@ -36,7 +36,7 @@
         @if ($tool->pay_once_price_starts_from)
             <div
                 class="flex items-center cursor-pointer gap-0.5 bg-gray-100 shadow-sm text-black px-2 py-0.5 rounded-full">
-                Pay once <strong class="text-xl">{{ $tool->pay_once_price_starts_from }}$</strong>
+                Pay Once <strong class="text-xl">{{ $tool->pay_once_price_starts_from }}$</strong>
             </div>
         @endif
     </div>

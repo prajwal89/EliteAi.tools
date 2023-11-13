@@ -60,7 +60,7 @@
             @if ($tool->pay_once_price_starts_from)
                 <li title="Pay once pricing starts from"
                     class="flex items-center cursor-pointer gap-0.5 bg-gray-100 text-black px-2 py-0.5 rounded-full">
-                    Pay once <strong>{{ $tool->pay_once_price_starts_from }}$</strong>
+                    Pay Once <strong>{{ $tool->pay_once_price_starts_from }}$</strong>
                 </li>
             @endif
 
