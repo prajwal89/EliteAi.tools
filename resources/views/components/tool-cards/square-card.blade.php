@@ -51,14 +51,21 @@
             </li>
 
             @if ($tool->monthly_subscription_starts_from)
-                <li title="Support for API"
+                <li title="Monthly subscription starts from"
                     class="flex items-center cursor-pointer gap-0.5 bg-gray-100 text-black px-2 py-0.5 rounded-full">
                     From <strong>{{ $tool->monthly_subscription_starts_from }}$</strong>
                 </li>
             @endif
 
+            @if ($tool->pay_once_price_starts_from)
+                <li title="Pay once pricing starts from"
+                    class="flex items-center cursor-pointer gap-0.5 bg-gray-100 text-black px-2 py-0.5 rounded-full">
+                    Pay once <strong>{{ $tool->pay_once_price_starts_from }}$</strong>
+                </li>
+            @endif
+
             @if ($tool->has_api)
-                <li title="Support for API"
+                <li title="Has API support"
                     class="flex items-center cursor-pointer gap-0.5 bg-gray-100 text-black px-2 py-0.5 rounded-full">
                     <svg class="w-4 h-4" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none">
                         <path

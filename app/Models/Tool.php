@@ -29,6 +29,7 @@ class Tool extends Model implements MeilisearchAble
         'domain_name',
         'pricing_type',
         'monthly_subscription_starts_from',
+        'pay_once_price_starts_from',
         'home_page_url',
         'uploaded_screenshot',
         'uploaded_favicon',

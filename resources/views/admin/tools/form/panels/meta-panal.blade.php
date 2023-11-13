@@ -130,10 +130,15 @@
         </div>
 
         <div class="form-group mb-4">
-            <label class="fw-bold">monthly_subscription_starts_from (in dollers)</label>
+            <label class="fw-bold">monthly_subscription_starts_from (in dollars)</label>
             <input type="number" class="form-control"
                 value="{{ $tool->monthly_subscription_starts_from ?? ($toolDto->monthlySubscriptionStartsFrom ?? '') }}"
                 name="monthly_subscription_starts_from">
+        </div>
+
+        <div class="form-group mb-4">
+            <label class="fw-bold">pay_once_price_starts_from (in dollars)</label>
+            <input type="number" class="form-control" name="pay_once_price_starts_from">
         </div>
     </div>
 </div>

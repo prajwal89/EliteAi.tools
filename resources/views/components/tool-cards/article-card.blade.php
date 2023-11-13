@@ -35,11 +35,18 @@
             <span>{{ $tool->pricing_type }}</span>
         </div>
         @if ($tool->monthly_subscription_starts_from)
-            <div
+            <div title="Monthly subscription starts from"
                 class="flex items-center cursor-pointer gap-0.5 bg-gray-100 shadow-sm text-black px-2 py-0.5 rounded-full">
                 Starts from <strong class="text-xl">{{ $tool->monthly_subscription_starts_from }}$</strong>
             </div>
         @endif
+        @if ($tool->pay_once_price_starts_from)
+            <div title="Pay once pricing starts from"
+                class="flex items-center cursor-pointer gap-0.5 bg-gray-100 shadow-sm text-black px-2 py-0.5 rounded-full">
+                Pay once <strong class="text-xl">{{ $tool->pay_once_price_starts_from }}$</strong>
+            </div>
+        @endif
+        {{-- todo add has api feature flag --}}
     </div>
 
     <div class="text-lg py-2">
