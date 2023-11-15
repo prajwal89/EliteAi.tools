@@ -7,6 +7,7 @@ use App\Jobs\UpdateSemanticDistanceBetweenTopSearchAndToolJob;
 use App\Jobs\UpdateVectorEmbeddingsJob;
 use App\Models\TopSearch;
 use App\Models\TopSearchToolSemanticScore;
+use Exception;
 
 class TopSearchService
 {
@@ -28,6 +29,10 @@ class TopSearchService
     public static function saveSemanticDistanceBetweenTopSearchAndTools(
         TopSearch $topSearch,
     ): bool {
+
+        if (empty($topSearch->_vectors)) {
+            throw new Exception('Vectors are not calculated for TopSearch: ' . $topSearch->id);
+        }
 
         $tools = MeilisearchService::vectorSearch(
             table: SearchAbleTable::TOOL,

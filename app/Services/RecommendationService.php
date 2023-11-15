@@ -9,6 +9,7 @@ use App\Enums\SearchAbleTable;
 use App\Models\SemanticScore;
 use App\Models\Tool;
 use App\ValueObjects\SemanticScore as ValueObjectsSemanticScore;
+use Exception;
 use Illuminate\Support\Collection;
 
 class RecommendationService
@@ -22,6 +23,12 @@ class RecommendationService
         Tool $tool,
         int $toolsLimit = 500,
     ) {
+        if (empty($tool->_vectors)) {
+            // we need to calculated b.c this will run multiple times
+            throw new Exception('Vectors are not calculated for tool: ' . $tool->id);
+        }
+        // todo we can send already calculated vectors here
+        // todo move this function in service class
         $results = MeilisearchService::vectorSearch(
             table: SearchAbleTable::TOOL,
             query: $tool->getParagraphForVectorEmbeddings(),

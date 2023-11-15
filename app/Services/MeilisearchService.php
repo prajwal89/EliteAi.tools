@@ -225,9 +225,12 @@ class MeilisearchService
             throw new InvalidArgumentException('query or vectors required for performing a search');
         }
 
-        if (!empty($vectors)) {
+        if (count($vectors) > 1) {
             $configs['vector'] = $vectors;
         } else {
+            if (empty($query)) {
+                throw new InvalidArgumentException('Query is not available search');
+            }
             $configs['vector'] = MeilisearchService::getVectorEmbeddings($query, config('custom.current_embedding_model'));
         }
 
