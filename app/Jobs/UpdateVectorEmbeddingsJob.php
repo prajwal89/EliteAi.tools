@@ -29,7 +29,7 @@ class UpdateVectorEmbeddingsJob implements ShouldQueue
 
     public function handle(): void
     {
-        // this wil update embeddings on DB as well as meilisearch index if available
+        // this will update embeddings on DB as well as meilisearch index if available
         match (get_class($this->model)) {
             Tool::class => ToolServices::updateVectorEmbeddings($this->model),
             Blog::class => BlogService::updateVectorEmbeddings($this->model),
