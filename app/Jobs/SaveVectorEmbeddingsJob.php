@@ -19,7 +19,7 @@ use InvalidArgumentException;
 /**
  * Update vector embedding of given model instance
  */
-class UpdateVectorEmbeddingsJob implements ShouldQueue
+class SaveVectorEmbeddingsJob implements ShouldQueue
 {
     use Dispatchable, InteractsWithQueue, Queueable, SerializesModels;
 

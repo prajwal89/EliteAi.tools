@@ -120,7 +120,7 @@ class ExtractedToolProcessor
 
         $explainPricingTypes = '';
         foreach (PricingType::cases() as $pricingType) {
-            $explainPricingTypes .= str_repeat(" ", 4) . $pricingType->value . ": " . $pricingType->explain() . "\n";
+            $explainPricingTypes .= str_repeat(' ', 4) . $pricingType->value . ': ' . $pricingType->explain() . "\n";
         }
 
         // dd($explainPricingTypes);

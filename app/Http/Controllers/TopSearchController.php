@@ -11,7 +11,6 @@ use Illuminate\Support\Facades\DB;
 
 class TopSearchController extends Controller
 {
-
     public function index()
     {
         // Blogs what matches criteria for indexing on google

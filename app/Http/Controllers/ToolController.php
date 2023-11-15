@@ -7,7 +7,6 @@ use App\Models\Category;
 use App\Models\Tool;
 use App\Services\RecommendationService;
 use Illuminate\Http\Request;
-use Illuminate\Support\Facades\DB;
 use Illuminate\View\View;
 
 class ToolController extends Controller
@@ -22,7 +21,7 @@ class ToolController extends Controller
             'categories',
             'tags' => function ($query) {
                 $query->withCount('tools');
-            }
+            },
         ])->where('slug', $slug)->firstOrFail();
 
         $relatedTools = RecommendationService::baseOnSemanticScores(

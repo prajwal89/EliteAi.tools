@@ -10,14 +10,12 @@ use App\Enums\SearchAbleTable;
 use App\Jobs\UpdateSemanticDistanceBetweenBlogAndToolJob;
 use App\Models\Blog;
 use App\Models\Tool;
-use App\Models\TopSearch;
 use App\Models\TopSearchToolSemanticScore;
 use App\Services\BlogService;
 use App\Services\MeilisearchService;
 use App\Services\RecommendationService;
 use App\Services\SocialMediaHandlesExtractor;
 use App\Services\ToolServices;
-use App\Services\TopSearchService;
 use App\Services\WebPageFetcher;
 use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Http;
@@ -50,7 +48,6 @@ class TestController extends Controller
             ->get();
 
         dd($blogTools);
-
 
         BlogService::updateVectorEmbeddings(Blog::find(3));
 

@@ -3,7 +3,6 @@
 namespace App\Http\Controllers;
 
 use App\DTOs\PageDataDTO;
-use App\Models\Category;
 use App\Models\Tool;
 use App\Services\RecommendationService;
 use Illuminate\Http\Request;
@@ -47,7 +46,6 @@ class ToolAlternativesController extends Controller
             ->groupBy('tool1.id')
             ->get()
             ->pluck('tool_id');
-
 
         $allTools = Tool::whereIn('id', $qualifiedAlternativeToolPages)->get();
 

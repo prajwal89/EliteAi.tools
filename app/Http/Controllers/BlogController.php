@@ -10,8 +10,6 @@ use Illuminate\Support\Facades\DB;
 
 class BlogController extends Controller
 {
-
-
     public function index()
     {
         // Blogs what matches criteria for indexing on google
@@ -36,7 +34,6 @@ class BlogController extends Controller
             ),
         ]);
     }
-
 
     public function show(string $slug)
     {

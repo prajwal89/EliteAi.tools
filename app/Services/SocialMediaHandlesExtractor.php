@@ -73,8 +73,6 @@ class SocialMediaHandlesExtractor
             '/github\.com\/([^\/]+\/[^\/]+)/',
         ],
 
-
-
         // *Extension
         'chrome_extension_id' => [
             '/chrome\.google\.com\/webstore\/detail\/.*?\/([^\/]+)/',
@@ -87,7 +85,6 @@ class SocialMediaHandlesExtractor
         'window_store_id' => [
             '/microsoft\.com\/store\/apps\/([^\/]+)/',
         ],
-
 
         // *other social handles that requires special handling
         'email' => [

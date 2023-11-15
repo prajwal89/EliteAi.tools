@@ -104,7 +104,6 @@ class ToolImporter extends Component
                 ->rtrim('```')
                 ->toString();
 
-
             try {
                 if (empty(ToolDTO::fromJson($this->responseJson))) {
                     $this->jsonParseStatus = -1;

@@ -62,7 +62,7 @@ final class ToolsToProcess extends PowerGridComponent
             ->addColumn('domain_name_lower', fn ($model) => strtolower(e($model->domain_name)))
 
             ->addColumn('home_page_url', function ($model) {
-                return  '<a href="' . $model->home_page_url . '" target="_blank">' . $model->home_page_url . '</a>';
+                return '<a href="' . $model->home_page_url . '" target="_blank">' . $model->home_page_url . '</a>';
             })
             ->addColumn('process_status')
             ->addColumn('process_error');
@@ -114,7 +114,6 @@ final class ToolsToProcess extends PowerGridComponent
                 ->slot('Import')
                 ->class('btn btn-sm btn-outline-success')
                 ->route('admin.tools.import', ['tool_to_process_id' => $row->id]),
-
 
             Button::add('Edit')
                 ->slot('Edit')

@@ -3,8 +3,8 @@
 namespace App\Services;
 
 use App\Enums\SearchAbleTable;
+use App\Jobs\SaveVectorEmbeddingsJob;
 use App\Jobs\UpdateSemanticDistanceBetweenTopSearchAndToolJob;
-use App\Jobs\UpdateVectorEmbeddingsJob;
 use App\Models\TopSearch;
 use App\Models\TopSearchToolSemanticScore;
 use Exception;
@@ -19,9 +19,9 @@ class TopSearchService
         ]);
 
         // ! if this fails semantic distance will not work is vectors are not updated
-        // dispatch(new UpdateVectorEmbeddingsJob($topSearch));
+        dispatch(new SaveVectorEmbeddingsJob($topSearch));
 
-        TopSearchService::updateVectorEmbeddings($topSearch);
+        // TopSearchService::updateVectorEmbeddings($topSearch);
 
         dispatch(new UpdateSemanticDistanceBetweenTopSearchAndToolJob($topSearch));
 
@@ -38,7 +38,11 @@ class TopSearchService
 
         $tools = MeilisearchService::vectorSearch(
             table: SearchAbleTable::TOOL,
-            vectors: $topSearch->_vectors //already calculated vectors
+            vectors: $topSearch->_vectors, //already calculated vectors
+            configs: [
+                'limit' => 100,
+                'attributesToRetrieve' => ['id', 'name'],
+            ]
         );
 
         foreach ($tools['hits'] as $tool) {

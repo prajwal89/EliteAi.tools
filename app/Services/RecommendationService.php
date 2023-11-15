@@ -32,9 +32,11 @@ class RecommendationService
         $results = MeilisearchService::vectorSearch(
             table: SearchAbleTable::TOOL,
             query: $tool->getParagraphForVectorEmbeddings(),
-            configs: ['limit' => $toolsLimit]
+            configs: [
+                'limit' => $toolsLimit,
+                'attributesToRetrieve' => ['id', 'name'],
+            ]
         );
-
 
         foreach ($results['hits'] as $hit) {
             // *same tool this will always result in 1.00000000

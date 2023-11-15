@@ -17,7 +17,7 @@ class ToolDTO
         public array $relatedSearches,
         public bool $hasApi,
         public PricingType $pricingType,
-        public ?int $monthlySubscriptionStartsFrom = null,
+        public ?int $monthlySubscriptionStartsFrom,
         public array $categories,
         public array $tags,
     ) {

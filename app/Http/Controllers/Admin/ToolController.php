@@ -6,9 +6,9 @@ use App\Enums\BlogType;
 use App\Enums\SearchAbleTable;
 use App\Http\Controllers\Controller;
 use App\Jobs\SaveSemanticDistanceForToolJob;
+use App\Jobs\SaveVectorEmbeddingsJob;
 use App\Jobs\UpdateSemanticDistanceBetweenBlogAndToolJob;
 use App\Jobs\UpdateSemanticDistanceBetweenTopSearchAndToolJob;
-use App\Jobs\UpdateVectorEmbeddingsJob;
 use App\Models\Blog;
 use App\Models\Tag;
 use App\Models\Tool;
@@ -148,7 +148,7 @@ class ToolController extends Controller
         // todo use pipeline
         MeilisearchService::indexDocument(SearchAbleTable::TOOL, $tool->id);
 
-        dispatch(new UpdateVectorEmbeddingsJob($tool));
+        dispatch(new SaveVectorEmbeddingsJob($tool));
 
         dispatch(new SaveSemanticDistanceForToolJob($tool));
 
@@ -274,7 +274,7 @@ class ToolController extends Controller
 
         MeilisearchService::indexDocument(SearchAbleTable::TOOL, $tool->id);
 
-        dispatch(new UpdateVectorEmbeddingsJob($tool));
+        dispatch(new SaveVectorEmbeddingsJob($tool));
 
         dispatch(new SaveSemanticDistanceForToolJob($tool));
 
