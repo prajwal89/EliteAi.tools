@@ -13,7 +13,7 @@ class BlogService
         Blog $blog,
     ): bool {
 
-        if (empty($blog->_vectors)) {
+        if (empty($blog->_vectors) || count($blog->_vectors) < 1) {
             throw new Exception('Vectors are not calculated for blog: ' . $blog->id);
         }
 
