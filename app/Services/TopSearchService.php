@@ -19,9 +19,9 @@ class TopSearchService
         ]);
 
         // ! if this fails semantic distance will not work is vectors are not updated
-        dispatch(new SaveVectorEmbeddingsJob($topSearch));
+        // dispatch(new SaveVectorEmbeddingsJob($topSearch));
 
-        // TopSearchService::updateVectorEmbeddings($topSearch);
+        TopSearchService::updateVectorEmbeddings($topSearch);
 
         dispatch(new SaveSemanticDistanceBetweenTopSearchAndToolJob($topSearch));
 
