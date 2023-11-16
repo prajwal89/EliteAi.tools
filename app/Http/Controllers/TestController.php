@@ -130,19 +130,19 @@ class TestController extends Controller
     public function saveSemanticDistanceForAllTools()
     {
         foreach (Tool::offset(0)->limit(20)->get() as $tool) {
-            $results = RecommendationService::saveSemanticDistanceFor($tool);
+            $results = ToolServices::saveSemanticDistanceBetweenToolAndTools($tool);
             // dd($results);
         }
         dump('done upto 20');
 
         foreach (Tool::offset(20)->limit(20)->get() as $tool) {
-            $results = RecommendationService::saveSemanticDistanceFor($tool);
+            $results = ToolServices::saveSemanticDistanceBetweenToolAndTools($tool);
             // dd($results);
         }
         dump('done upto 40');
 
         foreach (Tool::offset(40)->limit(20)->get() as $tool) {
-            $results = RecommendationService::saveSemanticDistanceFor($tool);
+            $results = ToolServices::saveSemanticDistanceBetweenToolAndTools($tool);
             // dd($results);
         }
         dump('done upto 60');

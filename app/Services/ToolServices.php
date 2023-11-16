@@ -3,7 +3,9 @@
 namespace App\Services;
 
 use App\Enums\SearchAbleTable;
+use App\Models\SemanticScore;
 use App\Models\Tool;
+use Exception;
 use Illuminate\Http\UploadedFile;
 use Illuminate\Support\Facades\File;
 use Intervention\Image\Facades\Image;
@@ -96,5 +98,47 @@ class ToolServices
                 '_vectors' => $embeddings,
             ]
         );
+    }
+
+    /**
+     * Save distance of $toolId relative to all other tools
+     *
+     * @return void
+     */
+    public static function saveSemanticDistanceBetweenToolAndTools(
+        Tool $tool,
+        int $toolsLimit = 500,
+    ) {
+        if (empty($tool->_vectors)  || count($tool->_vectors) < 1) {
+            // we need to calculated b.c this will run multiple times
+            throw new Exception('Vectors are not calculated for tool: ' . $tool->id);
+        }
+        // todo we can send already calculated vectors here
+        // todo move this function in service class
+        $results = MeilisearchService::vectorSearch(
+            table: SearchAbleTable::TOOL,
+            query: $tool->getParagraphForVectorEmbeddings(),
+            configs: [
+                'limit' => $toolsLimit,
+                'attributesToRetrieve' => ['id', 'name'],
+            ]
+        );
+
+        foreach ($results['hits'] as $hit) {
+            // *same tool this will always result in 1.00000000
+            if ($tool->id == $hit['id']) {
+                continue;
+            }
+
+            SemanticScore::updateOrCreate([
+                'tool1_id' => min($tool->id, $hit['id']),
+                'tool2_id' => max($tool->id, $hit['id']),
+            ], [
+                'score' => $hit['_semanticScore'],
+                'model_type' => config('custom.current_embedding_model')->value,
+            ]);
+        }
+
+        return $results;
     }
 }

@@ -32,7 +32,7 @@ class TopSearchService
         TopSearch $topSearch,
     ): bool {
 
-        if (empty($topSearch->_vectors)) {
+        if (empty($topSearch->_vectors) || count($topSearch->_vectors) < 1) {
             throw new Exception('Vectors are not calculated for TopSearch: ' . $topSearch->id);
         }
 
