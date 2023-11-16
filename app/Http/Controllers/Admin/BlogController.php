@@ -4,7 +4,7 @@ namespace App\Http\Controllers\Admin;
 
 use App\Http\Controllers\Controller;
 use App\Jobs\SaveVectorEmbeddingsJob;
-use App\Jobs\UpdateSemanticDistanceBetweenBlogAndToolJob;
+use App\Jobs\SaveSemanticDistanceBetweenBlogAndToolJob;
 use App\Models\Blog;
 use App\Models\User;
 use Illuminate\Http\Request;
@@ -43,7 +43,7 @@ class BlogController extends Controller
 
         dispatch(new SaveVectorEmbeddingsJob($blog));
 
-        dispatch(new UpdateSemanticDistanceBetweenBlogAndToolJob($blog));
+        dispatch(new SaveSemanticDistanceBetweenBlogAndToolJob($blog));
 
         return redirect()
             ->route('admin.blogs.edit', ['blog' => $blog->id])
@@ -86,7 +86,7 @@ class BlogController extends Controller
 
         dispatch(new SaveVectorEmbeddingsJob($blog));
 
-        dispatch(new UpdateSemanticDistanceBetweenBlogAndToolJob($blog));
+        dispatch(new SaveSemanticDistanceBetweenBlogAndToolJob($blog));
 
         return redirect()
             ->back()

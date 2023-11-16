@@ -10,7 +10,7 @@ use Illuminate\Foundation\Bus\Dispatchable;
 use Illuminate\Queue\InteractsWithQueue;
 use Illuminate\Queue\SerializesModels;
 
-class UpdateSemanticDistanceBetweenTopSearchAndToolJob implements ShouldQueue
+class SaveSemanticDistanceBetweenTopSearchAndToolJob  implements ShouldQueue
 {
     use Dispatchable, InteractsWithQueue, Queueable, SerializesModels;
 

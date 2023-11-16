@@ -5,10 +5,10 @@ namespace App\Http\Controllers\Admin;
 use App\Enums\BlogType;
 use App\Enums\SearchAbleTable;
 use App\Http\Controllers\Controller;
-use App\Jobs\SaveSemanticDistanceForToolJob;
+use App\Jobs\SaveSemanticDistanceBetweenToolAndToolJob;
 use App\Jobs\SaveVectorEmbeddingsJob;
-use App\Jobs\UpdateSemanticDistanceBetweenBlogAndToolJob;
-use App\Jobs\UpdateSemanticDistanceBetweenTopSearchAndToolJob;
+use App\Jobs\SaveSemanticDistanceBetweenBlogAndToolJob;
+use App\Jobs\SaveSemanticDistanceBetweenTopSearchAndToolJob;
 use App\Models\Blog;
 use App\Models\Tag;
 use App\Models\Tool;
@@ -150,14 +150,14 @@ class ToolController extends Controller
 
         dispatch(new SaveVectorEmbeddingsJob($tool));
 
-        dispatch(new SaveSemanticDistanceForToolJob($tool));
+        dispatch(new SaveSemanticDistanceBetweenToolAndToolJob($tool));
 
         Blog::where('blog_type', BlogType::SEMANTIC_SCORE->value)->get()->map(function ($blog) {
-            dispatch(new UpdateSemanticDistanceBetweenBlogAndToolJob($blog));
+            dispatch(new SaveSemanticDistanceBetweenBlogAndToolJob($blog));
         });
 
         TopSearch::get()->map(function ($topSearch) {
-            dispatch(new UpdateSemanticDistanceBetweenTopSearchAndToolJob($topSearch));
+            dispatch(new SaveSemanticDistanceBetweenTopSearchAndToolJob($topSearch));
         });
 
         return redirect()
@@ -276,14 +276,14 @@ class ToolController extends Controller
 
         dispatch(new SaveVectorEmbeddingsJob($tool));
 
-        dispatch(new SaveSemanticDistanceForToolJob($tool));
+        dispatch(new SaveSemanticDistanceBetweenToolAndToolJob($tool));
 
         Blog::where('blog_type', BlogType::SEMANTIC_SCORE->value)->get()->map(function ($blog) {
-            dispatch(new UpdateSemanticDistanceBetweenBlogAndToolJob($blog));
+            dispatch(new SaveSemanticDistanceBetweenBlogAndToolJob($blog));
         });
 
         TopSearch::get()->map(function ($topSearch) {
-            dispatch(new UpdateSemanticDistanceBetweenTopSearchAndToolJob($topSearch));
+            dispatch(new SaveSemanticDistanceBetweenTopSearchAndToolJob($topSearch));
         });
 
         return redirect()->back()->with('success', 'tool updated successfully');

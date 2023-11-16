@@ -7,7 +7,7 @@ ini_set('max_execution_time', 600); //10 min
 
 use App\Enums\ModelType;
 use App\Enums\SearchAbleTable;
-use App\Jobs\UpdateSemanticDistanceBetweenBlogAndToolJob;
+use App\Jobs\SaveSemanticDistanceBetweenBlogAndToolJob;
 use App\Models\Blog;
 use App\Models\Tool;
 use App\Models\TopSearchToolSemanticScore;
@@ -51,7 +51,7 @@ class TestController extends Controller
 
         BlogService::updateVectorEmbeddings(Blog::find(3));
 
-        dispatch(new UpdateSemanticDistanceBetweenBlogAndToolJob(Blog::find(3)));
+        dispatch(new SaveSemanticDistanceBetweenBlogAndToolJob(Blog::find(3)));
 
         // $searchRelatedTools = TopSearchToolSemanticScore::with(['tool.categories'])
         //     ->where('score', '>', 0.85)

@@ -4,7 +4,7 @@ namespace App\Services;
 
 use App\Enums\SearchAbleTable;
 use App\Jobs\SaveVectorEmbeddingsJob;
-use App\Jobs\UpdateSemanticDistanceBetweenTopSearchAndToolJob;
+use App\Jobs\SaveSemanticDistanceBetweenTopSearchAndToolJob;
 use App\Models\TopSearch;
 use App\Models\TopSearchToolSemanticScore;
 use Exception;
@@ -23,7 +23,7 @@ class TopSearchService
 
         // TopSearchService::updateVectorEmbeddings($topSearch);
 
-        dispatch(new UpdateSemanticDistanceBetweenTopSearchAndToolJob($topSearch));
+        dispatch(new SaveSemanticDistanceBetweenTopSearchAndToolJob($topSearch));
 
         return $topSearch;
     }
