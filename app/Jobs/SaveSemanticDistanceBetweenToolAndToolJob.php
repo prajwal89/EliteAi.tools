@@ -3,7 +3,6 @@
 namespace App\Jobs;
 
 use App\Models\Tool;
-use App\Services\RecommendationService;
 use App\Services\ToolServices;
 use Illuminate\Bus\Queueable;
 use Illuminate\Contracts\Queue\ShouldQueue;

@@ -3,8 +3,8 @@
 namespace App\Services;
 
 use App\Enums\SearchAbleTable;
-use App\Jobs\SaveVectorEmbeddingsJob;
 use App\Jobs\SaveSemanticDistanceBetweenTopSearchAndToolJob;
+use App\Jobs\SaveVectorEmbeddingsJob;
 use App\Models\TopSearch;
 use App\Models\TopSearchToolSemanticScore;
 use Exception;
@@ -36,7 +36,7 @@ class TopSearchService
             throw new Exception('Vectors are not calculated for TopSearch: ' . $topSearch->id);
         }
 
-        $tools = MeilisearchService::vectorSearch(
+        $searchResultsTools = MeilisearchService::vectorSearch(
             table: SearchAbleTable::TOOL,
             vectors: $topSearch->_vectors, //already calculated vectors
             configs: [
@@ -45,7 +45,9 @@ class TopSearchService
             ]
         );
 
-        foreach ($tools['hits'] as $tool) {
+        // dd($searchResultsTools);
+
+        foreach ($searchResultsTools['hits'] as $tool) {
             TopSearchToolSemanticScore::updateOrCreate([
                 'tool_id' => $tool['id'],
                 'top_search_id' => $topSearch->id,

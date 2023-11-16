@@ -109,7 +109,7 @@ class ToolServices
         Tool $tool,
         int $toolsLimit = 500,
     ) {
-        if (empty($tool->_vectors)  || count($tool->_vectors) < 1) {
+        if (empty($tool->_vectors) || count($tool->_vectors) < 1) {
             // we need to calculated b.c this will run multiple times
             throw new Exception('Vectors are not calculated for tool: ' . $tool->id);
         }

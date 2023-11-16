@@ -5,17 +5,13 @@ namespace App\Services;
 ini_set('memory_limit', '2048M');
 ini_set('max_execution_time', 600); //10 min
 
-use App\Enums\SearchAbleTable;
 use App\Models\SemanticScore;
 use App\Models\Tool;
 use App\ValueObjects\SemanticScore as ValueObjectsSemanticScore;
-use Exception;
 use Illuminate\Support\Collection;
 
 class RecommendationService
 {
-
-
     /**
      * hint for scrutiny: count of all possible combinations of pairs of numbers from e.g, 1,39
      * and do not count pair having same digits

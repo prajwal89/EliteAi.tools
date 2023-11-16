@@ -3,8 +3,8 @@
 namespace App\Http\Controllers\Admin;
 
 use App\Http\Controllers\Controller;
-use App\Jobs\SaveVectorEmbeddingsJob;
 use App\Jobs\SaveSemanticDistanceBetweenBlogAndToolJob;
+use App\Jobs\SaveVectorEmbeddingsJob;
 use App\Models\Blog;
 use App\Models\User;
 use Illuminate\Http\Request;

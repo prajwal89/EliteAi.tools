@@ -10,12 +10,13 @@ use App\Enums\SearchAbleTable;
 use App\Jobs\SaveSemanticDistanceBetweenBlogAndToolJob;
 use App\Models\Blog;
 use App\Models\Tool;
+use App\Models\TopSearch;
 use App\Models\TopSearchToolSemanticScore;
 use App\Services\BlogService;
 use App\Services\MeilisearchService;
-use App\Services\RecommendationService;
 use App\Services\SocialMediaHandlesExtractor;
 use App\Services\ToolServices;
+use App\Services\TopSearchService;
 use App\Services\WebPageFetcher;
 use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Http;
@@ -38,6 +39,13 @@ class TestController extends Controller
 
     public function __invoke()
     {
+        // dd(MeilisearchService::indexAllDocumentsOfTable(SearchAbleTable::TOOL));
+
+        TopSearchService::saveSemanticDistanceBetweenTopSearchAndTools(
+            // TopSearch::inRandomOrder()->first()
+            TopSearch::find(1)
+        );
+
         $blogTools = DB::table('blog_tool_semantic_scores')
             ->select(['*', DB::raw('count(*) as total_tools')])
             ->join('tools', 'tools.id', '=', 'blog_tool_semantic_scores.tool_id')

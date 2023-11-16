@@ -85,7 +85,7 @@ class ToolImporter extends Component
                 // 'model' => 'gpt-3.5-turbo',
                 'max_tokens' => 2000,
                 'response_format' => [
-                    "type" => "json_object"
+                    'type' => 'json_object',
                 ],
                 'messages' => [
                     // [
