@@ -10,12 +10,6 @@ class HomeController extends Controller
 {
     public function __invoke()
     {
-        $recentTools = Tool::with(['categories'])->limit(12)->latest()->get();
-        // $categories = Category::has('tools')->get();
-        $categories = Category::withCount('tools')
-            ->orderBy('tools_count', 'desc') // Order by tool count in ascending order
-            ->take(12)
-            ->get();
 
         // $categories = Category::withCount(['tools'])->get();
 
@@ -25,8 +19,6 @@ class HomeController extends Controller
                 description: null,
                 conicalUrl: route('home')
             ),
-            'recentTools' => $recentTools,
-            'categories' => $categories,
         ]);
     }
 }

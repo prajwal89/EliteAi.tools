@@ -68,9 +68,9 @@
 
 
 
-        @if (!empty($categories))
+        @if (!empty($allCategories))
             <ul class="flex gap-2 md:gap-3 flex-wrap justify-center max-w-5xl py-2 md:py-6 px-2 md:px-8">
-                @foreach ($categories as $c)
+                @foreach ($allCategories as $c)
                     @if (isset($category) && $c->name == $category->name)
                         <li
                             class="text-center border border-primary-500 px-2 py-1 md:text-lg relative md:min-w-[100px] flex justify-center items-center bg-gray-100 rounded-lg select-none cursor-pointer shadow shadow-primary-500 outline outline-primary-600">

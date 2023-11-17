@@ -25,6 +25,10 @@
     @include('partials.analytics.microsoft-clarity-analytics-tag')
 
     @yield('head')
+
+    @if (isset($livewire) && $livewire == true)
+        @livewireStyles
+    @endif
 </head>
 
 <body>
@@ -41,6 +45,9 @@
 
     @vite(['resources/js/app.js'])
 
+    @if (isset($livewire) && $livewire == true)
+        @livewireScripts
+    @endif
 </body>
 
 </html>
