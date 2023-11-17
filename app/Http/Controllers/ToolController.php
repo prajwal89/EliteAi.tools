@@ -5,8 +5,10 @@ namespace App\Http\Controllers;
 use App\DTOs\PageDataDTO;
 use App\Models\Category;
 use App\Models\Tool;
+use App\Models\TopSearch;
 use App\Services\RecommendationService;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\DB;
 use Illuminate\View\View;
 
 class ToolController extends Controller
@@ -30,14 +32,40 @@ class ToolController extends Controller
             maxTools: 3 * 2
         );
 
+        // $topSearches = TopSearch::with(['tools'])->get();
+        $topSearches = TopSearch::select([
+            '*',
+            'top_searches.slug as top_search_slug',
+            'top_searches.query as top_search_query',
+            DB::raw('count(*) as total_tools')
+        ])
+            ->join('top_search_tool_semantic_scores', 'top_search_tool_semantic_scores.top_search_id', '=', 'top_searches.id')
+            ->join('tools', 'tools.id', '=', 'top_search_tool_semantic_scores.tool_id')
+            ->where('tools.id', $tool->id)
+            ->groupBy('top_searches.id')
+            // ->having('total_tools', '>', 1)
+            ->where('score', '>', 0.85)
+            ->orderBy('score', 'desc')
+            ->limit(24)
+            ->get()
+            // ->map(function ($semanticScore) {
+            //     $semanticScore->tool->score = $semanticScore->score;
+
+            //     return $semanticScore->tool;
+            // })
+        ;
+
+        // dd($topSearches);
+
         // dd($alternativeTools);
 
-        $categories = Category::has('tools')->take(9)->get();
+        // $categories = Category::has('tools')->take(9)->get();
 
         return view('tools.show', [
             'tool' => $tool,
+            'topSearches' => $topSearches,
             'relatedTools' => $relatedTools,
-            'categories' => $categories,
+            // 'categories' => $categories,
             'pageDataDTO' => new PageDataDTO(
                 // title: $tool->name . ' - Pricing, Use cases, Reviews, Features',
                 // title: $tool->name . ' - Use cases, Features',
