@@ -13,9 +13,9 @@
             </ul>
         @endif
 
-        @if (isset($searchRelatedTools))
+        @if (isset($popularSearchesTools))
             <ul class="flex flex-col gap-4 w-full max-w-5xl mx-auto">
-                @foreach ($searchRelatedTools as $cTool)
+                @foreach ($popularSearchesTools as $cTool)
                     <x-tool-cards.horizontal-card :tool="$cTool" />
                 @endforeach
             </ul>

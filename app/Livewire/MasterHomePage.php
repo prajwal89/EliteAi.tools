@@ -6,6 +6,7 @@ use App\DTOs\PageDataDTO;
 use App\Enums\SearchAbleTable;
 use App\Models\Category;
 use App\Models\Tool;
+use App\Models\TopSearchToolSemanticScore;
 use App\Services\MeilisearchService;
 use Illuminate\Support\Collection;
 use Livewire\Component;
@@ -19,12 +20,16 @@ class MasterHomePage extends Component
 
     public Collection $recentTools;
 
-    public $category;
-
     public string  $searchQuery = '';
 
-    public Collection  $searchResults;
-    // public PageDataDTO $pageDataDTO;
+    public Collection $searchResults;
+
+    public Collection $popularSearchesTools;
+
+    // * from livewire component
+    public $category;
+
+    public $topSearch;
 
     public function mount()
     {
@@ -36,25 +41,23 @@ class MasterHomePage extends Component
             'home' => $this->loadHomePage(),
             'category' => $this->loadCategoryPage(),
             'search' => $this->loadSearchPage(),
+            'popularSearches' => $this->loadPopularSearches(),
         };
+
+        // * required on most of the pages
+        $this->allCategories = Category::withCount('tools')
+            ->orderBy('tools_count', 'desc')
+            ->take(12)
+            ->get();
     }
 
     public function loadHomePage()
     {
         $this->recentTools = Tool::with(['categories'])->limit(12)->latest()->get();
-
-        $this->allCategories = Category::withCount('tools')
-            ->orderBy('tools_count', 'desc')
-            ->take(12)
-            ->get();
     }
 
     public function loadCategoryPage()
     {
-        $this->allCategories = Category::withCount('tools')
-            ->orderBy('tools_count', 'desc')
-            ->take(12)
-            ->get();
     }
 
     public function loadSearchPage()
@@ -77,6 +80,21 @@ class MasterHomePage extends Component
             });
 
         $this->searchResults['tools'] = $resultTools;
+    }
+
+    public function loadPopularSearches()
+    {
+        $this->popularSearchesTools = TopSearchToolSemanticScore::with(['tool.categories'])
+            ->where('top_search_id', $this->topSearch->id)
+            ->where('score', '>', 0.85)
+            ->orderBy('score', 'desc')
+            ->limit(24)
+            ->get()
+            ->map(function ($semanticScore) {
+                $semanticScore->tool->score = $semanticScore->score;
+
+                return $semanticScore->tool;
+            });
     }
 
     public function render()
