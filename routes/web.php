@@ -12,11 +12,9 @@ use App\Http\Controllers\ToolAlternativesController;
 use App\Http\Controllers\ToolController;
 use App\Http\Controllers\TopAiToolsController;
 use App\Http\Controllers\TopSearchController;
-use App\Livewire\MasterHomePage;
 use Illuminate\Support\Facades\Route;
 
-// Route::get('/', HomeController::class)->name('home');
-Route::get('/', MasterHomePage::class)->name('home');
+Route::get('/', HomeController::class)->name('home');
 
 Route::prefix('search')->name('search.')->group(function () {
     Route::get('/', SearchController::class)->name('show')->middleware('throttle:10,1');
