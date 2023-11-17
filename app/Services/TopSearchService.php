@@ -93,7 +93,7 @@ class TopSearchService
             ->select([
                 // '*',
                 'top_searches.id as top_search_id',
-                DB::raw('count(*) as total_tools')
+                DB::raw('count(*) as total_tools'),
             ])
             ->join('tools', 'tools.id', '=', 'top_search_tool_semantic_scores.tool_id')
             ->join('top_searches', 'top_searches.id', '=', 'top_search_tool_semantic_scores.top_search_id')

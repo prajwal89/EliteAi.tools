@@ -7,7 +7,6 @@ use App\Enums\BlogType;
 use App\Models\Blog;
 use App\Models\BlogToolSemanticScore;
 use App\Services\BlogService;
-use Illuminate\Support\Facades\DB;
 
 class BlogController extends Controller
 {

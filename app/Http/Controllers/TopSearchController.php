@@ -8,7 +8,6 @@ use App\Models\TopSearch;
 use App\Models\TopSearchToolSemanticScore;
 use App\Services\TopSearchService;
 use Illuminate\Http\Request;
-use Illuminate\Support\Facades\DB;
 
 class TopSearchController extends Controller
 {

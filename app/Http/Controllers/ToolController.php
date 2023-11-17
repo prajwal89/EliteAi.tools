@@ -44,7 +44,7 @@ class ToolController extends Controller
             'top_searches.id as top_search_id',
             'top_searches.slug as top_search_slug',
             'top_searches.query as top_search_query',
-            DB::raw('count(*) as total_tools')
+            DB::raw('count(*) as total_tools'),
         ])
             ->join('top_search_tool_semantic_scores', 'top_search_tool_semantic_scores.top_search_id', '=', 'top_searches.id')
             // ->join('tools', 'tools.id', '=', 'top_search_tool_semantic_scores.tool_id')
@@ -54,7 +54,6 @@ class ToolController extends Controller
             ->orderBy('score', 'desc')
             ->limit(24)
             ->get();
-
 
         $common = array_intersect(
             $topSearches->pluck('top_search_id')->toArray(),
