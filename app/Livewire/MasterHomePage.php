@@ -14,13 +14,13 @@ use Livewire\Component;
 // todo add comments as this component will get lot bigger
 class MasterHomePage extends Component
 {
-    public string  $pageType;
+    public string $pageType;
 
     public Collection $allCategories;
 
     public Collection $recentTools;
 
-    public string  $searchQuery = '';
+    public ?string $searchQuery = '';
 
     public Collection $searchResults;
 
@@ -62,10 +62,16 @@ class MasterHomePage extends Component
 
     public function loadSearchPage()
     {
+        if (!empty($this->searchQuery)) {
+            $this->search();
+        }
     }
 
     public function search()
     {
+        // temporary switch page type 
+        $this->pageType = 'search';
+
         $response = MeilisearchService::vectorSearch(SearchAbleTable::TOOL, $this->searchQuery);
 
         $toolIds = collect($response['hits'])->map(function ($tool) {
