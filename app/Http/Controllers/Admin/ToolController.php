@@ -148,7 +148,7 @@ class ToolController extends Controller
         // todo use pipeline
         MeilisearchService::indexDocument(SearchAbleTable::TOOL, $tool->id);
 
-        sleep(4);
+        sleep(8);
 
         // dispatch(new SaveVectorEmbeddingsJob($tool));
         ToolServices::updateVectorEmbeddings($tool);
