@@ -19,6 +19,7 @@ class HomeController extends Controller
                 description: null,
                 conicalUrl: route('home')
             ),
+            'pageType' => 'home'
         ]);
     }
 }

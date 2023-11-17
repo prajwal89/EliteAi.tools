@@ -2,6 +2,7 @@
 
 namespace App\Livewire;
 
+use App\DTOs\PageDataDTO;
 use App\Models\Category;
 use App\Models\Tool;
 use Illuminate\Support\Collection;
@@ -15,11 +16,14 @@ class MasterHomePage extends Component
 
     public Collection $recentTools;
 
+    // public PageDataDTO $pageDataDTO;
+
     public function mount()
     {
-        if ($this->pageType == 'home') {
-            $this->loadHomePage();
-        }
+        match ($this->pageType) {
+            'home' => $this->loadHomePage(),
+            'category' => $this->loadCategoryPage(),
+        };
     }
 
     public function loadHomePage()
@@ -30,6 +34,10 @@ class MasterHomePage extends Component
             ->orderBy('tools_count', 'desc') // Order by tool count in ascending order
             ->take(12)
             ->get();
+    }
+
+    public function loadCategoryPage()
+    {
     }
 
     public function render()

@@ -37,11 +37,6 @@ class CategoryController extends Controller
         }
 
         return view('home', [
-            'categories' => Category::withCount('tools')  //for hero section
-                ->orderBy('tools_count', 'desc') // Order by tool count in ascending order
-                ->take(12)
-                ->get(),
-            'category' => $category,
             'pageDataDTO' => new PageDataDTO(
                 title: $serpTitle,
                 description: 'Browse vast collection of ai tools in ' . $category->name,
@@ -49,6 +44,7 @@ class CategoryController extends Controller
                     'category' => $category->slug,
                 ])
             ),
+            'pageType' => 'category'
         ]);
     }
 }
