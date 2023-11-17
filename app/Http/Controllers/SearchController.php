@@ -40,7 +40,7 @@ class SearchController extends Controller
             'pageDataDTO' => new PageDataDTO(
                 title: 'search',
                 description: null,
-                conicalUrl: route('search')
+                conicalUrl: route('search.show')
             ),
             'query' => $query,
             'resultTools' => $resultTools ?? collect([]),

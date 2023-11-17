@@ -7,7 +7,7 @@
             <span>Edit Category</span>
             <div>
                 <a class="btn btn-outline-primary float-right" target="_blank"
-                    href="{{ route('popular.show', ['top_search' => $topSearch->slug]) }}">
+                    href="{{ route('search.popular.show', ['top_search' => $topSearch->slug]) }}">
                     View
                 </a>
                 <button type="button" class="btn btn-outline-danger" data-bs-toggle="modal" data-bs-target="#deleteModal">

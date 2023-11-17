@@ -13,7 +13,7 @@
         <ul class="flex flex-col gap-4 font-semibold text-lg md:text-xl my-4">
             @foreach ($allTopSearches as $topSearch)
                 <li>
-                    <a href="{{ route('popular.show', ['top_search' => $topSearch->slug]) }}">
+                    <a href="{{ route('search.popular.show', ['top_search' => $topSearch->slug]) }}">
                         {{ $topSearch->query }}
                     </a>
                 </li>

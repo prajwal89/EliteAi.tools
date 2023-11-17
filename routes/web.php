@@ -15,7 +15,17 @@ use App\Http\Controllers\TopSearchController;
 use Illuminate\Support\Facades\Route;
 
 Route::get('/', HomeController::class)->name('home');
-Route::get('/search', SearchController::class)->name('search')->middleware('throttle:10,1');
+
+Route::prefix('search')->name('search.')->group(function () {
+    Route::get('/', SearchController::class)->name('show')->middleware('throttle:10,1');
+
+    // !experimental feature
+    Route::controller(TopSearchController::class)->prefix('popular')->name('popular.')->group(function () {
+        Route::get('/', 'index')->name('index');
+        Route::get('/{top_search:slug}', 'show')->name('show');
+    });
+});
+
 
 Route::controller(ToolController::class)->prefix('tool')->name('tool.')->group(function () {
     Route::controller(ToolAlternativesController::class)->name('alternatives.')->group(function () {
@@ -45,11 +55,6 @@ Route::controller(BlogController::class)->prefix('blog')->name('blog.')->group(f
     Route::get('/{blog:slug}', 'show')->name('show');
 });
 
-// !experimental feature
-Route::controller(TopSearchController::class)->prefix('popular')->name('popular.')->group(function () {
-    Route::get('/', 'index')->name('index');
-    Route::get('/{top_search:slug}', 'show')->name('show');
-});
 
 Route::controller(SocialAuthController::class)->prefix('auth')->name('auth.')->group(function () {
     Route::get('/login', 'loginPage')->name('login');

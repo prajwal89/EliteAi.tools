@@ -54,7 +54,7 @@
         </h1>
 
 
-        <form action="{{ route('search') }}" class="relative w-full max-w-3xl my-4 md:my-8">
+        <form action="{{ route('search.show') }}" class="relative w-full max-w-3xl my-4 md:my-8">
             <input class="w-full border h-16 shadow p-4 pr-12 rounded-full text-lg" name="query"
                 value="{{ $query ?? '' }}" placeholder="I want to chat with PDF">
             <button type="submit" class="absolute top-4 right-4 w-8 h-8">

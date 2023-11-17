@@ -17,7 +17,7 @@ class TopSearchController extends Controller
             'pageDataDTO' => new PageDataDTO(
                 title: 'Popular searches',
                 description: null,
-                conicalUrl: route('popular.index')
+                conicalUrl: route('search.popular.index')
             ),
             'allTopSearches' => TopSearch::whereIn('id', TopSearchService::qualifiedForIndexingTopSearchIds())->get(),
         ]);
@@ -51,7 +51,7 @@ class TopSearchController extends Controller
             'pageDataDTO' => new PageDataDTO(
                 title: $topSearch->query . ' - AI tools',
                 description: null,
-                conicalUrl: route('popular.show', ['top_search' => $topSearch->slug])
+                conicalUrl: route('search.popular.show', ['top_search' => $topSearch->slug])
             ),
             'searchRelatedTools' => $searchRelatedTools,
             'categories' => $categories,

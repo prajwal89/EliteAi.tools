@@ -41,6 +41,14 @@ class TestController extends Controller
     {
         // dd(MeilisearchService::indexAllDocumentsOfTable(SearchAbleTable::TOOL));
 
+        // (new MeilisearchService())->meilisearchClient
+        //     ->index(SearchAbleTable::TOOL->getIndexName())
+        //     ->getDocument(3242);
+        (new MeilisearchService())->meilisearchClient
+            ->index(SearchAbleTable::TOOL->getIndexName())
+            ->updateDocuments(['id' => 234234] + ['sdfsdfsdf' => 2324]);
+        exit();
+
         dd(MeilisearchService::indexDocument(SearchAbleTable::TOOL, 234234234));
 
 

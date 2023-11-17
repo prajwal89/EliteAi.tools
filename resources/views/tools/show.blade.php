@@ -113,7 +113,7 @@
                     @foreach ($topSearches as $topSearch)
                         <li>
                             <a class="bg-gray-100 px-2 py-1 rounded-lg hover:bg-purple-300"
-                                href="{{ route('popular.show', ['top_search' => $topSearch->slug]) }}">
+                                href="{{ route('search.popular.show', ['top_search' => $topSearch->slug]) }}">
                                 {{ $topSearch->query }}
                             </a>
                         </li>

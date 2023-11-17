@@ -97,7 +97,7 @@ final class TopSearchTable extends PowerGridComponent
             Button::add('show')
                 ->slot('show')
                 ->class('btn btn-sm btn-outline-primary')
-                ->route('popular.show', ['top_search' => $row->slug]),
+                ->route('search.popular.show', ['top_search' => $row->slug]),
         ];
     }
 }
