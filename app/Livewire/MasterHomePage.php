@@ -102,3 +102,4 @@ class MasterHomePage extends Component
                 return $semanticScore->tool;
             });
     }
+}
