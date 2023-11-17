@@ -20,7 +20,7 @@ class TopSearchController extends Controller
                 description: null,
                 conicalUrl: route('popular.index')
             ),
-            'allTopSearches' => TopSearch::whereIn('id', TopSearchService::qualifiedTopSearchIds())->get(),
+            'allTopSearches' => TopSearch::whereIn('id', TopSearchService::qualifiedForIndexingTopSearchIds())->get(),
         ]);
     }
 

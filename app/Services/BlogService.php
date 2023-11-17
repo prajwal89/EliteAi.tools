@@ -6,6 +6,7 @@ use App\Enums\SearchAbleTable;
 use App\Models\Blog;
 use App\Models\BlogToolSemanticScore;
 use Exception;
+use Illuminate\Support\Facades\DB;
 
 class BlogService
 {
@@ -55,5 +56,27 @@ class BlogService
             '_vectors' => $embeddings,
             'model_type' => config('custom.current_embedding_model')->value,
         ]);
+    }
+
+    /**
+     * all blogs with blog_type = Semantic Score that can be indexed on search engine
+     * criteria
+     *  min 5 tools required on page
+     *  tool should have score > 0.85
+     *
+     * @return array
+     */
+    // ! should i cache this query
+    public static function qualifiedForIndexingBlogIds()
+    {
+        return DB::table('blog_tool_semantic_scores')
+            ->select(['blog_id', DB::raw('count(*) as total_tools')])
+            ->join('tools', 'tools.id', '=', 'blog_tool_semantic_scores.tool_id')
+            ->join('blogs', 'blogs.id', '=', 'blog_tool_semantic_scores.blog_id')
+            ->where('blog_tool_semantic_scores.score', '>', 0.850)
+            ->having('total_tools', '>', 3)
+            ->groupBy('blogs.id')
+            ->get()
+            ->pluck('blog_id');
     }
 }

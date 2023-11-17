@@ -86,7 +86,7 @@ class TopSearchService
      * @return array
      */
     // ! should i cache this query
-    public static function qualifiedTopSearchIds()
+    public static function qualifiedForIndexingTopSearchIds()
     {
         return DB::table('top_search_tool_semantic_scores')
             ->select([
