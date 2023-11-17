@@ -98,15 +98,21 @@ class MeilisearchService
      */
     public static function indexDocument(SearchAbleTable $table, int $documentId): bool
     {
+        $document = $table->getModelInstance()::documentsForSearch(
+            documentId: $documentId
+        );
+
+        if (empty($document)) {
+            Log::info('Cannot get documentsForSearch for id ' . $documentId . ' in ' . $table->getIndexName());
+        }
+
         $response = (new self())
             ->meilisearchClient
             ->index($table->getIndexName())
-            ->addDocuments($table->getModelInstance()::documentsForSearch(
-                documentId: $documentId
-            ));
+            ->addDocuments($document);
 
         if ($response['status'] !== 'enqueued') {
-            throw new Exception('Meilisearch not able to queue document for ' . $table->getIndexName());
+            throw new Exception('Meilisearch not able to queue document ' . $documentId . ' for ' . $table->getIndexName());
         }
 
         return true;
