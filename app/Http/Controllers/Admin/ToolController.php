@@ -279,10 +279,12 @@ class ToolController extends Controller
         MeilisearchService::indexDocument(SearchAbleTable::TOOL, $tool->id);
 
         // give some time to index document on meilisearch as it is not instantaneous
-        sleep(1);
+        sleep(2);
 
         // dispatch(new SaveVectorEmbeddingsJob($tool));
         ToolServices::updateVectorEmbeddings($tool);
+
+        sleep(2);
 
         dispatch(new SaveSemanticDistanceBetweenToolAndToolJob($tool));
 

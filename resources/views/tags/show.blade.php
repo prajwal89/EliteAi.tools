@@ -9,7 +9,10 @@
     <div class="mx-auto max-w-3xl px-2">
 
         <h1 class="font-bold text-2xl sm:text-3xl md:text-4xl mt-4">
-            Top {{ $tag->name }} Ai tools
+            Top {{ $tag->name }} AI tools
+            @if (isAdmin())
+                <a href="{{ route('admin.tags.edit', ['tag' => $tag->id]) }}">...</a>
+            @endif
         </h1>
 
         {{-- <p class="mt-2 text-lg">
