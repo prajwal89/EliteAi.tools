@@ -91,13 +91,42 @@ class ToolServices
             'model_type' => config('custom.current_embedding_model')->value,
         ]);
 
-        return (new MeilisearchService)->updateDocument(
-            table: SearchAbleTable::TOOL,
-            documentId: $tool->id,
-            newData: [
-                '_vectors' => $embeddings,
-            ]
-        );
+        // todo check if document id available try 2 or 3 times before throwing error
+        $retryCount = 3; // Number of times to retry
+
+        while ($retryCount > 0) {
+            try {
+                return (new MeilisearchService)->updateDocument(
+                    table: SearchAbleTable::TOOL,
+                    documentId: $tool->id,
+                    newData: [
+                        '_vectors' => $embeddings,
+                    ]
+                );
+            } catch (Exception $e) {
+                if ($e->getCode() === 404 && $retryCount > 1) {
+                    // Document not found, retry
+                    $retryCount--;
+                    sleep(1); // Optional: You can add a delay between retries
+                    continue;
+                }
+
+                // If it's not a 404 error or no more retries, rethrow the exception
+                throw $e;
+            }
+        }
+
+        // This point is reached only if all retries fail
+        throw new \RuntimeException('Failed to update document after multiple retries.');
+
+
+        // return (new MeilisearchService)->updateDocument(
+        //     table: SearchAbleTable::TOOL,
+        //     documentId: $tool->id,
+        //     newData: [
+        //         '_vectors' => $embeddings,
+        //     ]
+        // );
     }
 
     /**
