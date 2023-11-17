@@ -16,6 +16,8 @@ class MasterHomePage extends Component
 
     public Collection $recentTools;
 
+    public $category;
+
     // public PageDataDTO $pageDataDTO;
 
     public function mount()
@@ -29,15 +31,19 @@ class MasterHomePage extends Component
     public function loadHomePage()
     {
         $this->recentTools = Tool::with(['categories'])->limit(12)->latest()->get();
-        // $categories = Category::has('tools')->get();
+
         $this->allCategories = Category::withCount('tools')
-            ->orderBy('tools_count', 'desc') // Order by tool count in ascending order
+            ->orderBy('tools_count', 'desc')
             ->take(12)
             ->get();
     }
 
     public function loadCategoryPage()
     {
+        $this->allCategories = Category::withCount('tools')
+            ->orderBy('tools_count', 'desc')
+            ->take(12)
+            ->get();
     }
 
     public function render()

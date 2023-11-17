@@ -10,9 +10,6 @@ class HomeController extends Controller
 {
     public function __invoke()
     {
-
-        // $categories = Category::withCount(['tools'])->get();
-
         return view('home', [
             'pageDataDTO' => new PageDataDTO(
                 title: 'Home',

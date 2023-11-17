@@ -4,5 +4,5 @@
 @section('conical_url', $pageDataDTO->conicalUrl)
 
 @section('content')
-    @livewire('master-home-page', ['pageType' => $pageType])
+    @livewire('master-home-page', ['pageType' => $pageType, 'category' => $category])
 @stop

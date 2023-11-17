@@ -44,7 +44,8 @@ class CategoryController extends Controller
                     'category' => $category->slug,
                 ])
             ),
-            'pageType' => 'category'
+            'pageType' => 'category',
+            'category' => $category
         ]);
     }
 }
