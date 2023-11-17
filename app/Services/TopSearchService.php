@@ -8,6 +8,7 @@ use App\Jobs\SaveVectorEmbeddingsJob;
 use App\Models\TopSearch;
 use App\Models\TopSearchToolSemanticScore;
 use Exception;
+use Illuminate\Support\Collection;
 use Illuminate\Support\Facades\DB;
 
 class TopSearchService
@@ -86,7 +87,7 @@ class TopSearchService
      * @return array
      */
     // ! should i cache this query
-    public static function qualifiedForIndexingTopSearchIds()
+    public static function qualifiedForIndexingTopSearchIds(): Collection
     {
         return DB::table('top_search_tool_semantic_scores')
             ->select([

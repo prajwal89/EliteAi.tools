@@ -9,6 +9,7 @@ use App\Models\Category;
 use App\Models\Tool;
 use App\Models\TopSearch;
 use App\Services\RecommendationService;
+use App\Services\TopSearchService;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
 use Illuminate\View\View;
@@ -37,21 +38,31 @@ class ToolController extends Controller
         // http://127.0.0.1:8000/tool/visily
         // wrong top searches tool count is less than required
         // ! should i take intersection $qualifiedTopSearches
-
+        // ! we can also get top_searches where tool is available
         $topSearches = TopSearch::select([
             // '*',
+            'top_searches.id as top_search_id',
             'top_searches.slug as top_search_slug',
             'top_searches.query as top_search_query',
             DB::raw('count(*) as total_tools')
         ])
             ->join('top_search_tool_semantic_scores', 'top_search_tool_semantic_scores.top_search_id', '=', 'top_searches.id')
-            ->join('tools', 'tools.id', '=', 'top_search_tool_semantic_scores.tool_id')
-            ->where('tools.id', $tool->id)
+            // ->join('tools', 'tools.id', '=', 'top_search_tool_semantic_scores.tool_id')
+            ->where('top_search_tool_semantic_scores.tool_id', $tool->id)
             ->groupBy('top_searches.id')
             ->where('score', '>', 0.85)
             ->orderBy('score', 'desc')
             ->limit(24)
             ->get();
+
+
+        $common = array_intersect(
+            $topSearches->pluck('top_search_id')->toArray(),
+            TopSearchService::qualifiedForIndexingTopSearchIds()->toArray()
+        );
+
+        $topSearches = TopSearch::whereIn('id', $common)->get();
+        // dd($topSearches);
 
         // dd($topSearches->toArray());
 
