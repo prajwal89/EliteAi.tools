@@ -37,9 +37,6 @@ Route::controller(ToolController::class)->prefix('tool')->name('tool.')->group(f
     Route::get('/{tool:slug}', 'show')->name('show');
 });
 
-// !experimental feature
-Route::get('/top-{category:slug}-ai-tools', [TopAiToolsController::class, 'show']);
-
 Route::controller(CategoryController::class)->prefix('category')->name('category.')->group(function () {
     Route::get('/', 'index')->name('index');
     Route::get('{category:slug}', 'show')->name('show');
