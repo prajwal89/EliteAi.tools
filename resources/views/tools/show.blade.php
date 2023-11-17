@@ -97,8 +97,8 @@
                 <p class="font-semibold text-lg">Related Queries:</p>
                 <ul class="flex gap-2 my-2 flex-wrap">
                     @foreach ($topSearches as $topSearch)
-                        <li class="bg-gray-100 px-2 py-1 rounded-lg hover:bg-purple-300">
-                            <a href="{{ route('popular.show', ['top_search' => $topSearch->top_search_slug]) }}">
+                        <li>
+                            <a class="bg-gray-100 px-2 py-1 rounded-lg hover:bg-purple-300" href="{{ route('popular.show', ['top_search' => $topSearch->top_search_slug]) }}">
                                 {{ $topSearch->top_search_query }}
                             </a>
                         </li>
@@ -111,8 +111,9 @@
                 <p class="font-semibold text-lg">Related Queries:</p>
                 <ul class="flex gap-2 my-2 flex-wrap">
                     @foreach ($topSearches as $topSearch)
-                        <li class="bg-gray-100 px-2 py-1 rounded-lg hover:bg-purple-300">
-                            <a href="{{ route('popular.show', ['top_search' => $topSearch->slug]) }}">
+                        <li>
+                            <a class="bg-gray-100 px-2 py-1 rounded-lg hover:bg-purple-300"
+                                href="{{ route('popular.show', ['top_search' => $topSearch->slug]) }}">
                                 {{ $topSearch->query }}
                             </a>
                         </li>
@@ -126,8 +127,9 @@
                 <p class="font-semibold text-lg">Related Blogs:</p>
                 <ul class="flex gap-2 my-2 flex-wrap">
                     @foreach ($relatedBlogs as $blog)
-                        <li class="bg-gray-100 px-2 py-1 rounded-lg hover:bg-purple-300">
-                            <a href="{{ route('blog.show', ['blog' => $blog->blog_slug]) }}">
+                        <li>
+                            <a class="bg-gray-100 px-2 py-1 rounded-lg hover:bg-purple-300"
+                                href="{{ route('blog.show', ['blog' => $blog->blog_slug]) }}">
                                 {{ $blog->blog_title }}
                             </a>
                         </li>
