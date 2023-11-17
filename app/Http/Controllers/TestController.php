@@ -39,6 +39,8 @@ class TestController extends Controller
 
     public function __invoke()
     {
+        ToolServices::updateVectorEmbeddings(Tool::find(1));
+
         // dd(MeilisearchService::indexAllDocumentsOfTable(SearchAbleTable::TOOL));
 
         // (new MeilisearchService())->meilisearchClient

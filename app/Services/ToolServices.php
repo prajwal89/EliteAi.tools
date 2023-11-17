@@ -86,17 +86,23 @@ class ToolServices
             modelType: config('custom.current_embedding_model')
         );
 
-        $tool->update([
+        // $documentForIndexing = Tool::documentsForSearch($tool->id);
+
+        $vectorData = [
             '_vectors' => $embeddings,
             'model_type' => config('custom.current_embedding_model')->value,
-        ]);
+        ];
+
+        // $allDocumentData = array_merge($documentForIndexing[0], $vectorData);
+
+        // dd(array_merge($documentForIndexing[0], $vectorData));
+
+        $tool->update($vectorData);
 
         return (new MeilisearchService)->updateDocument(
             table: SearchAbleTable::TOOL,
             documentId: $tool->id,
-            newData: [
-                '_vectors' => $embeddings,
-            ]
+            newData: $vectorData
         );
     }
 
