@@ -27,35 +27,14 @@ class TopSearchController extends Controller
     {
         $topSearch = TopSearch::where('slug', $slug)->firstOrFail();
 
-        $searchRelatedTools = TopSearchToolSemanticScore::with(['tool.categories'])
-            ->where('top_search_id', $topSearch->id)
-            ->where('score', '>', 0.85)
-            ->orderBy('score', 'desc')
-            ->limit(24)
-            ->get()
-            ->map(function ($semanticScore) {
-                $semanticScore->tool->score = $semanticScore->score;
-
-                return $semanticScore->tool;
-            });
-
-        // dd($searchRelatedTools);
-
-        // $categories = Category::has('tools')->get();
-        $categories = Category::withCount('tools')
-            ->orderBy('tools_count', 'desc') // Order by tool count in ascending order
-            ->take(12)
-            ->get();
-
         return view('home', [
             'pageDataDTO' => new PageDataDTO(
                 title: $topSearch->query . ' - AI tools',
                 description: null,
                 conicalUrl: route('search.popular.show', ['top_search' => $topSearch->slug])
             ),
-            'searchRelatedTools' => $searchRelatedTools,
-            'categories' => $categories,
             'topSearch' => $topSearch,
+            'pageType' => 'popularSearches'
         ]);
     }
 }
