@@ -91,45 +91,13 @@ class ToolServices
             'model_type' => config('custom.current_embedding_model')->value,
         ]);
 
-        // ! Hot fix
-        // todo check if document id available try 2 or 3 times before throwing error
-        $retryCount = 3; // Number of times to retry
-
-        while ($retryCount > 0) {
-            try {
-                $response = (new MeilisearchService)->updateDocument(
-                    table: SearchAbleTable::TOOL,
-                    documentId: $tool->id,
-                    newData: [
-                        '_vectors' => $embeddings,
-                    ]
-                );
-
-                if ($response['status'] !== 'enqueued') {
-                    throw new Exception('Not able to update tool document');
-                }
-
-                return $response;
-            } catch (Exception $e) {
-                if ($retryCount > 1) {
-                    $retryCount--;
-                    sleep(1);
-                    continue;
-                }
-                throw $e;
-            }
-        }
-
-        throw new \RuntimeException('Failed to update document after multiple retries.');
-
-
-        // return (new MeilisearchService)->updateDocument(
-        //     table: SearchAbleTable::TOOL,
-        //     documentId: $tool->id,
-        //     newData: [
-        //         '_vectors' => $embeddings,
-        //     ]
-        // );
+        return (new MeilisearchService)->updateDocument(
+            table: SearchAbleTable::TOOL,
+            documentId: $tool->id,
+            newData: [
+                '_vectors' => $embeddings,
+            ]
+        );
     }
 
     /**

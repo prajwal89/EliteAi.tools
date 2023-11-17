@@ -152,11 +152,10 @@ class MeilisearchService
             ->getDocument($documentId);
 
         if ($document) {
-            // Update the document with new data
             $response = $this->meilisearchClient
                 ->index($table->getIndexName())
                 ->updateDocuments(['id' => $documentId] + $newData);
-            // dd($response);
+
             if ($response['status'] !== 'enqueued') {
                 throw new Exception('Meilisearch not able to update document in ' . $table->getIndexName());
             }
