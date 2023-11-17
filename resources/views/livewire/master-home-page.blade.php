@@ -41,18 +41,21 @@
 
 
         @if ($pageType == 'search')
-            @if (isset($searchResults['tools']) && $searchResults['tools']->count() > 0)
-                <div class="flex justify-center relative">
-                    <span class="text-2xl md:text-3xl font-bold mb-4">
-                        Search results
-                    </span>
-                    {{-- <span class="absolute -bottom-1 left-0 w-full h-1 bg-gradient-to-r from-primary-500 via-gray-400 to-primary-600 rounded-full"></span> --}}
+            @if (isset($searchResults['tools']))
+                <div class="flex justify-center relative text-2xl md:text-3xl font-bold mb-4">
+                    Search results
                 </div>
-                <ul class="flex flex-col gap-4 w-full max-w-5xl mx-auto">
-                    @foreach ($searchResults['tools'] as $rTool)
-                        <x-tool-cards.horizontal-card :tool="$rTool" />
-                    @endforeach
-                </ul>
+                @if ($searchResults['tools']->count() > 0)
+                    <ul class="flex flex-col gap-4 w-full max-w-5xl mx-auto">
+                        @foreach ($searchResults['tools'] as $rTool)
+                            <x-tool-cards.horizontal-card :tool="$rTool" />
+                        @endforeach
+                    </ul>
+                @else
+                    <div class="flex justify-center items-center">
+                        <p>No results found</p>
+                    </div>
+                @endif
             @endif
         @endif
 
