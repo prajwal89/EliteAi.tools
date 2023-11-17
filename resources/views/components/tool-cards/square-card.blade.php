@@ -19,7 +19,7 @@
 
                 {{-- <div class="absolute bottom-0 left-0 right-0 p-4 bg-gradient-to-b from-gray-800 to-gray-500 text-white"> --}}
                 <div
-                    class="absolute bottom-0 left-0 right-0 px-4 py-2 bg-gradient-to-b from-gray-100 to-via-50 to-white">
+                    class="absolute bottom-0 left-0 right-0 px-4 py-2 bg-gradient-to-b from-gray-200 to-via-gray-50 to-white">
                     <h2 class="text-xl font-semibold text-primary-800">{{ $tool->name }}</h2>
                     <p class="font-medium text-sm">{{ $tool->tag_line }}</p>
                 </div>

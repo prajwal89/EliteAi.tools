@@ -1,6 +1,6 @@
 import './bootstrap';
 
-// main navbar behavior
+// main navbar open close behavior
 document.addEventListener('DOMContentLoaded', function () {
     // open
     const burger = document.querySelectorAll('.navbar-burger');
@@ -42,3 +42,47 @@ document.addEventListener('DOMContentLoaded', function () {
     }
 });
 
+
+//*on scroll down behaviour
+var toTopButton = document.getElementById("to-top-button");
+
+var prevScrollpos = window.pageYOffset;
+window.onscroll = function () {
+
+    //auto hide navbar
+    var currentScrollPos = window.pageYOffset;
+    // console.log(currentScrollPos)
+    if (currentScrollPos > 300) {
+
+        // do not hide on user pages
+        var currentUrl = window.location.href;
+        var regex = /\/u\//; // Regular expression pattern
+        if (regex.test(currentUrl)) {
+            return;
+        }
+
+
+        if (prevScrollpos > currentScrollPos) {
+            document.getElementById("main_navbar").style.top = "0";
+        } else {
+            document.getElementById("main_navbar").style.top = "-58px";
+        }
+    }
+    prevScrollpos = currentScrollPos;
+
+    //back to top button
+    if (toTopButton) {
+        if (document.body.scrollTop > 500 || document.documentElement.scrollTop > 500) {
+            toTopButton.classList.remove("hidden");
+        } else {
+            toTopButton.classList.add("hidden");
+        }
+
+        window.goToTop = function () {
+            window.scrollTo({
+                top: 0,
+                behavior: 'smooth'
+            });
+        }
+    }
+}
