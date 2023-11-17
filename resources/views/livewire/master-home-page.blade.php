@@ -4,7 +4,6 @@
 
     <div class="px-2 md:px-8 mb-16">
 
-        {{-- category tools --}}
         @if (isset($category) && $pageType == 'category')
             <ul class="flex flex-col gap-4 w-full max-w-5xl mx-auto">
                 @foreach ($category->tools as $cTool)
@@ -20,7 +19,7 @@
                         Recently Added
                     </span>
                     {{-- <span
-            class="absolute -bottom-1 left-0 w-full h-1 bg-gradient-to-r from-primary-500 via-gray-400 to-primary-600 rounded-full"></span> --}}
+                        class="absolute -bottom-1 left-0 w-full h-1 bg-gradient-to-r from-primary-500 via-gray-400 to-primary-600 rounded-full"></span> --}}
                 </div>
 
                 <ul class="grid gap-8 md:grid-cols-2 lg:grid-cols-3 p-2 xl:p-5 ">
@@ -39,7 +38,6 @@
                 @endforeach
             </ul>
         @endif
-
 
 
         @if ($pageType == 'search')

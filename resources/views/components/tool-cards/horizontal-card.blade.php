@@ -2,7 +2,7 @@
     <img class="object-cover aspect-video rounded-lg  border w-full sm:w-2/5"
         src="{{ asset('/tools/' . $tool->slug . '/screenshot.webp') }}" alt="{{ $tool->name }}" loading="lazy">
 
-    <div class="p-2 md:p-4">
+    <div class="p-2 md:p-4 flex-1">
         <a class="text-xl sm:text-2xl hover:underline text-primary-800 my-2 two-line"
             href="{{ route('tool.show', ['tool' => $tool->slug]) }}">
             <span class="font-bold">{{ $tool->name }}</span>
@@ -67,6 +67,13 @@
                 </li>
             @endforeach
         </ul>
+        @if (isAdmin())
+            <div class="flex justify-end">
+                @if (!empty($tool->_semanticScore))
+                    <span class="bg-primary-50 px-2 py-1">{{ $tool->_semanticScore }}</span>
+                @endif
+            </div>
+        @endif
     </div>
 
 </li>

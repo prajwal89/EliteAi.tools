@@ -16,6 +16,8 @@ class MasterHomePage extends Component
 {
     public string $pageType;
 
+    public string $alertMessage = 'alert';
+
     public Collection $allCategories;
 
     public Collection $recentTools;
@@ -26,10 +28,9 @@ class MasterHomePage extends Component
 
     public Collection $popularSearchesTools;
 
-    // * from livewire component
-    public $category;
+    public $category; // from livewire component tag 
 
-    public $topSearch;
+    public $topSearch; // from livewire component tag
 
     public function mount()
     {
@@ -62,6 +63,7 @@ class MasterHomePage extends Component
 
     public function loadSearchPage()
     {
+        // search if query is available in url
         if (!empty($this->searchQuery)) {
             $this->search();
         }
@@ -72,7 +74,12 @@ class MasterHomePage extends Component
         // temporary switch page type 
         $this->pageType = 'search';
 
-        $response = MeilisearchService::vectorSearch(SearchAbleTable::TOOL, $this->searchQuery);
+        if (empty($this->searchQuery)) {
+            $this->alertMessage = "Search query is empty";
+            return;
+        }
+
+        $response = MeilisearchService::vectorSearch(SearchAbleTable::TOOL, trim($this->searchQuery));
 
         $toolIds = collect($response['hits'])->map(function ($tool) {
             return $tool['id'];
@@ -83,6 +90,16 @@ class MasterHomePage extends Component
             ->get()
             ->sortBy(function ($tool) use ($toolIds) {
                 return array_search($tool->id, $toolIds->toArray());
+            })
+            ->map(function ($tool) use ($response) {
+                // assign semantic score
+                $tool->_semanticScore = collect($response['hits'])
+                    ->where('id', $tool->id)
+                    ->first()['_semanticScore'];
+                return $tool;
+            })
+            ->filter(function ($tool) {
+                return $tool->_semanticScore > 0.6;
             });
 
         $this->searchResults['tools'] = $resultTools;
