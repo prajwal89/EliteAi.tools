@@ -102,9 +102,3 @@ class MasterHomePage extends Component
                 return $semanticScore->tool;
             });
     }
-
-    public function render()
-    {
-        return view('livewire.master-home-page');
-    }
-}

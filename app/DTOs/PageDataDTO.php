@@ -11,4 +11,14 @@ class PageDataDTO
         public ?string $thumbnailUrl = null,
     ) {
     }
+
+    public function toArray(): array
+    {
+        return [
+            'title' => $this->title,
+            'description' => $this->description,
+            'canonicalUrl' => $this->conicalUrl,
+            'thumbnailUrl' => $this->thumbnailUrl,
+        ];
+    }
 }
