@@ -54,18 +54,42 @@
         </h1>
 
 
-        <form action="{{ route('search.show') }}" class="relative w-full max-w-3xl my-4 md:my-8">
-            <input class="w-full border h-16 shadow p-4 pr-12 rounded-full text-lg" name="query"
-                value="{{ $query ?? '' }}" placeholder="I want to chat with PDF">
-            <button type="submit" class="absolute top-4 right-4 w-8 h-8">
-                <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="2"
+        <div class="relative w-full max-w-3xl my-4 md:my-8">
+            <input wire:model.defer="searchQuery" wire:keydown.enter="search"
+                class="w-full border h-16 shadow p-4 pr-12 rounded-full text-lg" value="{{ $searchQuery ?? '' }}"
+                placeholder="I want to chat with PDF">
+            <button wire:click="search" type="submit" class="">
+                <svg wire:loading.class='opacity-0' class="absolute top-4 right-4 w-8 h-8"
+                    xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="2"
                     stroke="currentColor">
                     <path stroke-linecap="round" stroke-linejoin="round"
                         d="M21 21l-5.197-5.197m0 0A7.5 7.5 0 105.196 5.196a7.5 7.5 0 0010.607 10.607z" />
                 </svg>
+                <svg wire:loading.class='opacity-100'
+                    class="absolute top-3 right-3 w-10 h-10 animate-spin stroke-gray-900 opacity-0"
+                    viewBox="0 0 256 256">
+                    <line x1="128" y1="32" x2="128" y2="64" stroke-linecap="round"
+                        stroke-linejoin="round" stroke-width="24"></line>
+                    <line x1="195.9" y1="60.1" x2="173.3" y2="82.7" stroke-linecap="round"
+                        stroke-linejoin="round" stroke-width="24"></line>
+                    <line x1="224" y1="128" x2="192" y2="128" stroke-linecap="round"
+                        stroke-linejoin="round" stroke-width="24">
+                    </line>
+                    <line x1="195.9" y1="195.9" x2="173.3" y2="173.3" stroke-linecap="round"
+                        stroke-linejoin="round" stroke-width="24"></line>
+                    <line x1="128" y1="224" x2="128" y2="192" stroke-linecap="round"
+                        stroke-linejoin="round" stroke-width="24">
+                    </line>
+                    <line x1="60.1" y1="195.9" x2="82.7" y2="173.3" stroke-linecap="round"
+                        stroke-linejoin="round" stroke-width="24"></line>
+                    <line x1="32" y1="128" x2="64" y2="128" stroke-linecap="round"
+                        stroke-linejoin="round" stroke-width="24"></line>
+                    <line x1="60.1" y1="60.1" x2="82.7" y2="82.7" stroke-linecap="round"
+                        stroke-linejoin="round" stroke-width="24">
+                    </line>
+                </svg>
             </button>
-        </form>
-
+        </div>
 
 
         @if (!empty($allCategories))

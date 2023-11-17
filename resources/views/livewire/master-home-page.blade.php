@@ -1,6 +1,5 @@
 <div>
 
-
     @include('partials.hero')
 
     <div class="px-2 md:px-8 mb-16">
@@ -39,7 +38,9 @@
         @endif
 
 
-        @if (isset($resultTools))
+        {{-- search results --}}
+
+        @if (isset($searchResults['tools']) && $searchResults['tools']->count() > 0)
             <div class="flex justify-center relative">
                 <span class="text-2xl md:text-3xl font-bold mb-4">
                     Search results
@@ -48,7 +49,7 @@
             class="absolute -bottom-1 left-0 w-full h-1 bg-gradient-to-r from-primary-500 via-gray-400 to-primary-600 rounded-full"></span> --}}
             </div>
             <ul class="flex flex-col gap-4 w-full max-w-5xl mx-auto">
-                @foreach ($resultTools as $rTool)
+                @foreach ($searchResults['tools'] as $rTool)
                     <x-tool-cards.horizontal-card :tool="$rTool" />
                 @endforeach
             </ul>
