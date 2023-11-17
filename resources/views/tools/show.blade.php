@@ -92,19 +92,35 @@
             </a>
         </div> --}}
 
-        <div>
-            <p class="font-semibold text-lg">Related Queries:</p>
+        @if (!$topSearches->isEmpty())
+            <div>
+                <p class="font-semibold text-lg">Related Queries:</p>
+                <ul class="flex gap-2 my-2 flex-wrap">
+                    @foreach ($topSearches as $topSearch)
+                        <li class="bg-gray-100 px-2 py-1 rounded-lg hover:bg-purple-300">
+                            <a href="{{ route('popular.show', ['top_search' => $topSearch->top_search_slug]) }}">
+                                {{ $topSearch->top_search_query }}
+                            </a>
+                        </li>
+                    @endforeach
+                </ul>
+            </div>
+        @endif
 
-            <ul class="flex gap-2 my-2 flex-wrap">
-                @foreach ($topSearches as $topSearch)
-                    <li class="bg-gray-100 px-2 py-1 rounded-lg hover:bg-purple-300">
-                        <a href="{{ route('popular.show', ['top_search' => $topSearch->top_search_slug]) }}">
-                            {{ $topSearch->top_search_query }}
-                        </a>
-                    </li>
-                @endforeach
-            </ul>
-        </div>
+        @if (!$relatedBlogs->isEmpty())
+            <div>
+                <p class="font-semibold text-lg">Related Blogs:</p>
+                <ul class="flex gap-2 my-2 flex-wrap">
+                    @foreach ($relatedBlogs as $blog)
+                        <li class="bg-gray-100 px-2 py-1 rounded-lg hover:bg-purple-300">
+                            <a href="{{ route('blog.show', ['blog' => $blog->blog_slug]) }}">
+                                {{ $blog->blog_title }}
+                            </a>
+                        </li>
+                    @endforeach
+                </ul>
+            </div>
+        @endif
 
     </div>
 

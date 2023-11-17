@@ -29,6 +29,11 @@ class TopSearch extends Model
         return $this->belongsTo(Search::class);
     }
 
+    public function tools()
+    {
+        return $this->hasMany(Tool::class);
+    }
+
     public function extractedFromTool()
     {
         return $this->belongsTo(Tool::class, 'extracted_from_tool_id');

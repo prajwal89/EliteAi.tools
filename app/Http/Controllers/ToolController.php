@@ -3,6 +3,8 @@
 namespace App\Http\Controllers;
 
 use App\DTOs\PageDataDTO;
+use App\Enums\BlogType;
+use App\Models\Blog;
 use App\Models\Category;
 use App\Models\Tool;
 use App\Models\TopSearch;
@@ -32,9 +34,12 @@ class ToolController extends Controller
             maxTools: 3 * 2
         );
 
-        // $topSearches = TopSearch::with(['tools'])->get();
+        // http://127.0.0.1:8000/tool/visily
+        // wrong top searches tool count is less than required
+        // ! should i take intersection $qualifiedTopSearches
+
         $topSearches = TopSearch::select([
-            '*',
+            // '*',
             'top_searches.slug as top_search_slug',
             'top_searches.query as top_search_query',
             DB::raw('count(*) as total_tools')
@@ -43,19 +48,29 @@ class ToolController extends Controller
             ->join('tools', 'tools.id', '=', 'top_search_tool_semantic_scores.tool_id')
             ->where('tools.id', $tool->id)
             ->groupBy('top_searches.id')
-            // ->having('total_tools', '>', 1)
             ->where('score', '>', 0.85)
             ->orderBy('score', 'desc')
             ->limit(24)
-            ->get()
-            // ->map(function ($semanticScore) {
-            //     $semanticScore->tool->score = $semanticScore->score;
+            ->get();
 
-            //     return $semanticScore->tool;
-            // })
-        ;
+        // dd($topSearches->toArray());
 
-        // dd($topSearches);
+        $relatedBlogs = Blog::select([
+            // '*',
+            'blogs.slug as blog_slug',
+            'blogs.title as blog_title',
+        ])
+            ->join('blog_tool_semantic_scores', 'blog_tool_semantic_scores.blog_id', '=', 'blogs.id')
+            ->join('tools', 'tools.id', '=', 'blog_tool_semantic_scores.tool_id')
+            ->where('tools.id', $tool->id)
+            ->groupBy('blogs.id')
+            ->where('blog_type', BlogType::SEMANTIC_SCORE->value)
+            ->where('score', '>', 0.85)
+            ->orderBy('score', 'desc')
+            ->limit(24)
+            ->get();
+
+        // dd($relatedBlogs);
 
         // dd($alternativeTools);
 
@@ -64,6 +79,7 @@ class ToolController extends Controller
         return view('tools.show', [
             'tool' => $tool,
             'topSearches' => $topSearches,
+            'relatedBlogs' => $relatedBlogs,
             'relatedTools' => $relatedTools,
             // 'categories' => $categories,
             'pageDataDTO' => new PageDataDTO(
