@@ -18,6 +18,8 @@ class MeilisearchControlPanel extends Component
 
     public int $totalDocumentsOfCurrentWebsite = 0;
 
+    public array $currentWebsiteAllIndexesData;
+
     public function mount()
     {
         foreach (SearchAbleTable::cases() as $table) {
@@ -31,7 +33,6 @@ class MeilisearchControlPanel extends Component
 
         $this->overallStats = (new MeilisearchService())->stats();
 
-
         foreach ($this->overallStats['indexes'] as $indexName => $indexData) {
             $this->totalDocuments += $indexData['numberOfDocuments'];
             if (in_array($indexName, $this->currentWebsiteAllIndexes)) {
@@ -39,9 +40,23 @@ class MeilisearchControlPanel extends Component
             }
         }
 
+        // calculate all details required for indexes cards
+        foreach ($this->overallStats['indexes'] as $indexName => $indexData) {
+            if (in_array($indexName, $this->currentWebsiteAllIndexes)) {
+                $this->currentWebsiteAllIndexesData[$indexName] = $indexData;
+            }
+        }
+
+        foreach (SearchAbleTable::cases() as $table) {
+            $this->currentWebsiteAllIndexesData[$table->getIndexName()]['batch_size_for_indexing'] = $table->getBatchSize();
+            $this->currentWebsiteAllIndexesData[$table->getIndexName()]['model'] = $table->getModelInstance();
+            $this->currentWebsiteAllIndexesData[$table->getIndexName()]['fulltext_searchable_columns'] = $table->searchAbleColumns();
+            $this->currentWebsiteAllIndexesData[$table->getIndexName()]['fulltext_searchable_columns'] = $table->meilisearchIndexSettings();
+        }
 
 
-        // dd($this->overallStats);
+
+        // dd($this->currentWebsiteAllIndexesData);
     }
 
 

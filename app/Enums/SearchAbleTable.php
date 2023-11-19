@@ -8,7 +8,7 @@ use Illuminate\Database\Eloquent\Model;
 
 enum SearchAbleTable: string
 {
-    case TOOL = 'tool';  //table name
+    case TOOL = 'tools';  //table name
 
     /**
      * index name is {prefix}_{tableName}
@@ -56,5 +56,58 @@ enum SearchAbleTable: string
     public static function values(): array
     {
         return array_column(self::cases(), 'value');
+    }
+
+    /**
+     * Undocumented function
+     *  @see https://www.meilisearch.com/docs/reference/api/settings
+     * @return array
+     */
+    public function meilisearchIndexSettings()
+    {
+        return match ($this) {
+            SearchAbleTable::TOOL => [
+                'displayedAttributes' => ['*'],
+                'searchableAttributes' => ['*'],
+                'filterableAttributes' => [],
+                'sortableAttributes' => [],
+                'rankingRules' => [
+                    'words',
+                    'typo',
+                    'proximity',
+                    'attribute',
+                    'sort',
+                    'exactness',
+                ],
+                'stopWords' => [
+                    // common
+                    'a', 'an', 'and', 'are', 'as', 'at', 'be', 'but', 'by', 'for',
+                    'if', 'in', 'into', 'is', 'it', 'no', 'not', 'of', 'on',
+                    'or', 'such', 'that', 'the', 'their', 'then', 'there', 'these',
+                    'they', 'this', 'to', 'was', 'will', 'with',
+                ],
+                "nonSeparatorTokens" => [],
+                "separatorTokens" => [],
+                "dictionary" => [],
+                'synonyms' => [],
+                'distinctAttribute' => null,
+                'typoTolerance' => [
+                    'enabled' => true,
+                    'minWordSizeForTypos' => [
+                        'oneTypo' => 5,
+                        'twoTypos' => 9,
+                    ],
+                    'disableOnWords' => [],
+                    'disableOnAttributes' => [],
+                ],
+                'faceting' => [
+                    'maxValuesPerFacet' => 100,
+                ],
+                'pagination' => [
+                    'maxTotalHits' => 1000,
+                ],
+            ],
+            default => throw new Exception("Cannot get Settings array for table {$this->value}"),
+        };
     }
 }
