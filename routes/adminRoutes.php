@@ -9,6 +9,7 @@ use App\Http\Controllers\Admin\ToolImportController;
 use App\Http\Controllers\Admin\ToolsToProcessController;
 use App\Http\Controllers\Admin\TopSearchController;
 use App\Http\Controllers\Admin\UserController;
+use App\Http\Controllers\MeilisearchControlPanelController;
 use App\Http\Middleware\AdminAccess;
 use Illuminate\Support\Facades\Route;
 
@@ -28,4 +29,6 @@ Route::prefix(config('custom.admin_panel_base_url'))->name('admin.')->middleware
     Route::resource('blogs', BlogController::class);
     Route::resource('tags', TagController::class);
     Route::resource('top-searches', TopSearchController::class);
+
+    Route::get('/meilisearch', MeilisearchControlPanelController::class)->name('meilisearch.control-panel');
 });

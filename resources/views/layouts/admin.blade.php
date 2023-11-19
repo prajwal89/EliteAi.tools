@@ -102,6 +102,11 @@
                             Top Searches
                         </a>
 
+                        <a class="nav-link" href="{{ route('admin.meilisearch.control-panel') }}">
+                            <div class="sb-nav-link-icon"><i class="fas fa-hashtag"></i></div>
+                            Meilisearch
+                        </a>
+
                         <a class="nav-link" href="{{ config('log-viewer.route_path') }}">
                             <div class="sb-nav-link-icon"><i class="fas fa-table"></i></div>
                             Logs
