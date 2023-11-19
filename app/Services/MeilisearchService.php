@@ -135,6 +135,11 @@ class MeilisearchService
         return false;
     }
 
+    public function stats(): array
+    {
+        return $this->meilisearchClient->stats();
+    }
+
     public function updateDocument(
         SearchAbleTable $table,
         int $documentId,
