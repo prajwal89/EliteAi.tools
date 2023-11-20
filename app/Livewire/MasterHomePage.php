@@ -118,9 +118,8 @@ class MasterHomePage extends Component
 
         // dd($response);
 
-        $toolIds = $response->hits->map(function ($tool) {
-            return $tool['id'];
-        });
+        $toolIds = $response->hits->pluck('id');
+
 
         $resultTools = Tool::with(['categories'])
             ->whereIn('id', $toolIds->toArray())
@@ -128,9 +127,11 @@ class MasterHomePage extends Component
 
         if ($response->strategyUsed == 'vector_meilisearch') {
 
-            $resultTools->sortBy(function ($tool) use ($toolIds) {
-                return array_search($tool->id, $toolIds->toArray());
-            })
+            $resultTools = $resultTools
+                ->sortBy(function ($tool) use ($toolIds) {
+                    return array_search($tool->id, $toolIds->toArray());
+                })
+
                 ->map(function ($tool) use ($response) {
                     // assign semantic score
                     $tool->_semanticScore = collect($response->hits)
@@ -139,9 +140,11 @@ class MasterHomePage extends Component
 
                     return $tool;
                 })
+
                 ->filter(function ($tool) {
                     return $tool->_semanticScore > 0.6;
-                });
+                })
+                ->sortByDesc('_semanticScore');
         }
 
         // dd($resultTools);
