@@ -21,7 +21,7 @@ class TopSearchController extends Controller
         ]);
     }
 
-    public function show(Request $request, string $slug)
+    public function show(string $slug)
     {
         $topSearch = TopSearch::where('slug', $slug)->firstOrFail();
 

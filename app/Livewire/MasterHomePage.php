@@ -16,6 +16,8 @@ class MasterHomePage extends Component
 {
     public string $pageType;
 
+    public $pageDataDTO;
+
     public string $alertMessage = 'alert';
 
     public Collection $allCategories;

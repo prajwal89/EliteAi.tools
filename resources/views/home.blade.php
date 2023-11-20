@@ -4,5 +4,5 @@
 @section('conical_url', $pageDataDTO->conicalUrl)
 
 @section('content')
-    @livewire('master-home-page', ['pageType' => $pageType, 'category' => @$category, 'topSearch' => @$topSearch])
+    @livewire('master-home-page', ['pageType' => $pageType, 'pageDataDTO' => collect($pageDataDTO), 'category' => @$category, 'topSearch' => @$topSearch])
 @stop

@@ -27,6 +27,8 @@
 
         <h1 class="mx-auto py-2 md:py-6 text-center text-shadow-xl z-20">
             <span class="block font-bold text-2xl sm:text-3xl md:text-5xl">
+                {{-- [ {{ $pageDataDTO['title'] }} ] --}}
+
                 @if (isset($category))
                     {{ $category->tools()->count() }} {{ $category->name }} AI tools
 
@@ -39,6 +41,8 @@
                     @if (isAdmin())
                         <a href="{{ route('admin.top-searches.edit', ['top_search' => $topSearch->id]) }}">...</a>
                     @endif
+                @elseif (isset($topSearch))
+                    {{ $pageDataDTO['title'] }}
                 @else
                     {{ config('app.name') }}
                 @endif
