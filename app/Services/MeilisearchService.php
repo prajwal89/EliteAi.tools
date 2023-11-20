@@ -136,6 +136,9 @@ class MeilisearchService
             throw new Exception('Meilisearch not able to queue document ' . $documentId . ' for ' . $table->getIndexName());
         }
 
+        // ! find alternative (it takes meilisearch time to index an document)
+        // sleep(10);
+
         return true;
     }
 
@@ -173,9 +176,13 @@ class MeilisearchService
         }
 
         // Check if the document exists in the index
-        $document = $this->meilisearchClient
-            ->index($table->getIndexName())
-            ->getDocument($documentId);
+        $document = retry(5, function () use ($documentId, $table) {
+            // retrying this b.c of 
+            // Meilisearch\\Exceptions\\ApiException(code: 404): Document `258` not found
+            return $this->meilisearchClient
+                ->index($table->getIndexName())
+                ->getDocument($documentId);
+        }, 5000);
 
         if ($document) {
             $response = $this->meilisearchClient
@@ -279,23 +286,23 @@ class MeilisearchService
         }
 
         try {
-            $response = Http::withHeaders([
-                'Content-Type' => 'application/json',
-                'Authorization' => 'Bearer ' . config('custom.meilisearch.key'),
-            ])->post(
-                config('custom.meilisearch.host') . '/indexes/' . $table->getIndexName() . '/search',
-                $configs
-            );
-
-            $responseData = $response->json();
+            $responseData = retry(3, function () use ($table, $configs) {
+                Http::withHeaders([
+                    'Content-Type' => 'application/json',
+                    'Authorization' => 'Bearer ' . config('custom.meilisearch.key'),
+                ])->post(
+                    config('custom.meilisearch.host') . '/indexes/' . $table->getIndexName() . '/search',
+                    $configs
+                )->json();
+            }, 1000);
         } catch (Exception $e) {
             if (!app()->isProduction()) {
                 throw $e;
-            } else {
-                Log::info('Meilisearch API error');
-
-                return null;
             }
+
+            Log::info('Meilisearch API error');
+
+            return null;
         }
 
         return new SearchResultsDTO(
@@ -381,7 +388,7 @@ class MeilisearchService
                     'model' => 'text-embedding-ada-002',
                     'input' => $text,
                 ]);
-            }, 2);
+            }, 2000);
 
             return $response->embeddings[0]->embedding;
         }
