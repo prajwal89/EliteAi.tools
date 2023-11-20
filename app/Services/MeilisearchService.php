@@ -236,6 +236,7 @@ class MeilisearchService
                 throw new InvalidArgumentException('query or vectors required for performing a search');
             } else {
                 Log::info('query or vectors required for performing a search');
+
                 return null;
             }
         }
@@ -248,6 +249,7 @@ class MeilisearchService
                     throw new InvalidArgumentException('Query is not given for search');
                 } else {
                     Log::info('Query is not given for search');
+
                     return null;
                 }
             }
@@ -270,6 +272,7 @@ class MeilisearchService
                 throw $e;
             } else {
                 Log::info('Meilisearch API error');
+
                 return null;
             }
         }

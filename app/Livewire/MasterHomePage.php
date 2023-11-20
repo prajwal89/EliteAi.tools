@@ -102,16 +102,18 @@ class MasterHomePage extends Component
             return;
         }
 
-        // $response = MeilisearchService::vectorSearch(SearchAbleTable::TOOL, trim($this->searchQuery), [
-        //     'filters' => ['pricing_type = Freemium'],
-        // ]);
-
-        $response = MeilisearchService::fulltextSearch(SearchAbleTable::TOOL, trim($this->searchQuery), [
+        $response = MeilisearchService::vectorSearch(SearchAbleTable::TOOL, trim($this->searchQuery), [
             'filters' => ['pricing_type = Freemium'],
         ]);
 
-        // $response = (new MeilisearchService())->search(SearchAbleTable::TOOL, trim($this->searchQuery), [
-        //     'filter' => ['pricing_type = Freemium']
+        $response = $response ?? (new MeilisearchService())->search(SearchAbleTable::TOOL, trim($this->searchQuery), [
+            'filter' => ['pricing_type = Freemium'],
+        ]);
+
+        // dd($response);
+
+        // $response = MeilisearchService::fulltextSearch(SearchAbleTable::TOOL, trim($this->searchQuery), [
+        //     'filters' => ['pricing_type = Freemium'],
         // ]);
 
         // dd($response);
