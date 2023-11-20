@@ -186,7 +186,7 @@ class MeilisearchService
         string $query,
         array $searchParams = [],
         array $options = []
-    ): SearchResultsDTO {
+    ): ?SearchResultsDTO {
 
         try {
             $results = $this
@@ -202,17 +202,7 @@ class MeilisearchService
                 throw $e;
             }
 
-            // fallback to fulltext search
-            // try {
-            //     $results = self::fulltextSearch($table, $query);
-            // } catch (Exception $es) {
-
-            //     Log::error($es->getMessage());
-
-            //     if (app()->isLocal()) {
-            //         throw $e;
-            //     }
-            // }
+            return null;
         }
 
         return new SearchResultsDTO(
@@ -232,7 +222,7 @@ class MeilisearchService
         string $query = null,
         array $vectors = [],
         array $configs = []
-    ): SearchResultsDTO {
+    ): ?SearchResultsDTO {
 
         $configs = array_merge($configs, [
             // these settings like this because we using this to saving semantic distances one to all
@@ -272,6 +262,57 @@ class MeilisearchService
         );
     }
 
+
+    //! this method should not be here as it violets single responsibility
+    public static function fulltextSearch(
+        SearchAbleTable $table,
+        string $searchQuery,
+        array $settings = []
+    ): ?SearchResultsDTO {
+
+        $defaultSettings = [
+            'limit' => 20,
+            'filters' => [],
+        ];
+
+        $settings = array_merge($defaultSettings, $settings);
+
+        try {
+
+            $query = $table->getModelInstance()::query()
+                ->whereFullText($table->searchAbleColumns(), $searchQuery);
+
+            if (!empty($settings['filters'])) {
+                foreach ($settings['filters'] as $filter) {
+
+                    // todo improve this 
+                    [$column, $value] = explode('=', $filter);
+                    $query->where(trim($column), trim($value));
+                }
+            }
+
+            $results = $query->get();
+
+            // dd($results);
+        } catch (Exception $e) {
+            Log::error($e->getMessage());
+
+            if (app()->isLocal()) {
+                throw $e;
+            }
+
+            return null;
+        }
+
+        return new SearchResultsDTO(
+            hits: $results,
+            totalHits: $results->count(),
+            searchQuery: $searchQuery,
+            timeTakenInMilliseconds: 1,
+            strategyUsed: 'vector_meilisearch'
+        );
+    }
+
     public static function getVectorEmbeddings(string $text, ModelType $modelType)
     {
         // if ($modelType == ModelType::All_MINI_LM_L6_V2) {
@@ -299,13 +340,6 @@ class MeilisearchService
         }
 
         return null;
-    }
-
-    public static function fulltextSearch(SearchAbleTable $table, string $query): Collection
-    {
-        return $table->getModelInstance()::query()
-            ->whereFullText($table->searchAbleColumns(), $query)
-            ->get();
     }
 
     public static function enableVectorSearch()

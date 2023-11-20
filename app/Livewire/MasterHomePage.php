@@ -102,7 +102,11 @@ class MasterHomePage extends Component
             return;
         }
 
-        $response = MeilisearchService::vectorSearch(SearchAbleTable::TOOL, trim($this->searchQuery), [
+        // $response = MeilisearchService::vectorSearch(SearchAbleTable::TOOL, trim($this->searchQuery), [
+        //     'filters' => ['pricing_type = Freemium'],
+        // ]);
+
+        $response = MeilisearchService::fulltextSearch(SearchAbleTable::TOOL, trim($this->searchQuery), [
             'filters' => ['pricing_type = Freemium'],
         ]);
 
