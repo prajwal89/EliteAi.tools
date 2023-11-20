@@ -287,7 +287,7 @@ class MeilisearchService
 
         try {
             $responseData = retry(3, function () use ($table, $configs) {
-                Http::withHeaders([
+                return Http::withHeaders([
                     'Content-Type' => 'application/json',
                     'Authorization' => 'Bearer ' . config('custom.meilisearch.key'),
                 ])->post(

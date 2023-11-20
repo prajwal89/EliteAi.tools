@@ -39,7 +39,7 @@ class TestController extends Controller
 
     public function __invoke()
     {
-        dd(TopSearchService::saveSemanticDistanceBetweenTopSearchAndTools(TopSearch::find(1)));
+        dd(MeilisearchService::vectorSearch(SearchAbleTable::TOOL, '234234'));
 
         // dd(MeilisearchService::getVectorEmbeddings('d', ModelType::OPEN_AI_ADA_002));
 
