@@ -147,6 +147,7 @@ class ToolController extends Controller
 
         // todo use pipeline
         // todo optimize this
+        // ? should i move this to observer in model
         MeilisearchService::indexDocument(SearchAbleTable::TOOL, $tool->id);
 
         dispatch(new SaveVectorEmbeddingsJob($tool));
