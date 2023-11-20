@@ -1,5 +1,5 @@
 <div class="px-4 py-6 bg-gradient-to-b from-primary-50 via-primary-50 to-white relative">
-    <div class="flex flex-col items-center w-full min-h-[280px] md:min-h-[420px] relative">
+    <div class="flex flex-col items-center w-full min-h-[280px] md:min-h-[300px] relative">
         <div class="absolute inset-0 blur-[4px]">
             <img class="animate-img opacity-90 absolute w-10 h-10" style="top: 70%; left: 46%;"
                 src="{{ asset('/images/home/1.svg') }}">
@@ -120,7 +120,7 @@
             </div>
         @endif --}}
 
-        @if (!empty($allCategories))
+        @if (!empty($allCategories) && !$pageType == 'search')
             <ul class="flex gap-2 md:gap-3 flex-wrap justify-center max-w-5xl py-2 md:py-6 px-2 md:px-8">
                 @foreach ($allCategories as $c)
                     @if (isset($category) && $c->name == $category->name)

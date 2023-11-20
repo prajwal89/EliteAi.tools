@@ -8,6 +8,7 @@ use App\Models\Tool;
 use App\Models\TopSearchToolSemanticScore;
 use App\Services\MeilisearchService;
 use Illuminate\Support\Collection;
+use Livewire\Attributes\Url;
 use Livewire\Component;
 
 // todo add comments as this component will get lot bigger
@@ -32,6 +33,8 @@ class MasterHomePage extends Component
     // search section
     public $pricingType;
 
+    // https://livewire.laravel.com/docs/url
+    #[Url(as: 'q')]
     public ?string $searchQuery = '';
 
     public bool $showFiltersModal = false;
