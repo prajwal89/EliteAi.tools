@@ -29,9 +29,11 @@ class MeilisearchControlPanel extends Component
 
     public function init()
     {
-        $this->isServiceOnline =  (new MeilisearchService())->isServiceOnline();
+        $meilisearchService = new MeilisearchService();
 
-        $this->overallStats = (new MeilisearchService())->stats();
+        $this->isServiceOnline =  $meilisearchService->isServiceOnline();
+
+        $this->overallStats = $meilisearchService->stats();
 
         foreach ($this->overallStats['indexes'] as $indexName => $indexData) {
             $this->totalDocuments += $indexData['numberOfDocuments'];
@@ -48,10 +50,27 @@ class MeilisearchControlPanel extends Component
         }
 
         foreach (SearchAbleTable::cases() as $table) {
+            $this->currentWebsiteAllIndexesData[$table->getIndexName()]['tableName'] = $table->value;
             $this->currentWebsiteAllIndexesData[$table->getIndexName()]['batch_size_for_indexing'] = $table->getBatchSize();
             $this->currentWebsiteAllIndexesData[$table->getIndexName()]['model'] = $table->getModelInstance();
             $this->currentWebsiteAllIndexesData[$table->getIndexName()]['fulltext_searchable_columns'] = $table->searchAbleColumns();
-            $this->currentWebsiteAllIndexesData[$table->getIndexName()]['fulltext_searchable_columns'] = $table->meilisearchIndexSettings();
+
+            $serverSettings = json_decode(json_encode($meilisearchService->meilisearchClient->index($table->getIndexName())->getSettings()), true);
+
+            $localSettings = collect($table->meilisearchIndexSettings())->toArray();
+
+            $settingsDifference = recursiveArrayDiff($serverSettings, $localSettings);
+
+            // dd(array_diff($currentSettings, $settingsInSearchableTable));
+
+            // dd($currentSettings, $settingsInSearchableTable);
+
+            // dd($settingsDifference);
+
+            $this->currentWebsiteAllIndexesData[$table->getIndexName()]['settingsDifference'] = $settingsDifference;
+            $this->currentWebsiteAllIndexesData[$table->getIndexName()]['serverSettings'] = $serverSettings;
+            $this->currentWebsiteAllIndexesData[$table->getIndexName()]['localSettings'] = $localSettings;
+            // $this->currentWebsiteAllIndexesData[$table->getIndexName()]['settingsDifference'] = array_diff_assoc_recursive($currentSettings, $settingsInSearchableTable);
         }
 
 
@@ -60,6 +79,21 @@ class MeilisearchControlPanel extends Component
     }
 
 
+    public function syncSettings($tableName)
+    {
+        $table = SearchAbleTable::from($tableName);
+
+        $localSettings = $table->meilisearchIndexSettings();
+
+        // dd($localSettings);
+
+        $response = (new MeilisearchService())
+            ->meilisearchClient
+            ->index($table->getIndexName())
+            ->updateSettings($localSettings);
+
+        dd($response);
+    }
 
     public function render()
     {

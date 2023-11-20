@@ -305,4 +305,52 @@ class MeilisearchService
 
         return $response->json();
     }
+
+    public static function defaultIndexSettings(): array
+    {
+        return [
+            'displayedAttributes' => ['*'],
+            'searchableAttributes' => ['*'],
+            'filterableAttributes' => [],
+            'sortableAttributes' => [],
+            'rankingRules' => [
+                'words',
+                'typo',
+                'proximity',
+                'attribute',
+                'sort',
+                'exactness',
+            ],
+            'stopWords' => [
+                // common
+                'a', 'an', 'and', 'are', 'as', 'at', 'be', 'but', 'by', 'for',
+                'if', 'in', 'into', 'is', 'it', 'no', 'not', 'of', 'on',
+                'or', 'such', 'that', 'the', 'their', 'then', 'there', 'these',
+                'they', 'this', 'to', 'was', 'will', 'with',
+            ],
+            "nonSeparatorTokens" => [],
+            "separatorTokens" => [],
+            "dictionary" => [],
+            // 'synonyms' => [],
+            'distinctAttribute' => null,
+            'typoTolerance' => [
+                'enabled' => true,
+                'minWordSizeForTypos' => [
+                    'oneTypo' => 5,
+                    'twoTypos' => 9,
+                ],
+                'disableOnWords' => [],
+                'disableOnAttributes' => [],
+            ],
+            'faceting' => [
+                'maxValuesPerFacet' => 100,
+                "sortFacetValuesBy" =>  [
+                    "*" => "alpha"
+                ]
+            ],
+            'pagination' => [
+                'maxTotalHits' => 1000,
+            ],
+        ];
+    }
 }

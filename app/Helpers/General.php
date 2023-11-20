@@ -87,3 +87,31 @@ function formatFileSize($size)
 
     return round($size, 2) . ' ' . $units[$i];
 }
+
+function recursiveArrayDiff($array1, $array2)
+{
+    $diff = [];
+
+    foreach ($array1 as $key => $value) {
+        if (!array_key_exists($key, $array2)) {
+            $diff[$key] = $value;
+        } elseif (is_array($value) && is_array($array2[$key])) {
+            $recursiveDiff = recursiveArrayDiff($value, $array2[$key]);
+
+            if (count($recursiveDiff)) {
+                $diff[$key] = $recursiveDiff;
+            }
+        } elseif ($value !== $array2[$key]) {
+            $diff[$key] = $value;
+        }
+    }
+
+    // Check for additional keys in $array2
+    foreach ($array2 as $key => $value) {
+        if (!array_key_exists($key, $array1)) {
+            $diff[$key] = $value;
+        }
+    }
+
+    return $diff;
+}

@@ -49,6 +49,26 @@
                     </ul>
 
                     <textarea class="form-control" id="" cols="30" rows="10">{{ json_encode($indexData, JSON_PRETTY_PRINT) }}</textarea>
+
+                    <div class="row">
+                        <div class="col-6">
+                            <label for="">Server Settings</label>
+                            <textarea class="form-control" id="" cols="30" rows="10">{{ json_encode($indexData['serverSettings'], JSON_PRETTY_PRINT) }}</textarea>
+                        </div>
+                        <div class="col-6">
+                            <label for="">Local settings</label>
+                            <textarea class="form-control" id="" cols="30" rows="10">{{ json_encode($indexData['localSettings'], JSON_PRETTY_PRINT) }}</textarea>
+                        </div>
+                    </div>
+
+                    <div>
+                        <label for="">Difference</label>
+                        <textarea class="form-control" id="" cols="30" rows="10">{{ json_encode($indexData['settingsDifference'], JSON_PRETTY_PRINT) }}</textarea>
+                    </div>
+
+                    <button class="btn btn-success" wire:click="syncSettings('{{ $indexData['tableName'] }}')">
+                        Sync Settings
+                    </button>
                 @endforeach
             </div>
         </div>

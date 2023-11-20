@@ -3,6 +3,7 @@
 namespace App\Enums;
 
 use App\Models\Tool;
+use App\Services\MeilisearchService;
 use Exception;
 use Illuminate\Database\Eloquent\Model;
 
@@ -48,7 +49,11 @@ enum SearchAbleTable: string
     public function searchAbleColumns(): array
     {
         return match ($this) {
-            SearchAbleTable::TOOL => ['name', 'summary', 'description'],
+            SearchAbleTable::TOOL => [
+                'name',
+                'summary',
+                'description'
+            ],
             default => throw new Exception("Searchable columns are not set for table {$this->value}"),
         };
     }
@@ -66,47 +71,10 @@ enum SearchAbleTable: string
     public function meilisearchIndexSettings()
     {
         return match ($this) {
-            SearchAbleTable::TOOL => [
-                'displayedAttributes' => ['*'],
-                'searchableAttributes' => ['*'],
-                'filterableAttributes' => [],
-                'sortableAttributes' => [],
-                'rankingRules' => [
-                    'words',
-                    'typo',
-                    'proximity',
-                    'attribute',
-                    'sort',
-                    'exactness',
-                ],
-                'stopWords' => [
-                    // common
-                    'a', 'an', 'and', 'are', 'as', 'at', 'be', 'but', 'by', 'for',
-                    'if', 'in', 'into', 'is', 'it', 'no', 'not', 'of', 'on',
-                    'or', 'such', 'that', 'the', 'their', 'then', 'there', 'these',
-                    'they', 'this', 'to', 'was', 'will', 'with',
-                ],
-                "nonSeparatorTokens" => [],
-                "separatorTokens" => [],
-                "dictionary" => [],
-                'synonyms' => [],
-                'distinctAttribute' => null,
-                'typoTolerance' => [
-                    'enabled' => true,
-                    'minWordSizeForTypos' => [
-                        'oneTypo' => 5,
-                        'twoTypos' => 9,
-                    ],
-                    'disableOnWords' => [],
-                    'disableOnAttributes' => [],
-                ],
-                'faceting' => [
-                    'maxValuesPerFacet' => 100,
-                ],
-                'pagination' => [
-                    'maxTotalHits' => 1000,
-                ],
-            ],
+            SearchAbleTable::TOOL => array_merge(MeilisearchService::defaultIndexSettings(), [
+                //overwrite settings
+                // 'sdf' => 'sdf'
+            ]),
             default => throw new Exception("Cannot get Settings array for table {$this->value}"),
         };
     }
