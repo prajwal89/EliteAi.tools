@@ -39,9 +39,9 @@ class TestController extends Controller
 
     public function __invoke()
     {
-        dd(MeilisearchService::getVectorEmbeddings('d', ModelType::OPEN_AI_ADA_002));
+        // dd(MeilisearchService::getVectorEmbeddings('d', ModelType::OPEN_AI_ADA_002));
 
-        dd(MeilisearchService::indexAllDocumentsOfTable(SearchAbleTable::TOOL));
+        dd(MeilisearchService::indexAllDocumentsOfTable(SearchAbleTable::TOOL, 1));
 
         dd(SearchAbleTable::TOOL->meilisearchIndexSettings());
 

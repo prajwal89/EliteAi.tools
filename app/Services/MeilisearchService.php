@@ -37,7 +37,7 @@ class MeilisearchService
     /**
      * Index all documents for ann table
      */
-    public static function indexAllDocumentsOfTable(SearchAbleTable $table): array
+    public static function indexAllDocumentsOfTable(SearchAbleTable $table, ?int $currentBatchNo = null): array
     {
         $output = [];
 
@@ -48,6 +48,27 @@ class MeilisearchService
         }
 
         $totalBatches = $searchableModel::documentsForSearchTotalBatches();
+
+        // index single batch
+        if (!empty($currentBatchNo)) {
+
+            if ($totalBatches > $currentBatchNo) {
+                throw new Exception('Current batch number is greater than total batches');
+            }
+
+            $response = (new self())
+                ->meilisearchClient
+                ->index($table->getIndexName())
+                ->addDocuments($searchableModel::documentsForSearch(batchNo: $currentBatchNo));
+
+            $output[] = $response;
+
+            if ($response['status'] !== 'enqueued') {
+                throw new Exception('Meilisearch not able to queue documents for ' . $table->getIndexName());
+            }
+
+            return $output;
+        }
 
         // send documents batch by batch
         for ($batchNo = 0; $batchNo < $totalBatches; $batchNo++) {
