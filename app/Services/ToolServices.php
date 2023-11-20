@@ -119,9 +119,10 @@ class ToolServices
             // we need to calculated b.c this will run multiple times
             throw new Exception('Vectors are not calculated for tool: ' . $tool->id);
         }
+
         // todo we can send already calculated vectors here
         // todo move this function in service class
-        $results = MeilisearchService::vectorSearch(
+        $searchResults = MeilisearchService::vectorSearch(
             table: SearchAbleTable::TOOL,
             query: $tool->getParagraphForVectorEmbeddings(),
             configs: [
@@ -130,21 +131,21 @@ class ToolServices
             ]
         );
 
-        foreach ($results['hits'] as $hit) {
+        foreach ($searchResults->hits as $hitTool) {
             // *same tool this will always result in 1.00000000
-            if ($tool->id == $hit['id']) {
+            if ($tool->id == $hitTool['id']) {
                 continue;
             }
 
             SemanticScore::updateOrCreate([
-                'tool1_id' => min($tool->id, $hit['id']),
-                'tool2_id' => max($tool->id, $hit['id']),
+                'tool1_id' => min($tool->id, $hitTool['id']),
+                'tool2_id' => max($tool->id, $hitTool['id']),
             ], [
-                'score' => $hit['_semanticScore'],
+                'score' => $hitTool['_semanticScore'],
                 'model_type' => config('custom.current_embedding_model')->value,
             ]);
         }
 
-        return $results;
+        return true;
     }
 }

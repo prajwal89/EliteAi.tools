@@ -87,20 +87,16 @@
 
                             </div>
 
-                        </div>
-                        <div class="mt-5 sm:mt-4 sm:flex sm:flex-row-reverse">
-                            <span class="flex w-full rounded-md shadow-sm sm:ml-3 sm:w-auto">
-                                <button type="button"
-                                    class="inline-flex justify-center w-full rounded-md border border-transparent px-4 py-2 bg-primary-600 text-base leading-6 font-medium text-white shadow-sm hover:bg-primary-500 focus:outline-none focus:shadow-outline-primary transition ease-in-out duration-150 sm:text-sm sm:leading-5">
-                                    apply
-                                </button>
-                            </span>
-                            <span class="mt-3 flex w-full rounded-md shadow-sm sm:mt-0 sm:w-auto">
+                            <div class="mt-4 flex  gap-2 justify-end">
                                 <button wire:click="toggleShowFiltersModal()" type="button"
-                                    class="inline-flex justify-center w-full rounded-md border border-gray-300 px-4 py-2 bg-white text-base leading-6 font-medium text-gray-700 shadow-sm hover:text-gray-500 focus:outline-none focus:border-blue-300 focus:shadow-outline-blue transition ease-in-out duration-150 sm:text-sm sm:leading-5">
+                                    class="inline-flex justify-center  rounded-md border border-gray-300 px-4 py-2 bg-white text-base leading-6 font-medium text-gray-700 shadow-sm hover:text-gray-500 focus:outline-none focus:border-blue-300 focus:shadow-outline-blue transition ease-in-out duration-150 sm:text-sm sm:leading-5">
                                     close
                                 </button>
-                            </span>
+                                <button type="button"
+                                    class="inline-flex justify-center  rounded-md border border-transparent px-4 py-2 bg-primary-600 text-base leading-6 font-medium text-white shadow-sm hover:bg-primary-500 focus:outline-none focus:shadow-outline-primary transition ease-in-out duration-150 sm:text-sm sm:leading-5">
+                                    apply
+                                </button>
+                            </div>
                         </div>
                     </div>
                 </div>

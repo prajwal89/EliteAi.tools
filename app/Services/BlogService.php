@@ -27,9 +27,7 @@ class BlogService
             ]
         );
 
-        // dd($searchResults);
-
-        foreach ($searchResults['hits'] as $tool) {
+        foreach ($searchResults->hits as $tool) {
             BlogToolSemanticScore::updateOrCreate([
                 'tool_id' => $tool['id'],
                 'blog_id' => $blog->id,

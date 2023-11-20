@@ -38,7 +38,7 @@ class TopSearchService
             throw new Exception('Vectors are not calculated for TopSearch: ' . $topSearch->id);
         }
 
-        $searchResultsTools = MeilisearchService::vectorSearch(
+        $searchResults = MeilisearchService::vectorSearch(
             table: SearchAbleTable::TOOL,
             vectors: $topSearch->_vectors, //already calculated vectors
             configs: [
@@ -47,9 +47,9 @@ class TopSearchService
             ]
         );
 
-        // dd($searchResultsTools);
+        // dd($searchResults);
 
-        foreach ($searchResultsTools['hits'] as $tool) {
+        foreach ($searchResults->hits as $tool) {
             TopSearchToolSemanticScore::updateOrCreate([
                 'tool_id' => $tool['id'],
                 'top_search_id' => $topSearch->id,
