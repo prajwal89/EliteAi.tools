@@ -45,7 +45,17 @@
                     <h4>{{ $indexName }}</h4>
 
                     <ul>
-                        <li>Total Documents: {{ $indexData['numberOfDocuments'] }}</li>
+                        <li>
+                            Total Documents in Index: {{ $indexData['numberOfDocuments'] }}
+                        </li>
+                        <li>
+                            Total Documents in Table {{ $indexData['totalRecordsInDatabaseTable'] }}
+                        </li>
+
+                        @if ($indexData['numberOfDocuments'] != DB::table($indexData['tableName'])->count())
+                            <li class="text-danger">Databse Records is not sync with Meilisearch</li>
+                        @endif
+
                     </ul>
 
                     <textarea class="form-control" id="" cols="30" rows="10">{{ json_encode($indexData, JSON_PRETTY_PRINT) }}</textarea>
@@ -56,7 +66,8 @@
                             Server Settings
                         </button>
 
-                        <button wire:click="showLocalSettings('{{ $indexData['tableName'] }}')" class="btn btn-success">
+                        <button wire:click="showLocalSettings('{{ $indexData['tableName'] }}')"
+                            class="btn btn-success">
                             Local Settings
                         </button>
                     </div>

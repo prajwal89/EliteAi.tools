@@ -60,15 +60,25 @@ class MeilisearchControlPanel extends Component
             $this->currentWebsiteAllIndexesData[$table->getIndexName()]['model'] = $table->getModelInstance();
             $this->currentWebsiteAllIndexesData[$table->getIndexName()]['fulltext_searchable_columns'] = $table->searchAbleColumns();
 
-            $serverSettings = json_decode(json_encode($this->meilisearchService->meilisearchClient->index($table->getIndexName())->getSettings()), true);
+            $serverSettings = objectToArray(
+                $this
+                    ->meilisearchService
+                    ->meilisearchClient
+                    ->index($table->getIndexName())
+                    ->getSettings()
+            );
 
-            $localSettings = collect($table->meilisearchIndexSettings())->toArray();
+            $localSettings = collect(
+                $table->meilisearchIndexSettings()
+            )->toArray();
 
             $settingsDifference = recursiveArrayDiff($serverSettings, $localSettings);
 
             $this->currentWebsiteAllIndexesData[$table->getIndexName()]['settingsDifference'] = $settingsDifference;
             $this->currentWebsiteAllIndexesData[$table->getIndexName()]['serverSettings'] = $serverSettings;
             $this->currentWebsiteAllIndexesData[$table->getIndexName()]['localSettings'] = $localSettings;
+
+            $this->currentWebsiteAllIndexesData[$table->getIndexName()]['totalRecordsInDatabaseTable'] = $table->getModelInstance()::count();
         }
     }
 
@@ -77,8 +87,6 @@ class MeilisearchControlPanel extends Component
         $table = SearchAbleTable::from($tableName);
 
         $localSettings = $table->meilisearchIndexSettings();
-
-        // dd($localSettings);
 
         $response = $this
             ->meilisearchService
