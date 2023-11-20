@@ -11,7 +11,6 @@ use App\Enums\SearchAbleTable;
 use App\Interfaces\MeilisearchAble;
 use Exception;
 use GuzzleHttp\Client as GuzzleHttpClient;
-use Illuminate\Support\Collection;
 use Illuminate\Support\Facades\Http;
 use Illuminate\Support\Facades\Log;
 use InvalidArgumentException;
@@ -224,6 +223,8 @@ class MeilisearchService
         array $configs = []
     ): ?SearchResultsDTO {
 
+        // return null;
+
         $configs = array_merge($configs, [
             // these settings like this because we using this to saving semantic distances one to all
             // 'limit' => 1000,
@@ -231,27 +232,47 @@ class MeilisearchService
         ]);
 
         if (empty($query) && empty($vectors)) {
-            throw new InvalidArgumentException('query or vectors required for performing a search');
+            if (!app()->isProduction()) {
+                throw new InvalidArgumentException('query or vectors required for performing a search');
+            } else {
+                Log::info('query or vectors required for performing a search');
+                return null;
+            }
         }
 
         if (count($vectors) > 1) {
             $configs['vector'] = $vectors;
         } else {
             if (empty($query)) {
-                throw new InvalidArgumentException('Query is not available search');
+                if (!app()->isProduction()) {
+                    throw new InvalidArgumentException('Query is not given for search');
+                } else {
+                    Log::info('Query is not given for search');
+                    return null;
+                }
             }
+
             $configs['vector'] = MeilisearchService::getVectorEmbeddings($query, config('custom.current_embedding_model'));
         }
 
-        $response = Http::withHeaders([
-            'Content-Type' => 'application/json',
-            'Authorization' => 'Bearer ' . config('custom.meilisearch.key'),
-        ])->post(
-            config('custom.meilisearch.host') . '/indexes/' . $table->getIndexName() . '/search',
-            $configs
-        );
+        try {
+            $response = Http::withHeaders([
+                'Content-Type' => 'application/json',
+                'Authorization' => 'Bearer ' . config('custom.meilisearch.key'),
+            ])->post(
+                config('custom.meilisearch.host') . '/indexes/' . $table->getIndexName() . '/search',
+                $configs
+            );
 
-        $responseData = $response->json();
+            $responseData = $response->json();
+        } catch (Exception $e) {
+            if (!app()->isProduction()) {
+                throw $e;
+            } else {
+                Log::info('Meilisearch API error');
+                return null;
+            }
+        }
 
         return new SearchResultsDTO(
             hits: collect($responseData['hits']),
@@ -261,7 +282,6 @@ class MeilisearchService
             strategyUsed: 'vector_meilisearch'
         );
     }
-
 
     //! this method should not be here as it violets single responsibility
     public static function fulltextSearch(
@@ -285,7 +305,7 @@ class MeilisearchService
             if (!empty($settings['filters'])) {
                 foreach ($settings['filters'] as $filter) {
 
-                    // todo improve this 
+                    // todo improve this
                     [$column, $value] = explode('=', $filter);
                     $query->where(trim($column), trim($value));
                 }
@@ -331,10 +351,13 @@ class MeilisearchService
 
         if ($modelType == ModelType::OPEN_AI_ADA_002) {
 
-            $response = OpenAI::embeddings()->create([
-                'model' => 'text-embedding-ada-002',
-                'input' => $text,
-            ]);
+            // ! sometimes we are receiving failed response
+            $response = retry(2, function () use ($text) {
+                return OpenAI::embeddings()->create([
+                    'model' => 'text-embedding-ada-002',
+                    'input' => $text,
+                ]);
+            }, 2);
 
             return $response->embeddings[0]->embedding;
         }
