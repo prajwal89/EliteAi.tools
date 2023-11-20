@@ -34,6 +34,8 @@ class MasterHomePage extends Component
 
     public ?string $searchQuery = '';
 
+    public bool $showFiltersModal = false;
+
     public function mount()
     {
         $this->searchResults = collect([
@@ -87,6 +89,11 @@ class MasterHomePage extends Component
     }
 
     // search section
+    public function toggleShowFiltersModal()
+    {
+        return $this->showFiltersModal = !$this->showFiltersModal;
+    }
+
     public function applyFilter()
     {
     }
