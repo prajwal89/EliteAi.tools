@@ -92,6 +92,12 @@
             <a href="{{ route('search.show') }}">
                 Search
             </a>
+            <a href="{{ route('blog.index') }}">
+                Blog
+            </a>
+            <a href="{{ route('search.popular.index') }}">
+                Popular seaches
+            </a>
             <a class="btn-outline-primary" href="{{ route('tool.submit') }}">
                 Submit tool
             </a>
