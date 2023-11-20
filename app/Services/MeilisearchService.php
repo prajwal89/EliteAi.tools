@@ -5,6 +5,7 @@ namespace App\Services;
 ini_set('memory_limit', '2048M');
 ini_set('max_execution_time', 600); //10 min
 
+use App\DTOs\SearchResultsDTO;
 use App\Enums\ModelType;
 use App\Enums\SearchAbleTable;
 use App\Interfaces\MeilisearchAble;
@@ -185,13 +186,15 @@ class MeilisearchService
         string $query,
         array $searchParams = [],
         array $options = []
-    ) {
+    ): SearchResultsDTO {
 
         try {
             $results = $this
                 ->meilisearchClient
                 ->index($table->getIndexName())
                 ->search($query, $searchParams, $options);
+
+            // dd($results);
         } catch (Exception $e) {
             Log::error($e->getMessage());
 
@@ -200,19 +203,25 @@ class MeilisearchService
             }
 
             // fallback to fulltext search
-            try {
-                $results = self::fulltextSearch($table, $query);
-            } catch (Exception $es) {
+            // try {
+            //     $results = self::fulltextSearch($table, $query);
+            // } catch (Exception $es) {
 
-                Log::error($es->getMessage());
+            //     Log::error($es->getMessage());
 
-                if (app()->isLocal()) {
-                    throw $e;
-                }
-            }
+            //     if (app()->isLocal()) {
+            //         throw $e;
+            //     }
+            // }
         }
 
-        return $results;
+        return new SearchResultsDTO(
+            hits: collect($results->getHits()),
+            totalHits: $results->getEstimatedTotalHits(),
+            searchQuery: $query,
+            timeTakenInMilliseconds: 1,
+            strategyUsed: 'default_meilisearch'
+        );
     }
 
     /**
@@ -223,7 +232,7 @@ class MeilisearchService
         string $query = null,
         array $vectors = [],
         array $configs = []
-    ): array {
+    ): SearchResultsDTO {
 
         $configs = array_merge($configs, [
             // these settings like this because we using this to saving semantic distances one to all
@@ -254,7 +263,13 @@ class MeilisearchService
 
         $responseData = $response->json();
 
-        return $responseData;
+        return new SearchResultsDTO(
+            hits: collect($responseData['hits']),
+            totalHits: $responseData['estimatedTotalHits'],
+            searchQuery: $query,
+            timeTakenInMilliseconds: 1,
+            strategyUsed: 'vector_meilisearch'
+        );
     }
 
     public static function getVectorEmbeddings(string $text, ModelType $modelType)
@@ -311,12 +326,8 @@ class MeilisearchService
         return [
             'displayedAttributes' => ['*'],
             'searchableAttributes' => ['*'],
-            'filterableAttributes' => [
-                'monthly_subscription_starts_from',
-            ],
-            'sortableAttributes' => [
-                'monthly_subscription_starts_from',
-            ],
+            'filterableAttributes' => [],
+            'sortableAttributes' => [],
             'rankingRules' => [
                 'words',
                 'typo',

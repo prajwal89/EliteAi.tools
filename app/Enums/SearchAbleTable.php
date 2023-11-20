@@ -75,7 +75,13 @@ enum SearchAbleTable: string
         return match ($this) {
             SearchAbleTable::TOOL => array_merge(MeilisearchService::defaultIndexSettings(), [
                 //overwrite settings
-                // 'sdf' => 'sdf'
+                'filterableAttributes' => [
+                    'monthly_subscription_starts_from',
+                    'pricing_type',
+                ],
+                'sortableAttributes' => [
+                    'monthly_subscription_starts_from',
+                ],
             ]),
             default => throw new Exception("Cannot get Settings array for table {$this->value}"),
         };

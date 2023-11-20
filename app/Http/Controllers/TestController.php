@@ -39,6 +39,8 @@ class TestController extends Controller
 
     public function __invoke()
     {
+        dd(MeilisearchService::indexAllDocumentsOfTable(SearchAbleTable::TOOL));
+
         dd(SearchAbleTable::TOOL->meilisearchIndexSettings());
 
         ToolServices::updateVectorEmbeddings(Tool::find(1));
