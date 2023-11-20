@@ -311,8 +311,12 @@ class MeilisearchService
         return [
             'displayedAttributes' => ['*'],
             'searchableAttributes' => ['*'],
-            'filterableAttributes' => [],
-            'sortableAttributes' => [],
+            'filterableAttributes' => [
+                'monthly_subscription_starts_from'
+            ],
+            'sortableAttributes' => [
+                'monthly_subscription_starts_from'
+            ],
             'rankingRules' => [
                 'words',
                 'typo',

@@ -73,8 +73,6 @@ class MeilisearchControlPanel extends Component
             // $this->currentWebsiteAllIndexesData[$table->getIndexName()]['settingsDifference'] = array_diff_assoc_recursive($currentSettings, $settingsInSearchableTable);
         }
 
-
-
         // dd($this->currentWebsiteAllIndexesData);
     }
 
