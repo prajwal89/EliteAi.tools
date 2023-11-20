@@ -31,7 +31,7 @@ class MeilisearchControlPanel extends Component
     {
         $meilisearchService = new MeilisearchService();
 
-        $this->isServiceOnline =  $meilisearchService->isServiceOnline();
+        $this->isServiceOnline = $meilisearchService->isServiceOnline();
 
         $this->overallStats = $meilisearchService->stats();
 
@@ -75,7 +75,6 @@ class MeilisearchControlPanel extends Component
 
         // dd($this->currentWebsiteAllIndexesData);
     }
-
 
     public function syncSettings($tableName)
     {

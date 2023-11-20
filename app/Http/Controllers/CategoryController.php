@@ -45,7 +45,7 @@ class CategoryController extends Controller
                 ])
             ),
             'pageType' => 'category',
-            'category' => $category
+            'category' => $category,
         ]);
     }
 }

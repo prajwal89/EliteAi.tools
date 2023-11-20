@@ -52,7 +52,7 @@ enum SearchAbleTable: string
             SearchAbleTable::TOOL => [
                 'name',
                 'summary',
-                'description'
+                'description',
             ],
             default => throw new Exception("Searchable columns are not set for table {$this->value}"),
         };
@@ -65,7 +65,9 @@ enum SearchAbleTable: string
 
     /**
      * Undocumented function
+     *
      *  @see https://www.meilisearch.com/docs/reference/api/settings
+     *
      * @return array
      */
     public function meilisearchIndexSettings()

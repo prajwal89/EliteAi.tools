@@ -312,10 +312,10 @@ class MeilisearchService
             'displayedAttributes' => ['*'],
             'searchableAttributes' => ['*'],
             'filterableAttributes' => [
-                'monthly_subscription_starts_from'
+                'monthly_subscription_starts_from',
             ],
             'sortableAttributes' => [
-                'monthly_subscription_starts_from'
+                'monthly_subscription_starts_from',
             ],
             'rankingRules' => [
                 'words',
@@ -332,9 +332,9 @@ class MeilisearchService
                 'or', 'such', 'that', 'the', 'their', 'then', 'there', 'these',
                 'they', 'this', 'to', 'was', 'will', 'with',
             ],
-            "nonSeparatorTokens" => [],
-            "separatorTokens" => [],
-            "dictionary" => [],
+            'nonSeparatorTokens' => [],
+            'separatorTokens' => [],
+            'dictionary' => [],
             // 'synonyms' => [],
             'distinctAttribute' => null,
             'typoTolerance' => [
@@ -348,9 +348,9 @@ class MeilisearchService
             ],
             'faceting' => [
                 'maxValuesPerFacet' => 100,
-                "sortFacetValuesBy" =>  [
-                    "*" => "alpha"
-                ]
+                'sortFacetValuesBy' => [
+                    '*' => 'alpha',
+                ],
             ],
             'pagination' => [
                 'maxTotalHits' => 1000,

@@ -3,9 +3,6 @@
 namespace App\Http\Controllers;
 
 use App\DTOs\PageDataDTO;
-use App\Enums\SearchAbleTable;
-use App\Models\Tool;
-use App\Services\MeilisearchService;
 use Illuminate\Http\Request;
 
 class SearchController extends Controller

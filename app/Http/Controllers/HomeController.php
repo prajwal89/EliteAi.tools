@@ -3,8 +3,6 @@
 namespace App\Http\Controllers;
 
 use App\DTOs\PageDataDTO;
-use App\Models\Category;
-use App\Models\Tool;
 
 class HomeController extends Controller
 {
@@ -16,7 +14,7 @@ class HomeController extends Controller
                 description: null,
                 conicalUrl: route('home')
             ),
-            'pageType' => 'home'
+            'pageType' => 'home',
         ]);
     }
 }

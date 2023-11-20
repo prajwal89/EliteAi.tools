@@ -10,7 +10,6 @@ use App\Http\Controllers\TagController;
 use App\Http\Controllers\TestController;
 use App\Http\Controllers\ToolAlternativesController;
 use App\Http\Controllers\ToolController;
-use App\Http\Controllers\TopAiToolsController;
 use App\Http\Controllers\TopSearchController;
 use Illuminate\Support\Facades\Route;
 
@@ -25,7 +24,6 @@ Route::prefix('search')->name('search.')->group(function () {
         Route::get('/{top_search:slug}', 'show')->name('show');
     });
 });
-
 
 Route::controller(ToolController::class)->prefix('tool')->name('tool.')->group(function () {
     Route::controller(ToolAlternativesController::class)->name('alternatives.')->group(function () {
@@ -51,7 +49,6 @@ Route::controller(BlogController::class)->prefix('blog')->name('blog.')->group(f
     Route::get('/', 'index')->name('index');
     Route::get('/{blog:slug}', 'show')->name('show');
 });
-
 
 Route::controller(SocialAuthController::class)->prefix('auth')->name('auth.')->group(function () {
     Route::get('/login', 'loginPage')->name('login');

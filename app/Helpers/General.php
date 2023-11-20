@@ -74,10 +74,9 @@ function estimateTokenUsage(string $text): int
     return $tokenCount;
 }
 
-
 function formatFileSize($size)
 {
-    $units = array('B', 'KB', 'MB', 'GB', 'TB', 'PB', 'EB', 'ZB', 'YB');
+    $units = ['B', 'KB', 'MB', 'GB', 'TB', 'PB', 'EB', 'ZB', 'YB'];
 
     $i = 0;
     while ($size >= 1024 && $i < count($units) - 1) {

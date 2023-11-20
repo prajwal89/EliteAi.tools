@@ -55,8 +55,6 @@ class TestController extends Controller
 
         dd(MeilisearchService::indexDocument(SearchAbleTable::TOOL, 234234234));
 
-
-
         TopSearchService::saveSemanticDistanceBetweenTopSearchAndTools(
             // TopSearch::inRandomOrder()->first()
             TopSearch::find(1)

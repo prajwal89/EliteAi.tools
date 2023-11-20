@@ -2,7 +2,6 @@
 
 namespace App\Livewire;
 
-use App\DTOs\PageDataDTO;
 use App\Enums\SearchAbleTable;
 use App\Models\Category;
 use App\Models\Tool;
@@ -28,14 +27,14 @@ class MasterHomePage extends Component
 
     public Collection $popularSearchesTools;
 
-    public $category; // from livewire component tag 
+    public $category; // from livewire component tag
 
     public $topSearch; // from livewire component tag
 
     public function mount()
     {
         $this->searchResults = collect([
-            'tools' => collect()
+            'tools' => collect(),
         ]);
 
         match ($this->pageType) {
@@ -71,11 +70,12 @@ class MasterHomePage extends Component
 
     public function search()
     {
-        // temporary switch page type 
+        // temporary switch page type
         $this->pageType = 'search';
 
         if (empty($this->searchQuery)) {
-            $this->alertMessage = "Search query is empty";
+            $this->alertMessage = 'Search query is empty';
+
             return;
         }
 
@@ -96,6 +96,7 @@ class MasterHomePage extends Component
                 $tool->_semanticScore = collect($response['hits'])
                     ->where('id', $tool->id)
                     ->first()['_semanticScore'];
+
                 return $tool;
             })
             ->filter(function ($tool) {
