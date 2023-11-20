@@ -286,7 +286,7 @@ class MeilisearchService
         }
 
         try {
-            $responseData = retry(3, function () use ($table, $configs) {
+            $responseData = retry(5, function () use ($table, $configs) {
                 return Http::withHeaders([
                     'Content-Type' => 'application/json',
                     'Authorization' => 'Bearer ' . config('custom.meilisearch.key'),
@@ -294,7 +294,7 @@ class MeilisearchService
                     config('custom.meilisearch.host') . '/indexes/' . $table->getIndexName() . '/search',
                     $configs
                 )->json();
-            }, 1000);
+            }, 2000);
         } catch (Exception $e) {
             if (!app()->isProduction()) {
                 throw $e;
