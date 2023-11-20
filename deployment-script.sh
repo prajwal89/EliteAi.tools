@@ -3,6 +3,8 @@ php vendor/bin/pint
 php artisan test
 php artisan dusk
 
+php artisan meilisearch:index-all-documents-of-table tools
+
 php artisan queue:retry all
 
 php artisan migrate
