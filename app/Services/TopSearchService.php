@@ -25,7 +25,8 @@ class TopSearchService
 
         TopSearchService::updateVectorEmbeddings($topSearch);
 
-        dispatch(new SaveSemanticDistanceBetweenTopSearchAndToolJob($topSearch));
+        dispatch(new SaveSemanticDistanceBetweenTopSearchAndToolJob($topSearch))
+            ->delay(now()->addMinutes(1));
 
         return $topSearch;
     }
