@@ -72,7 +72,7 @@ class BlogService
             ->join('tools', 'tools.id', '=', 'blog_tool_semantic_scores.tool_id')
             ->join('blogs', 'blogs.id', '=', 'blog_tool_semantic_scores.blog_id')
             ->where('blog_tool_semantic_scores.score', '>', 0.850)
-            ->having('total_tools', '>', 3)
+            ->having('total_tools', '>=', config('custom.blog_page.minimum_tools_required'))
             ->groupBy('blogs.id')
             ->get()
             ->pluck('blog_id');

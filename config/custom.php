@@ -21,5 +21,11 @@ return [
     // page qualification requirements
     'tag_page' => [
         'minimum_tools_required' => 4,
-    ]
+    ],
+    'blog_page' => [
+        'minimum_tools_required' => 4,
+    ],
+    'popular_search' => [
+        'minimum_tools_required' => 4,
+    ],
 ];

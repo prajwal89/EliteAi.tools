@@ -99,7 +99,7 @@ class TopSearchService
             ->join('tools', 'tools.id', '=', 'top_search_tool_semantic_scores.tool_id')
             ->join('top_searches', 'top_searches.id', '=', 'top_search_tool_semantic_scores.top_search_id')
             ->where('top_search_tool_semantic_scores.score', '>', 0.85)
-            ->having('total_tools', '>', 5)
+            ->having('total_tools', '>=', config('custom.blog_page.minimum_tools_required'))
             ->groupBy('top_searches.id')
             ->get()
             ->pluck('top_search_id');
