@@ -75,6 +75,9 @@ class ToolController extends Controller
                 'linkedin_company_id' => $request->linkedin_company_id,
                 'facebook_id' => $request->facebook_id,
                 'pinterest_id' => $request->pinterest_id,
+                'slack_app_id' => $request->slack_app_id,
+                'slack_channel_id' => $request->slack_channel_id,
+                'figma_plugin_id' => $request->figma_plugin_id,
                 'behance_id' => $request->behance_id,
                 'dribbble_id' => $request->dribbble_id,
                 'youtube_channel_id' => $request->youtube_channel_id,
@@ -93,6 +96,7 @@ class ToolController extends Controller
                 'has_api' => $request->has('has_api'),
 
                 'yt_introduction_video_id' => $request->yt_introduction_video_id,
+                'vimeo_introduction_video_id' => $request->vimeo_introduction_video_id,
 
                 'top_features' => collect($request->top_features)->filter(function ($value) {
                     return !empty($value);
@@ -230,6 +234,9 @@ class ToolController extends Controller
                 'linkedin_company_id' => $request->linkedin_company_id,
                 'facebook_id' => $request->facebook_id,
                 'pinterest_id' => $request->pinterest_id,
+                'slack_app_id' => $request->slack_app_id,
+                'slack_channel_id' => $request->slack_channel_id,
+                'figma_plugin_id' => $request->figma_plugin_id,
                 'behance_id' => $request->behance_id,
                 'dribbble_id' => $request->dribbble_id,
                 'youtube_channel_id' => $request->youtube_channel_id,
@@ -248,6 +255,7 @@ class ToolController extends Controller
                 'has_api' => $request->has('has_api'),
 
                 'yt_introduction_video_id' => $request->yt_introduction_video_id,
+                'vimeo_introduction_video_id' => $request->vimeo_introduction_video_id,
 
                 'top_features' => collect($request->top_features)->filter(function ($value) {
                     return !empty($value);

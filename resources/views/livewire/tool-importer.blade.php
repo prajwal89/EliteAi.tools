@@ -166,6 +166,7 @@ Content of the website is as following:
                                 </a>
                             </p>
                         @endif
+
                         @if (!empty($toolSocialHandlesDTO['pinterestUserId']))
                             <p>
                                 <span>Pinterest:</span>
@@ -175,6 +176,35 @@ Content of the website is as following:
                                 </a>
                             </p>
                         @endif
+
+                        @if (!empty($toolSocialHandlesDTO['SlackAppId']))
+                            <p>
+                                <span>SlackAppId:</span>
+                                <a target="_blank"
+                                    href="https://slack.com/apps/{{ $toolSocialHandlesDTO['SlackAppId'] }}">
+                                    {{ $toolSocialHandlesDTO['SlackAppId'] }}
+                                </a>
+                            </p>
+                        @endif
+                        @if (!empty($toolSocialHandlesDTO['slackChannelId']))
+                            <p>
+                                <span>slackChannelId:</span>
+                                <a target="_blank"
+                                    href="https://{{ $toolSocialHandlesDTO['slackChannelId'] }}.slack.com">
+                                    {{ $toolSocialHandlesDTO['slackChannelId'] }}
+                                </a>
+                            </p>
+                        @endif
+                        @if (!empty($toolSocialHandlesDTO['figmaPluginId']))
+                            <p>
+                                <span>figmaPluginId:</span>
+                                <a target="_blank"
+                                    href="https://www.figma.com/community/plugin/{{ $toolSocialHandlesDTO['figmaPluginId'] }}">
+                                    {{ $toolSocialHandlesDTO['figmaPluginId'] }}
+                                </a>
+                            </p>
+                        @endif
+
                         @if (!empty($toolSocialHandlesDTO['behanceUserId']))
                             <p>
                                 <span>Dribbble:</span>

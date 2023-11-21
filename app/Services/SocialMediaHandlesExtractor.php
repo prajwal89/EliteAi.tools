@@ -65,6 +65,22 @@ class SocialMediaHandlesExtractor
         'subreddit_id' => [
             '/www.reddit.com\/r\/([^\/]+)/',
         ],
+
+        // https://slack.com/apps/A04FWL664HJ-aithingyco
+        'slack_app_id' => [
+            '/slack.com\/apps\/([^\/]+)/',
+        ],
+
+        // https://www.figma.com/community/plugin/1228445031368830402/ai-thingy-for-figma
+        'figma_plugin_id' => [
+            '/figma\.com\/community\/plugin\/([^\/]+)/',
+        ],
+
+        // https://mixpeek.slack.com
+        'slack_channel_id' => [
+            '/(?:https?:\/\/)?([a-zA-Z0-9_-]+)\.slack\.com/',
+        ],
+
         'telegram_channel_id' => [
             '/t.me\/([^\/]+)/',
         ],

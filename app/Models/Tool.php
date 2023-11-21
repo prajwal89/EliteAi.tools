@@ -47,6 +47,9 @@ class Tool extends Model implements MeilisearchAble
         'dribbble_id',
         'behance_id',
         'pinterest_id',
+        'slack_app_id',
+        'slack_channel_id',
+        'figma_plugin_id',
         'youtube_channel_id',
         'youtube_handle_id',
         'telegram_channel_id',
@@ -69,6 +72,7 @@ class Tool extends Model implements MeilisearchAble
         // 'has_documentation',
 
         'yt_introduction_video_id', //introduction video of the tool
+        'vimeo_introduction_video_id',
     ];
 
     protected $casts = [
