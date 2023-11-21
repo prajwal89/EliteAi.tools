@@ -17,4 +17,9 @@ return [
     ],
     // ! we need to change all embeddings if we are going to change this key
     'current_embedding_model' => \App\Enums\ModelType::OPEN_AI_ADA_002,
+
+    // page qualification requirements
+    'tag_page' => [
+        'minimum_tools_required' => 4,
+    ]
 ];
