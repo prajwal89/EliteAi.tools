@@ -74,18 +74,6 @@ function estimateTokenUsage(string $text): int
     return $tokenCount;
 }
 
-function formatFileSize($size)
-{
-    $units = ['B', 'KB', 'MB', 'GB', 'TB', 'PB', 'EB', 'ZB', 'YB'];
-
-    $i = 0;
-    while ($size >= 1024 && $i < count($units) - 1) {
-        $size /= 1024;
-        $i++;
-    }
-
-    return round($size, 2) . ' ' . $units[$i];
-}
 
 function recursiveArrayDiff($array1, $array2)
 {

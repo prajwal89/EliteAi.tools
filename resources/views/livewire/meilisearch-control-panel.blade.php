@@ -25,7 +25,9 @@
                             </a>
                         </strong>
                     </li>
-                    <li>DataBase Size: <strong>{{ formatFileSize($overallStats['databaseSize']) }}</strong></li>
+                    <li>DataBase Size:
+                        <strong>{{ \Illuminate\Support\Number::filesize($overallStats['databaseSize']) }}</strong>
+                    </li>
                     <li>Total Documents: <strong>{{ $totalDocuments }}</strong></li>
                     <li>Total Documents Current Website: <strong>{{ $totalDocumentsOfCurrentWebsite }}</strong></li>
                 </ul>
