@@ -62,14 +62,14 @@
             <input wire:model.defer="searchQuery" wire:keydown.enter="search"
                 class="w-full border h-16 shadow p-4 pr-12 rounded-full text-lg" value="{{ $searchQuery ?? '' }}"
                 placeholder="I want to chat with PDF">
-            <button wire:click="search" type="submit" class="">
-                <svg wire:loading.class='opacity-0' wire:target="search" class="absolute top-4 right-4 w-8 h-8"
-                    xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="2"
-                    stroke="currentColor">
+            <button wire:click="search" type="submit">
+                <svg wire:loading.class="opacity-0" wire:target="search,applyFilters"
+                    class="absolute top-4 right-4 w-8 h-8" xmlns="http://www.w3.org/2000/svg" fill="none"
+                    viewBox="0 0 24 24" stroke-width="2" stroke="currentColor">
                     <path stroke-linecap="round" stroke-linejoin="round"
                         d="M21 21l-5.197-5.197m0 0A7.5 7.5 0 105.196 5.196a7.5 7.5 0 0010.607 10.607z" />
                 </svg>
-                <svg wire:loading.class='opacity-100' wire:target="search"
+                <svg wire:loading.class="opacity-100" wire:target="search,applyFilters"
                     class="absolute top-3 right-3 w-10 h-10 animate-spin stroke-gray-900 opacity-0"
                     viewBox="0 0 256 256">
                     <line x1="128" y1="32" x2="128" y2="64" stroke-linecap="round"
@@ -96,14 +96,18 @@
         </div>
 
         @if ($pageType == 'search')
-            <button wire:click="toggleShowFiltersModal()"
-                class="flex gap-2 z-20 -mt-4 items-center cursor-pointer bg-gray-200/70 px-3 py-1 rounded-full">
+            <button onclick="return document.getElementById('filtersModal').showModal()"
+                class="relative flex gap-2 z-20 -mt-4 items-center cursor-pointer bg-gray-200/70 px-3 py-1 rounded-full">
+                {{-- <span class="absolute px-1 rounded-full bg-gray-200 -top-2 -right-2 text-sm text-primary-800">2</span> --}}
                 <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5"
                     stroke="currentColor" class="w-4 h-4">
                     <path stroke-linecap="round" stroke-linejoin="round"
                         d="M10.5 6h9.75M10.5 6a1.5 1.5 0 11-3 0m3 0a1.5 1.5 0 10-3 0M3.75 6H7.5m3 12h9.75m-9.75 0a1.5 1.5 0 01-3 0m3 0a1.5 1.5 0 00-3 0m-3.75 0H7.5m9-6h3.75m-3.75 0a1.5 1.5 0 01-3 0m3 0a1.5 1.5 0 00-3 0m-9.75 0h9.75" />
                 </svg>
                 <span>filter</span>
+                @if ($totalFiltersApplied > 0)
+                    <span class="rounded-full font-bold">{{ $totalFiltersApplied }}</span>
+                @endif
             </button>
         @endif
 

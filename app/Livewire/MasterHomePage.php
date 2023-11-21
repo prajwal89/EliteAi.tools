@@ -18,7 +18,7 @@ class MasterHomePage extends Component
 
     public $pageDataDTO;
 
-    public string $alertMessage = 'alert';
+    public string $alertMessage = '';
 
     public Collection $allCategories;
 
@@ -33,13 +33,15 @@ class MasterHomePage extends Component
     public $topSearch; // from livewire component tag
 
     // search section
-    public $pricingType;
+    public array $filters = [
+        'pricingType' => "*",
+    ];
+
+    public int $totalFiltersApplied = 0;
 
     // https://livewire.laravel.com/docs/url
     #[Url(as: 'q')]
     public ?string $searchQuery = '';
-
-    public bool $showFiltersModal = false;
 
     public function mount()
     {
@@ -94,13 +96,13 @@ class MasterHomePage extends Component
     }
 
     // search section
-    public function toggleShowFiltersModal()
+    public function applyFilters()
     {
-        return $this->showFiltersModal = !$this->showFiltersModal;
-    }
+        $this->totalFiltersApplied = 0;
 
-    public function applyFilter()
-    {
+        $this->filters['pricingType'] != '*' ? $this->totalFiltersApplied++ : null;
+
+        $this->search();
     }
 
     public function search()
@@ -114,17 +116,25 @@ class MasterHomePage extends Component
             return;
         }
 
-        // $response = null;
+        $meilisearchFilters = [];
 
-        $response = MeilisearchService::vectorSearch(SearchAbleTable::TOOL, trim($this->searchQuery), [
-            // 'filters' => ['pricing_type = Freemium'],
-        ]);
+        if ($this->filters['pricingType'] != '*') {
+            $meilisearchFilters['filter'] = ['pricing_type = "' . $this->filters['pricingType'] . '"'];
+        }
 
-        $response = $response ?? (new MeilisearchService())->search(SearchAbleTable::TOOL, trim($this->searchQuery), [
-            // 'filter' => ['pricing_type = Freemium'],
-        ]);
 
-        // dd($response);
+        $response = MeilisearchService::vectorSearch(
+            SearchAbleTable::TOOL,
+            trim($this->searchQuery),
+            $meilisearchFilters
+        );
+
+        $response = $response ?? (new MeilisearchService())->search(
+            SearchAbleTable::TOOL,
+            trim($this->searchQuery),
+            $meilisearchFilters
+        );
+
 
         // $response = MeilisearchService::fulltextSearch(SearchAbleTable::TOOL, trim($this->searchQuery), [
         //     'filters' => ['pricing_type = Freemium'],
