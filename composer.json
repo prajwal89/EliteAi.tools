@@ -9,6 +9,7 @@
     "license": "MIT",
     "require": {
         "php": "^8.1",
+        "asantibanez/livewire-charts": "^3.0",
         "chrome-php/chrome": "^1.9",
         "facebook/webdriver": "*",
         "guzzlehttp/guzzle": "^7.2",
