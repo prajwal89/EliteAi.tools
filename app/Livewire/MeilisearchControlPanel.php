@@ -22,9 +22,13 @@ class MeilisearchControlPanel extends Component
 
     private MeilisearchService $meilisearchService;
 
-    public function mount()
+    public function __construct()
     {
         $this->meilisearchService = new MeilisearchService();
+    }
+
+    public function mount()
+    {
 
         foreach (SearchAbleTable::cases() as $table) {
             $this->currentWebsiteAllIndexes[] = $table->getIndexName();

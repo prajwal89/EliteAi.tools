@@ -77,10 +77,12 @@ enum SearchAbleTable: string
                 //overwrite settings
                 'filterableAttributes' => [
                     'monthly_subscription_starts_from',
+                    'pay_once_price_starts_from',
                     'pricing_type',
                 ],
                 'sortableAttributes' => [
                     'monthly_subscription_starts_from',
+                    'pay_once_price_starts_from'
                 ],
             ]),
             default => throw new Exception("Cannot get Settings array for table {$this->value}"),

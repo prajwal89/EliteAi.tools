@@ -116,12 +116,13 @@ class MasterHomePage extends Component
             return;
         }
 
-        $meilisearchFilters = [];
+        $meilisearchFilters['sort'] = ['monthly_subscription_starts_from:desc'];
 
         if ($this->filters['pricingType'] != '*') {
             $meilisearchFilters['filter'] = ['pricing_type = "' . $this->filters['pricingType'] . '"'];
         }
 
+        // dd($meilisearchFilters);
 
         $response = MeilisearchService::vectorSearch(
             SearchAbleTable::TOOL,
