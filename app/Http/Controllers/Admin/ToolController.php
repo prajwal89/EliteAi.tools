@@ -82,6 +82,7 @@ class ToolController extends Controller
                 'dribbble_id' => $request->dribbble_id,
                 'youtube_channel_id' => $request->youtube_channel_id,
                 'youtube_handle_id' => $request->youtube_handle_id,
+                'subreddit_id' => $request->subreddit_id,
                 'discord_channel_invite_id' => $request->discord_channel_invite_id,
                 'github_repository_path' => $request->github_repository_path,
 
@@ -241,6 +242,7 @@ class ToolController extends Controller
                 'behance_id' => $request->behance_id,
                 'dribbble_id' => $request->dribbble_id,
                 'youtube_channel_id' => $request->youtube_channel_id,
+                'subreddit_id' => $request->subreddit_id,
                 'youtube_handle_id' => $request->youtube_handle_id,
                 'discord_channel_invite_id' => $request->discord_channel_invite_id,
                 'github_repository_path' => $request->github_repository_path,
