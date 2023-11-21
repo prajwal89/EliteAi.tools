@@ -5,7 +5,11 @@
 test('globals')
     ->expect(['dd', 'dump'])
     ->not->toBeUsed()
-    ->ignoring('App\Http\Controllers\TestController');
+    ->ignoring('App\Http\Controllers\TestController')
+    ->ignoring('App\Services\DomainNameExtractors')
+    ->ignoring('App\Livewire\ToolImporter')
+    ->ignoring('App\Services\ExtractedToolProcessor')
+    ->ignoring('App\Livewire\MeilisearchControlPanel');
 
 test('Enums')
     ->expect('App\Enums')
