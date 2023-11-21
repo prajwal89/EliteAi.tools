@@ -302,6 +302,7 @@ class MeilisearchService
             $responseData = retry(
                 times: $retrySettings['times'],
                 callback: function () use ($table, $configs) {
+                    // todo replace with client->vectorSearch when available
                     return Http::withHeaders([
                         'Content-Type' => 'application/json',
                         'Authorization' => 'Bearer ' . config('custom.meilisearch.key'),

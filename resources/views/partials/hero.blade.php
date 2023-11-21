@@ -95,10 +95,9 @@
             </button>
         </div>
 
-        @if ($pageType == 'search')
+        {{-- @if ($pageType == 'search')
             <button onclick="return document.getElementById('filtersModal').showModal()"
                 class="relative flex gap-2 z-20 -mt-4 items-center cursor-pointer bg-gray-200/70 px-3 py-1 rounded-full">
-                {{-- <span class="absolute px-1 rounded-full bg-gray-200 -top-2 -right-2 text-sm text-primary-800">2</span> --}}
                 <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5"
                     stroke="currentColor" class="w-4 h-4">
                     <path stroke-linecap="round" stroke-linejoin="round"
@@ -109,7 +108,7 @@
                     <span class="rounded-full font-bold">{{ $totalFiltersApplied }}</span>
                 @endif
             </button>
-        @endif
+        @endif --}}
 
         @if (!empty($alertMessage))
             <div class="flex justify-between z-40 bg-yellow-100/50 border border-yellow-400 text-yellow-800 px-2 py-1 my-2 rounded min-w-xl "

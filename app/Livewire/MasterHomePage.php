@@ -116,7 +116,7 @@ class MasterHomePage extends Component
             return;
         }
 
-        $meilisearchFilters['sort'] = ['monthly_subscription_starts_from:desc'];
+        // $meilisearchFilters['sort'] = ['monthly_subscription_starts_from:desc'];
 
         if ($this->filters['pricingType'] != '*') {
             $meilisearchFilters['filter'] = ['pricing_type = "' . $this->filters['pricingType'] . '"'];
@@ -127,13 +127,13 @@ class MasterHomePage extends Component
         $response = MeilisearchService::vectorSearch(
             SearchAbleTable::TOOL,
             trim($this->searchQuery),
-            $meilisearchFilters
+            // $meilisearchFilters
         );
 
         $response = $response ?? (new MeilisearchService())->search(
             SearchAbleTable::TOOL,
             trim($this->searchQuery),
-            $meilisearchFilters
+            // $meilisearchFilters
         );
 
 

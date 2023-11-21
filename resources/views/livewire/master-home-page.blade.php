@@ -59,7 +59,7 @@
             @endif
 
             {{-- filter model --}}
-            <dialog id="filtersModal" class="bg-white p-2 md:px-4 w-full max-w-xl rounded-md">
+            {{-- <dialog id="filtersModal" class="bg-white p-2 md:px-4 w-full max-w-xl rounded-md">
                 <h3 class="mb-4 font-medium text-gray-900">Filters</h3>
                 <div class="my-4">
                     <div class="mt-2">
@@ -83,7 +83,7 @@
                         </button>
                     </div>
                 </div>
-            </dialog>
+            </dialog> --}}
         @endif
 
     </div>
