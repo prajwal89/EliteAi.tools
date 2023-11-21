@@ -78,15 +78,9 @@ class MeilisearchControlPanel extends Component
 
     public function syncSettings($tableName)
     {
-        $table = SearchAbleTable::from($tableName);
+        $searchAbleTable = SearchAbleTable::from($tableName);
 
-        $localSettings = $table->meilisearchIndexSettings();
-
-        $response = $this
-            ->meilisearchService
-            ->meilisearchClient
-            ->index($table->getIndexName())
-            ->updateSettings($localSettings);
+        $response = MeilisearchService::syncLocalSettings($searchAbleTable);
 
         dd($response);
     }

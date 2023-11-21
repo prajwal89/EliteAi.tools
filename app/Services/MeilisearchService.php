@@ -426,6 +426,28 @@ class MeilisearchService
         return $response->json();
     }
 
+    /**
+     * sync local settings with Meilisearch Service
+     *
+     * @param SearchAbleTable $searchAbleTable
+     * @return bool
+     */
+    public static function syncLocalSettings(SearchAbleTable $searchAbleTable): bool
+    {
+        $localSettings = $searchAbleTable->meilisearchIndexSettings();
+
+        $response = (new MeilisearchService())
+            ->meilisearchClient
+            ->index($searchAbleTable->getIndexName())
+            ->updateSettings($localSettings);
+
+        if ($response['status'] !== 'enqueued') {
+            throw new Exception('Meilisearch not able to sync settings for in ' . $searchAbleTable->getIndexName());
+        }
+
+        return true;
+    }
+
     public static function defaultIndexSettings(): array
     {
         return [

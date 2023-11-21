@@ -10,7 +10,7 @@
                 {{ config('app.name') }}
             </p>
         </div>
-        <small class="text-gray-500 text-xs">beta</small>
+        {{-- <small class="text-gray-500 text-xs">beta</small> --}}
     </a>
 
     <form action="{{ route('search.show') }}" class="relative w-[420px] bg-white">
