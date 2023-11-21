@@ -150,17 +150,16 @@ class ToolController extends Controller
         // ? should i move this to observer in model
         MeilisearchService::indexDocument(SearchAbleTable::TOOL, $tool->id);
 
-        dispatch(new SaveVectorEmbeddingsJob($tool));
-        // ToolServices::updateVectorEmbeddings($tool);
+        dispatch(new SaveVectorEmbeddingsJob($tool))->delay(now()->addMinutes(1));
 
-        dispatch(new SaveSemanticDistanceBetweenToolAndToolJob($tool));
+        dispatch(new SaveSemanticDistanceBetweenToolAndToolJob($tool))->delay(now()->addMinutes(2));
 
         Blog::where('blog_type', BlogType::SEMANTIC_SCORE->value)->get()->map(function ($blog) {
-            dispatch(new SaveSemanticDistanceBetweenBlogAndToolJob($blog));
+            dispatch(new SaveSemanticDistanceBetweenBlogAndToolJob($blog))->delay(now()->addMinutes(3));
         });
 
         TopSearch::get()->map(function ($topSearch) {
-            dispatch(new SaveSemanticDistanceBetweenTopSearchAndToolJob($topSearch));
+            dispatch(new SaveSemanticDistanceBetweenTopSearchAndToolJob($topSearch))->delay(now()->addMinutes(4));
         });
 
         return redirect()
@@ -277,18 +276,18 @@ class ToolController extends Controller
 
         MeilisearchService::indexDocument(SearchAbleTable::TOOL, $tool->id);
 
-        dispatch(new SaveVectorEmbeddingsJob($tool));
-        // ToolServices::updateVectorEmbeddings($tool);
+        dispatch(new SaveVectorEmbeddingsJob($tool))->delay(now()->addMinutes(1));
 
-        dispatch(new SaveSemanticDistanceBetweenToolAndToolJob($tool));
+        dispatch(new SaveSemanticDistanceBetweenToolAndToolJob($tool))->delay(now()->addMinutes(2));
 
         Blog::where('blog_type', BlogType::SEMANTIC_SCORE->value)->get()->map(function ($blog) {
-            dispatch(new SaveSemanticDistanceBetweenBlogAndToolJob($blog));
+            dispatch(new SaveSemanticDistanceBetweenBlogAndToolJob($blog))->delay(now()->addMinutes(3));
         });
 
         TopSearch::get()->map(function ($topSearch) {
-            dispatch(new SaveSemanticDistanceBetweenTopSearchAndToolJob($topSearch));
+            dispatch(new SaveSemanticDistanceBetweenTopSearchAndToolJob($topSearch))->delay(now()->addMinutes(4));
         });
+
 
         return redirect()->back()->with('success', 'tool updated successfully');
     }
