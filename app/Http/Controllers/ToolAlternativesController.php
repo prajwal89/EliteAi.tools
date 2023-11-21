@@ -11,14 +11,15 @@ use Illuminate\View\View;
 
 class ToolAlternativesController extends Controller
 {
-    public function show(Request $request, string $slug): View
+    public function show(string $slug): View
     {
         $tool = Tool::where('slug', $slug)->firstOrFail();
 
+        // todo improve this
         $alternativeTools = RecommendationService::baseOnSemanticScores(
             tool: $tool,
-            score: 0.7,
-            maxTools: 3 * 2
+            score: 0.85,
+            maxTools: 40
         );
 
         return view('tools.alternatives.show', [
@@ -41,8 +42,8 @@ class ToolAlternativesController extends Controller
             ->select(['*', 'tool1.id as tool_id', DB::raw('count(*) as total_tools')])
             ->join('tools as tool1', 'tool1.id', '=', 'semantic_scores.tool1_id')
             ->join('tools as tool2', 'tool2.id', '=', 'semantic_scores.tool2_id')
-            ->where('semantic_scores.score', '>', 0.85)
-            ->having('total_tools', '>', 3)
+            ->where('semantic_scores.score', '>', config('custom.alternative_tools.minimum_semantic_score'))
+            ->having('total_tools', '>=', config('custom.alternative_tools.minimum_tools_required'))
             ->groupBy('tool1.id')
             ->get()
             ->pluck('tool_id');

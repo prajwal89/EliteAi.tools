@@ -30,4 +30,8 @@ return [
         'minimum_tools_required' => 4,
         'minimum_semantic_score' => 0.850,
     ],
+    'alternative_tools' => [
+        'minimum_tools_required' => 4,
+        'minimum_semantic_score' => 0.850,
+    ],
 ];
