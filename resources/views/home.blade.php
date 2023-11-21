@@ -1,4 +1,4 @@
-@extends('layouts.app-full-width', ['livewire' => true])
+@extends('layouts.app-full-width')
 @section('title', $pageDataDTO->title)
 @section('description', $pageDataDTO->description)
 @section('conical_url', $pageDataDTO->conicalUrl)
