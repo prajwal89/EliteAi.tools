@@ -212,20 +212,29 @@ class MeilisearchService
         SearchAbleTable $table,
         string $query,
         array $searchParams = [],
-        array $options = []
+        array $options = [],
+        array $retrySettings = [
+            'times' => 2,
+            'sleepMilliseconds' => 1000
+        ]
     ): ?SearchResultsDTO {
 
         try {
-            $results = $this
-                ->meilisearchClient
-                ->index($table->getIndexName())
-                ->search($query, $searchParams, $options);
-
-            // dd($results);
+            // b.c external apis are should be treated as unreliable 
+            $results = retry(
+                times: $retrySettings['times'],
+                callback: function () use ($table, $query, $searchParams, $options) {
+                    return $this
+                        ->meilisearchClient
+                        ->index($table->getIndexName())
+                        ->search($query, $searchParams, $options);
+                },
+                sleepMilliseconds: $retrySettings['sleepMilliseconds']
+            );
         } catch (Exception $e) {
             Log::error($e->getMessage());
 
-            if (app()->isLocal()) {
+            if (!app()->isProduction()) {
                 throw $e;
             }
 
@@ -248,7 +257,11 @@ class MeilisearchService
         SearchAbleTable $table,
         string $query = null,
         array $vectors = [],
-        array $configs = []
+        array $configs = [],
+        array $retrySettings = [
+            'times' => 5,
+            'sleepMilliseconds' => 2000
+        ]
     ): ?SearchResultsDTO {
 
         // return null;
@@ -286,15 +299,19 @@ class MeilisearchService
         }
 
         try {
-            $responseData = retry(5, function () use ($table, $configs) {
-                return Http::withHeaders([
-                    'Content-Type' => 'application/json',
-                    'Authorization' => 'Bearer ' . config('custom.meilisearch.key'),
-                ])->post(
-                    config('custom.meilisearch.host') . '/indexes/' . $table->getIndexName() . '/search',
-                    $configs
-                )->json();
-            }, 2000);
+            $responseData = retry(
+                times: $retrySettings['times'],
+                callback: function () use ($table, $configs) {
+                    return Http::withHeaders([
+                        'Content-Type' => 'application/json',
+                        'Authorization' => 'Bearer ' . config('custom.meilisearch.key'),
+                    ])->post(
+                        config('custom.meilisearch.host') . '/indexes/' . $table->getIndexName() . '/search',
+                        $configs
+                    )->json();
+                },
+                sleepMilliseconds: $retrySettings['sleepMilliseconds']
+            );
         } catch (Exception $e) {
             if (!app()->isProduction()) {
                 throw $e;

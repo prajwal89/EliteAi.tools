@@ -114,6 +114,8 @@ class MasterHomePage extends Component
             return;
         }
 
+        // $response = null;
+
         $response = MeilisearchService::vectorSearch(SearchAbleTable::TOOL, trim($this->searchQuery), [
             // 'filters' => ['pricing_type = Freemium'],
         ]);
@@ -129,6 +131,12 @@ class MasterHomePage extends Component
         // ]);
 
         // dd($response);
+
+        if (empty($response)) {
+            $this->alertMessage = 'Something went wrong please try again later';
+
+            return;
+        }
 
         $toolIds = $response->hits->pluck('id');
 
