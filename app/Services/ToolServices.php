@@ -120,11 +120,10 @@ class ToolServices
             throw new Exception('Vectors are not calculated for tool: ' . $tool->id);
         }
 
-        // todo we can send already calculated vectors here
-        // todo move this function in service class
         $searchResults = MeilisearchService::vectorSearch(
             table: SearchAbleTable::TOOL,
-            query: $tool->getParagraphForVectorEmbeddings(),
+            // query: $tool->getParagraphForVectorEmbeddings(),
+            vectors: $tool->_vectors,
             configs: [
                 'limit' => $toolsLimit,
                 'attributesToRetrieve' => ['id', 'name'],
