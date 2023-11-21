@@ -10,7 +10,7 @@ class SearchResultsDTO
     public function __construct(
         public Collection $hits,
         public int $totalHits, //for pagination etc
-        public ?string $searchQuery = null,
+        public ?string $searchQuery,
         public float $timeTakenInMilliseconds,
         public string $strategyUsed, // default_meilisearch | vector_meilisearch | fulltext   todo create enum for this
     ) {

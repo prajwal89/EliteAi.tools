@@ -5,7 +5,6 @@ namespace App\Http\Controllers;
 use App\DTOs\PageDataDTO;
 use App\Models\TopSearch;
 use App\Services\TopSearchService;
-use Illuminate\Http\Request;
 
 class TopSearchController extends Controller
 {

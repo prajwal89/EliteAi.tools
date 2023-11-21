@@ -132,7 +132,6 @@ class MasterHomePage extends Component
 
         $toolIds = $response->hits->pluck('id');
 
-
         $resultTools = Tool::with(['categories'])
             ->whereIn('id', $toolIds->toArray())
             ->get();

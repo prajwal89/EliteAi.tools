@@ -1,4 +1,4 @@
-<div wire:init="init()">
+<div>
 
     <div class="card">
         <div class="card-header">
@@ -46,10 +46,10 @@
 
                     <ul>
                         <li>
-                            Total Documents in Index: {{ $indexData['numberOfDocuments'] }}
+                            Total Documents in Index: <strong>{{ $indexData['numberOfDocuments'] }}</strong>
                         </li>
                         <li>
-                            Total Documents in Table {{ $indexData['totalRecordsInDatabaseTable'] }}
+                            Total Documents in Table: <strong>{{ $indexData['totalRecordsInDatabaseTable'] }}</strong>
                         </li>
 
                         @if ($indexData['numberOfDocuments'] != DB::table($indexData['tableName'])->count())

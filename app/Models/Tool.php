@@ -94,15 +94,15 @@ class Tool extends Model implements MeilisearchAble
      * that embeddings can be later used for
      * 1.Searching
      * 2.Recommendation
-     * ! be carefull to change return value as we have to 
-     * ! recalculate vector embeddings of all tools 
+     * ! be carefull to change return value as we have to
+     * ! recalculate vector embeddings of all tools
      * ! as well as save semantic distance for all tools
      */
     public function getParagraphForVectorEmbeddings(): string
     {
         $paragraphToEmbed = '';
 
-        //! we do not need this 
+        //! we do not need this
         // see here  http://clgnotes.esy.es/tool/stockgpt
         // unrelated recommendation including GPT in name in tool
 

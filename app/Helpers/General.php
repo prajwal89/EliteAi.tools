@@ -115,7 +115,6 @@ function recursiveArrayDiff($array1, $array2)
     return $diff;
 }
 
-
 function objectToArray($object)
 {
     return json_decode(json_encode($object), true);

@@ -37,7 +37,7 @@ class MeilisearchService
     /**
      * Index all documents for ann table
      */
-    public static function indexAllDocumentsOfTable(SearchAbleTable $table, ?int $currentBatchNo = null): array
+    public static function indexAllDocumentsOfTable(SearchAbleTable $table, int $currentBatchNo = null): array
     {
         $output = [];
 
@@ -177,7 +177,7 @@ class MeilisearchService
 
         // Check if the document exists in the index
         $document = retry(5, function () use ($documentId, $table) {
-            // retrying this b.c of 
+            // retrying this b.c of
             // Meilisearch\\Exceptions\\ApiException(code: 404): Document `258` not found
             return $this->meilisearchClient
                 ->index($table->getIndexName())
