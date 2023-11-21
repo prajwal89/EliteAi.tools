@@ -82,3 +82,18 @@ for plan types that can be like this
         }
     ]
 }
+
+
+-------
+Todo find best way to do this do R&D
+
+I am creating a blog post on a website that lists AI tools 
+
+The title of the blog post is: Best AI Tools For Startups
+
+give me a short description of the blog post in HTML format. 
+do not use heavy words use simple and formal language.
+add where you can use this tools and features.
+
+also give me SEO friendly seo title.
+description for SERP 

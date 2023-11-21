@@ -71,8 +71,8 @@ class BlogService
             ->select(['blog_id', DB::raw('count(*) as total_tools')])
             ->join('tools', 'tools.id', '=', 'blog_tool_semantic_scores.tool_id')
             ->join('blogs', 'blogs.id', '=', 'blog_tool_semantic_scores.blog_id')
-            // !0.850 this score is dynamic according to every blog
-            ->where('blog_tool_semantic_scores.score', '>',  config('custom.blog_page.minimum_semantic_score'))
+            // ->where('blog_tool_semantic_scores.score', '>',  config('custom.blog_page.minimum_semantic_score'))
+            ->where('blog_tool_semantic_scores.score', '>', DB::raw('blogs.min_semantic_score'))
             ->having('total_tools', '>=', config('custom.blog_page.minimum_tools_required'))
             ->groupBy('blogs.id')
             ->get()
