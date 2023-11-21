@@ -24,8 +24,10 @@ return [
     ],
     'blog_page' => [
         'minimum_tools_required' => 4,
+        'minimum_semantic_score' => 0.850,
     ],
     'popular_search' => [
         'minimum_tools_required' => 4,
+        'minimum_semantic_score' => 0.850,
     ],
 ];
