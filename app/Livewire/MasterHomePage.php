@@ -34,7 +34,7 @@ class MasterHomePage extends Component
 
     // search section
     public array $filters = [
-        'pricingType' => "*",
+        'pricingType' => '*',
     ];
 
     public int $totalFiltersApplied = 0;
@@ -135,7 +135,6 @@ class MasterHomePage extends Component
             trim($this->searchQuery),
             // $meilisearchFilters
         );
-
 
         // $response = MeilisearchService::fulltextSearch(SearchAbleTable::TOOL, trim($this->searchQuery), [
         //     'filters' => ['pricing_type = Freemium'],

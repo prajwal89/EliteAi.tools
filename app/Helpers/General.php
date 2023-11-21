@@ -74,7 +74,6 @@ function estimateTokenUsage(string $text): int
     return $tokenCount;
 }
 
-
 function recursiveArrayDiff($array1, $array2)
 {
     $diff = [];

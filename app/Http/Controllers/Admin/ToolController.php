@@ -285,11 +285,10 @@ class ToolController extends Controller
             $tool->categories()->sync($request->categories);
         });
 
-
         MeilisearchService::indexDocument(SearchAbleTable::TOOL, $tool->id);
 
-        // * these columns are required for calculating vectors so 
-        //  we need to update again embeddings and distances also 
+        // * these columns are required for calculating vectors so
+        //  we need to update again embeddings and distances also
         if ($tool->wasChanged(['name', 'description', 'summary', 'tag_line', 'top_features', 'use_cases'])) {
             $message = ' and also Recalculating vectors and distances';
 

@@ -215,12 +215,12 @@ class MeilisearchService
         array $options = [],
         array $retrySettings = [
             'times' => 2,
-            'sleepMilliseconds' => 1000
+            'sleepMilliseconds' => 1000,
         ]
     ): ?SearchResultsDTO {
 
         try {
-            // b.c external apis are should be treated as unreliable 
+            // b.c external apis are should be treated as unreliable
             $results = retry(
                 times: $retrySettings['times'],
                 callback: function () use ($table, $query, $searchParams, $options) {
@@ -260,7 +260,7 @@ class MeilisearchService
         array $configs = [],
         array $retrySettings = [
             'times' => 5,
-            'sleepMilliseconds' => 2000
+            'sleepMilliseconds' => 2000,
         ]
     ): ?SearchResultsDTO {
 
@@ -429,9 +429,6 @@ class MeilisearchService
 
     /**
      * sync local settings with Meilisearch Service
-     *
-     * @param SearchAbleTable $searchAbleTable
-     * @return bool
      */
     public static function syncLocalSettings(SearchAbleTable $searchAbleTable): bool
     {
