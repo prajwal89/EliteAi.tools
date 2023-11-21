@@ -72,6 +72,9 @@
             !empty($tool->linkedin_id) ||
             !empty($tool->behance_id) ||
             !empty($tool->pinterest_id) ||
+            !empty($tool->slack_app_id) ||
+            !empty($tool->slack_channel_id) ||
+            !empty($tool->figma_plugin_id) ||
             !empty($tool->dribbble_id) ||
             !empty($tool->discord_channel_invite_id) ||
             !empty($tool->github_repository_path) ||
@@ -237,6 +240,67 @@
                         </a>
                     </li>
                 @endif
+
+
+
+                @if (!empty($tool->slack_app_id))
+                    <li>
+                        <a href="https://slack.com/apps/{{ $tool->slack_app_id }}" target="_blank" title="Slack App"
+                            class="text-gray-600 hover:text-gray-900 dark:hover:text-white dark:text-gray-400">
+                            <svg class="w-5 h-5" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 192 192"
+                                fill="none">
+                                <rect width="22" height="64" x="106" y="22" stroke="currentColor"
+                                    stroke-width="12" rx="11" />
+                                <rect width="22" height="64" x="64" y="106" stroke="currentColor"
+                                    stroke-width="12" rx="11" />
+                                <rect width="22" height="64" x="170" y="106" stroke="currentColor"
+                                    stroke-width="12" rx="11" transform="rotate(90 170 106)" />
+                                <rect width="22" height="64" x="86" y="64" stroke="currentColor"
+                                    stroke-width="12" rx="11" transform="rotate(90 86 64)" />
+                                <path stroke="currentColor" stroke-linejoin="round" stroke-width="12"
+                                    d="M75 44c-6.075 0-11-4.925-11-11s4.925-11 11-11 11 4.925 11 11v11H75Zm42 104c6.075 0 11 4.925 11 11s-4.925 11-11 11-11-4.925-11-11v-11h11Zm31-73c0-6.075 4.925-11 11-11s11 4.925 11 11-4.925 11-11 11h-11V75ZM44 117c0 6.075-4.925 11-11 11s-11-4.925-11-11 4.925-11 11-11h11v11Z" />
+                            </svg>
+                        </a>
+                    </li>
+                @endif
+                @if (!empty($tool->slack_channel_id))
+                    <li>
+                        <a href="https://{{ $tool->slack_channel_id }}.slack.com" target="_blank"
+                            title="Slack Channel"
+                            class="text-gray-600 hover:text-gray-900 dark:hover:text-white dark:text-gray-400">
+                            <svg class="w-5 h-5" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 192 192"
+                                fill="none">
+                                <rect width="22" height="64" x="106" y="22" stroke="currentColor"
+                                    stroke-width="12" rx="11" />
+                                <rect width="22" height="64" x="64" y="106" stroke="currentColor"
+                                    stroke-width="12" rx="11" />
+                                <rect width="22" height="64" x="170" y="106" stroke="currentColor"
+                                    stroke-width="12" rx="11" transform="rotate(90 170 106)" />
+                                <rect width="22" height="64" x="86" y="64" stroke="currentColor"
+                                    stroke-width="12" rx="11" transform="rotate(90 86 64)" />
+                                <path stroke="currentColor" stroke-linejoin="round" stroke-width="12"
+                                    d="M75 44c-6.075 0-11-4.925-11-11s4.925-11 11-11 11 4.925 11 11v11H75Zm42 104c6.075 0 11 4.925 11 11s-4.925 11-11 11-11-4.925-11-11v-11h11Zm31-73c0-6.075 4.925-11 11-11s11 4.925 11 11-4.925 11-11 11h-11V75ZM44 117c0 6.075-4.925 11-11 11s-11-4.925-11-11 4.925-11 11-11h11v11Z" />
+                            </svg>
+                        </a>
+                    </li>
+                @endif
+                @if (!empty($tool->figma_plugin_id))
+                    <li>
+                        <a href="https://www.figma.com/community/plugin/{{ $tool->figma_plugin_id }}" target="_blank"
+                            title="Figma plugin"
+                            class="text-gray-600 hover:text-gray-900 dark:hover:text-white dark:text-gray-400">
+                            <svg class="w-5 h-5" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"
+                                fill="none">
+                                <path
+                                    d="M12 3H9C7.34315 3 6 4.34315 6 6C6 7.65685 7.34315 9 9 9M12 3V9M12 3H15C16.6569 3 18 4.34315 18 6C18 7.65685 16.6569 9 15 9M12 9H9M12 9H15M12 9V15M9 9C7.34315 9 6 10.3431 6 12C6 13.6569 7.34315 15 9 15M15 9C16.6569 9 18 10.3431 18 12C18 13.6569 16.6569 15 15 15C13.3431 15 12 13.6569 12 12C12 10.3431 13.3431 9 15 9ZM12 15H9M12 15V18C12 19.6569 10.6569 21 9 21C7.34315 21 6 19.6569 6 18C6 16.3431 7.34315 15 9 15"
+                                    stroke="currentColor" stroke-width="2" stroke-linecap="round"
+                                    stroke-linejoin="round" />
+                            </svg>
+                        </a>
+                    </li>
+                @endif
+
+
 
                 @if (!empty($tool->youtube_channel_id))
                     <li>
