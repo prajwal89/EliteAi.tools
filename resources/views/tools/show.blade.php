@@ -48,7 +48,7 @@
             @include('partials.tools.tool-details')
         </div>
 
-        <article class="prose max-w-screen-lg lg:prose-lg py-4 sm:py-8">
+        <article class="prose max-w-screen-lg lg:prose-lg py-4 sm:py-8 px-2">
 
             <h2 class="sm:mt-4">What is {{ $tool->name }}?</h2>
 
@@ -58,6 +58,14 @@
                         src="https://www.youtube.com/embed/{{ $tool->yt_introduction_video_id }}" frameborder="0"
                         allowfullscreen></iframe>
                 </div>
+            @endif
+
+            @if (!empty($tool->vimeo_introduction_video_id))
+                <div style="padding:56.25% 0 0 0;position:relative;"><iframe
+                        src="https://player.vimeo.com/video/{{ $tool->vimeo_introduction_video_id }}?h=1699409fe2&color=ef2200&byline=0&portrait=0"
+                        style="position:absolute;top:0;left:0;width:100%;height:100%;" frameborder="0"
+                        allow="autoplay; fullscreen; picture-in-picture" allowfullscreen></iframe></div>
+                <script src="https://player.vimeo.com/api/player.js"></script>
             @endif
 
             <div>
