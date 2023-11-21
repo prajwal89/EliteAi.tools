@@ -86,16 +86,10 @@ class ToolServices
             modelType: config('custom.current_embedding_model')
         );
 
-        // $documentForIndexing = Tool::documentsForSearch($tool->id);
-
         $vectorData = [
             '_vectors' => $embeddings,
             'model_type' => config('custom.current_embedding_model')->value,
         ];
-
-        // $allDocumentData = array_merge($documentForIndexing[0], $vectorData);
-
-        // dd(array_merge($documentForIndexing[0], $vectorData));
 
         $tool->update($vectorData);
 
@@ -116,7 +110,7 @@ class ToolServices
         int $toolsLimit = 500,
     ) {
         if (empty($tool->_vectors) || count($tool->_vectors) < 1) {
-            // we need to calculated b.c this will run multiple times
+            // !we need to calculated b.c this will run multiple times (confirm this)
             throw new Exception('Vectors are not calculated for tool: ' . $tool->id);
         }
 
