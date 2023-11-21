@@ -109,20 +109,38 @@ class ToolServices
         Tool $tool,
         int $toolsLimit = 500,
     ) {
+        $configs = [
+            'limit' => $toolsLimit,
+            'attributesToRetrieve' => ['id', 'name'],
+        ];
+
         if (empty($tool->_vectors) || count($tool->_vectors) < 1) {
             // !we need to calculated b.c this will run multiple times (confirm this)
-            throw new Exception('Vectors are not calculated for tool: ' . $tool->id);
+
+            if (!app()->isProduction()) {
+                throw new Exception('Vectors are not calculated for tool: ' . $tool->id);
+            }
+
+            // !this can be expensive if executed multiple times
+            $searchResults = MeilisearchService::vectorSearch(
+                table: SearchAbleTable::TOOL,
+                query: $tool->getParagraphForVectorEmbeddings(),
+                // vectors: $tool->_vectors,
+                configs: $configs
+            );
+        } else {
+
+            $searchResults = MeilisearchService::vectorSearch(
+                table: SearchAbleTable::TOOL,
+                // query: $tool->getParagraphForVectorEmbeddings(),
+                vectors: $tool->_vectors,
+                configs: $configs
+            );
         }
 
-        $searchResults = MeilisearchService::vectorSearch(
-            table: SearchAbleTable::TOOL,
-            // query: $tool->getParagraphForVectorEmbeddings(),
-            vectors: $tool->_vectors,
-            configs: [
-                'limit' => $toolsLimit,
-                'attributesToRetrieve' => ['id', 'name'],
-            ]
-        );
+        if (empty($searchResults)) {
+            throw new Exception('Did not get search results for: ' . $tool->id);
+        }
 
         foreach ($searchResults->hits as $hitTool) {
             // *same tool this will always result in 1.00000000
