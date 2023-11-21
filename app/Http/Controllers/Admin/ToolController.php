@@ -215,6 +215,7 @@ class ToolController extends Controller
         }
 
         DB::transaction(function () use ($request, $tool, $toolData) {
+
             $tool->update([
                 'name' => $request->name,
                 'tag_line' => $request->tag_line,
@@ -282,22 +283,28 @@ class ToolController extends Controller
             $tool->categories()->sync($request->categories);
         });
 
+
         MeilisearchService::indexDocument(SearchAbleTable::TOOL, $tool->id);
 
-        dispatch(new SaveVectorEmbeddingsJob($tool))->delay(now()->addMinutes(1));
+        // * these columns are required for calculating vectors so 
+        //  we need to update again embeddings and distances also 
+        if ($tool->wasChanged(['name', 'description', 'summary', 'tag_line', 'top_features', 'use_cases'])) {
+            $message = ' and also Recalculating vectors and distances';
 
-        dispatch(new SaveSemanticDistanceBetweenToolAndToolJob($tool))->delay(now()->addMinutes(2));
+            dispatch(new SaveVectorEmbeddingsJob($tool))->delay(now()->addMinutes(1));
 
-        Blog::where('blog_type', BlogType::SEMANTIC_SCORE->value)->get()->map(function ($blog) {
-            dispatch(new SaveSemanticDistanceBetweenBlogAndToolJob($blog))->delay(now()->addMinutes(3));
-        });
+            dispatch(new SaveSemanticDistanceBetweenToolAndToolJob($tool))->delay(now()->addMinutes(2));
 
-        TopSearch::get()->map(function ($topSearch) {
-            dispatch(new SaveSemanticDistanceBetweenTopSearchAndToolJob($topSearch))->delay(now()->addMinutes(4));
-        });
+            Blog::where('blog_type', BlogType::SEMANTIC_SCORE->value)->get()->map(function ($blog) {
+                dispatch(new SaveSemanticDistanceBetweenBlogAndToolJob($blog))->delay(now()->addMinutes(3));
+            });
 
+            TopSearch::get()->map(function ($topSearch) {
+                dispatch(new SaveSemanticDistanceBetweenTopSearchAndToolJob($topSearch))->delay(now()->addMinutes(4));
+            });
+        }
 
-        return redirect()->back()->with('success', 'tool updated successfully');
+        return redirect()->back()->with('success', 'tool updated successfully' . @$message);
     }
 
     public function destroy(string $id)
