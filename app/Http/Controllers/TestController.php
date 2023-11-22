@@ -39,6 +39,8 @@ class TestController extends Controller
 
     public function __invoke()
     {
+        dd(BlogService::generateFeaturedImage(Blog::find(2)));
+
         dd(MeilisearchService::vectorSearch(SearchAbleTable::TOOL, '234234'));
 
         // dd(MeilisearchService::getVectorEmbeddings('d', ModelType::OPEN_AI_ADA_002));
@@ -133,6 +135,9 @@ class TestController extends Controller
 
         // return $this->loginSuperAdmin();
     }
+
+
+
 
     public function updateEmbeddingsOfAllTools()
     {

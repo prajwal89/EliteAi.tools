@@ -5,8 +5,11 @@ namespace App\Services;
 use App\Enums\SearchAbleTable;
 use App\Models\Blog;
 use App\Models\BlogToolSemanticScore;
+use App\Models\Tool;
 use Exception;
 use Illuminate\Support\Facades\DB;
+use Illuminate\Support\Facades\File;
+use Intervention\Image\Facades\Image;
 
 class BlogService
 {
@@ -77,5 +80,81 @@ class BlogService
             ->groupBy('blogs.id')
             ->get()
             ->pluck('blog_id');
+    }
+
+    public static function generateFeaturedImage(Blog $blog)
+    {
+        $blogAssetPath = public_path('blogs/' . $blog->slug);
+
+        if (!File::isDirectory($blogAssetPath)) {
+            File::makeDirectory($blogAssetPath, 0755, true, true);
+        }
+
+        $maxIcons = 8;
+        $canvasWidth = 1920;
+        $canvasHeight = 1080;
+
+        $image = Image::canvas($canvasWidth, $canvasHeight, '#ffffff');
+
+        $tools = BlogToolSemanticScore::with('tool')
+            ->where('blog_id', $blog->id)
+            ->where('score', '>', $blog->min_semantic_score)
+            ->orderBy('score', 'desc')
+            ->take($maxIcons)
+            ->get();
+
+        $centerX = $canvasWidth / 2;
+        $centerY = $canvasHeight / 2;
+
+        $radius = min($canvasWidth, $canvasHeight) / 3; // Adjust the radius as needed
+
+        // Calculate the angle between each icon
+        $angleIncrement = 360 / $tools->count();
+
+        $tools->each(function ($tool, $i) use ($image, $centerX, $centerY, $radius, $angleIncrement) {
+            // Calculate the position on the circumference
+            $angle = $i * $angleIncrement;
+            $x = round($centerX + $radius * cos(deg2rad($angle)));
+            $y = round($centerY + $radius * sin(deg2rad($angle)));
+
+            $icon = Image::make('http://clgnotes.esy.es/public/tools/' . $tool->tool->slug . '/favicon.webp')
+                ->resize(160, 160);
+
+            $image->insert(
+                $icon,
+                'top-left',
+                $x - 100, // Adjust the icon position to center it properly
+                $y - 100
+            );
+        });
+
+        $image->blur(10);
+
+        $image->rectangle(0, 0, $canvasWidth, $canvasHeight, function ($draw) {
+            $draw->background('rgba(255, 255, 255, 0.5)');
+        });
+
+
+        $image->text($blog->title, $centerX, $centerY, function ($font) {
+            // $font->file(public_path('fonts/ShortBaby-Mg2w.ttf'));
+            $font->file(public_path('fonts/ChrustyRock-ORLA.ttf'));
+            $font->size(120); // Adjust the font size as needed
+            $font->color('#000000');
+            $font->align('center');
+            $font->valign('middle');
+        });
+
+        $sizes = [
+            ['width' => 1920, 'height' => 1080, 'suffix' => 'featured'],
+            ['width' => 600, 'height' => 400, 'suffix' => 'featured-large'],
+            ['width' => 400, 'height' => 400, 'suffix' => 'featured-medium'],
+            ['width' => 100, 'height' => 400, 'suffix' => 'featured-small'],
+        ];
+
+        foreach ($sizes as $size) {
+            $image->resize($size['width'], $size['height'], function ($constraint) {
+                $constraint->aspectRatio();
+            })->save($blogAssetPath . '/' . $size['suffix'] . '.webp');
+        }
     }
 }
