@@ -18,6 +18,7 @@ use App\Services\SocialMediaHandlesExtractor;
 use App\Services\ToolServices;
 use App\Services\TopSearchService;
 use App\Services\WebPageFetcher;
+use Illuminate\Support\Facades\Bus;
 use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Http;
 use Intervention\Image\Facades\Image;
@@ -39,7 +40,19 @@ class TestController extends Controller
 
     public function __invoke()
     {
-        dd(BlogService::generateFeaturedImage(Blog::find(2)));
+
+        Bus::dispatch(function () {
+            sleep(11);
+            // Job logic goes here
+            // For example, sending an email or processing some data
+            logger('Anonymous job executed!');
+        });
+
+        exit();
+
+        return Blog::all()->each(fn ($blog) => BlogService::generateFeaturedImage($blog));
+
+        // dd(BlogService::generateFeaturedImage(Blog::find(3)));
 
         dd(MeilisearchService::vectorSearch(SearchAbleTable::TOOL, '234234'));
 
