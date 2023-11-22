@@ -59,6 +59,7 @@ Route::controller(SocialAuthController::class)->prefix('auth')->name('auth.')->g
 
 Route::controller(CronJobsController::class)->prefix('cron')->group(function () {
     Route::get('/per-minute/run-all-jobs', 'runAllJobs');
+    Route::get('/send-telegram-tool-promotional-message', 'sendPromotionalMessage');
 });
 
 Route::get('/test', TestController::class);
