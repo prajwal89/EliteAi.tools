@@ -73,6 +73,9 @@ class Tool extends Model implements MeilisearchAble
 
         'yt_introduction_video_id', //introduction video of the tool
         'vimeo_introduction_video_id',
+
+        'is_telegram_promotional_message_sent',
+        'is_twitter_promotional_message_sent',
     ];
 
     protected $casts = [
