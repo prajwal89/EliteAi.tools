@@ -36,6 +36,7 @@ class BlogController extends Controller
     {
         $blog = Blog::create([
             'title' => $request->title,
+            'serp_title' => $request->serp_title,
             'slug' => str($request->title)->slug(),
             'blog_type' => $request->blog_type,
             'min_semantic_score' => $request->min_semantic_score,
@@ -81,6 +82,7 @@ class BlogController extends Controller
 
         $blog->update([
             'title' => $request->title,
+            'serp_title' => $request->serp_title,
             'slug' => str($request->title)->slug(),
             'blog_type' => $request->blog_type,
             'min_semantic_score' => $request->min_semantic_score,

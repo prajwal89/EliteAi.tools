@@ -27,6 +27,11 @@
                 </div>
 
                 <div class="form-group mb-2">
+                    <label>serp_title</label>
+                    <input type="text" class="form-control" value="{{ $blog->serp_title }}" name="serp_title">
+                </div>
+
+                <div class="form-group mb-2">
                     <label>description</label>
                     <textarea type="text" rows="12" class="form-control" name="description">{{ $blog->description }}</textarea>
                 </div>
