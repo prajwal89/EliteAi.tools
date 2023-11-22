@@ -56,7 +56,8 @@ class BlogController extends Controller
             'pageDataDTO' => new PageDataDTO(
                 title: $serpTitle,
                 description: strip_tags($blog->description),
-                conicalUrl: route('blog.show', ['blog' => $blog->slug])
+                conicalUrl: route('blog.show', ['blog' => $blog->slug]),
+                thumbnailUrl: asset('/blogs/' . $blog->slug . '/featured.webp')
             ),
         ]);
     }
