@@ -15,6 +15,10 @@ return [
     'open_ai' => [
         'api_key' => env('OPENAI_API_KEY'),
     ],
+    'telegram' => [
+        'bot_token' => env('TELEGRAM_BOT_TOKEN'),
+        'chat_id' => env('TELEGRAM_CHAT_ID'),
+    ],
     // ! we need to change all embeddings if we are going to change this key
     'current_embedding_model' => \App\Enums\ModelType::OPEN_AI_ADA_002,
 
