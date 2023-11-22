@@ -5,7 +5,6 @@ namespace App\Http\Controllers;
 use App\DTOs\PageDataDTO;
 use App\Models\Tool;
 use App\Services\RecommendationService;
-use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
 use Illuminate\View\View;
 

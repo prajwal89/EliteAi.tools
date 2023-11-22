@@ -8,7 +8,6 @@ use App\Jobs\SaveSemanticDistanceBetweenBlogAndToolJob;
 use App\Jobs\SaveVectorEmbeddingsJob;
 use App\Models\Blog;
 use App\Models\User;
-use App\Services\BlogService;
 use Illuminate\Http\Request;
 
 class BlogController extends Controller

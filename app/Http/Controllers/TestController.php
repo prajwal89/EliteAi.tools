@@ -19,16 +19,12 @@ use App\Services\TelegramService;
 use App\Services\ToolServices;
 use App\Services\TopSearchService;
 use App\Services\WebPageFetcher;
-use Illuminate\Support\Facades\Bus;
 use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Http;
 use Intervention\Image\Facades\Image;
 use kornrunner\Blurhash\Blurhash;
 use OpenAI\Laravel\Facades\OpenAI;
-use Telegram\Bot\Actions;
 use Telegram\Bot\Api;
-use Telegram\Bot\FileUpload\InputFile;
-use Telegram\Bot\Keyboard\Keyboard;
 use Telegram\Bot\Laravel\Facades\Telegram;
 use voku\helper\HtmlDomParser;
 
@@ -51,7 +47,6 @@ class TestController extends Controller
         // $telegram = new Api(config('custom.telegram.bot_token'));
         // $response = $telegram->getMe();
         // dd(realpath('blogs/best-text-to-speech-ai-tools/featured.webp'));
-
 
         return Blog::all()->each(fn ($blog) => BlogService::generateFeaturedImage($blog));
 
@@ -151,9 +146,6 @@ class TestController extends Controller
 
         // return $this->loginSuperAdmin();
     }
-
-
-
 
     public function updateEmbeddingsOfAllTools()
     {

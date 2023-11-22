@@ -2,14 +2,7 @@
 
 namespace App\Services;
 
-use App\Enums\SearchAbleTable;
-use App\Models\Blog;
-use App\Models\BlogToolSemanticScore;
 use App\Models\Tool;
-use Exception;
-use Illuminate\Support\Facades\DB;
-use Illuminate\Support\Facades\File;
-use Intervention\Image\Facades\Image;
 use Telegram\Bot\FileUpload\InputFile;
 use Telegram\Bot\Laravel\Facades\Telegram;
 
@@ -19,7 +12,7 @@ class TelegramService
     {
         $imageUrl = realpath(public_path('/tools/' . $tool->slug . '/screenshot.webp'));
 
-        // Build caption 
+        // Build caption
         $caption = '';
 
         $caption .= '<u><b>' . $tool->name . '</b></u>' . str_repeat(PHP_EOL, 2);
@@ -44,13 +37,12 @@ class TelegramService
             $caption .= str_repeat(PHP_EOL, 2);
         }
 
-
         // Include a link in the caption
         $linkUrl = route('tool.show', $tool->slug);
         $linkText = 'View all tool details';
         $caption .= '<a href="' . $linkUrl . '">' . $linkText . '</a>' . str_repeat(PHP_EOL, 3);
 
-        $response =  Telegram::sendPhoto([
+        $response = Telegram::sendPhoto([
             'chat_id' => config('custom.telegram.chat_id'),
             'photo' => new InputFile($imageUrl),
             'caption' => $caption,

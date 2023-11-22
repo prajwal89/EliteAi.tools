@@ -3,8 +3,8 @@
 namespace App\Http\Controllers;
 
 use App\Models\Tool;
-use Illuminate\Support\Facades\Artisan;
 use App\Services\TelegramService;
+use Illuminate\Support\Facades\Artisan;
 
 class CronJobsController extends Controller
 {

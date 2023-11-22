@@ -134,7 +134,6 @@ class BlogService
             $draw->background('rgba(255, 255, 255, 0.5)');
         });
 
-
         $image->text($blog->title, $centerX, $centerY, function ($font) {
             // $font->file(public_path('fonts/ShortBaby-Mg2w.ttf'));
             $font->file(public_path('fonts/ChrustyRock-ORLA.ttf'));

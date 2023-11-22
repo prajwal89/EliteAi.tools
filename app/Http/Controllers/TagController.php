@@ -17,7 +17,6 @@ class TagController extends Controller
             })
             ->get();
 
-
         return view('tags.index', [
             'tags' => $tags,
             'pageDataDTO' => new PageDataDTO(
