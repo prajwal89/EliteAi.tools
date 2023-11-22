@@ -19,25 +19,48 @@ class TelegramService
     {
         $imageUrl = realpath(public_path('/tools/' . $tool->slug . '/screenshot.webp'));
 
-        // build caption 
+        // Build caption 
         $caption = '';
 
-        // $caption .= $tool->name . PHP_EOL;
-        $caption .= $tool->tag_line . str_repeat(PHP_EOL, 3);
-        $caption .= $tool->summary . str_repeat(PHP_EOL, 3);
+        $caption .= '<u><b>' . $tool->name . '</b></u>' . str_repeat(PHP_EOL, 2);
+        $caption .= '🤖 <b>' . $tool->tag_line . '</b>' . str_repeat(PHP_EOL, 2);
+        $caption .= '📢 ' . $tool->summary . str_repeat(PHP_EOL, 2);
+
+        // Fill in top features
+        if (!empty($tool->getFormattedFeatures())) {
+            $caption .= '<b>Features:</b>' . PHP_EOL;
+            foreach ($tool->getFormattedFeatures() as $feature) {
+                $caption .= " - $feature" . PHP_EOL;
+            }
+            $caption .= str_repeat(PHP_EOL, 2);
+        }
+
+        // Fill in use cases
+        if (!empty($tool->use_cases)) {
+            $caption .= '<b>Use Cases:</b>' . PHP_EOL;
+            foreach ($tool->use_cases as $useCase) {
+                $caption .= " - $useCase" . PHP_EOL;
+            }
+            $caption .= str_repeat(PHP_EOL, 2);
+        }
+
 
         // Include a link in the caption
-        $linkUrl = $tool->home_page_url;
-        $linkText = 'Visit website';
+        $linkUrl = route('tool.show', $tool->slug);
+        $linkText = 'View all tool details';
         $caption .= '<a href="' . $linkUrl . '">' . $linkText . '</a>' . str_repeat(PHP_EOL, 3);
 
-        $response = Telegram::sendPhoto([
+        $response =  Telegram::sendPhoto([
             'chat_id' => config('custom.telegram.chat_id'),
             'photo' => new InputFile($imageUrl),
             'caption' => $caption,
-            'parse_mode' => 'HTML', // Specify that the caption contains HTML
+            'parse_mode' => 'HTML', //https://core.telegram.org/bots/api#html-style
         ]);
 
-        dd($response);
+        $tool->update([
+            'telegram_promotional_message_data' => $response,
+        ]);
+
+        return $response;
     }
 }

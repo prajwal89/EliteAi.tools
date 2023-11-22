@@ -74,7 +74,7 @@ class Tool extends Model implements MeilisearchAble
         'yt_introduction_video_id', //introduction video of the tool
         'vimeo_introduction_video_id',
 
-        'is_telegram_promotional_message_sent',
+        'telegram_promotional_message_data',
         'is_twitter_promotional_message_sent',
     ];
 
@@ -82,6 +82,7 @@ class Tool extends Model implements MeilisearchAble
         'has_api' => 'boolean',
         'top_features' => 'json',
         'use_cases' => 'json',
+        'telegram_promotional_message_data' => 'json',
         'pricing_type' => PricingType::class,
         '_vectors' => 'json',
     ];
