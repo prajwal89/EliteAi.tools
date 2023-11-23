@@ -9,7 +9,7 @@ use App\Enums\ModelType;
 use App\Enums\SearchAbleTable;
 use App\Models\Tool;
 use App\Services\MeilisearchService;
-use App\Services\ToolServices;
+use App\Services\ToolService;
 use Illuminate\Support\Facades\Http;
 use Intervention\Image\Facades\Image;
 use kornrunner\Blurhash\Blurhash;
@@ -36,19 +36,19 @@ class TestController extends Controller
     public function updateEmbeddingsOfAllTools()
     {
         foreach (Tool::offset(0)->limit(20)->get() as $tool) {
-            $results = ToolServices::updateVectorEmbeddings($tool);
+            $results = ToolService::updateVectorEmbeddings($tool);
             // dd($results);
         }
         dump('done upto 20');
 
         foreach (Tool::offset(20)->limit(20)->get() as $tool) {
-            $results = ToolServices::updateVectorEmbeddings($tool);
+            $results = ToolService::updateVectorEmbeddings($tool);
             // dd($results);
         }
         dump('done upto 40');
 
         foreach (Tool::offset(40)->limit(20)->get() as $tool) {
-            $results = ToolServices::updateVectorEmbeddings($tool);
+            $results = ToolService::updateVectorEmbeddings($tool);
             // dd($results);
         }
         dump('done upto 60');
@@ -57,19 +57,19 @@ class TestController extends Controller
     public function saveSemanticDistanceForAllTools()
     {
         foreach (Tool::offset(0)->limit(20)->get() as $tool) {
-            $results = ToolServices::saveSemanticDistanceBetweenToolAndTools($tool);
+            $results = ToolService::saveSemanticDistanceBetweenToolAndTools($tool);
             // dd($results);
         }
         dump('done upto 20');
 
         foreach (Tool::offset(20)->limit(20)->get() as $tool) {
-            $results = ToolServices::saveSemanticDistanceBetweenToolAndTools($tool);
+            $results = ToolService::saveSemanticDistanceBetweenToolAndTools($tool);
             // dd($results);
         }
         dump('done upto 40');
 
         foreach (Tool::offset(40)->limit(20)->get() as $tool) {
-            $results = ToolServices::saveSemanticDistanceBetweenToolAndTools($tool);
+            $results = ToolService::saveSemanticDistanceBetweenToolAndTools($tool);
             // dd($results);
         }
         dump('done upto 60');

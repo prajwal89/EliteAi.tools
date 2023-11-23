@@ -17,7 +17,7 @@ use Illuminate\Http\UploadedFile;
 use Illuminate\Support\Facades\File;
 use Intervention\Image\Facades\Image;
 
-class ToolServices
+class ToolService
 {
     public static function storeScreenShot(UploadedFile $imageFile, string $slug): bool
     {

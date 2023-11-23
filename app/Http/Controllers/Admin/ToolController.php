@@ -8,7 +8,7 @@ use App\Models\Tag;
 use App\Models\Tool;
 use App\Models\TopSearch;
 use App\Services\MeilisearchService;
-use App\Services\ToolServices;
+use App\Services\ToolService;
 use App\Services\TopSearchService;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
@@ -34,14 +34,14 @@ class ToolController extends Controller
         $slug = str($request->name)->slug();
 
         if ($request->has('uploaded_screenshot')) {
-            $toolData['uploaded_screenshot'] = ToolServices::storeScreenShot(
+            $toolData['uploaded_screenshot'] = ToolService::storeScreenShot(
                 $request->file('uploaded_screenshot'),
                 $slug
             );
         }
 
         if ($request->has('uploaded_favicon')) {
-            $toolData['uploaded_favicon'] = ToolServices::storeFavicon(
+            $toolData['uploaded_favicon'] = ToolService::storeFavicon(
                 $request->file('uploaded_favicon'),
                 $slug
             );
@@ -141,7 +141,7 @@ class ToolController extends Controller
 
         // *download and save favicons
         if ($request->has('should_get_favicon_from_google')) {
-            $tool->update(['uploaded_favicon' => ToolServices::saveFaviconFromGoogle($tool)]);
+            $tool->update(['uploaded_favicon' => ToolService::saveFaviconFromGoogle($tool)]);
         }
 
         // todo use pipeline
@@ -149,7 +149,7 @@ class ToolController extends Controller
         // ? should i move this to observer in model
         MeilisearchService::indexDocument(SearchAbleTable::TOOL, $tool->id);
 
-        ToolServices::syncAllEmbeddings($tool);
+        ToolService::syncAllEmbeddings($tool);
 
         return redirect()
             ->route('admin.tools.edit', ['tool' => $tool->id])
@@ -186,14 +186,14 @@ class ToolController extends Controller
         $slug = str($request->name)->slug();
 
         if ($request->has('uploaded_screenshot')) {
-            $toolData['uploaded_screenshot'] = ToolServices::storeScreenShot(
+            $toolData['uploaded_screenshot'] = ToolService::storeScreenShot(
                 $request->file('uploaded_screenshot'),
                 $slug
             );
         }
 
         if ($request->has('uploaded_favicon')) {
-            $toolData['uploaded_favicon'] = ToolServices::storeFavicon(
+            $toolData['uploaded_favicon'] = ToolService::storeFavicon(
                 $request->file('uploaded_favicon'),
                 $slug
             );
@@ -277,7 +277,7 @@ class ToolController extends Controller
 
             $message = ' and also Recalculating vectors and distances';
 
-            ToolServices::syncAllEmbeddings($tool);
+            ToolService::syncAllEmbeddings($tool);
         }
 
         return redirect()->back()->with('success', 'tool updated successfully' . @$message);

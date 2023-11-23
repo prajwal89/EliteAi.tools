@@ -3,7 +3,7 @@
 namespace App\Jobs;
 
 use App\Models\Tool;
-use App\Services\ToolServices;
+use App\Services\ToolService;
 use Illuminate\Bus\Queueable;
 use Illuminate\Contracts\Queue\ShouldQueue;
 use Illuminate\Foundation\Bus\Dispatchable;
@@ -20,6 +20,6 @@ class SaveSemanticDistanceBetweenToolAndToolJob implements ShouldQueue
 
     public function handle(): void
     {
-        ToolServices::saveSemanticDistanceBetweenToolAndTools(tool: $this->tool);
+        ToolService::saveSemanticDistanceBetweenToolAndTools(tool: $this->tool);
     }
 }

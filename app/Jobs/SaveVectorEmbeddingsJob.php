@@ -6,7 +6,7 @@ use App\Models\Blog;
 use App\Models\Tool;
 use App\Models\TopSearch;
 use App\Services\BlogService;
-use App\Services\ToolServices;
+use App\Services\ToolService;
 use App\Services\TopSearchService;
 use Illuminate\Bus\Queueable;
 use Illuminate\Contracts\Queue\ShouldQueue;
@@ -31,7 +31,7 @@ class SaveVectorEmbeddingsJob implements ShouldQueue
     {
         // this will update embeddings on DB as well as meilisearch index if available
         match (get_class($this->model)) {
-            Tool::class => ToolServices::updateVectorEmbeddings($this->model),
+            Tool::class => ToolService::updateVectorEmbeddings($this->model),
             Blog::class => BlogService::updateVectorEmbeddings($this->model),
             TopSearch::class => TopSearchService::updateVectorEmbeddings($this->model),
             default => throw new InvalidArgumentException(
