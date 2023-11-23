@@ -26,22 +26,35 @@ class BlogService
 
         $searchResults = MeilisearchService::vectorSearch(
             table: SearchAbleTable::TOOL,
-            vectors: $blog->_vectors, //already calculated vectors
+            vectors: $blog->_vectors,
             configs: [
                 'limit' => 100,
                 'attributesToRetrieve' => ['id', 'name'],
             ]
         );
 
-        foreach ($searchResults->hits as $tool) {
-            BlogToolSemanticScore::updateOrCreate([
-                'tool_id' => $tool['id'],
-                'blog_id' => $blog->id,
-            ], [
-                'score' => $tool['_semanticScore'],
-                'model_type' => config('custom.current_embedding_model')->value,
-            ]);
-        }
+        DB::transaction(function () use ($blog, $searchResults) {
+            BlogToolSemanticScore::where('blog_id', $blog->id)->delete();
+
+            foreach ($searchResults->hits as $tool) {
+                BlogToolSemanticScore::create([
+                    'tool_id' => $tool['id'],
+                    'blog_id' => $blog->id,
+                    'score' => $tool['_semanticScore'],
+                    'model_type' => config('custom.current_embedding_model')->value,
+                ]);
+            }
+        });
+
+        // foreach ($searchResults->hits as $tool) {
+        //     BlogToolSemanticScore::updateOrCreate([
+        //         'tool_id' => $tool['id'],
+        //         'blog_id' => $blog->id,
+        //     ], [
+        //         'score' => $tool['_semanticScore'],
+        //         'model_type' => config('custom.current_embedding_model')->value,
+        //     ]);
+        // }
 
         return true;
     }
