@@ -114,7 +114,7 @@
                 </ul>
             </div>
         @endif --}}
-        @if (!$topSearches->isEmpty())
+        @if (!$topSearches->isEmpty() and isAdmin())
             <div>
                 <p class="font-semibold text-lg">Related Queries:</p>
                 <ul class="flex gap-2 my-2 flex-wrap">

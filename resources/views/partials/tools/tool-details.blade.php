@@ -478,13 +478,15 @@
                 {{-- @if ($key > 3) @break @endif --}}
                 <li>
                     <p class="flex items-center gap-2 text-gray-700">
-                        @if ($tag->tools_count > 2)
-                            {{-- todo should i include this (Low quality page) --}}
-                            <a class="text-gray-800"
-                                href="{{ route('tag.show', ['tag' => $tag->slug]) }}">#{{ $tag->name }}</a>
+                        {{-- todo should i include this (Low quality page) --}}
+                        {{-- @if ($tag->tools_count > 2)
+                            <a class="text-gray-800" href="{{ route('tag.show', ['tag' => $tag->slug]) }}">
+                                #{{ $tag->name }}
+                            </a>
                         @else
                             #{{ $tag->name }}
-                        @endif
+                        @endif --}}
+                        #{{ $tag->name }}
                     </p>
                 </li>
             @endforeach

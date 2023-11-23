@@ -38,7 +38,7 @@
             <div class="flex gap-3 flex-col mt-2 text-sm">
                 <a href="{{ route('home') }}">Home</a>
                 <a href="{{ route('blog.index') }}">Blog</a>
-                <a href="{{ route('search.popular.index') }}">Popular searches</a>
+                {{-- <a href="{{ route('search.popular.index') }}">Popular searches</a> --}}
             </div>
         </div>
     </div>
