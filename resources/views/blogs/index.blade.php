@@ -20,7 +20,7 @@
             @foreach ($allBlogs as $blog)
                 <div class="flex flex-col border rounded-lg overflow-hidden">
                     <a href="{{ route('blog.show', $blog->slug) }}" class="aspect-ratio-3/2">
-                        <img src="{{ asset('/blogs/' . $blog->slug . '/featured.webp') }}" alt="Card img"
+                        <img src="{{ asset('/blogs/' . $blog->slug . '/featured-large.webp') }}" alt="Card img"
                             class="object-cover w-full h-full" />
                     </a>
                     <div class="flex flex-col justify-between p-4">

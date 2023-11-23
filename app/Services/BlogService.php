@@ -3,6 +3,9 @@
 namespace App\Services;
 
 use App\Enums\SearchAbleTable;
+use App\Jobs\GenerateFeaturedImageJob;
+use App\Jobs\SaveSemanticDistanceBetweenBlogAndToolJob;
+use App\Jobs\SaveVectorEmbeddingsJob;
 use App\Models\Blog;
 use App\Models\BlogToolSemanticScore;
 use App\Models\Tool;
@@ -155,5 +158,16 @@ class BlogService
                 $constraint->aspectRatio();
             })->save($blogAssetPath . '/' . $size['suffix'] . '.webp');
         }
+    }
+
+    public static function syncAllEmbeddings(Blog $blog): bool
+    {
+        dispatch(new SaveVectorEmbeddingsJob($blog));
+
+        dispatch(new SaveSemanticDistanceBetweenBlogAndToolJob($blog))->delay(300);
+
+        dispatch(new GenerateFeaturedImageJob($blog))->delay(600);
+
+        return true;
     }
 }

@@ -3,11 +3,9 @@
 namespace App\Http\Controllers\Admin;
 
 use App\Http\Controllers\Controller;
-use App\Jobs\GenerateFeaturedImageJob;
-use App\Jobs\SaveSemanticDistanceBetweenBlogAndToolJob;
-use App\Jobs\SaveVectorEmbeddingsJob;
 use App\Models\Blog;
 use App\Models\User;
+use App\Services\BlogService;
 use Illuminate\Http\Request;
 
 class BlogController extends Controller
@@ -43,11 +41,7 @@ class BlogController extends Controller
             'description' => $request->description,
         ]);
 
-        dispatch(new SaveVectorEmbeddingsJob($blog));
-
-        dispatch(new SaveSemanticDistanceBetweenBlogAndToolJob($blog))->delay(300);
-
-        dispatch(new GenerateFeaturedImageJob($blog))->delay(600);
+        BlogService::syncAllEmbeddings($blog);
 
         return redirect()
             ->route('admin.blogs.edit', ['blog' => $blog->id])
@@ -88,11 +82,7 @@ class BlogController extends Controller
             'description' => $request->description,
         ]);
 
-        dispatch(new SaveVectorEmbeddingsJob($blog));
-
-        dispatch(new SaveSemanticDistanceBetweenBlogAndToolJob($blog))->delay(300);
-
-        dispatch(new GenerateFeaturedImageJob($blog))->delay(600);
+        BlogService::syncAllEmbeddings($blog);
 
         return redirect()
             ->back()

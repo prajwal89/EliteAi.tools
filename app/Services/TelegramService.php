@@ -27,7 +27,7 @@ class TelegramService
             foreach ($tool->getFormattedFeatures() as $i => $feature) {
                 $caption .= " - $feature" . PHP_EOL;
                 // show only two list elements
-                // ?should i include view all link 
+                // ?should i include view all link
                 if ($i >= 2) {
                     break;
                 }
