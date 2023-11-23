@@ -185,6 +185,7 @@ class ToolService
         });
 
         // todo optimize this
+        // hint: dispatch job that will dispatch all these jobs
         TopSearch::get()->map(function ($topSearch) {
             dispatch(new SaveSemanticDistanceBetweenTopSearchAndToolJob($topSearch))->delay(now()->addMinutes(9));
         });

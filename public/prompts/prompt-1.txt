@@ -36,10 +36,11 @@ use proper HTML tags if needed.
 make it long if needed
 
 description_for_nl_processing:
-what this tool does. 
+Explain what this tool does. 
 get straight to the point. 
 do not mention the tool name.
 cover all important points.
+(p.s I will be using this description for generating vector embeddings so get description accordingly)
 
 top_features:
 an array of features. like "feature name: feature details"
