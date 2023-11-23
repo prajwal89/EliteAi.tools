@@ -7,26 +7,14 @@ ini_set('max_execution_time', 600); //10 min
 
 use App\Enums\ModelType;
 use App\Enums\SearchAbleTable;
-use App\Jobs\SaveSemanticDistanceBetweenBlogAndToolJob;
-use App\Models\Blog;
 use App\Models\Tool;
-use App\Models\TopSearch;
-use App\Models\TopSearchToolSemanticScore;
-use App\Services\BlogService;
 use App\Services\MeilisearchService;
-use App\Services\SocialMediaHandlesExtractor;
-use App\Services\TelegramService;
 use App\Services\ToolServices;
-use App\Services\TopSearchService;
-use App\Services\WebPageFetcher;
-use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Http;
 use Intervention\Image\Facades\Image;
 use kornrunner\Blurhash\Blurhash;
 use OpenAI\Laravel\Facades\OpenAI;
 use Telegram\Bot\Api;
-use Telegram\Bot\Laravel\Facades\Telegram;
-use voku\helper\HtmlDomParser;
 
 /**
  * For testing out misc things
@@ -42,109 +30,7 @@ class TestController extends Controller
 
     public function __invoke()
     {
-        dd(TelegramService::sendPromotionalMessageOfTool(Tool::find(2)));
-
-        // $telegram = new Api(config('custom.telegram.bot_token'));
-        // $response = $telegram->getMe();
-        // dd(realpath('blogs/best-text-to-speech-ai-tools/featured.webp'));
-
-        return Blog::all()->each(fn ($blog) => BlogService::generateFeaturedImage($blog));
-
-        // dd(BlogService::generateFeaturedImage(Blog::find(3)));
-
-        dd(MeilisearchService::vectorSearch(SearchAbleTable::TOOL, '234234'));
-
-        // dd(MeilisearchService::getVectorEmbeddings('d', ModelType::OPEN_AI_ADA_002));
-
-        dd(MeilisearchService::indexAllDocumentsOfTable(SearchAbleTable::TOOL, 1));
-
-        dd(SearchAbleTable::TOOL->meilisearchIndexSettings());
-
-        ToolServices::updateVectorEmbeddings(Tool::find(1));
-
-        // dd(MeilisearchService::indexAllDocumentsOfTable(SearchAbleTable::TOOL));
-
-        // (new MeilisearchService())->meilisearchClient
-        //     ->index(SearchAbleTable::TOOL->getIndexName())
-        //     ->getDocument(3242);
-        (new MeilisearchService())->meilisearchClient
-            ->index(SearchAbleTable::TOOL->getIndexName())
-            ->updateDocuments(['id' => 234234] + ['sdfsdfsdf' => 2324]);
-        exit();
-
-        dd(MeilisearchService::indexDocument(SearchAbleTable::TOOL, 234234234));
-
-        TopSearchService::saveSemanticDistanceBetweenTopSearchAndTools(
-            // TopSearch::inRandomOrder()->first()
-            TopSearch::find(1)
-        );
-
-        $blogTools = DB::table('blog_tool_semantic_scores')
-            ->select(['*', DB::raw('count(*) as total_tools')])
-            ->join('tools', 'tools.id', '=', 'blog_tool_semantic_scores.tool_id')
-            ->join('blogs', 'blogs.id', '=', 'blog_tool_semantic_scores.blog_id')
-            ->where('blog_tool_semantic_scores.score', '>', 0.850)
-            ->having('total_tools', '>', 4)
-            ->groupBy('blogs.id')
-            ->get();
-
-        dd($blogTools);
-
-        BlogService::updateVectorEmbeddings(Blog::find(3));
-
-        dispatch(new SaveSemanticDistanceBetweenBlogAndToolJob(Blog::find(3)));
-
-        // $searchRelatedTools = TopSearchToolSemanticScore::with(['tool.categories'])
-        //     ->where('score', '>', 0.85)
-        //     // ->groupBy('top_search_tool_semantic_scores.top_search_id')
-        //     ->orderBy('score', 'desc')
-        //     ->limit(24)
-        //     ->get()
-        //     // ->map(function ($semanticScore) {
-        //     //     $semanticScore->tool->score = $semanticScore->score;
-
-        //     //     return $semanticScore->tool;
-        //     // })
-
-        // ;
-
-        // dd($searchRelatedTools);
-
-        exit('sdsf');
-
-        $html = (new WebPageFetcher('https://www.pixelfy.ai/'))->get()->content;
-
-        // todo match all social media handles urls
-        $dom = HtmlDomParser::str_get_html($html);
-
-        $handle = (new SocialMediaHandlesExtractor($dom))->extractSocialHandles();
-
-        dd($handle);
-
-        dd((new MeilisearchService())->search(SearchAbleTable::TOOL, 'Chat with pdf'));
-
-        dd(MeilisearchService::fulltextSearch(SearchAbleTable::TOOL, 'Chat with the pdf'));
-        // dd(MeilisearchService::deIndexTable(SearchAbleTable::TOOL));
-
-        // dd(MeilisearchService::indexAllDocumentsOfTable(SearchAbleTable::TOOL));
-
-        return $this->saveSemanticDistanceForAllTools();
-        // return $this->updateEmbeddingsOfAllTools();
-
-        dump(BlogService::updateVectorEmbeddings(Blog::find(1)));
-        dd(BlogService::saveSemanticDistanceBetweenBlogAndTools(Blog::find(1)));
-
-        // dd(Tool::documentsForSearch(1));
-        // dd(MeilisearchService::deIndexTable(SearchAbleTable::TOOL));
-
-        dd(MeilisearchService::getVectorEmbeddings(
-            'ds',
-            ModelType::All_MINI_LM_L6_V2
-        ));
-        // return $this->blurHash();
-        dd(estimateTokenUsage('You miss 100% of the shots you don\'t take'));
-
-        // return $this->loginSuperAdmin();
+        dd(Tool::find(1)->getParagraphForVectorEmbeddings());
     }
 
     public function updateEmbeddingsOfAllTools()

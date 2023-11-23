@@ -84,6 +84,7 @@ for plan types that can be like this
 }
 
 
+blog post description
 -------
 Todo find best way to do this do R&D
 
@@ -97,3 +98,7 @@ add where you can use this tools and features.
 
 also give me SEO friendly seo title.
 description for SERP 
+
+
+-------
+what this tool does. get straight to the point do not mention the tool name.

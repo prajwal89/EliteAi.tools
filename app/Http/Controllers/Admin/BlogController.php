@@ -82,7 +82,6 @@ class BlogController extends Controller
         $blog->update([
             'title' => $request->title,
             'serp_title' => $request->serp_title,
-            'slug' => str($request->title)->slug(),
             'blog_type' => $request->blog_type,
             'min_semantic_score' => $request->min_semantic_score,
             // 'user_id' => User::where('email', '00prajwal@gmail.com')->first()->id,

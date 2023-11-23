@@ -2,14 +2,8 @@
 
 namespace App\Http\Controllers\Admin;
 
-use App\Enums\BlogType;
 use App\Enums\SearchAbleTable;
 use App\Http\Controllers\Controller;
-use App\Jobs\SaveSemanticDistanceBetweenBlogAndToolJob;
-use App\Jobs\SaveSemanticDistanceBetweenToolAndToolJob;
-use App\Jobs\SaveSemanticDistanceBetweenTopSearchAndToolJob;
-use App\Jobs\SaveVectorEmbeddingsJob;
-use App\Models\Blog;
 use App\Models\Tag;
 use App\Models\Tool;
 use App\Models\TopSearch;
@@ -155,17 +149,7 @@ class ToolController extends Controller
         // ? should i move this to observer in model
         MeilisearchService::indexDocument(SearchAbleTable::TOOL, $tool->id);
 
-        dispatch(new SaveVectorEmbeddingsJob($tool))->delay(now()->addMinutes(3));
-
-        dispatch(new SaveSemanticDistanceBetweenToolAndToolJob($tool))->delay(now()->addMinutes(5));
-
-        Blog::where('blog_type', BlogType::SEMANTIC_SCORE->value)->get()->map(function ($blog) {
-            dispatch(new SaveSemanticDistanceBetweenBlogAndToolJob($blog))->delay(now()->addMinutes(7));
-        });
-
-        TopSearch::get()->map(function ($topSearch) {
-            dispatch(new SaveSemanticDistanceBetweenTopSearchAndToolJob($topSearch))->delay(now()->addMinutes(9));
-        });
+        ToolServices::syncAllEmbeddings($tool);
 
         return redirect()
             ->route('admin.tools.edit', ['tool' => $tool->id])
@@ -290,19 +274,10 @@ class ToolController extends Controller
         // * these columns are required for calculating vectors so
         //  we need to update again embeddings and distances also
         if ($tool->wasChanged(['name', 'description', 'summary', 'tag_line', 'top_features', 'use_cases'])) {
+
             $message = ' and also Recalculating vectors and distances';
 
-            dispatch(new SaveVectorEmbeddingsJob($tool))->delay(now()->addMinutes(3));
-
-            dispatch(new SaveSemanticDistanceBetweenToolAndToolJob($tool))->delay(now()->addMinutes(5));
-
-            Blog::where('blog_type', BlogType::SEMANTIC_SCORE->value)->get()->map(function ($blog) {
-                dispatch(new SaveSemanticDistanceBetweenBlogAndToolJob($blog))->delay(now()->addMinutes(7));
-            });
-
-            TopSearch::get()->map(function ($topSearch) {
-                dispatch(new SaveSemanticDistanceBetweenTopSearchAndToolJob($topSearch))->delay(now()->addMinutes(9));
-            });
+            ToolServices::syncAllEmbeddings($tool);
         }
 
         return redirect()->back()->with('success', 'tool updated successfully' . @$message);

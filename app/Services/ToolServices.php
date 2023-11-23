@@ -2,9 +2,16 @@
 
 namespace App\Services;
 
+use App\Enums\BlogType;
 use App\Enums\SearchAbleTable;
+use App\Jobs\SaveSemanticDistanceBetweenBlogAndToolJob;
+use App\Jobs\SaveSemanticDistanceBetweenToolAndToolJob;
+use App\Jobs\SaveSemanticDistanceBetweenTopSearchAndToolJob;
+use App\Jobs\SaveVectorEmbeddingsJob;
+use App\Models\Blog;
 use App\Models\SemanticScore;
 use App\Models\Tool;
+use App\Models\TopSearch;
 use Exception;
 use Illuminate\Http\UploadedFile;
 use Illuminate\Support\Facades\File;
@@ -156,6 +163,29 @@ class ToolServices
                 'model_type' => config('custom.current_embedding_model')->value,
             ]);
         }
+
+        return true;
+    }
+
+    /**
+     * When tool updated or created run this
+     * this will recalculate all embeddings
+     * and assign this tool to appropriate pages
+     */
+    public static function syncAllEmbeddings(Tool $tool): bool
+    {
+        // *this will calculate vector embeddings
+        dispatch(new SaveVectorEmbeddingsJob($tool))->delay(now()->addMinutes(3));
+
+        dispatch(new SaveSemanticDistanceBetweenToolAndToolJob($tool))->delay(now()->addMinutes(5));
+
+        Blog::where('blog_type', BlogType::SEMANTIC_SCORE->value)->get()->map(function ($blog) {
+            dispatch(new SaveSemanticDistanceBetweenBlogAndToolJob($blog))->delay(now()->addMinutes(7));
+        });
+
+        TopSearch::get()->map(function ($topSearch) {
+            dispatch(new SaveSemanticDistanceBetweenTopSearchAndToolJob($topSearch))->delay(now()->addMinutes(9));
+        });
 
         return true;
     }
