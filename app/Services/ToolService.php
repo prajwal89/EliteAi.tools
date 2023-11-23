@@ -180,11 +180,11 @@ class ToolService
 
         dispatch(new SaveSemanticDistanceBetweenToolAndToolJob($tool))->delay(now()->addMinutes(5));
 
-        // todo optimize this
         Blog::where('blog_type', BlogType::SEMANTIC_SCORE->value)->get()->map(function ($blog) {
             dispatch(new SaveSemanticDistanceBetweenBlogAndToolJob($blog))->delay(now()->addMinutes(7));
         });
 
+        // todo optimize this
         TopSearch::get()->map(function ($topSearch) {
             dispatch(new SaveSemanticDistanceBetweenTopSearchAndToolJob($topSearch))->delay(now()->addMinutes(9));
         });

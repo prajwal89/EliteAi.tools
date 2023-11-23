@@ -25,6 +25,12 @@
         </div>
 
         <div class="form-group mb-4">
+            <label class="fw-bold">*description_for_nl_processing</label>
+            <textarea type="text" rows="5" class="form-control" name="description_for_nl_processing"
+                id="description_for_nl_processing" required>{{ $tool->description_for_nl_processing ?? ($toolDto->descriptionForNlProcessing ?? '') }}</textarea>
+        </div>
+
+        <div class="form-group mb-4">
             <label class="fw-bold">*categories</label>
             <select id="categories" name="categories[]" multiple placeholder="Select Appropriate Categories"
                 autocomplete="off" class="rounded-lg" required>

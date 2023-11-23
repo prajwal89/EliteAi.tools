@@ -21,6 +21,7 @@ class Tool extends Model implements MeilisearchAble
         //* content
         'summary',
         'description',
+        'description_for_nl_processing',
         'top_features',
         'use_cases',
         '_vectors',
