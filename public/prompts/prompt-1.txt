@@ -39,6 +39,7 @@ description_for_nl_processing:
 what this tool does. 
 get straight to the point. 
 do not mention the tool name.
+cover all important points.
 
 top_features:
 an array of features. like "feature name: feature details"
