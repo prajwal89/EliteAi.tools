@@ -172,6 +172,7 @@ class ToolService
      * this will recalculate all embeddings
      * and assign this tool to appropriate pages
      */
+    // ? should i move this to observer in model
     public static function syncAllEmbeddings(Tool $tool): bool
     {
         // *this will calculate vector embeddings
@@ -179,6 +180,7 @@ class ToolService
 
         dispatch(new SaveSemanticDistanceBetweenToolAndToolJob($tool))->delay(now()->addMinutes(5));
 
+        // todo optimize this
         Blog::where('blog_type', BlogType::SEMANTIC_SCORE->value)->get()->map(function ($blog) {
             dispatch(new SaveSemanticDistanceBetweenBlogAndToolJob($blog))->delay(now()->addMinutes(7));
         });

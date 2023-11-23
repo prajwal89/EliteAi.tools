@@ -13,6 +13,8 @@ class TelegramService
         $imageUrl = realpath(public_path('/tools/' . $tool->slug . '/screenshot.webp'));
 
         // Build caption
+        // ! caption length should be below 4096
+        // or else it will throws Telegram\\Bot\\Exceptions\\TelegramResponseException(code: 400): Bad Request: message caption is too long at
         $caption = '';
 
         $caption .= '<u><b>' . $tool->name . '</b></u>' . str_repeat(PHP_EOL, 2);
@@ -22,8 +24,13 @@ class TelegramService
         // Fill in top features
         if (!empty($tool->getFormattedFeatures())) {
             $caption .= '<b>Features:</b>' . PHP_EOL;
-            foreach ($tool->getFormattedFeatures() as $feature) {
+            foreach ($tool->getFormattedFeatures() as $i => $feature) {
                 $caption .= " - $feature" . PHP_EOL;
+                // show only two list elements
+                // ?should i include view all link 
+                if ($i >= 2) {
+                    break;
+                }
             }
             $caption .= str_repeat(PHP_EOL, 2);
         }
@@ -31,8 +38,11 @@ class TelegramService
         // Fill in use cases
         if (!empty($tool->use_cases)) {
             $caption .= '<b>Use Cases:</b>' . PHP_EOL;
-            foreach ($tool->use_cases as $useCase) {
+            foreach ($tool->use_cases as $i => $useCase) {
                 $caption .= " - $useCase" . PHP_EOL;
+                if ($i >= 2) {
+                    break;
+                }
             }
             $caption .= str_repeat(PHP_EOL, 2);
         }
