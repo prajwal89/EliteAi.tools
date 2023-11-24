@@ -51,6 +51,10 @@
                                 class="btn text-white btn-secondary">
                                 Index all documents
                             </button>
+                            <button class="btn btn-success my-2"
+                                wire:click="syncSettings('{{ $indexData['tableName'] }}')">
+                                Sync Settings
+                            </button>
                         </div>
                     </div>
 
@@ -68,42 +72,27 @@
 
                     </ul>
 
-                    <textarea class="form-control" id="" cols="30" rows="10">{{ json_encode($indexData, JSON_PRETTY_PRINT) }}</textarea>
 
-                    <div class="my-2">
-                        <button wire:click="showServerSettings('{{ $indexData['tableName'] }}')"
-                            class="btn btn-success">
-                            Server Settings
-                        </button>
-
-                        <button wire:click="showLocalSettings('{{ $indexData['tableName'] }}')"
-                            class="btn btn-success">
-                            Local Settings
-                        </button>
-                    </div>
-
-
-                    {{-- <div class="row">
+                    <div class="row">
                         <div class="col-6">
-                            <label for="">Server Settings</label>
-
-                            <textarea class="form-control" id="" cols="30" rows="10">{{ json_encode($indexData['serverSettings'], JSON_PRETTY_PRINT) }}</textarea>
+                            <label class="text-primary fw-bold" style="cursor: pointer" for=""
+                                wire:click="showServerSettings('{{ $indexData['tableName'] }}')">Server
+                                Settings</label>
+                            <textarea class="form-control" id="" cols="30" rows="10">{{ json_encode($indexData, JSON_PRETTY_PRINT) }}</textarea>
                         </div>
                         <div class="col-6">
-
-                            <label for="">Local settings</label>
-                            <textarea class="form-control" id="" cols="30" rows="10">{{ json_encode($indexData['localSettings'], JSON_PRETTY_PRINT) }}</textarea>
+                            <div class="">
+                                <label class="text-primary fw-bold" style="cursor: pointer" for=""
+                                    wire:click="showLocalSettings('{{ $indexData['tableName'] }}')">Local
+                                    settings</label>
+                                <textarea class="form-control" id="" cols="30" rows="4">{{ json_encode($indexData['localSettings'], JSON_PRETTY_PRINT) }}</textarea>
+                            </div>
+                            <div class="mt-2">
+                                <label for="">Difference</label>
+                                <textarea class="form-control" id="" cols="30" rows="4">{{ json_encode($indexData['settingsDifference'], JSON_PRETTY_PRINT) }}</textarea>
+                            </div>
                         </div>
-                    </div> --}}
-
-                    <div>
-                        <label for="">Difference</label>
-                        <textarea class="form-control" id="" cols="30" rows="4">{{ json_encode($indexData['settingsDifference'], JSON_PRETTY_PRINT) }}</textarea>
                     </div>
-
-                    <button class="btn btn-success my-2" wire:click="syncSettings('{{ $indexData['tableName'] }}')">
-                        Sync Settings
-                    </button>
                 @endforeach
             </div>
         </div>
