@@ -113,6 +113,19 @@ class MeilisearchControlPanel extends Component
         dd($localSettings);
     }
 
+    public function placeholder()
+    {
+        return <<<'HTML'
+            <div class="d-flex justify-content-center align-items-center" style="height: 100vh;">
+                <!-- Bootstrap 5 loading spinner (larger) -->
+                <div class="spinner-border border-5 text-primary" role="status" style="width: 6rem; height: 6rem;">
+                    <span class="visually-hidden">Loading...</span>
+                </div>
+            </div>
+        HTML;
+    }
+
+
     public function render()
     {
         return view('livewire.meilisearch-control-panel');
