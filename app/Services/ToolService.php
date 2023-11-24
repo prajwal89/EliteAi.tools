@@ -175,19 +175,20 @@ class ToolService
     // ? should i move this to observer in model
     public static function syncAllEmbeddings(Tool $tool): bool
     {
-        // *this will calculate vector embeddings
-        dispatch(new SaveVectorEmbeddingsJob($tool))->delay(now()->addMinutes(3));
+        dispatch(function () use ($tool) {
+            // *this will calculate vector embeddings
+            dispatch(new SaveVectorEmbeddingsJob($tool))->delay(now()->addMinutes(3));
 
-        dispatch(new SaveSemanticDistanceBetweenToolAndToolJob($tool))->delay(now()->addMinutes(5));
+            dispatch(new SaveSemanticDistanceBetweenToolAndToolJob($tool))->delay(now()->addMinutes(5));
 
-        Blog::where('blog_type', BlogType::SEMANTIC_SCORE->value)->get()->map(function ($blog) {
-            dispatch(new SaveSemanticDistanceBetweenBlogAndToolJob($blog))->delay(now()->addMinutes(7));
-        });
+            Blog::where('blog_type', BlogType::SEMANTIC_SCORE->value)->get()->map(function ($blog) {
+                dispatch(new SaveSemanticDistanceBetweenBlogAndToolJob($blog))->delay(now()->addMinutes(7));
+            });
 
-        // todo optimize this
-        // hint: dispatch job that will dispatch all these jobs
-        TopSearch::get()->map(function ($topSearch) {
-            dispatch(new SaveSemanticDistanceBetweenTopSearchAndToolJob($topSearch))->delay(now()->addMinutes(9));
+            // todo optimize this
+            TopSearch::get()->map(function ($topSearch) {
+                dispatch(new SaveSemanticDistanceBetweenTopSearchAndToolJob($topSearch))->delay(now()->addMinutes(9));
+            });
         });
 
         return true;
