@@ -125,6 +125,14 @@ class MeilisearchControlPanel extends Component
         HTML;
     }
 
+    public function indexAllDocumentsOfTable($tableName)
+    {
+        $table = SearchAbleTable::from($tableName);
+
+        $response = MeilisearchService::indexAllDocumentsOfTable($table);
+
+        dd($response);
+    }
 
     public function render()
     {

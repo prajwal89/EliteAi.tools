@@ -44,7 +44,15 @@
         <div class="card-body">
             <div class="border border-success p-2 rounded">
                 @foreach ($currentWebsiteAllIndexesData as $indexName => $indexData)
-                    <h4>{{ $indexName }}</h4>
+                    <div class="d-flex justify-content-between">
+                        <h4>{{ $indexName }}</h4>
+                        <div>
+                            <button wire:click="indexAllDocumentsOfTable('{{ $indexData['tableName'] }}')"
+                                class="btn text-white btn-secondary">
+                                Index all documents
+                            </button>
+                        </div>
+                    </div>
 
                     <ul>
                         <li>
