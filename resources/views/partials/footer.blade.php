@@ -2,7 +2,7 @@
     <div class="grid gap-12 row-gap-6 mb-8 sm:grid-cols-2 lg:grid-cols-4">
         <div class="sm:col-span-2">
             <a href="/" aria-label="Go home" title="{{ config('app.name') }}" class="inline-flex items-center">
-                <img class="w-10" src="{{ asset('/images/logos/favicons/EliteAi.png') }}"
+                <img class="w-10" src="{{ asset('/images/logos/favicons/500.png') }}"
                     alt="{{ config('app.name') }} logo">
                 <p class="ml-2  text-md md:text-xl font-bold text-black ">
                     Elite <span class="text-primary-600">AI</span> Tools

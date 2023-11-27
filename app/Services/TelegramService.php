@@ -49,7 +49,7 @@ class TelegramService
 
         // Include a link in the caption
         $linkUrl = route('tool.show', $tool->slug);
-        $linkText = 'View all tool details';
+        $linkText = 'View tool details';
         $caption .= '<a href="' . $linkUrl . '">' . $linkText . '</a>' . str_repeat(PHP_EOL, 3);
 
         $response = Telegram::sendPhoto([

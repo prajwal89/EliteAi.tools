@@ -5,8 +5,7 @@
 
     <a href="/" class="shrink-0 flex gap-1">
         <div class="flex items-center gap-2">
-            <img class="w-10" src="{{ asset('/images/logos/favicons/EliteAi.png') }}"
-                alt="{{ config('app.name') }} logo">
+            <img class="w-10" src="{{ asset('/images/logos/favicons/500.png') }}" alt="{{ config('app.name') }} logo">
             <p class="hidden md:block text-md md:text-xl font-bold text-black ">
                 Elite <span class="text-primary-600">AI</span> Tools
             </p>
