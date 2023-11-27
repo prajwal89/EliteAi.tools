@@ -1,3 +1,3 @@
 @php
-    echo file_get_content(assets('robots.txt'));
+    echo file_get_contents(assets('robots.txt'));
 @endphp
