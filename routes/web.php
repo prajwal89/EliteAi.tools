@@ -6,6 +6,7 @@ use App\Http\Controllers\CronJobsController;
 use App\Http\Controllers\HomeController;
 use App\Http\Controllers\PseudoFilesController;
 use App\Http\Controllers\SearchController;
+use App\Http\Controllers\SitemapController;
 use App\Http\Controllers\SocialAuthController;
 use App\Http\Controllers\TagController;
 use App\Http\Controllers\TestController;
@@ -78,6 +79,10 @@ Route::view('/terms-and-conditions', 'pages.terms-and-conditions')->name('terms-
 
 Route::controller(PseudoFilesController::class)->group(function () {
     Route::get('/robots.txt', 'robots');
+});
+
+Route::controller(SitemapController::class)->name('sitemap.')->prefix('sitemap')->group(function () {
+    Route::get('/tools/{page_no}', 'tools');
 });
 
 include 'adminRoutes.php';
