@@ -10,17 +10,11 @@
             Blog Home ({{ $allBlogs->count() }})
         </h1>
 
-        {{-- <ul class="flex flex-col gap-4 font-semibold text-lg md:text-xl my-4">
-            @foreach ($allBlogs as $blog)
-                <li><a href="{{ route('blog.show', ['blog' => $blog->slug]) }}">{{ $blog->title }}</a></li>
-            @endforeach
-        </ul> --}}
-
         <section class="container mx-auto grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-4 p-4">
             @foreach ($allBlogs as $blog)
                 <div class="flex flex-col border rounded-lg overflow-hidden">
                     <a href="{{ route('blog.show', $blog->slug) }}" class="aspect-ratio-3/2">
-                        <img src="{{ asset('/blogs/' . $blog->slug . '/featured-large.webp') }}" alt="Card img"
+                        <img src="{{ asset('/blogs/' . $blog->slug . '/featured-large.webp') }}" alt="{{ $blog->title }}"
                             class="object-cover w-full h-full" />
                     </a>
                     <div class="flex flex-col justify-between p-4">

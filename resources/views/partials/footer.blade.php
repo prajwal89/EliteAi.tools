@@ -38,6 +38,7 @@
             <div class="flex gap-3 flex-col mt-2 text-sm">
                 <a href="{{ route('home') }}">Home</a>
                 <a href="{{ route('blog.index') }}">Blog</a>
+                <a href="https://t.me/EliteAi_tools" target="_blank">Telegram</a>
                 {{-- <a href="{{ route('search.popular.index') }}">Popular searches</a> --}}
             </div>
         </div>
