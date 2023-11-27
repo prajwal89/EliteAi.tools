@@ -4,6 +4,7 @@ use App\Http\Controllers\BlogController;
 use App\Http\Controllers\CategoryController;
 use App\Http\Controllers\CronJobsController;
 use App\Http\Controllers\HomeController;
+use App\Http\Controllers\PseudoFilesController;
 use App\Http\Controllers\SearchController;
 use App\Http\Controllers\SocialAuthController;
 use App\Http\Controllers\TagController;
@@ -74,6 +75,9 @@ Route::get('/test/413512', function () {
 
 Route::view('/privacy-policy', 'pages.privacy-policy')->name('privacy-policy');
 Route::view('/terms-and-conditions', 'pages.terms-and-conditions')->name('terms-and-conditions');
-Route::view('/robots.txt', 'pages.robots')->name('robots');
+
+Route::controller(PseudoFilesController::class)->group(function () {
+    Route::get('/robots.txt', 'robots');
+});
 
 include 'adminRoutes.php';
