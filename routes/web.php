@@ -74,5 +74,6 @@ Route::get('/test/413512', function () {
 
 Route::view('/privacy-policy', 'pages.privacy-policy')->name('privacy-policy');
 Route::view('/terms-and-conditions', 'pages.terms-and-conditions')->name('terms-and-conditions');
+Route::view('/robots.txt', 'pages.robots')->name('robots');
 
 include 'adminRoutes.php';
