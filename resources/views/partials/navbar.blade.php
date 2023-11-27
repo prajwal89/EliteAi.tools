@@ -5,12 +5,12 @@
 
     <a href="/" class="shrink-0 flex gap-1">
         <div class="flex items-center gap-2">
-            <img class="w-6 pt-1" src="{{ asset('/images/logos/logo-64x64.png') }}" alt="{{ config('app.name') }} logo">
+            <img class="w-10" src="{{ asset('/images/logos/favicons/EliteAi.png') }}"
+                alt="{{ config('app.name') }} logo">
             <p class="hidden md:block text-md md:text-xl font-bold text-black ">
-                {{ config('app.name') }}
+                Elite <span class="text-primary-600">AI</span> Tools
             </p>
         </div>
-        {{-- <small class="text-gray-500 text-xs">beta</small> --}}
     </a>
 
     <form action="{{ route('search.show') }}" class="relative w-[420px] bg-white">
@@ -55,7 +55,7 @@
         <div class="flex items-center mb-8">
 
             <a class="mr-auto text-2xl font-bold text-black" href="/">
-                {{ config('app.name') }}
+                Elite <span class="text-primary-600">AI</span> Tools
             </a>
 
             <button class="navbar-close">

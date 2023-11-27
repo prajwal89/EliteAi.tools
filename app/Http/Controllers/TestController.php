@@ -9,6 +9,7 @@ use App\Enums\ModelType;
 use App\Enums\SearchAbleTable;
 use App\Models\Tool;
 use App\Services\MeilisearchService;
+use App\Services\TelegramService;
 use App\Services\ToolService;
 use Illuminate\Support\Facades\Http;
 use Intervention\Image\Facades\Image;
@@ -30,6 +31,8 @@ class TestController extends Controller
 
     public function __invoke()
     {
+        // return TelegramService::sendPromotionalMessageOfTool(Tool::find(1));
+
         dd(Tool::find(1)->getParagraphForVectorEmbeddings());
     }
 

@@ -33,7 +33,8 @@ description:
 This HTML string which gives the description of the AI tool.
 write this in third person.
 use proper HTML tags if needed.
-make it long if needed
+make it long if needed.
+do not include: User testimonials, filler words
 
 description_for_nl_processing:
 Explain what this tool does. 

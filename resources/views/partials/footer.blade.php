@@ -2,36 +2,36 @@
     <div class="grid gap-12 row-gap-6 mb-8 sm:grid-cols-2 lg:grid-cols-4">
         <div class="sm:col-span-2">
             <a href="/" aria-label="Go home" title="{{ config('app.name') }}" class="inline-flex items-center">
-                <img src="{{ asset('/images/logos/logo-64x64.png') }}" alt="logo" class="w-8">
-                <span class="ml-2 text-xl font-bold tracking-wide text-gray-800">
-                    {{ config('app.name') }}
-                </span>
+                <img class="w-10" src="{{ asset('/images/logos/favicons/EliteAi.png') }}"
+                    alt="{{ config('app.name') }} logo">
+                <p class="ml-2  text-md md:text-xl font-bold text-black ">
+                    Elite <span class="text-primary-600">AI</span> Tools
+                </p>
             </a>
-            <div class="mt-6 lg:max-w-sm ">
-                Discover a world of AI-powered solutions on our website! Explore a curated list of cutting-edge AI tools
-                designed to simplify tasks, enhance productivity, and unlock new possibilities.
+            <div class="mt-6 lg:max-w-sm">
+                Find the exact AI tool for your requirements by searching with our AI-based search engine.
             </div>
         </div>
         <div class="space-y-2 text-sm">
             <p class="text-base font-bold tracking-wide text-gray-900">Contacts</p>
-            <div class="flex">
+            {{-- <div class="flex">
                 <p class="mr-1 text-gray-800 ">Phone:</p>
                 <a href="tel:850-123-5021" aria-label="Our phone" title="Our phone">
                     850-123-5021
                 </a>
-            </div>
+            </div> --}}
             <div class="flex">
                 <p class="mr-1 text-gray-800">Email:</p>
                 <a href="mailto:{{ config('custom.admin_email') }}" aria-label="Our email" title="Our email"
                     class="">{{ config('custom.admin_email') }}
                 </a>
             </div>
-            <div class="flex">
+            {{-- <div class="flex">
                 <p class="mr-1 text-gray-800">Address:</p>
                 <p target="_blank" rel="noopener noreferrer" aria-label="Our address" title="Our address">
                     Xyx road Abc state
                 </p>
-            </div>
+            </div> --}}
         </div>
         <div class="text-gray-500">
             <p class="text-base font-bold tracking-wide text-gray-900">Links</p>

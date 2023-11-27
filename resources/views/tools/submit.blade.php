@@ -11,7 +11,7 @@
             <span class="text-2xl md:text-3xl font-semibold">
                 Write us email at
                 <br>
-                <strong><a href="mailto:00prajwal@gmail.com">00prajwal@gmail.com</a></strong>
+                <strong><a class="text-primary-800" href="mailto:admin@eliteai.tools">admin@eliteai.tools</a></strong>
                 <br>
                 with your tool details
             </span>

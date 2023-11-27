@@ -7,11 +7,11 @@ i want to create images of my product for social media
 ## cron jobs
 
 ```bash
-# aitolsrepo
+# EliteAi.tools
 
 # every minute
-* * * * * curl "http://clgnotes.esy.es/cron/per-minute/run-all-jobs"
+* * * * * curl "https://eliteai.tools/cron/per-minute/run-all-jobs" -H "x-cron-api-key: CRON_Dek924K$#JDSF3"
 
 #other
-0 14,20,24 * * * curl "http://clgnotes.esy.es/cron/send-telegram-tool-promotional-message"
+0 14,18,23 * * * curl "https://eliteai.tools/cron/send-telegram-tool-promotional-message" -H "x-cron-api-key: CRON_Dek924K$#JDSF3"
 ```

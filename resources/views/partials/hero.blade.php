@@ -44,7 +44,7 @@
                 @elseif (isset($topSearch))
                     {{ $pageDataDTO['title'] }}
                 @else
-                    {{ config('app.name') }}
+                    Elite <span class="text-green-800">AI</span> Tools
                 @endif
             </span>
             <span class="text-lg block sm:text-xl pt-4 w-full max-w-5xl mx-auto">
