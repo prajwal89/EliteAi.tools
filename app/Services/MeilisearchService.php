@@ -28,8 +28,8 @@ class MeilisearchService
     public function __construct(array $httpClientConfigs = [])
     {
         $this->meilisearchClient = new Client(
-            config('custom.meilisearch.host'),
-            config('custom.meilisearch.key'),
+            config('services.meilisearch.host'),
+            config('services.meilisearch.key'),
             new GuzzleHttpClient(array_merge($this->defaultHttpClientConfigs, $httpClientConfigs)),
         );
     }
@@ -305,9 +305,9 @@ class MeilisearchService
                     // todo replace with client->vectorSearch when available
                     return Http::withHeaders([
                         'Content-Type' => 'application/json',
-                        'Authorization' => 'Bearer ' . config('custom.meilisearch.key'),
+                        'Authorization' => 'Bearer ' . config('services.meilisearch.key'),
                     ])->post(
-                        config('custom.meilisearch.host') . '/indexes/' . $table->getIndexName() . '/search',
+                        config('services.meilisearch.host') . '/indexes/' . $table->getIndexName() . '/search',
                         $configs
                     )->json();
                 },
@@ -319,6 +319,16 @@ class MeilisearchService
             }
 
             Log::info('Meilisearch API error');
+
+            return null;
+        }
+
+        if (!isset($responseData['hits'])) {
+            if (!app()->isProduction()) {
+                throw new Exception($responseData['message']);
+            }
+
+            Log::info('Meilisearch API error: Hits key not found');
 
             return null;
         }
@@ -418,8 +428,8 @@ class MeilisearchService
     {
         $response = Http::withHeaders([
             'Content-Type' => 'application/json',
-            'Authorization' => 'Bearer ' . config('custom.meilisearch.key'),
-        ])->patch(config('custom.meilisearch.host') . '/experimental-features', [
+            'Authorization' => 'Bearer ' . config('services.meilisearch.key'),
+        ])->patch(config('services.meilisearch.host') . '/experimental-features', [
             'vectorStore' => true,
             // 'scoreDetails' => true,
         ]);

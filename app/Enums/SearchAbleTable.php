@@ -17,7 +17,7 @@ enum SearchAbleTable: string
     public function getIndexName(): string
     {
         return match ($this) {
-            SearchAbleTable::TOOL => config('custom.meilisearch.prefix') . '_' . $this->getModelInstance()->getTable(),
+            SearchAbleTable::TOOL => config('services.meilisearch.prefix') . '_' . $this->getModelInstance()->getTable(),
             default => throw new Exception("Cannot get index name for table {$this->value}"),
         };
     }

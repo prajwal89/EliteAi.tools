@@ -36,4 +36,21 @@ return [
         'client_secret' => env('GOOGLE_CLIENT_SECRET'),
         'redirect' => env('GOOGLE_REDIRECT'),
     ],
+
+    'meilisearch' => [
+        'prefix' => 'ai_tools_repo',
+        'host' => env('MEILISEARCH_HOST', 'http://localhost:7700'),
+        'key' => env('MEILISEARCH_KEY', null),
+        'search_timeout' => 4, //fallback to search with fulltext search
+        'vector_search_timeout' => 8,
+    ],
+
+    'open_ai' => [
+        'api_key' => env('OPENAI_API_KEY'),
+    ],
+
+    'telegram' => [
+        'bot_token' => env('TELEGRAM_BOT_TOKEN'),
+        'chat_id' => env('TELEGRAM_CHAT_ID'),
+    ],
 ];

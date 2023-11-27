@@ -24,16 +24,48 @@ class TestController extends Controller
 {
     public function __construct()
     {
-        // if (app()->isProduction()) {
-        //     abort(404);
-        // }
+        if (app()->isProduction()) {
+            abort(404);
+        }
     }
 
     public function __invoke()
     {
+        // return $this->binanceData();
         // return TelegramService::sendPromotionalMessageOfTool(Tool::find(1));
 
         dd(Tool::find(1)->getParagraphForVectorEmbeddings());
+    }
+
+    public function binanceData()
+    {
+        $baseUrl = 'https://api.binance.com';
+        $apiKey = '';
+        $apiSecret = '';
+
+        // Make a request to Binance API to get user details
+        $endpoint = '/api/v3/account';
+        $endpoint = '/sapi/v1/asset/wallet/balance';
+        // $endpoint = '/sapi/v1/account/apiRestrictions';
+        $timestamp = Http::get($baseUrl . '/api/v3/time')->json()['serverTime']; // Get Binance server time
+        $recvWindow = 5000; // Adjust this value based on Binance recommendations
+
+        $signature = hash_hmac('sha256', "timestamp={$timestamp}&recvWindow={$recvWindow}", $apiSecret);
+
+        $response = Http::withHeaders([
+            'X-MBX-APIKEY' => $apiKey,
+        ])->get($baseUrl . $endpoint, [
+            'timestamp' => $timestamp,
+            'signature' => $signature,
+            'recvWindow' => $recvWindow,
+        ]);
+
+        $data = $response->json();
+
+        dd($data);
+        // Process $data as needed
+
+        return response()->json($data);
     }
 
     public function updateEmbeddingsOfAllTools()
