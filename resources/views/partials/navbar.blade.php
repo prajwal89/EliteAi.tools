@@ -5,7 +5,7 @@
 
     <a href="/" class="shrink-0 flex gap-1">
         <div class="flex items-center gap-2">
-            <img class="w-10" src="{{ asset('/images/logos/favicons/500.png') }}" alt="{{ config('app.name') }} logo">
+            <img class="w-10" src="{{ asset('/images/logos/favicons/64.png') }}" alt="{{ config('app.name') }} logo">
             <p class="hidden md:block text-md md:text-xl font-bold text-black ">
                 Elite <span class="text-primary-600">AI</span> Tools
             </p>
@@ -53,12 +53,12 @@
 
         <div class="flex items-center mb-8">
 
-            <a class="mr-auto text-2xl font-bold text-black" href="/">
+            <a href="/" class="mr-auto text-2xl font-bold text-black">
                 Elite <span class="text-primary-600">AI</span> Tools
             </a>
 
             <button class="navbar-close">
-                <svg class="h-6 w-6 text-gray-400 cursor-pointer hover:text-gray-500" xmlns="http://www.w3.org/2000/svg"
+                <svg class="h-6 w-6 text-gray-400 cursor-pointer hover:text-gray-64" xmlns="http://www.w3.org/2000/svg"
                     fill="none" viewBox="0 0 24 24" stroke="currentColor">
                     <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M6 18L18 6M6 6l12 12">
                     </path>
@@ -104,7 +104,6 @@
 
 
         <div class="mt-auto">
-
             <p class="my-4 text-xs text-center text-gray-400">
                 <span>{{ config('app.name') }} Copyright © {{ date('Y') }}</span>
             </p>
