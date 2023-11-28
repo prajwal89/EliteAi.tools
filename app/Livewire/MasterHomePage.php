@@ -40,7 +40,7 @@ class MasterHomePage extends Component
     public int $totalFiltersApplied = 0;
 
     // https://livewire.laravel.com/docs/url
-    #[Url(as: 'q')]
+    // #[Url(as: 'q')]
     public ?string $searchQuery = '';
 
     public function mount()
@@ -48,6 +48,10 @@ class MasterHomePage extends Component
         $this->searchResults = collect([
             'tools' => collect(),
         ]);
+
+        if (!empty($this->searchQuery)) {
+            $this->search();
+        }
 
         match ($this->pageType) {
             'home' => $this->loadHomePage(),
@@ -112,6 +116,11 @@ class MasterHomePage extends Component
 
         if (empty($this->searchQuery)) {
             $this->alertMessage = 'Search query is empty';
+
+            return;
+        }
+        if (strlen($this->searchQuery) > 1000) {
+            $this->alertMessage = 'Search query should be less than 1000 characters';
 
             return;
         }

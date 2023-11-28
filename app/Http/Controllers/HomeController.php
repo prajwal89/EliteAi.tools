@@ -10,7 +10,7 @@ class HomeController extends Controller
     {
         return view('home', [
             'pageDataDTO' => new PageDataDTO(
-                title: 'Home',
+                title: 'EliteAi tools - Find the one you exactly need',
                 description: null,
                 conicalUrl: route('home')
             ),
