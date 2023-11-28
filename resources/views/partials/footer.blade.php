@@ -13,32 +13,41 @@
             </div>
         </div>
         <div class="space-y-2 text-sm">
-            <p class="text-base font-bold tracking-wide text-gray-900">Contacts</p>
-            {{-- <div class="flex">
+
+            <div class="mt-1">
+
+                <p class="text-base font-bold tracking-wide text-gray-900">Contacts</p>
+                {{-- <div class="flex">
                 <p class="mr-1 text-gray-800 ">Phone:</p>
                 <a href="tel:850-123-5021" aria-label="Our phone" title="Our phone">
                     850-123-5021
                 </a>
             </div> --}}
-            <div class="flex">
-                <p class="mr-1 text-gray-800">Email:</p>
-                <a href="mailto:{{ config('custom.admin_email') }}" aria-label="Our email" title="Our email"
-                    class="">{{ config('custom.admin_email') }}
-                </a>
+                <div class="flex">
+                    <p class="mr-1 text-gray-800">Email:</p>
+                    <a href="mailto:{{ config('custom.admin_email') }}" aria-label="Our email" title="Our email"
+                        class="">{{ config('custom.admin_email') }}
+                    </a>
+                </div>
+                {{-- <div class="flex">
+            <p class="mr-1 text-gray-800">Address:</p>
+            <p target="_blank" rel="noopener noreferrer" aria-label="Our address" title="Our address">
+                Xyx road Abc state
+            </p>
+        </div> --}}
             </div>
-            {{-- <div class="flex">
-                <p class="mr-1 text-gray-800">Address:</p>
-                <p target="_blank" rel="noopener noreferrer" aria-label="Our address" title="Our address">
-                    Xyx road Abc state
-                </p>
-            </div> --}}
+
+            <div class="mt-1">
+                <p class="text-base font-bold tracking-wide text-gray-900 mt-1">Social</p>
+                <a href="https://t.me/EliteAi_tools" target="_blank">Telegram</a>
+            </div>
+
         </div>
         <div class="text-gray-500">
             <p class="text-base font-bold tracking-wide text-gray-900">Links</p>
             <div class="flex gap-3 flex-col mt-2 text-sm">
                 <a href="{{ route('home') }}">Home</a>
                 <a href="{{ route('blog.index') }}">Blog</a>
-                <a href="https://t.me/EliteAi_tools" target="_blank">Telegram</a>
                 {{-- <a href="{{ route('search.popular.index') }}">Popular searches</a> --}}
             </div>
         </div>
