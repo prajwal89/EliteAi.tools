@@ -31,6 +31,7 @@ class TestController extends Controller
 
     public function __invoke()
     {
+        dd(ModelType::OPEN_AI_ADA_002->totalVectorDimensions());
         dd((new MeilisearchService)->getVectorEmbeddings('ss', ModelType::OPEN_AI_ADA_002));
 
         // return $this->binanceData();

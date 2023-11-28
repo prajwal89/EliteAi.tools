@@ -136,9 +136,6 @@ class MeilisearchService
             throw new Exception('Meilisearch not able to queue document ' . $documentId . ' for ' . $table->getIndexName());
         }
 
-        // ! find alternative (it takes meilisearch time to index an document)
-        // sleep(10);
-
         return true;
     }
 
