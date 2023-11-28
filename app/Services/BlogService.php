@@ -64,7 +64,7 @@ class BlogService
      */
     public static function updateVectorEmbeddings(Blog $blog): bool
     {
-        $embeddings = MeilisearchService::getVectorEmbeddings(
+        $embeddings = (new MeilisearchService)->getVectorEmbeddings(
             $blog->getParagraphForVectorEmbeddings(),
             config('custom.current_embedding_model')
         );

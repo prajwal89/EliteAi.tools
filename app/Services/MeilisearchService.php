@@ -295,7 +295,7 @@ class MeilisearchService
                 }
             }
 
-            $configs['vector'] = MeilisearchService::getVectorEmbeddings($query, config('custom.current_embedding_model'));
+            $configs['vector'] = (new MeilisearchService)->getVectorEmbeddings($query, config('custom.current_embedding_model'));
         }
 
         try {
@@ -392,10 +392,10 @@ class MeilisearchService
         );
     }
 
-    public static function getVectorEmbeddings(string $text, ModelType $modelType): ?array
+    public function getVectorEmbeddings(string $text, ModelType $modelType): ?array
     {
         $closure = match ($modelType) {
-            ModelType::OPEN_AI_ADA_002 => static function () use ($text) {
+            ModelType::OPEN_AI_ADA_002 => function () use ($text) {
                 try {
                     $response = retry(2, function () use ($text) {
                         return OpenAI::embeddings()->create([
@@ -414,7 +414,7 @@ class MeilisearchService
                 }
             },
 
-            ModelType::All_MINI_LM_L6_V2 => static function () use ($text, $modelType) {
+            ModelType::All_MINI_LM_L6_V2 => function () use ($text, $modelType) {
                 $data = json_encode([
                     'model' => $modelType->value,
                     'text' => $text,

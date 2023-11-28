@@ -88,7 +88,7 @@ class ToolService
      */
     public static function updateVectorEmbeddings(Tool $tool): bool
     {
-        $embeddings = MeilisearchService::getVectorEmbeddings(
+        $embeddings = (new MeilisearchService)->getVectorEmbeddings(
             text: $tool->getParagraphForVectorEmbeddings(),
             modelType: config('custom.current_embedding_model')
         );

@@ -68,7 +68,7 @@ class TopSearchService
      */
     public static function updateVectorEmbeddings(TopSearch $topSearch): bool
     {
-        $embeddings = MeilisearchService::getVectorEmbeddings(
+        $embeddings = (new MeilisearchService)->getVectorEmbeddings(
             $topSearch->getParagraphForVectorEmbeddings(),
             config('custom.current_embedding_model')
         );

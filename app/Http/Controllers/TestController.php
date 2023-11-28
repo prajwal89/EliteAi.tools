@@ -31,6 +31,8 @@ class TestController extends Controller
 
     public function __invoke()
     {
+        dd((new MeilisearchService)->getVectorEmbeddings('ss', ModelType::OPEN_AI_ADA_002));
+
         // return $this->binanceData();
         // return TelegramService::sendPromotionalMessageOfTool(Tool::find(1));
 
@@ -112,7 +114,7 @@ class TestController extends Controller
 
     public function openAiEmbeddings()
     {
-        dd(MeilisearchService::getVectorEmbeddings(
+        dd((new MeilisearchService)->getVectorEmbeddings(
             Tool::find(1)->getParagraphForVectorEmbeddings(),
             ModelType::OPEN_AI_ADA_002
         ));
@@ -231,7 +233,7 @@ class TestController extends Controller
         // dd($allTools);
 
         foreach ($allTools as $tool) {
-            $embeddings = MeilisearchService::getVectorEmbeddings(
+            $embeddings = (new MeilisearchService)->getVectorEmbeddings(
                 $tool->getParagraphForVectorEmbeddings(),
                 ModelType::All_MINI_LM_L6_V2
             );
