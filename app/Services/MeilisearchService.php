@@ -274,7 +274,7 @@ class MeilisearchService
 
         if (empty($query) && empty($vectors)) {
             if (!app()->isProduction()) {
-                throw new InvalidArgumentException('query or vectors required for performing a search');
+                throw new InvalidArgumentException('query or vectors required for performing a vector search');
             } else {
                 Log::info('query or vectors required for performing a search');
 
@@ -392,36 +392,46 @@ class MeilisearchService
         );
     }
 
-    public static function getVectorEmbeddings(string $text, ModelType $modelType)
+    public static function getVectorEmbeddings(string $text, ModelType $modelType): ?array
     {
-        // if ($modelType == ModelType::All_MINI_LM_L6_V2) {
-        //     $data = json_encode([
-        //         'model' => $modelType->value,
-        //         'text' => $text,
-        //     ]);
+        $closure = match ($modelType) {
+            ModelType::OPEN_AI_ADA_002 => static function () use ($text) {
+                try {
+                    $response = retry(2, function () use ($text) {
+                        return OpenAI::embeddings()->create([
+                            'model' => 'text-embedding-ada-002',
+                            'input' => $text,
+                        ]);
+                    }, 2000);
 
-        //     $response = Http::withBody($data, 'application/json')
-        //         ->post('http://194.163.34.183/Microservices/service/embeddings/GenerateEmbeddings.php');
+                    return $response->embeddings[0]->embedding;
+                } catch (Exception $e) {
+                    if (!app()->isProduction()) {
+                        throw $e;
+                    }
+                    Log::info($e->getMessage());
+                    return null;
+                }
+            },
 
-        //     if ($response->successful()) {
-        //         return $response->json()['data']['embeddings'];
-        //     }
-        // }
-
-        if ($modelType == ModelType::OPEN_AI_ADA_002) {
-
-            // ! sometimes we are receiving failed response
-            $response = retry(2, function () use ($text) {
-                return OpenAI::embeddings()->create([
-                    'model' => 'text-embedding-ada-002',
-                    'input' => $text,
+            ModelType::All_MINI_LM_L6_V2 => static function () use ($text, $modelType) {
+                $data = json_encode([
+                    'model' => $modelType->value,
+                    'text' => $text,
                 ]);
-            }, 2000);
 
-            return $response->embeddings[0]->embedding;
-        }
+                $response = Http::withBody($data, 'application/json')
+                    ->post('http://194.163.34.183/Microservices/service/embeddings/GenerateEmbeddings.php');
 
-        return null;
+                if ($response->successful()) {
+                    return $response->json()['data']['embeddings'];
+                }
+            },
+
+            default => throw new Exception('No strategy for calculating vector embeddings for modelType: ' . $modelType->value)
+        };
+
+        return $closure();
     }
 
     public static function enableVectorSearch()
