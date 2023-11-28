@@ -179,7 +179,7 @@ class ToolService
             // *this will calculate vector embeddings
             dispatch(new SaveVectorEmbeddingsJob($tool))->delay(now()->addMinutes(3));
 
-            dispatch(new SaveSemanticDistanceBetweenToolAndToolJob($tool))->delay(now()->addMinutes(5));
+            dispatch(new SaveSemanticDistanceBetweenToolAndToolJob($tool))->delay(now()->addMinutes(6));
 
             Blog::where('blog_type', BlogType::SEMANTIC_SCORE->value)->get()->map(function ($blog) {
                 dispatch(new SaveSemanticDistanceBetweenBlogAndToolJob($blog))->delay(now()->addMinutes(7));
