@@ -410,6 +410,7 @@ class MeilisearchService
                         throw $e;
                     }
                     Log::info($e->getMessage());
+
                     return null;
                 }
             },
