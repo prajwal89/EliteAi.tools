@@ -31,7 +31,7 @@ class MeilisearchIndexAllDocuments extends Command
 
         $searchAbleTable = SearchAbleTable::from(trim($tableName));
 
-        MeilisearchService::indexAllDocumentsOfTable($searchAbleTable);
+        (new MeilisearchService)->indexAllDocumentsOfTable($searchAbleTable);
 
         $this->info("Documents send for indexing for table {$searchAbleTable->value}");
     }

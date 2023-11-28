@@ -61,7 +61,7 @@ class MeilisearchControlPanel extends Component
             $serverSettings = objectToArray(
                 $this
                     ->meilisearchService
-                    ->meilisearchClient
+                    ->client
                     ->index($table->getIndexName())
                     ->getSettings()
             );
@@ -84,7 +84,7 @@ class MeilisearchControlPanel extends Component
     {
         $searchAbleTable = SearchAbleTable::from($tableName);
 
-        $response = MeilisearchService::syncLocalSettings($searchAbleTable);
+        $response = (new MeilisearchService)->syncLocalSettings($searchAbleTable);
 
         dd($response);
     }
@@ -96,7 +96,7 @@ class MeilisearchControlPanel extends Component
         $serverSettings = json_decode(json_encode(
             $this
                 ->meilisearchService
-                ->meilisearchClient
+                ->client
                 ->index($table->getIndexName())
                 ->getSettings()
         ), true);
@@ -129,7 +129,7 @@ class MeilisearchControlPanel extends Component
     {
         $table = SearchAbleTable::from($tableName);
 
-        $response = MeilisearchService::indexAllDocumentsOfTable($table);
+        $response = (new MeilisearchService)->indexAllDocumentsOfTable($table);
 
         dd($response);
     }

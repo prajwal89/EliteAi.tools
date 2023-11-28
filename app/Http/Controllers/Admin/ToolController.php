@@ -146,7 +146,7 @@ class ToolController extends Controller
         }
 
         // todo use pipeline
-        MeilisearchService::indexDocument(SearchAbleTable::TOOL, $tool->id);
+        (new MeilisearchService)->indexDocument(SearchAbleTable::TOOL, $tool->id);
 
         ToolService::syncAllEmbeddings($tool);
 
@@ -269,7 +269,7 @@ class ToolController extends Controller
             $tool->categories()->sync($request->categories);
         });
 
-        MeilisearchService::indexDocument(SearchAbleTable::TOOL, $tool->id);
+        (new MeilisearchService)->indexDocument(SearchAbleTable::TOOL, $tool->id);
 
         // * these columns are required for calculating vectors so
         //  we need to update again embeddings and distances also
@@ -287,7 +287,7 @@ class ToolController extends Controller
     {
         Tool::find($id)->delete();
 
-        MeilisearchService::deleteDocument(SearchAbleTable::TOOL, $id);
+        (new MeilisearchService)->deleteDocument(SearchAbleTable::TOOL, $id);
 
         return redirect()->route('admin.tools.index')->with('success', 'deleted successfully');
     }

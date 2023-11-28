@@ -31,7 +31,7 @@ class MeilisearchSyncSettings extends Command
 
         $searchAbleTable = SearchAbleTable::from(trim($tableName));
 
-        MeilisearchService::syncLocalSettings($searchAbleTable);
+        (new MeilisearchService)->syncLocalSettings($searchAbleTable);
 
         $this->info("Settings will synced for {$searchAbleTable->value}");
     }

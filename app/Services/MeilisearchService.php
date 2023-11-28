@@ -19,7 +19,7 @@ use OpenAI\Laravel\Facades\OpenAI;
 
 class MeilisearchService
 {
-    public $meilisearchClient;
+    public Client $client;
 
     public array $defaultHttpClientConfigs = [
         'timeout' => 10,
@@ -27,7 +27,7 @@ class MeilisearchService
 
     public function __construct(array $httpClientConfigs = [])
     {
-        $this->meilisearchClient = new Client(
+        $this->client = new Client(
             config('services.meilisearch.host'),
             config('services.meilisearch.key'),
             new GuzzleHttpClient(array_merge($this->defaultHttpClientConfigs, $httpClientConfigs)),
@@ -37,7 +37,7 @@ class MeilisearchService
     /**
      * Index all documents for ann table
      */
-    public static function indexAllDocumentsOfTable(SearchAbleTable $table, int $currentBatchNo = null): array
+    public function indexAllDocumentsOfTable(SearchAbleTable $table, int $currentBatchNo = null): array
     {
         $output = [];
 
@@ -57,7 +57,7 @@ class MeilisearchService
             }
 
             $response = (new self())
-                ->meilisearchClient
+                ->client
                 ->index($table->getIndexName())
                 ->addDocuments($searchableModel::documentsForSearch(batchNo: $currentBatchNo));
 
@@ -74,7 +74,7 @@ class MeilisearchService
         for ($batchNo = 0; $batchNo < $totalBatches; $batchNo++) {
 
             $response = (new self())
-                ->meilisearchClient
+                ->client
                 ->index($table->getIndexName())
                 ->addDocuments($searchableModel::documentsForSearch(batchNo: $batchNo));
 
@@ -91,19 +91,19 @@ class MeilisearchService
     /**
      * De-Index Whole table
      */
-    public static function deIndexTable(SearchAbleTable $table): array
+    public function deIndexTable(SearchAbleTable $table): array
     {
-        return (new self())
-            ->meilisearchClient
+        return $this
+            ->client
             ->deleteIndex(
                 $table->getIndexName()
             );
     }
 
-    public static function deleteDocument(SearchAbleTable $table, int $documentId): bool
+    public function deleteDocument(SearchAbleTable $table, int $documentId): bool
     {
-        $response = (new self())
-            ->meilisearchClient
+        $response = $this
+            ->client
             ->index($table->getIndexName())
             ->deleteDocument($documentId);
 
@@ -117,7 +117,7 @@ class MeilisearchService
     /**
      * This will also update the document if document is already available
      */
-    public static function indexDocument(SearchAbleTable $table, int $documentId): bool
+    public function indexDocument(SearchAbleTable $table, int $documentId): bool
     {
         $document = $table->getModelInstance()::documentsForSearch(
             documentId: $documentId
@@ -127,8 +127,8 @@ class MeilisearchService
             Log::info('Cannot get documentsForSearch for id ' . $documentId . ' in ' . $table->getIndexName());
         }
 
-        $response = (new self())
-            ->meilisearchClient
+        $response = $this
+            ->client
             ->index($table->getIndexName())
             ->addDocuments($document);
 
@@ -145,14 +145,14 @@ class MeilisearchService
     public function getTotalDocumentsInIndex(SearchAbleTable $table)
     {
         return $this
-            ->meilisearchClient
+            ->client
             ->index($table->getIndexName())
             ->stats()['numberOfDocuments'];
     }
 
     public function isServiceOnline(): bool
     {
-        if (($this->meilisearchClient->health())['status'] == 'available') {
+        if (($this->client->health())['status'] == 'available') {
             return true;
         }
 
@@ -161,7 +161,7 @@ class MeilisearchService
 
     public function stats(): array
     {
-        return $this->meilisearchClient->stats();
+        return $this->client->stats();
     }
 
     public function updateDocument(
@@ -179,13 +179,13 @@ class MeilisearchService
         $document = retry(5, function () use ($documentId, $table) {
             // retrying this b.c of
             // Meilisearch\\Exceptions\\ApiException(code: 404): Document `258` not found
-            return $this->meilisearchClient
+            return $this->client
                 ->index($table->getIndexName())
                 ->getDocument($documentId);
         }, 5000);
 
         if ($document) {
-            $response = $this->meilisearchClient
+            $response = $this->client
                 ->index($table->getIndexName())
                 ->updateDocuments(['id' => $documentId] + $newData);
 
@@ -225,7 +225,7 @@ class MeilisearchService
                 times: $retrySettings['times'],
                 callback: function () use ($table, $query, $searchParams, $options) {
                     return $this
-                        ->meilisearchClient
+                        ->client
                         ->index($table->getIndexName())
                         ->search($query, $searchParams, $options);
                 },
@@ -450,12 +450,12 @@ class MeilisearchService
     /**
      * sync local settings with Meilisearch Service
      */
-    public static function syncLocalSettings(SearchAbleTable $searchAbleTable): bool
+    public function syncLocalSettings(SearchAbleTable $searchAbleTable): bool
     {
         $localSettings = $searchAbleTable->meilisearchIndexSettings();
 
         $response = (new MeilisearchService())
-            ->meilisearchClient
+            ->client
             ->index($searchAbleTable->getIndexName())
             ->updateSettings($localSettings);
 
