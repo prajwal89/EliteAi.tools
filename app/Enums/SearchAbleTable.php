@@ -2,6 +2,7 @@
 
 namespace App\Enums;
 
+use App\Models\Blog;
 use App\Models\Tool;
 use App\Services\MeilisearchService;
 use Exception;
@@ -9,17 +10,15 @@ use Illuminate\Database\Eloquent\Model;
 
 enum SearchAbleTable: string
 {
-    case TOOL = 'tools';  //table name
+    case TOOL = 'tools'; //table name
+    case BLOG = 'blogs';
 
     /**
      * index name is {prefix}_{tableName}
      */
     public function getIndexName(): string
     {
-        return match ($this) {
-            SearchAbleTable::TOOL => config('services.meilisearch.prefix') . '_' . $this->getModelInstance()->getTable(),
-            default => throw new Exception("Cannot get index name for table {$this->value}"),
-        };
+        return config('services.meilisearch.prefix') . '_' . $this->getModelInstance()->getTable();
     }
 
     /**
@@ -29,6 +28,7 @@ enum SearchAbleTable: string
     {
         return match ($this) {
             SearchAbleTable::TOOL => 5000,
+            SearchAbleTable::BLOG => 5000,
             default => throw new Exception("Cannot get batch size for table {$this->value}"),
         };
     }
@@ -37,6 +37,7 @@ enum SearchAbleTable: string
     {
         return match ($this) {
             SearchAbleTable::TOOL => new Tool(),
+            SearchAbleTable::BLOG => new Blog(),
             default => throw new Exception("Cannot get model instance for table {$this->value}"),
         };
     }
@@ -52,6 +53,10 @@ enum SearchAbleTable: string
             SearchAbleTable::TOOL => [
                 'name',
                 'summary',
+                'description',
+            ],
+            SearchAbleTable::BLOG => [
+                'title',
                 'description',
             ],
             default => throw new Exception("Searchable columns are not set for table {$this->value}"),
@@ -84,6 +89,9 @@ enum SearchAbleTable: string
                     'monthly_subscription_starts_from',
                     'pay_once_price_starts_from',
                 ],
+            ]),
+            SearchAbleTable::BLOG => array_merge(MeilisearchService::defaultIndexSettings(), [
+                //overwrite settings
             ]),
             default => throw new Exception("Cannot get Settings array for table {$this->value}"),
         };

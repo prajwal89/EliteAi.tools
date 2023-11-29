@@ -3,12 +3,14 @@
 namespace App\Models;
 
 use App\Enums\BlogType;
+use App\Enums\SearchAbleTable;
+use App\Interfaces\MeilisearchAble;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 
 // ? should i add category and tags for blog
 // ? should i stores vectors and model type
-class Blog extends Model
+class Blog extends Model implements MeilisearchAble
 {
     use HasFactory;
 
@@ -55,5 +57,38 @@ class Blog extends Model
         $paragraphToEmbed .= $this->description . PHP_EOL;
 
         return $paragraphToEmbed;
+    }
+
+    /**
+     * array that will be sent for indexing on meilisearch
+     * it will output single document if document id is given
+     * else it will give array of bached documents
+     */
+    public static function documentsForSearch(int $documentId = null, int $batchNo = 0): array
+    {
+        $batchSize = SearchAbleTable::BLOG->getBatchSize();
+
+        // ? or should i include paragraphToEmbed only
+        $query = self::select(
+            'id',
+            'title',
+            'description',
+        );
+
+        if (!empty($documentId)) {
+            $query->where('id', $documentId);
+        }
+
+        $query->orderBy('id', 'asc');
+
+        return $query->offset($batchNo * $batchSize)
+            ->limit($batchSize)
+            ->get()
+            ->toArray();
+    }
+
+    public static function documentsForSearchTotalBatches(): int
+    {
+        return ceil(self::count() / SearchAbleTable::BLOG->getBatchSize());
     }
 }

@@ -20,10 +20,13 @@ class TopSearchService
             'slug' => str($attributes['query'])->slug()->toString(),
         ]);
 
-        dispatch(new SaveVectorEmbeddingsJob($topSearch))->delay(now()->addMinutes(1));
+        // ! if this fails semantic distance will not work is vectors are not updated
+        // dispatch(new SaveVectorEmbeddingsJob($topSearch))->delay(now()->addMinutes(1));
+
+        TopSearchService::updateVectorEmbeddings($topSearch);
 
         dispatch(new SaveSemanticDistanceBetweenTopSearchAndToolJob($topSearch))
-            ->delay(now()->addMinutes(10));
+            ->delay(now()->addMinutes(1));
 
         return $topSearch;
     }
