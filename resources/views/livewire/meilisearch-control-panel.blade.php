@@ -41,14 +41,14 @@
             <h2>Indexes</h2>
         </div>
 
-        <div class="card-body">
-            <div class="border border-success p-2 rounded">
-                @foreach ($currentWebsiteAllIndexesData as $indexName => $indexData)
-                    <div class="d-flex justify-content-between">
-                        <h4>{{ $indexName }}</h4>
+        <section class="card-body">
+            @foreach ($currentWebsiteAllIndexesData as $indexName => $indexData)
+                <article class="border border-success p-2 rounded" style="background-color: #f0f0f0;">
+                    <header class="d-flex justify-content-between">
+                        <h4><strong>{{ $indexData['tableName'] }}</strong></h4>
                         <div>
                             <button wire:click="indexAllDocumentsOfTable('{{ $indexData['tableName'] }}')"
-                                class="btn text-white btn-secondary">
+                                class="btn btn-secondary">
                                 Index all documents
                             </button>
                             <button class="btn btn-success my-2"
@@ -56,46 +56,46 @@
                                 Sync Settings
                             </button>
                         </div>
-                    </div>
+                    </header>
 
                     <ul>
-                        <li>
-                            Total Documents in Index: <strong>{{ $indexData['numberOfDocuments'] }}</strong>
-                        </li>
-                        <li>
-                            Total Documents in Table: <strong>{{ $indexData['totalRecordsInDatabaseTable'] }}</strong>
+                        <li>Total Documents in Index: <strong>{{ $indexData['numberOfDocuments'] }}</strong></li>
+                        <li>Total Documents in Table: <strong>{{ $indexData['totalRecordsInDatabaseTable'] }}</strong>
                         </li>
 
                         @if ($indexData['numberOfDocuments'] != DB::table($indexData['tableName'])->count())
-                            <li class="text-danger">Databse Records is not sync with Meilisearch</li>
+                            <li class="text-danger">Database Records are not synced with Meilisearch</li>
                         @endif
-
                     </ul>
-
 
                     <div class="row">
                         <div class="col-6">
-                            <label class="text-primary fw-bold" style="cursor: pointer" for=""
+                            <label class="text-primary fw-bold" style="cursor: pointer"
                                 wire:click="showServerSettings('{{ $indexData['tableName'] }}')">Server
                                 Settings</label>
-                            <textarea class="form-control" id="" cols="30" rows="10">{{ json_encode($indexData, JSON_PRETTY_PRINT) }}</textarea>
+                            <textarea class="form-control" readonly cols="30" rows="10">{{ json_encode($indexData, JSON_PRETTY_PRINT) }}</textarea>
                         </div>
                         <div class="col-6">
-                            <div class="">
-                                <label class="text-primary fw-bold" style="cursor: pointer" for=""
+                            <div>
+                                <label class="text-primary fw-bold" style="cursor: pointer"
                                     wire:click="showLocalSettings('{{ $indexData['tableName'] }}')">Local
-                                    settings</label>
-                                <textarea class="form-control" id="" cols="30" rows="4">{{ json_encode($indexData['localSettings'], JSON_PRETTY_PRINT) }}</textarea>
+                                    Settings</label>
+                                <textarea class="form-control" readonly cols="30" rows="4">{{ json_encode($indexData['localSettings'], JSON_PRETTY_PRINT) }}</textarea>
                             </div>
                             <div class="mt-2">
                                 <label for="">Difference</label>
-                                <textarea class="form-control" id="" cols="30" rows="4">{{ json_encode($indexData['settingsDifference'], JSON_PRETTY_PRINT) }}</textarea>
+                                <textarea class="form-control" readonly cols="30" rows="4">{{ json_encode($indexData['settingsDifference'], JSON_PRETTY_PRINT) }}</textarea>
                             </div>
                         </div>
                     </div>
-                @endforeach
-            </div>
-        </div>
+                </article>
+
+                @if (!$loop->last)
+                    <hr class="my-4 border border-4 border-secondary">
+                @endif
+            @endforeach
+        </section>
+
     </div>
 
 </div>
