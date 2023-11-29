@@ -15,6 +15,7 @@ use Illuminate\Support\Facades\Http;
 use Illuminate\Support\Facades\Log;
 use InvalidArgumentException;
 use MeiliSearch\Client;
+use Meilisearch\Contracts\SearchQuery;
 use OpenAI\Laravel\Facades\OpenAI;
 
 class MeilisearchService
@@ -238,13 +239,62 @@ class MeilisearchService
             return null;
         }
 
-        return new SearchResultsDTO(
-            hits: collect($results->getHits()),
-            totalHits: $results->getEstimatedTotalHits(),
-            searchQuery: $query,
-            timeTakenInMilliseconds: 1,
-            strategyUsed: 'default_meilisearch'
-        );
+        return SearchResultsDTO::fromMeilisearchResults(searchResult: $results);
+    }
+
+    /**
+     * Wrapper on meilisearch muiltisearch
+     *
+     * @see https://www.meilisearch.com/docs/reference/api/multi_search
+     * 
+     * @param array $multiSearchSettings
+     * @param array $retrySettings
+     * @return array|null
+     */
+    public function multiSearch(
+        array $multiSearchSettings,
+        array $retrySettings = [
+            'times' => 2,
+            'sleepMilliseconds' => 1000,
+        ]
+    ): ?array {
+
+        $searchObjects = [];
+
+        foreach ($multiSearchSettings as $searchData) {
+            $searchObjects[] = (new SearchQuery())
+                ->setIndexUid($searchData['searchableTable']->getIndexName())
+                ->setQuery($searchData['query'])
+                ->setLimit(20);
+        }
+
+        try {
+            // b.c external apis are should be treated as unreliable
+            $meilisearchResults = retry(
+                times: $retrySettings['times'],
+                callback: function () use ($searchObjects) {
+                    return $this->client->multiSearch($searchObjects);
+                },
+                sleepMilliseconds: $retrySettings['sleepMilliseconds']
+            );
+        } catch (Exception $e) {
+            Log::error($e->getMessage());
+
+            if (!app()->isProduction()) {
+                throw $e;
+            }
+
+            return null;
+        }
+
+
+        $resultsArray = [];
+
+        foreach ($meilisearchResults['results'] as $mResult) {
+            $resultsArray[] = SearchResultsDTO::fromArray(searchResult: $mResult);
+        }
+
+        return $resultsArray;
     }
 
     /**

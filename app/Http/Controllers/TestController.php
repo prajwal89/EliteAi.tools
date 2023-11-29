@@ -31,6 +31,28 @@ class TestController extends Controller
 
     public function __invoke()
     {
+
+        $result = (new MeilisearchService())->multiSearch([
+            'tools' => [
+                'searchableTable' => SearchAbleTable::TOOL,
+                'query' => 'ai',
+                'searchParams' => [],
+                'options' => [],
+            ],
+            'blogs' => [
+                'searchableTable' => SearchAbleTable::BLOG,
+                'query' => 'text to speech',
+                'searchParams' => [],
+                'options' => [],
+            ],
+        ]);
+
+        dd($result);
+
+
+
+
+
         dd(ModelType::OPEN_AI_ADA_002->totalVectorDimensions());
         dd((new MeilisearchService)->getVectorEmbeddings('ss', ModelType::OPEN_AI_ADA_002));
 
