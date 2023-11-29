@@ -9,6 +9,7 @@ use App\Models\TopSearch;
 use App\Models\TopSearchToolSemanticScore;
 use Exception;
 use Illuminate\Support\Collection;
+use Illuminate\Support\Facades\Cache;
 use Illuminate\Support\Facades\DB;
 
 class TopSearchService
@@ -95,18 +96,24 @@ class TopSearchService
     // ! should i cache this query
     public static function qualifiedForIndexingTopSearchIds(): Collection
     {
-        return DB::table('top_search_tool_semantic_scores')
-            ->select([
-                // '*',
-                'top_searches.id as top_search_id',
-                DB::raw('count(*) as total_tools'),
-            ])
-            ->join('tools', 'tools.id', '=', 'top_search_tool_semantic_scores.tool_id')
-            ->join('top_searches', 'top_searches.id', '=', 'top_search_tool_semantic_scores.top_search_id')
-            ->where('top_search_tool_semantic_scores.score', '>', config('custom.popular_search.minimum_semantic_score'))
-            ->having('total_tools', '>=', config('custom.popular_search.minimum_tools_required'))
-            ->groupBy('top_searches.id')
-            ->get()
-            ->pluck('top_search_id');
+        return Cache::remember(
+            key: 'top_search_ids_qualified_for_indexing',
+            ttl: now()->addHours(8),
+            callback: function () {
+                return DB::table('top_search_tool_semantic_scores')
+                    ->select([
+                        // '*',
+                        'top_searches.id as top_search_id',
+                        DB::raw('count(*) as total_tools'),
+                    ])
+                    ->join('tools', 'tools.id', '=', 'top_search_tool_semantic_scores.tool_id')
+                    ->join('top_searches', 'top_searches.id', '=', 'top_search_tool_semantic_scores.top_search_id')
+                    ->where('top_search_tool_semantic_scores.score', '>', config('custom.popular_search.minimum_semantic_score'))
+                    ->having('total_tools', '>=', config('custom.popular_search.minimum_tools_required'))
+                    ->groupBy('top_searches.id')
+                    ->get()
+                    ->pluck('top_search_id');
+            }
+        );
     }
 }
