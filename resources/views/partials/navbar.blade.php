@@ -29,6 +29,7 @@
     </form>
 
     <div class="flex items-center gap-4">
+        <a href="{{ route('blog.index') }}" class="px-2 hover:text-primary-600">Blog</a>
 
         <a class="hidden md:block btn-outline-primary" href="{{ route('tool.submit') }}">
             Submit tool

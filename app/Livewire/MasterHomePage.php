@@ -127,9 +127,9 @@ class MasterHomePage extends Component
 
         // $meilisearchFilters['sort'] = ['monthly_subscription_starts_from:desc'];
 
-        if ($this->filters['pricingType'] != '*') {
-            $meilisearchFilters['filter'] = ['pricing_type = "' . $this->filters['pricingType'] . '"'];
-        }
+        // if ($this->filters['pricingType'] != '*') {
+        //     $meilisearchFilters['filter'] = ['pricing_type = "' . $this->filters['pricingType'] . '"'];
+        // }
 
         // dd($meilisearchFilters);
 

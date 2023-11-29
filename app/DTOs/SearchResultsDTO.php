@@ -8,6 +8,7 @@ use Meilisearch\Search\SearchResult;
 class SearchResultsDTO
 {
     // ?should i include error message here for frontend
+    // actually we do not need this as user need not to know reason
     public function __construct(
         public Collection $hits,
         public int $totalHits, //for pagination etc
