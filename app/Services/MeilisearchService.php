@@ -246,10 +246,6 @@ class MeilisearchService
      * Wrapper on meilisearch muiltisearch
      *
      * @see https://www.meilisearch.com/docs/reference/api/multi_search
-     * 
-     * @param array $multiSearchSettings
-     * @param array $retrySettings
-     * @return array|null
      */
     public function multiSearch(
         array $multiSearchSettings,
@@ -287,7 +283,6 @@ class MeilisearchService
             return null;
         }
 
-
         $resultsArray = [];
 
         foreach ($meilisearchResults['results'] as $mResult) {
@@ -310,8 +305,6 @@ class MeilisearchService
             'sleepMilliseconds' => 2000,
         ]
     ): ?SearchResultsDTO {
-
-        // return null;
 
         $configs = array_merge($configs, [
             // these settings like this because we using this to saving semantic distances one to all

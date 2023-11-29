@@ -49,10 +49,6 @@ class TestController extends Controller
 
         dd($result);
 
-
-
-
-
         dd(ModelType::OPEN_AI_ADA_002->totalVectorDimensions());
         dd((new MeilisearchService)->getVectorEmbeddings('ss', ModelType::OPEN_AI_ADA_002));
 
