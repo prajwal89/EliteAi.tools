@@ -45,6 +45,10 @@ class TopSearchService
             configs: [
                 'limit' => 100,
                 'attributesToRetrieve' => ['id', 'name'],
+            ],
+            retrySettings: [
+                'times' => 5,
+                'sleepMilliseconds' => 2000,
             ]
         );
 

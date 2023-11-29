@@ -132,8 +132,11 @@ class ToolService
             $searchResults = MeilisearchService::vectorSearch(
                 table: SearchAbleTable::TOOL,
                 query: $tool->getParagraphForVectorEmbeddings(),
-                // vectors: $tool->_vectors,
-                configs: $configs
+                configs: $configs,
+                retrySettings: [
+                    'times' => 5,
+                    'sleepMilliseconds' => 2000,
+                ]
             );
         } else {
 
@@ -141,7 +144,11 @@ class ToolService
                 table: SearchAbleTable::TOOL,
                 // query: $tool->getParagraphForVectorEmbeddings(),
                 vectors: $tool->_vectors,
-                configs: $configs
+                configs: $configs,
+                retrySettings: [
+                    'times' => 5,
+                    'sleepMilliseconds' => 2000,
+                ]
             );
         }
 
@@ -176,18 +183,32 @@ class ToolService
     public static function syncAllEmbeddings(Tool $tool): bool
     {
         dispatch(function () use ($tool) {
-            // *this will calculate vector embeddings
-            dispatch(new SaveVectorEmbeddingsJob($tool))->delay(now()->addMinutes(3));
 
-            dispatch(new SaveSemanticDistanceBetweenToolAndToolJob($tool))->delay(now()->addMinutes(6));
+            dispatch(
+                new SaveVectorEmbeddingsJob($tool)
+            )->delay(
+                // +3 min b.c it takes time to meilisearch index document
+                // and this job depends on meilisearch index
+                now()->addMinutes(3)
+            )->onQueue('high');
 
-            Blog::where('blog_type', BlogType::SEMANTIC_SCORE->value)->get()->map(function ($blog) {
-                dispatch(new SaveSemanticDistanceBetweenBlogAndToolJob($blog))->delay(now()->addMinutes(7));
-            });
+            dispatch(new SaveSemanticDistanceBetweenToolAndToolJob($tool))
+                ->delay(now()->addMinutes(6))
+                ->onQueue('low');
+
+            Blog::where('blog_type', BlogType::SEMANTIC_SCORE->value)
+                ->get()
+                ->map(function ($blog) {
+                    dispatch(new SaveSemanticDistanceBetweenBlogAndToolJob($blog))
+                        ->delay(now()->addMinutes(9))
+                        ->onQueue('low');
+                });
 
             // todo optimize this
             TopSearch::get()->map(function ($topSearch) {
-                dispatch(new SaveSemanticDistanceBetweenTopSearchAndToolJob($topSearch))->delay(now()->addMinutes(9));
+                dispatch(new SaveSemanticDistanceBetweenTopSearchAndToolJob($topSearch))
+                    ->delay(now()->addMinutes(9))
+                    ->onQueue('low');
             });
         });
 
