@@ -10,9 +10,16 @@ class CronJobsController extends Controller
 {
     public function runAllJobs()
     {
-        $exitCode = Artisan::call('queue:work --stop-when-empty  --queue=high,default,low', []);
-        //0 means
-        var_dump($exitCode);
+        // https://laravel.com/docs/10.x/queues
+        // --max-time=3600
+        // --stop-when-empty
+
+        // --max-time=50  // run every worker for 50 seconds only 
+        // as cron job will invoke new worker every minute and we do not require concurrent jobs
+        //? we can run low priority jobs concurrently
+        $exitCode = Artisan::call('queue:work --queue=high,default,low --max-time=50', []);
+
+        return $exitCode;
     }
 
     public function sendPromotionalMessage()
