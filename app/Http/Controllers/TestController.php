@@ -9,6 +9,7 @@ use App\Enums\ModelType;
 use App\Enums\SearchAbleTable;
 use App\Jobs\SaveVectorEmbeddingsJob;
 use App\Models\Tool;
+use App\Services\BlogService;
 use App\Services\MeilisearchService;
 use App\Services\TelegramService;
 use App\Services\ToolService;
@@ -33,7 +34,7 @@ class TestController extends Controller
 
     public function __invoke()
     {
-        TopSearchService::qualifiedForIndexingTopSearchIds();
+        BlogService::qualifiedForIndexingBlogIds();
         return 'd';
         dd(ToolService::syncAllEmbeddings(Tool::find(1)));
 

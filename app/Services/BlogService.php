@@ -51,16 +51,6 @@ class BlogService
             }
         });
 
-        // foreach ($searchResults->hits as $tool) {
-        //     BlogToolSemanticScore::updateOrCreate([
-        //         'tool_id' => $tool['id'],
-        //         'blog_id' => $blog->id,
-        //     ], [
-        //         'score' => $tool['_semanticScore'],
-        //         'model_type' => config('custom.current_embedding_model')->value,
-        //     ]);
-        // }
-
         return true;
     }
 
