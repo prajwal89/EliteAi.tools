@@ -10,6 +10,7 @@ use App\Models\Blog;
 use App\Models\BlogToolSemanticScore;
 use App\Models\Tool;
 use Exception;
+use Illuminate\Support\Facades\Cache;
 use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\File;
 use Intervention\Image\Facades\Image;
@@ -90,16 +91,22 @@ class BlogService
     // ! should i cache this query
     public static function qualifiedForIndexingBlogIds()
     {
-        return DB::table('blog_tool_semantic_scores')
-            ->select(['blog_id', DB::raw('count(*) as total_tools')])
-            ->join('tools', 'tools.id', '=', 'blog_tool_semantic_scores.tool_id')
-            ->join('blogs', 'blogs.id', '=', 'blog_tool_semantic_scores.blog_id')
-            // ->where('blog_tool_semantic_scores.score', '>',  config('custom.blog_page.minimum_semantic_score'))
-            ->where('blog_tool_semantic_scores.score', '>', DB::raw('blogs.min_semantic_score'))
-            ->having('total_tools', '>=', config('custom.blog_page.minimum_tools_required'))
-            ->groupBy('blogs.id')
-            ->get()
-            ->pluck('blog_id');
+        return Cache::remember(
+            key: 'blog_ids_qualified_for_indexing',
+            ttl: now()->addHours(8),
+            callback: function () {
+                return DB::table('blog_tool_semantic_scores')
+                    ->select(['blog_id', DB::raw('count(*) as total_tools')])
+                    ->join('tools', 'tools.id', '=', 'blog_tool_semantic_scores.tool_id')
+                    ->join('blogs', 'blogs.id', '=', 'blog_tool_semantic_scores.blog_id')
+                    // ->where('blog_tool_semantic_scores.score', '>',  config('custom.blog_page.minimum_semantic_score'))
+                    ->where('blog_tool_semantic_scores.score', '>', DB::raw('blogs.min_semantic_score'))
+                    ->having('total_tools', '>=', config('custom.blog_page.minimum_tools_required'))
+                    ->groupBy('blogs.id')
+                    ->get()
+                    ->pluck('blog_id');
+            }
+        );
     }
 
     public static function generateFeaturedImage(Blog $blog)
