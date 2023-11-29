@@ -10,7 +10,7 @@ class CronJobsController extends Controller
 {
     public function runAllJobs()
     {
-        $exitCode = Artisan::call('queue:work --stop-when-empty', []);
+        $exitCode = Artisan::call('queue:work --stop-when-empty  --queue=high,default,low', []);
         //0 means
         var_dump($exitCode);
     }

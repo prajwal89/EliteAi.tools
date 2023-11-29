@@ -15,6 +15,7 @@ use Illuminate\Foundation\Bus\Dispatchable;
 use Illuminate\Queue\InteractsWithQueue;
 use Illuminate\Queue\SerializesModels;
 use InvalidArgumentException;
+use Throwable;
 
 /**
  * Update vector embedding of given model instance
@@ -38,5 +39,11 @@ class SaveVectorEmbeddingsJob implements ShouldQueue
                 'Cannot update embeddings of: ' . get_class($this->model)
             )
         };
+    }
+
+    // todo send slack notification
+    public function failed(Throwable $exception): void
+    {
+        // Send user notification of failure, etc...
     }
 }

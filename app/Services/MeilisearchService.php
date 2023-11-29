@@ -301,7 +301,7 @@ class MeilisearchService
         array $vectors = [],
         array $configs = [],
         array $retrySettings = [
-            'times' => 5,
+            'times' => 2,
             'sleepMilliseconds' => 2000,
         ]
     ): ?SearchResultsDTO {

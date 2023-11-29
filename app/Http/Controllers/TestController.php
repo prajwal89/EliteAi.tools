@@ -7,6 +7,7 @@ ini_set('max_execution_time', 600); //10 min
 
 use App\Enums\ModelType;
 use App\Enums\SearchAbleTable;
+use App\Jobs\SaveVectorEmbeddingsJob;
 use App\Models\Tool;
 use App\Services\MeilisearchService;
 use App\Services\TelegramService;
@@ -31,7 +32,9 @@ class TestController extends Controller
 
     public function __invoke()
     {
+        dd(ToolService::syncAllEmbeddings(Tool::find(1)));
 
+        dd(dispatch(new SaveVectorEmbeddingsJob(Tool::find(1)))->onQueue('high'));
         $result = (new MeilisearchService())->multiSearch([
             'tools' => [
                 'searchableTable' => SearchAbleTable::TOOL,
