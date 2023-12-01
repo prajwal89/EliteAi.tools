@@ -1,26 +1,26 @@
 <?php
 
-namespace App\Console\Commands;
+namespace App\Console\Commands\Meilisearch;
 
 use App\Enums\SearchAbleTable;
 use App\Services\MeilisearchService;
 use Illuminate\Console\Command;
 
-class MeilisearchSyncSettings extends Command
+class DeIndexTable extends Command
 {
     /**
      * The name and signature of the console command.
      *
      * @var string
      */
-    protected $signature = 'meilisearch:sync-settings {table-name}';
+    protected $signature = 'meilisearch:deindex-documents-of-table {table-name}';
 
     /**
      * The console command description.
      *
      * @var string
      */
-    protected $description = 'Sync local settings with meilisearch service';
+    protected $description = 'Command description';
 
     /**
      * Execute the console command.
@@ -31,8 +31,8 @@ class MeilisearchSyncSettings extends Command
 
         $searchAbleTable = SearchAbleTable::from(trim($tableName));
 
-        (new MeilisearchService)->syncLocalSettings($searchAbleTable);
+        (new MeilisearchService())->deIndexTable($searchAbleTable);
 
-        $this->info("Settings will synced for {$searchAbleTable->value}");
+        $this->info("De-Indexing table {$searchAbleTable->value}");
     }
 }

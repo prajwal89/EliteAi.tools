@@ -13,7 +13,6 @@ use App\Services\BlogService;
 use App\Services\MeilisearchService;
 use App\Services\TelegramService;
 use App\Services\ToolService;
-use App\Services\TopSearchService;
 use Illuminate\Support\Facades\Http;
 use Intervention\Image\Facades\Image;
 use kornrunner\Blurhash\Blurhash;
@@ -35,6 +34,7 @@ class TestController extends Controller
     public function __invoke()
     {
         BlogService::qualifiedForIndexingBlogIds();
+
         return 'd';
         dd(ToolService::syncAllEmbeddings(Tool::find(1)));
 

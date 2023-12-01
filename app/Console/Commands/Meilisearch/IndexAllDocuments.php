@@ -1,12 +1,12 @@
 <?php
 
-namespace App\Console\Commands;
+namespace App\Console\Commands\Meilisearch;
 
 use App\Enums\SearchAbleTable;
 use App\Services\MeilisearchService;
 use Illuminate\Console\Command;
 
-class MeilisearchIndexAllDocuments extends Command
+class IndexAllDocuments extends Command
 {
     /**
      * The name and signature of the console command.
