@@ -38,7 +38,7 @@ class MeilisearchService
     /**
      * Index all documents for ann table
      */
-    public function indexAllDocumentsOfTable(SearchAbleTable $table, int $currentBatchNo = null): array
+    public function indexAllDocumentsOfTable(SearchAbleTable $table, int $currentBatchNo = null, string $primaryKey = 'id'): array
     {
         $output = [];
 
@@ -57,10 +57,13 @@ class MeilisearchService
                 throw new Exception('Current batch number is greater than total batches');
             }
 
-            $response = (new self())
+            $response = $this
                 ->client
                 ->index($table->getIndexName())
-                ->addDocuments($searchableModel::documentsForSearch(batchNo: $currentBatchNo));
+                ->addDocuments(
+                    documents: $searchableModel::documentsForSearch(batchNo: $currentBatchNo),
+                    primaryKey: $primaryKey
+                );
 
             $output[] = $response;
 
@@ -74,10 +77,13 @@ class MeilisearchService
         // send documents batch by batch
         for ($batchNo = 0; $batchNo < $totalBatches; $batchNo++) {
 
-            $response = (new self())
+            $response = $this
                 ->client
                 ->index($table->getIndexName())
-                ->addDocuments($searchableModel::documentsForSearch(batchNo: $batchNo));
+                ->addDocuments(
+                    documents: $searchableModel::documentsForSearch(batchNo: $batchNo),
+                    primaryKey: $primaryKey
+                );
 
             $output[] = $response;
 
