@@ -17,7 +17,14 @@ class CronJobsController extends Controller
         // --max-time=50  // run every worker for 50 seconds only
         // as cron job will invoke new worker every minute and we do not require concurrent jobs
         //? we can run low priority jobs concurrently
-        $exitCode = Artisan::call('queue:work --queue=high,default,low --max-time=50', []);
+
+        // $exitCode = Artisan::call('queue:work --queue=high,default,low --max-time=50', []);
+
+        $exitCode = Artisan::call('queue:work', [
+            '--queue' => 'high,default,low',
+            '--max-time' => '50',
+            '--stop-when-empty' => true,
+        ]);
 
         return $exitCode;
     }
