@@ -124,7 +124,7 @@ class MeilisearchService
     /**
      * This will also update the document if document is already available
      */
-    public function indexDocument(SearchAbleTable $table, int $documentId): bool
+    public function indexDocument(SearchAbleTable $table, int $documentId, string $primaryKey = 'id'): bool
     {
         $document = $table->getModelInstance()::documentsForSearch(
             documentId: $documentId
@@ -137,7 +137,7 @@ class MeilisearchService
         $response = $this
             ->client
             ->index($table->getIndexName())
-            ->addDocuments($document);
+            ->addDocuments($document, $primaryKey);
 
         if ($response['status'] !== 'enqueued') {
             throw new Exception('Meilisearch not able to queue document ' . $documentId . ' for ' . $table->getIndexName());

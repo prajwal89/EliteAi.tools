@@ -33,6 +33,8 @@ class TestController extends Controller
 
     public function __invoke()
     {
+        dd((new MeilisearchService())->indexDocument(SearchAbleTable::TOOL, 1));
+
         BlogService::qualifiedForIndexingBlogIds();
 
         return 'd';
