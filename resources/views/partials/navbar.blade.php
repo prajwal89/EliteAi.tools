@@ -29,13 +29,13 @@
     </form>
 
     <div class="flex items-center gap-4">
-        <a href="{{ route('blog.index') }}" class="px-2 hover:text-primary-600">Blog</a>
+        <a href="{{ route('blog.index') }}" class="hidden md:block px-2 hover:text-primary-600">Blog</a>
 
         <a class="hidden md:block btn-outline-primary" href="{{ route('tool.submit') }}">
             Submit tool
         </a>
 
-        <button class="md:hidden navbar-burger flex items-center text-primary-600" id="navbar_burger">
+        <button class="md:hidden navbar-burger flex items-center text-gray-600" id="navbar_burger">
             <svg class="block h-8 w-8 fill-current" viewBox="0 0 20 20" xmlns="http://www.w3.org/2000/svg">
                 <title>Hamberger menu</title>
                 <path d="M0 3h20v2H0V3zm0 6h20v2H0V9zm0 6h20v2H0v-2z"></path>
