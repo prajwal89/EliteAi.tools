@@ -1,5 +1,3 @@
-{{-- top navbar --}}
-{{-- bg-primary-50 --}}
 <nav id="main_navbar" style="transition: top 0.8s;"
     class="sticky top-0 z-50 px-4 py-2 flex bg-gray-50  gap-4 border-b-2 border-gray-400/30 justify-between items-center">
 
@@ -12,12 +10,11 @@
         </div>
     </a>
 
-    <form action="{{ route('search.show') }}" class="relative w-[420px] bg-white">
-        <input
-            class="border bg-transparent w-full border-gray-200 h-10 pl-2 pr-10 rounded-lg dark:text-gray-50 dark:border-gray-600"
-            type="search" value="{{ request()->input('q') ?? '' }}" name="q" placeholder="Search">
+    <form action="{{ route('search.show') }}" class="relative w-[420px]">
+        <input class="w-full border border-gray-200 h-10 pl-2 pr-10 rounded-lg" type="search"
+            value="{{ request()->input('q') ?? '' }}" name="q" placeholder="Search">
 
-        <button type="submit" class="absolute right-0 top-0 mt-3 mr-4 text-gray-400 dark:text-gray-200">
+        <button type="submit" class="absolute right-0 top-0 mt-3 mr-4 text-gray-400">
             <svg class="h-4 w-4 fill-current" xmlns="http://www.w3.org/2000/svg"
                 xmlns:xlink="http://www.w3.org/1999/xlink" version="1.1" x="0px" y="0px" viewBox="0 0 56.966 56.966"
                 style="enable-background:new 0 0 56.966 56.966;" xml:space="preserve">
@@ -96,7 +93,7 @@
                 Blog
             </a>
             {{-- <a href="{{ route('search.popular.index') }}">
-                Popular seaches
+                Popular searches
             </a> --}}
             <a class="btn-outline-primary" href="{{ route('tool.submit') }}">
                 Submit tool

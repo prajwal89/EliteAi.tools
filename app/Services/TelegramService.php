@@ -53,7 +53,7 @@ class TelegramService
         $caption .= '<a href="' . $linkUrl . '">' . $linkText . '</a>' . str_repeat(PHP_EOL, 3);
 
         $response = Telegram::sendPhoto([
-            'chat_id' => config('custom.telegram.chat_id'),
+            'chat_id' => config('services.telegram.chat_id'),
             'photo' => new InputFile($imageUrl),
             'caption' => $caption,
             'parse_mode' => 'HTML', //https://core.telegram.org/bots/api#html-style
