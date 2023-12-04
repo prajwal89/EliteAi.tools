@@ -125,7 +125,7 @@
             </div>
         @endif
 
-        @if (!empty($allCategories) && !$pageType == 'search')
+        @if (!empty($allCategories) && in_array($pageType, ['home', 'category']))
             <ul class="flex gap-2 md:gap-3 flex-wrap justify-center max-w-5xl py-2 md:py-6 px-2 md:px-8">
                 @foreach ($allCategories as $c)
                     @if (isset($category) && $c->name == $category->name)
