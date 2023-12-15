@@ -13,10 +13,13 @@ use App\Services\BlogService;
 use App\Services\MeilisearchService;
 use App\Services\TelegramService;
 use App\Services\ToolService;
+use Carbon\Carbon;
 use Illuminate\Support\Facades\Http;
 use Intervention\Image\Facades\Image;
 use kornrunner\Blurhash\Blurhash;
 use OpenAI\Laravel\Facades\OpenAI;
+use Spatie\Sitemap\Sitemap;
+use Spatie\Sitemap\Tags\Url;
 use Telegram\Bot\Api;
 
 /**
@@ -33,6 +36,24 @@ class TestController extends Controller
 
     public function __invoke()
     {
+
+        $sitemap = Sitemap::create();
+
+        foreach (Tool::all() as $tool) {
+            $sitemap->add(
+                Url::create(route('tool.show', $tool->slug))
+                    ->setLastModificationDate(Carbon::yesterday())
+                    ->setChangeFrequency(Url::CHANGE_FREQUENCY_MONTHLY)
+                    ->setPriority(0.8)
+            );
+        }
+        return response($sitemap->render())->header('Content-Type', 'text/xml');
+
+        dd($sitemap->render());
+
+
+        dd(TelegramService::sendPromotionalMessageOfTool(Tool::find(1)));
+
         dd((new MeilisearchService())->indexDocument(SearchAbleTable::TOOL, 1));
 
         BlogService::qualifiedForIndexingBlogIds();
