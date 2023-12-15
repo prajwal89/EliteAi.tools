@@ -13,6 +13,7 @@
         "chrome-php/chrome": "^1.9",
         "facebook/webdriver": "*",
         "guzzlehttp/guzzle": "^7.2",
+        "illuminate/support": "*",
         "intervention/image": "^2.7",
         "irazasyed/telegram-bot-sdk": "^3.13",
         "kornrunner/blurhash": "^1.2",
