@@ -115,7 +115,7 @@ return [
 
     'middleware' => [
         'web',
-        'adminAccess',
+        // 'adminAccess',
         Authorize::class,
     ],
 

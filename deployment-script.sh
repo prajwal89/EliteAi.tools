@@ -16,7 +16,7 @@ git stash
 git pull
 composer2 install --ignore-platform-reqs --no-scripts
 composer2 dump-autoload --ignore-platform-reqs --no-scripts
-php artisan migrate
+# php artisan migrate
 php artisan optimize:clear
 php artisan optimize
 php artisan test
