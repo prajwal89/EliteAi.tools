@@ -81,7 +81,7 @@ Route::controller(PseudoFilesController::class)->group(function () {
     Route::get('/robots.txt', 'robots');
 });
 
-Route::controller(SitemapController::class)->name('sitemap.')->prefix('sitemap')->group(function () {
+Route::controller(SitemapController::class)->name('sitemaps.')->prefix('sitemaps')->group(function () {
     Route::get('/tools/{page_no}', 'tools');
 });
 
