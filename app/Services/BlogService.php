@@ -134,7 +134,7 @@ class BlogService
             $x = round($centerX + $radius * cos(deg2rad($angle)));
             $y = round($centerY + $radius * sin(deg2rad($angle)));
 
-            $icon = Image::make('http://clgnotes.esy.es/public/tools/' . $tool->tool->slug . '/favicon.webp')
+            $icon = Image::make('https://eliteai.tools/public/tools/' . $tool->tool->slug . '/favicon.webp')
                 ->resize(160, 160);
 
             $image->insert(
