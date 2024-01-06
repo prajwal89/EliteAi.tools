@@ -38,7 +38,7 @@ class MeilisearchService
     /**
      * Index all documents for ann table
      */
-    public function indexAllDocumentsOfTable(SearchAbleTable $table, int $currentBatchNo = null, string $primaryKey = 'id'): array
+    public function indexAllDocumentsOfTable(SearchAbleTable $table, ?int $currentBatchNo = null, string $primaryKey = 'id'): array
     {
         $output = [];
 
@@ -303,7 +303,7 @@ class MeilisearchService
      */
     public static function vectorSearch(
         SearchAbleTable $table,
-        string $query = null,
+        ?string $query = null,
         array $vectors = [],
         array $configs = [],
         array $retrySettings = [

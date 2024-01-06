@@ -64,7 +64,7 @@ class Blog extends Model implements MeilisearchAble
      * it will output single document if document id is given
      * else it will give array of bached documents
      */
-    public static function documentsForSearch(int $documentId = null, int $batchNo = 0): array
+    public static function documentsForSearch(?int $documentId = null, int $batchNo = 0): array
     {
         $batchSize = SearchAbleTable::BLOG->getBatchSize();
 

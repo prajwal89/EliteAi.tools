@@ -3,8 +3,6 @@
 namespace App\Livewire\Admin\Tables;
 
 use App\Models\ExtractedToolDomain;
-use Illuminate\Database\Query\Builder;
-use Illuminate\Support\Facades\DB;
 use PowerComponents\LivewirePowerGrid\Button;
 use PowerComponents\LivewirePowerGrid\Column;
 use PowerComponents\LivewirePowerGrid\Exportable;

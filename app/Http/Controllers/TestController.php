@@ -7,12 +7,9 @@ ini_set('max_execution_time', 600); //10 min
 
 use App\Enums\ModelType;
 use App\Enums\SearchAbleTable;
-use App\Jobs\SaveVectorEmbeddingsJob;
 use App\Models\ExtractedToolDomain;
 use App\Models\Tool;
-use App\Services\BlogService;
 use App\Services\MeilisearchService;
-use App\Services\TelegramService;
 use App\Services\ToolService;
 use Illuminate\Support\Facades\Http;
 use Intervention\Image\Facades\Image;
