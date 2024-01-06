@@ -34,27 +34,7 @@ class TestController extends Controller
 
     public function __invoke()
     {
-        $this->addJobsForCheckingHttpStatuses();
-
-
-
-        // $allTools = ExtractedToolDomain::whereNull('http_status_code')
-        //     ->where('should_process', 1)
-        //     ->where('process_status', 0)
-        //     ->oldest()
-        //     ->take(1)
-        //     ->get()->map(function ($toolDomain) {
-        //         dump($toolDomain->home_page_url);
-        //         $response = Http::head($toolDomain->home_page_url);
-
-        //         $toolDomain->update([
-        //             'http_status_code' => $response->status()
-        //         ]);
-
-        //         dd($response->status());
-        //     });
-
-        // dd($allTools);
+        // $this->addJobsForCheckingHttpStatuses();
 
         return 'd';
     }

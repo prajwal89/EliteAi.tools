@@ -2,6 +2,7 @@
 
 namespace App\Livewire\Admin\Tables;
 
+use App\Models\ExtractedToolDomain;
 use Illuminate\Database\Query\Builder;
 use Illuminate\Support\Facades\DB;
 use PowerComponents\LivewirePowerGrid\Button;
@@ -44,12 +45,14 @@ final class ToolsToProcess extends PowerGridComponent
         ];
     }
 
-    public function datasource(): Builder
+    public function datasource()
     {
-        return DB::table('extracted_tool_domains')
-            ->whereNotIn('domain_name', function ($query) {
-                $query->select('domain_name')->from('tools');
-            })->where('should_process', 1)->inRandomOrder();
+        return ExtractedToolDomain::whereNotIn('domain_name', function ($query) {
+            $query->select('domain_name')->from('tools');
+        })
+            ->where('should_process', 1)
+            ->where('http_status_code', 200)
+            ->inRandomOrder();
     }
 
     public function addColumns(): PowerGridColumns
