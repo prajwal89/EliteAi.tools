@@ -15,5 +15,6 @@ class ExtractedToolDomain extends Model
         'process_status',
         'should_process',
         'process_error',
+        'http_status_code',
     ];
 }

@@ -8,6 +8,7 @@ ini_set('max_execution_time', 600); //10 min
 use App\Enums\ModelType;
 use App\Enums\SearchAbleTable;
 use App\Jobs\SaveVectorEmbeddingsJob;
+use App\Models\ExtractedToolDomain;
 use App\Models\Tool;
 use App\Services\BlogService;
 use App\Services\MeilisearchService;
@@ -33,38 +34,56 @@ class TestController extends Controller
 
     public function __invoke()
     {
-        dd((new MeilisearchService())->indexDocument(SearchAbleTable::TOOL, 1));
+        $this->addJobsForCheckingHttpStatuses();
 
-        BlogService::qualifiedForIndexingBlogIds();
+
+
+        // $allTools = ExtractedToolDomain::whereNull('http_status_code')
+        //     ->where('should_process', 1)
+        //     ->where('process_status', 0)
+        //     ->oldest()
+        //     ->take(1)
+        //     ->get()->map(function ($toolDomain) {
+        //         dump($toolDomain->home_page_url);
+        //         $response = Http::head($toolDomain->home_page_url);
+
+        //         $toolDomain->update([
+        //             'http_status_code' => $response->status()
+        //         ]);
+
+        //         dd($response->status());
+        //     });
+
+        // dd($allTools);
 
         return 'd';
-        dd(ToolService::syncAllEmbeddings(Tool::find(1)));
+    }
 
-        dd(dispatch(new SaveVectorEmbeddingsJob(Tool::find(1)))->onQueue('high'));
-        $result = (new MeilisearchService())->multiSearch([
-            'tools' => [
-                'searchableTable' => SearchAbleTable::TOOL,
-                'query' => 'ai',
-                'searchParams' => [],
-                'options' => [],
-            ],
-            'blogs' => [
-                'searchableTable' => SearchAbleTable::BLOG,
-                'query' => 'text to speech',
-                'searchParams' => [],
-                'options' => [],
-            ],
-        ]);
+    public function addJobsForCheckingHttpStatuses()
+    {
+        ExtractedToolDomain::whereNull('http_status_code')
+            ->where('should_process', 1)
+            ->where('process_status', 0)
+            ->oldest()
+            ->chunk(10, function ($tools) {
+                dispatch(function () use ($tools) {
+                    $tools->map(function ($toolDomain) {
+                        try {
+                            $response = Http::timeout(6)->head($toolDomain->home_page_url);
 
-        dd($result);
+                            $statusCode = $response->status();
+                        } catch (\Exception $exception) {
 
-        dd(ModelType::OPEN_AI_ADA_002->totalVectorDimensions());
-        dd((new MeilisearchService)->getVectorEmbeddings('ss', ModelType::OPEN_AI_ADA_002));
+                            $statusCode = 408;
+                        }
 
-        // return $this->binanceData();
-        // return TelegramService::sendPromotionalMessageOfTool(Tool::find(1));
-
-        dd(Tool::find(1)->getParagraphForVectorEmbeddings());
+                        // Update the tool domain with the obtained status code
+                        $toolDomain->update([
+                            'http_status_code' => $statusCode,
+                        ]);
+                    });
+                });
+            });
     }
 
     public function binanceData()

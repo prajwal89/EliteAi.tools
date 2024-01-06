@@ -27,7 +27,9 @@ class ToolController extends Controller
             'tags' => function ($query) {
                 $query->withCount('tools');
             },
-        ])->where('slug', $slug)->firstOrFail();
+        ])
+            ->where('slug', $slug)
+            ->firstOrFail();
 
         $relatedTools = RecommendationService::baseOnSemanticScores(
             tool: $tool,
@@ -52,7 +54,7 @@ class ToolController extends Controller
             ->groupBy('top_searches.id')
             ->where('score', '>', 0.85)
             ->orderBy('score', 'desc')
-            ->limit(24)
+            ->limit(16)
             ->get();
 
         $common = array_intersect(
